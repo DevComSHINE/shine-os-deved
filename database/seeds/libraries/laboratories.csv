@@ -1,0 +1,16 @@
+lab_id,laboratory_code,laboratory_desc
+23,BR,Complete Blood Count
+24,UR,Urinalysis
+25,FE,Fecalysis
+26,SM,Sputum Microscopy
+27,FB,Fasting Blood Sugar
+28,LP,Lipid Profile
+29,CX,Chest Xray
+30,BC,Blood Chemistry
+31,BT,Bacteriology
+32,CC,Clinical Chemistry
+33,HM,Hematology
+34,IM,Immunology
+35,SE,Serology
+36,SL,Special Laboratory
+37,OT,Others

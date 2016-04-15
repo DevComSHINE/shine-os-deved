@@ -1,0 +1,108 @@
+immunization_code;short_desc;immunization_desc;cvx_code
+90281;IG;Immune globulin (IG), human, for intramuscular use;86
+90283;IGIV;Immune globulin (IGIV), human, for intravenous use;87
+90287;Botulinum antitoxin;Botulinum antitoxin, equine, any route;0
+90296;Diphtheria antitoxin;Diphtheria antitoxin, equine, any route;12
+90371;HBIG;Hepatitis B immune globulin (HBIG), human, for intramuscular use;30
+90375;RIG;Rabies immune globulin (RIG), human, for intramuscular and/or subcutaneous use;34
+90376;RIG;Rabies immune globulin, heat-treated (RIG-HT), human, for intramuscular and/or subcutaneous use;34
+90378;RSV-MAb;Respiratory syncytial virus immune globulin (RSV-IgIM), for intramuscular use, 50 mg, each;93
+90379;RSV-IGIV;Respiratory syncytial virus immune globulin (RSV-IGIV), human, for intravenous use;71
+90389;TIG;Tetanus immune globulin (TIG), human, for intramuscular use;13
+90393;Vaccinia immune globulin;Vaccinia immune globulin, human, for intramuscular use;79
+90396;VZIG;Varicella-zoster immune globulin, human, for intramuscular use;36
+90470;Novel Influenza-H1N1-09, all formulations;H1N1 immunization administration (intramuscular, intranasal), including counseling when performed;128
+90476;Adenovirus, type 4;Adenovirus vaccine, type 4, live, for oral use;54
+90477;Adenovirus, type 7;Adenovirus vaccine, type 7, live, for oral use;55
+90581;Anthrax;Anthrax vaccine, for subcutaneous use;24
+90585;BCG;Bacillus Calmette-Guerin vaccine (BCG) for tuberculosis, live, for percutaneous use;19
+90620;Meningococcal B, OMV;Meningococcal recombinant protein and outer membrane vesicle vaccine, serogroup B, 2 dose schedule, for intramuscular;163
+90621;Meningococcal B, recombinant;Meningococcal recombinant lipoprotein vaccine, serogroup B, 3 dose schedule, for intramuscular use;162
+90632;Hep A, adult;Hepatitis A vaccine, adult dosage, for intramuscular use;52
+90633;Hep A, ped/adol, 2 dose;Hepatitis A vaccine, pediatric/adolescent dosage-2 dose schedule, for intramuscular use;83
+90634;Hep A, ped/adol, 3 dose;Hepatitis A vaccine, pediatric/adolescent dosage-3 dose schedule, for intramuscular use;84
+90636;Hep A-Hep B;Hepatitis A and hepatitis B (HepA-HepB), adult dosage, for intramuscular use;104
+90644;Meningococcal C/Y-HIB PRP;Meningococcal conjugate vaccine, serogroups C & Y and Hemophilus influenza B vaccine (Hib-MenCY), 4 dose schedule, when administered to children 2-15 months, for intramuscular use;148
+90645;Hib (HbOC);Haemophilus influenza b vaccine (Hib), HbOC conjugate (4 dose schedule), for intramuscular use;47
+90646;Hib (PRP-D);Haemophilus influenza b vaccine (Hib), PRP-D conjugate, for booster use only, intramuscular use;46
+90647;Hib (PRP-OMP);Haemophilus influenza b vaccine (Hib), PRP-OMP conjugate (3 dose schedule), for intramuscular use;49
+90648;Hib (PRP-T);Haemophilus influenza b vaccine (Hib), PRP-T conjugate (4 dose schedule), for intramuscular use;48
+90649;HPV, quadrivalent;Human Papilloma virus (HPV) vaccine, types 6, 11, 16, 18 (quadrivalent) 3 dose schedule, for intramuscular use;62
+90650;HPV, bivalent;Human Papilloma virus (HPV) vaccine, types 16, 18, bivalent, 3 dose schedule, for intramuscular use;118
+90654;Influenza, seasonal, intradermal, preservative free;Influenza virus vaccine, split virus, preservative free, for intradermal use;144
+90655;Influenza, seasonal, injectable, preservative free;Influenza virus vaccine, split virus, preservative free, for children 6-35 months of age, for intramuscular use;140
+90656;Influenza, seasonal, injectable, preservative free;Influenza virus vaccine, split virus, preservative free, for use in individuals 3 years of age and above, for intramuscular use;140
+90657;Influenza, seasonal, injectable;Influenza virus vaccine, split virus, for children 6-35 months of age, for intramuscular use;141
+90658;Influenza, seasonal, injectable;Influenza virus vaccine, split virus, for use in individuals 3 years of age and above, for intramuscular use;141
+90659;Influenza, whole;Influenza virus vaccine, whole virus, for intramuscular or jet injection use;16
+90660;Influenza, live, intranasal;Influenza virus vaccine, live, for intranasal use;111
+90661;Influenza, injectable, MDCK, preservative free;Influenza virus vaccine, derived from cell cultures, subunit, preservative and antibiotic free, for intramuscular use;153
+90662;Influenza, high dose seasonal;Influenza virus vaccine, split virus, preservative free, enhanced immunogenicity via increased antigen content, for intramuscular use;135
+90663;Novel Influenza-H1N1-09, all formulations;Influenza virus vaccine, pandemic formulation, H1N1;128
+90664;Novel Influenza-H1N1-09, nasal;Influenza virus vaccine, pandemic formulation, live, for intranasal use;125
+90665;Lyme disease;Lyme disease vaccine, adult dosage, for intramuscular use;66
+90666;Novel influenza-H1N1-09, preservative-free;Influenza virus vaccine, pandemic formulation, split-virus, preservative free, for intramuscular use;126
+90668;Novel influenza-H1N1-09;Influenza virus vaccine, pandemic formulation, split-virus, for intramuscular use;127
+90669;Pneumococcal conjugate PCV 7;Pneumococcal conjugate vaccine, polyvalent, for children under five years, for intramuscular use;100
+90670;Pneumococcal conjugate PCV 13;Pneumococcal conjugate vaccine, 13 valent, for intramuscular use;133
+90672;Influenza, live, intranasal, quadrivalent;Influenza virus vaccine, quadrivalent, live, for intranasal use;149
+90673;Influenza, recombinant, injectable, preservative free;Influenza virus vaccine, trivalent, derived from recombinant DNA (RIV3), hemagglutnin (HA) protein only, preservative and antibiotic free, for intramuscular use;155
+90675;Rabies, intramuscular injection;Rabies vaccine, for intramuscular use;18
+90676;Rabies, intradermal injection;Rabies vaccine, for intradermal use;40
+90680;Rotavirus, pentavalent;Rotavirus vaccine, pentavalent, 3 dose schedule, live, for oral use;116
+90681;Rotavirus, monovalent;Rotavirus vaccine, human, attenuated, 2 dose schedule, live, for oral use;119
+90685;Influenza, injectable,quadrivalent, preservative free, pediatric;Influenza virus vaccine, quadrivalent, split virus, preservative free, when administered to children 6-35 months of age, for intramuscular us;161
+90686;Influenza, injectable, quadrivalent, preservative free;Influenza virus vaccine, quadrivalent, split virus, preservative free, when administered to individuals 3 years of age and older, for intramuscular use;150
+90687;Influenza, injectable, quadrivalent;Influenza virus vaccine, quadrivalent, split virus, when administered to children 6-35 months of age, for intramuscular use;158
+90688;Influenza, injectable, quadrivalent;Influenza virus vaccine, quadrivalent, split virus, when administered to individuals 3 years of age and older, for intramuscular use;158
+90690;Typhoid, oral;Typhoid vaccine, live, oral;25
+90691;Typhoid, ViCPs;Typhoid vaccine, Vi capsular polysaccharide (ViCPs), for intramuscular use;101
+90692;Typhoid, parenteral;Typhoid vaccine, heat- and phenol-inactivated (H-P), for subcutaneous or intradermal use;41
+90693;Typhoid, parenteral, AKD (U.S. military);Typhoid vaccine, acetone-killed, dried (AKD), for subcutaneous use (U.S. military);53
+90696;DTaP-IPV;Diphtheria, tetanus toxoids, acellular pertussis vaccine and poliovirus vaccine, inactivated (DTaP-IPV), when administered to children 4), years through 6 years of age, for intramuscular use;130
+90698;DTaP-Hib-IPV;Diphtheria, tetanus toxoids, and acellular pertussis vaccine, haemophilus influenza Type B, and poliovirus vaccine, inactivated (DTaP - Hib - IPV), for intramuscular use;120
+90700;DTaP;Diphtheria, tetanus toxoids, and acellular pertussis vaccine (DTaP), for use in individuals younger than seven years, for intramuscular use;20
+90700;DTaP 5 pertussis antigens;Diphtheria, tetanus toxoids, and acellular pertussis vaccine (DTaP), for use in individuals younger than seven years, for intramuscular use;106
+90701;DTP;Diphtheria, tetanus toxoids, and whole cell pertussis vaccine (DTP), for intramuscular use;1
+90702;DT (pediatric);Diphtheria and tetanus toxoids (DT) adsorbed for use in individuals younger than seven years, for intramuscular use;28
+90703;Tetanus toxoid, adsorbed;Tetanus toxoid adsorbed, for intramuscular use;35
+90704;Mumps;Mumps virus vaccine, live, for subcutaneous use;7
+90705;Measles;Measles virus vaccine, live, for subcutaneous use;5
+90706;Rubella;Rubella virus vaccine, live, for subcutaneous use;6
+90707;MMR;Measles, mumps and rubella virus vaccine (MMR), live, for subcutaneous use;3
+90708;M/R;Measles and rubella virus vaccine, live, for subcutaneous use;4
+90710;MMRV;Measles, mumps, rubella, and varicella vaccine (MMRV), live, for subcutaneous use;94
+90712;OPV;Poliovirus vaccine, (any type(s)) (OPV), live, for oral use;2
+90713;IPV;Poliovirus vaccine, inactivated, (IPV), for subcutaneous or intramuscular use;10
+90714;Td (adult) preservative free;Tetanus and diphtheria toxoids (Td) adsorbed, preservative free, for use in individuals seven years or older, for intramuscular use;113
+90714;Typhoid, unspecified formulation;Typhoid vaccine;91
+90715;Tdap;Tetanus, diphtheria toxoids and acellular pertussis vaccine (Tdap), for use in individuals 7 years or older, for intramuscular use;115
+90716;Varicella;Varicella virus vaccine, live, for subcutaneous use;21
+90717;Yellow Fever;Yellow fever vaccine, live, for subcutaneous use;37
+90718;Td (adult), adsorbed;Tetanus and diphtheria toxoids (Td) adsorbed for use in individuals seven years or older, for intramuscular use;9
+90720;DTP-Hib;Diphtheria, tetanus toxoids, and whole cell pertussis vaccine and Hemophilus influenza B vaccine (DTP-Hib), for intramuscular use;22
+90721;DTaP-Hib;Diphtheria, tetanus toxoids, and acellular pertussis vaccine and Hemophilus influenza B vaccine (DTaP-Hib), for intramuscular use;50
+90723;DTaP-Hep B-IPV;Diphtheria, tetanus toxoids, acellular pertussis vaccine, Hepatitis B, and poliovirus vaccine, inactivated (DTaP-HepB-IPV), for intramuscular use;110
+90724;Influenza, unspecified formulation;Influenza virus vaccine;88
+90725;Cholera;Cholera vaccine for injectable use;26
+90726;Rabies, unspecified formulation;Rabies vaccine;90
+90727;Plague;Plague vaccine, for intramuscular use;23
+90728;BCG;BCG vaccine;19
+90730;Hep A, unspecified formulation;Hepatitis A vaccine;85
+90731;Hep B, unspecified formulation;Hepatitis B vaccine;45
+90732;Pneumococcal polysaccharide PPV23;Pneumococcal polysaccharide vaccine, 23-valent, adult or immunosuppressed patient dosage, for use in individuals 2 years or older, for subcutaneous or intramuscular use;33
+90733;Meningococcal MPSV4;Meningococcal polysaccharide vaccine (any group(s)), for subcutaneous use;32
+90734;Meningococcal MCV4P;Meningococcal conjugate vaccine, serogroups A, C, Y and W-135 (tetravalent), for intramuscular use;114
+90734;Meningococcal MCV4O;Meningococcal conjugate vaccine, serogroups A, C, Y and W-135 (tetravalent), for intramuscular use;136
+90735;Japanese encephalitis SC;Japanese encephalitis virus vaccine, for subcutaneous use;39
+90736;Zoster;Zoster (shingles) vaccine, live, for subcutaneous injection;121
+90737;Hib, unspecified formulation;Hemophilus influenza B;17
+90738;Japanese Encephalitis IM;Japanese encephalitis virus vaccine, inactivated, for intramuscular use;134
+90740;Hep B, dialysis;Hepatitis B vaccine, dialysis or immunosuppressed patient dosage (3 dose schedule), for intramuscular use;44
+90741;IG, unspecified formulation;Immunization, passive; immune serum globulin, human (ISG);14
+90743;Hep B, adult;Hepatitis B vaccine, adolescent (2 dose schedule), for intramuscular use;43
+90744;Hep B, adolescent or pediatric;Hepatitis B vaccine, pediatric/adolescent dosage (3 dose schedule), for intramuscular use;8
+90745;Hep B, adolescent/high risk infant;Hepatitis B vaccine, adolescent/high risk infant dosage, for intramuscular use;42
+90746;Hep B, adult;Hepatitis B vaccine, adult dosage, for intramuscular use;43
+90747;Hep B, dialysis;Hepatitis B vaccine, dialysis or immunosuppressed patient dosage (4 dose schedule), for intramuscular use;44
+90748;Hib-Hep B;Hepatitis B and Hemophilus influenza b vaccine (HepB-Hib), for intramuscular use;51

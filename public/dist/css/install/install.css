@@ -1,0 +1,115 @@
+.installholder{
+  width: 600px;
+  margin: 15px auto;
+  max-width: 100%;
+}
+
+#install-row .shineos-ui-field{
+  width: 100%;
+}
+
+body{
+  background: #353535;
+}
+
+#shineos_db_setup_toggle{
+  padding-right: 15px;
+}
+
+.admin-setup{
+  padding-left: 15px;
+}
+.shineos-icon-shineos {
+    background: url('../../img/shine-logo-big.png');
+    width: 232px;
+    height: 73px;
+    display: block;
+    margin: 0 auto;
+}
+
+.installholder .shineos-ui-box{
+  background-color: white;
+  box-shadow:0 0 12px -10px #000;
+}
+
+.installholder .shineos-ui-box-header,
+.installholder .shineos-ui-box-content{
+  padding: 25px 25px 5px;
+  background-color: white;
+}
+.installholder .shineos-ui-box-content{
+  padding: 0 25px 25px;
+}
+.installholder #shine_log{
+  padding: 25px;
+  background-color: firebrick;
+}
+.installholder .shineos-ui-box-header{
+  text-align: center;
+  padding-bottom: 0;
+}
+.shineos-ui-label{
+  margin-top:10px;
+}
+.shineos-ui-progress-bar {
+    height: 3px;
+    background-color: rgb(85, 85, 85);
+    margin-top: 20px;
+}
+#logo{
+  text-align: center;
+  display: inline-block;
+  margin: auto;
+  position: relative;
+  text-decoration: none;
+  color:#4494c7;
+}
+
+#logo h2 {
+  font-size: 40px;
+  font-weight: 200;
+  margin: 3px 0;
+    line-height: 1.1 !important;
+}
+.version{
+  color:#333;
+  float: right;
+  padding: 10px 0 0 8px;
+    font-size: 12px;
+}
+
+#installinfo{
+  padding: 15px 0 0;
+}
+
+#shineos-install-done{
+  text-align: center;
+}
+
+.shineos-ui-box, .shineos-ui-box-content {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+.shineos-ui-box {
+    border: 1px solid #e5e5e5;
+    border-radius: 3px;
+    clear: both;
+    background-color: #ffffff;
+}
+.shineos-ui-row, .shineos-ui-row-nodrop {
+    display: table !important;
+    table-layout: fixed;
+    width: 100%;
+}
+.shineos-ui-col, .shineos-ui-row-nodrop .shineos-ui-col {
+    display: table-cell;
+    vertical-align: top;
+}
+.shineos-ui-col-container {
+    position: relative;
+    display: block;
+    clear: both;
+    padding-left: 10px;
+    padding-right: 10px;
+}

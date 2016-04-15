@@ -1,0 +1,74 @@
+diagnosis_id,diagnosis_name,diagnosis_desc,sequence_num,diagnosis_type
+1,Acute Bloody Diarrhea (PIDSR - Category II),NULL,1,NULL
+10,Anemia,NULL,9,NULL
+11,Asthma,NULL,11,NULL
+12,Bacterial Meningitis (PIDSR - Category II),NULL,12,NULL
+13,Beriberi,NULL,13,NULL
+14,Bitot's Spots,NULL,14,NULL
+15,Bordetella Pertusis,NULL,15,NULL
+16,Bronchitis/Bronchiolitis,NULL,16,NULL
+17,Cancer,NULL,17,NULL
+18,Chicken Pox,NULL,18,NULL
+19,Cholera (PIDSR - Category II),NULL,19,NULL
+2,Acute Encephalitis Syndrome (PIDSR - Category II),NULL,2,NULL
+20,Colitis,NULL,20,NULL
+21,Corneal Ulcerations,NULL,21,NULL
+22,Corneal Xerosis,NULL,22,NULL
+23,Dengue Fever (PIDSR - Category II),NULL,23,NULL
+24,Dengue H-Fever (PIDSR - Category II),NULL,24,NULL
+25,Diarrhea,NULL,25,NULL
+26,Diphtheria (PIDSR - Category II),NULL,26,NULL
+27,Dysentery,NULL,27,NULL
+28,Emphysema,NULL,28,NULL
+29,Filariasis,NULL,29,NULL
+3,Acute Flaccid Paralysis (PIDSR - Category I),NULL,3,NULL
+30,Filariasis - Adenolymphaginitis,NULL,30,NULL
+31,Gastro-Enteritis,NULL,31,NULL
+32,Hepatitis A,NULL,32,NULL
+33,Hepatitis B,NULL,33,NULL
+34,Human Avian Influenza (PIDSR - Category I),NULL,34,NULL
+35,Hypertension,NULL,35,NULL
+36,Influenza,NULL,36,NULL
+37,Influenza-like Illness (PIDSR - Category II),NULL,37,NULL
+38,Malaria - Organism Unknown (PIDSR - Category II),NULL,42,NULL
+39,Malaria - P. Falciparum (PIDSR - Category II),NULL,43,NULL
+4,Acute Hemorrhagic Fever Syndrome (PIDSR - Category II),NULL,4,NULL
+40,Malaria - P. Ovale (PIDSR - Category II),NULL,44,NULL
+41,Malaria - P. Vivax (PIDSR - Category II),NULL,45,NULL
+42,Keratomalacia,NULL,38,NULL
+43,Leprosy,NULL,39,NULL
+44,Leprosy - Grade 2 Disability,NULL,40,NULL
+45,Leptospirosis (PIDSR - Category II),NULL,41,NULL
+46,Malnutrition,NULL,46,NULL
+47,Measles (PIDSR - Category I),NULL,47,NULL
+48,Meningococcal Disease (PIDSR - Category 1),NULL,48,NULL
+49,Neonatal Tetanus (PIDSR - Category 1),NULL,49,NULL
+5,Acute Tonsillopharyngitis Bacterial,NULL,5,NULL
+50,Night Blindness,NULL,50,NULL
+51,Non-Neonatal Tetanus (PIDSR - Category II),NULL,51,NULL
+52,Paralytic Shellfish Poisoning (PIDSR - Category 1),NULL,52,NULL
+53,Pertussis (PIDSR - Category II),NULL,54,NULL
+54,Pneumonia,NULL,55,NULL
+55,Rabies (PIDSR - Category 1),NULL,56,NULL
+56,Schistosomiasis,NULL,57,NULL
+57,Schistosomiasis - Intensity Unknown,NULL,58,NULL
+58,Schistosomiasis - Low Intensity,NULL,59,NULL
+59,Schistosomiasis - Medium Intensity,NULL,60,NULL
+6,Acute Viral Hepatitis (PIDSR - Category II),NULL,7,NULL
+60,Schistosomiasis - High Intensity,NULL,61,NULL
+61,Severe Acute Respiratory Syndrome (SARS) (PIDSR - Category 1),NULL,62,NULL
+62,Tetanus,NULL,64,NULL
+63,Trauma,NULL,65,NULL
+64,Tuberculosis,NULL,66,NULL
+65,Typhoid and Paratyphoid Fever (PIDSR - Category II),NULL,68,NULL
+66,Varicella,NULL,71,NULL
+67,Upper Respiratory Tract Infection Bacterial,NULL,69,NULL
+68,Upper Respiratory Tract Infection Viral,NULL,70,NULL
+69,Xerophthalmia,NULL,72,NULL
+7,Acute Tonsillopharyngitis Viral,NULL,6,NULL
+70,Others,NULL,73,NULL
+71,Persistent Diarrhea,NULL,53,NULL
+72,Severe Pneumonia,NULL,63,NULL
+73,Tuberculosis - Symptomatic,NULL,67,NULL
+8,Adverse Events following Immunization (PIDSR - Category I),NULL,8,NULL
+9,Anthrax (PIDSR - Catergory I),NULL,10,NULL

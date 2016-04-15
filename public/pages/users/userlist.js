@@ -1,0 +1,2 @@
+// data table
+$('#UseList').DataTable();

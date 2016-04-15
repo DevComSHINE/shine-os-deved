@@ -1,0 +1,5 @@
+suites:
+    main:
+        namespace: Shine
+        psr4_prefix: Shine
+        src_path: app

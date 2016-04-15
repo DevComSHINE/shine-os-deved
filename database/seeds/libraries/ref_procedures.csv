@@ -1,0 +1,1868 @@
+proc_code,proc_desc
+10060,Incision and drainage of abscess (e.g., carbuncle, suppurative hidradenitis, cutaneous or subcutaneous abscess, cyst, furuncle, or paronychia)
+10080,Incision and drainage of pilonidal cyst
+10120,Incision and removal of foreign body, subcutaneous tissues
+10140,Incision and drainage of hematoma, seroma, or fluid collection
+10160,Puncture aspiration of abscess, hematoma, bulla, or cyst
+10180,Incision and drainage, complex, postoperative wound infection
+11000,Debridement of extensive eczematous or infected skin
+11010,Debridement including removal of foreign material associated w/ open fracture(s) and/or dislocation(s); skin and subcutaneous tissues
+11011,Debridement including removal of foreign material associated w/ open fracture(s) and/or dislocation(s); skin, subcutaneous tissue, muscle fascia, and muscle
+11012,Debridement including removal of foreign material associated w/ open fracture(s) and/or dislocation(s); skin, subcutaneous tissue, muscle fascia, muscle, and bone
+11040,Debridement; skin, partial thickness
+11041,Debridement; skin, full thickness
+11042,Debridement; skin, and subcutaneous tissue
+11043,Debridement; skin, subcutaneous tissue, and muscle
+11044,Debridement; skin, subcutaneous tissue, muscle, and bone
+11050,Paring or curettement of benign hyperkeratotic skin lesion w/ or w/o chemical cauterization (such as verrucae or clavi) not extending through the stratum corneum (e.g., callus or wart) w/ or w/o local anesthesia; single lesion
+11051,Paring or curettement of benign hyperkeratotic skin lesion w/ or w/o chemical cauterization (such as verrucae or clavi) not extending through the stratum corneum (e.g., callus or wart) w/ or w/o local anesthesia; two to four lesions
+11052,Paring or curettement of benign hyperkeratotic skin lesion w/ or w/o chemical cauterization (such as verrucae or clavi) not extending through the stratum corneum (e.g., callus or wart) w/ or w/o local anesthesia; more than four lesions
+11100,Biopsy of skin, subcutaneous tissue and/or mucous membrane (including simple closure), unless otherwise listed; single or multiple lesion
+11300,Shaving of epidermal or dermal lesion, single lesion, trunk, arms or legs; lesion diameter 0.5 cm or less
+11301,Shaving of epidermal or dermal lesion, single lesion, trunk, arms or legs; lesion diameter 0.6 to 1.0 cm
+11302,Shaving of epidermal or dermal lesion, single lesion, trunk, arms or legs; lesion diameter 1.1 to 2.0 cm
+11303,Shaving of epidermal or dermal lesion, single lesion, trunk, arms or legs; lesion diameter over 2.0 cm
+11305,Shaving of epidermal or dermal lesion, single lesion, scalp, neck, hands, feet, genitalia; lesion diameter 0.5 cm or less
+11306,Shaving of epidermal or dermal lesion, single lesion, scalp, neck, hands, feet, genitalia; lesion diameter 0.6 to 1.0 cm
+11307,Shaving of epidermal or dermal lesion, single lesion, scalp, neck, hands, feet, genitalia; lesion diameter 1.1 to 2.0 cm
+11308,Shaving of epidermal or dermal lesion, single lesion, scalp, neck, hands, feet, genitalia; lesion diameter over 2.0 cm
+11310,Shaving of epidermal or dermal lesion, single lesion, face, ears, eyelids, nose ,lips, mucous membrane; lesion diameter 0.5 cm or less
+11311,Shaving of epidermal or dermal lesion, single lesion, face, ears, eyelids, nose ,lips, mucous membrane; lesion diameter 0.6 to 1.0 cm
+11312,Shaving of epidermal or dermal lesion, single lesion, face, ears, eyelids, nose ,lips, mucous membrane; lesion diameter 1.1 to 2.0 cm
+11313,Shaving of epidermal or dermal lesion, single lesion, face, ears, eyelids, nose ,lips, mucous membrane; lesion diameter over 2.0 cm
+11400,Excision, benign lesion, except skin tag (unless listed elsewhere), trunk, arms or legs; lesion diameter 0.5 cm or less
+11401,Excision, benign lesion, except skin tag (unless listed elsewhere), trunk, arms or legs; lesion diameter 0.6 to 1.0 cm
+11402,Excision, benign lesion, except skin tag (unless listed elsewhere), trunk, arms or legs; lesion diameter 1.1 to 2.0 cm
+11403,Excision, benign lesion, except skin tag (unless listed elsewhere), trunk, arms or legs; lesion diameter 2.1 to 3.0 cm
+11404,Excision, benign lesion, except skin tag (unless listed elsewhere), trunk, arms or legs; lesion diameter 3.1 to 4.0 cm
+11406,Excision, benign lesion, except skin tag (unless listed elsewhere), trunk, arms or legs; lesion diameter over 4.0 cm
+11420,Excision, benign lesion, except skin tag (unless listed elsewhere), scalp, neck, hands, feet, genitalia; lesion diameter 0.5 cm or less
+11421,Excision, benign lesion, except skin tag (unless listed elsewhere), scalp, neck, hands, feet, genitalia; lesion diameter 0.6 to 1.0 cm
+11422,Excision, benign lesion, except skin tag (unless listed elsewhere), scalp, neck, hands, feet, genitalia; lesion diameter 1.1 to 2.0 cm
+11423,Excision, benign lesion, except skin tag (unless listed elsewhere), scalp, neck, hands, feet, genitalia; lesion diameter 2.1 to 3.0 cm
+11424,Excision, benign lesion, except skin tag (unless listed elsewhere), scalp, neck, hands, feet, genitalia; lesion diameter 3.1 to 4.0 cm
+11426,Excision, benign lesion, except skin tag (unless listed elsewhere), scalp, neck, hands, feet, genitalia; lesion diameter over 4.0 cm
+11440,Excision, other benign lesion (unless listed elsewhere), face, ears, eyelids, nose, lips, mucous membrane; lesion diameter 0.5 cm or less
+11441,Excision, other benign lesion (unless listed elsewhere), face, ears, eyelids, nose, lips, mucous membrane; lesion diameter 0.6 to 1.0 cm
+11442,Excision, other benign lesion (unless listed elsewhere), face, ears, eyelids, nose, lips, mucous membrane; lesion diameter 1.1 to 2.0 cm
+11443,Excision, other benign lesion (unless listed elsewhere), face, ears, eyelids, nose, lips, mucous membrane; lesion diameter 2.1 to 3.0 cm
+11444,Excision, other benign lesion (unless listed elsewhere), face, ears, eyelids, nose, lips, mucous membrane; lesion diameter 3.1 to 4.0 cm
+11446,Excision, other benign lesion (unless listed elsewhere), face, ears, eyelids, nose, lips, mucous membrane; lesion diameter over 4.0 cm
+11450,Excision of skin and subcutaneous tissue for hidradenitis, axillary
+11462,Excision of skin and subcutaneous tissue for hidradenitis, inguinal
+11470,Excision of skin and subcutaneous tissue for hidradenitis, perianal, perineal or umbilical
+11600,Excision, malignant lesion, trunk, arms, or legs; lesion diameter 0.5 cm or less
+11601,Excision, malignant lesion, trunk, arms, or legs; lesion diameter 0.6 to 1.0 cm
+11602,Excision, malignant lesion, trunk, arms, or legs; lesion diameter 1.1 to 2.0 cm
+11603,Excision, malignant lesion, trunk, arms, or legs; lesion diameter 2.1 to 3.0 cm
+11604,Excision, malignant lesion, trunk, arms, or legs; lesion diameter 3.1 to 4.0 cm
+11606,Excision, malignant lesion, trunk, arms, or legs; lesion diameter over 4.0 cm
+11620,Excision, malignant lesion, scalp, neck, hands, feet, genitalia; lesion diameter 0.5 cm or less
+11621,Excision, malignant lesion, scalp, neck, hands, feet, genitalia; lesion diameter 0.6 to 1.0 cm
+11622,Excision, malignant lesion, scalp, neck, hands, feet, genitalia; lesion diameter 1.1 to 2.0 cm
+11623,Excision, malignant lesion, scalp, neck, hands, feet, genitalia; lesion diameter 2.1 to 3.0 cm
+11624,Excision, malignant lesion, scalp, neck, hands, feet, genitalia; lesion diameter 3.1 to 4.0 cm
+11626,Excision, malignant lesion, scalp, neck, hands, feet, genitalia; lesion diameter over 4.0 cm
+11640,Excision, malignant lesion, face, ears, eyelids, nose, lips; lesion diameter 0.5 cm or less
+11641,Excision, malignant lesion, face, ears, eyelids, nose, lips; lesion diameter 0.6 to 1.0 cm
+11642,Excision, malignant lesion, face, ears, eyelids, nose, lips; lesion diameter 1.1 to 2.0 cm
+11643,Excision, malignant lesion, face, ears, eyelids, nose, lips; lesion diameter 2.1 to 3.0 cm
+11644,Excision, malignant lesion, face, ears, eyelids, nose, lips; lesion diameter 3.1 to 4.0 cm
+11646,Excision, malignant lesion, face, ears, eyelids, nose, lips; lesion diameter over 4.0 cm
+11720,Debridement of nail(s) by any method(s); one to five
+11721,Debridement of nail(s) by any method(s); six or more
+11730,Avulsion of nail plate, partial or complete
+11740,Evacuation of subungual hematoma
+11750,Excision of nail and nail matrix, partial or complete (e.g., ingrown or deformed nail) for permanent removal
+11752,Excision of nail and nail matrix, partial or complete (e.g., ingrown or deformed nail) for permanent removal w/ amputation of tuft of distal phalanx
+11755,Biopsy of nail unit, any method (e.g., plate, bed, matrix, hyponychium, proximal and lateral nail folds)
+11760,Repair of nail bed
+11762,Reconstruction of nail bed w/ graft
+11765,Wedge excision of skin of nail fold (e.g., for ingrown toenail)
+11770,Excision of pilonidal cyst or sinus
+12001,Simple repair of superficial wounds of scalp, neck, axillae, external genitalia, trunk and/or extremities (including hands and feet); 2.5 cm or less
+12002,Simple repair of superficial wounds of scalp, neck, axillae, external genitalia, trunk and/or extremities (including hands and feet); 2.6 cm to 7.5 cm
+12004,Simple repair of superficial wounds of scalp, neck, axillae, external genitalia, trunk and/or extremities (including hands and feet); 7.6 cm to 12.5 cm
+12005,Simple repair of superficial wounds of scalp, neck, axillae, external genitalia, trunk and/or extremities (including hands and feet); 12.6 cm to 20.0 cm
+12006,Simple repair of superficial wounds of scalp, neck, axillae, external genitalia, trunk and/or extremities (including hands and feet); 20.1 cm to 30.0 cm
+12007,Simple repair of superficial wounds of scalp, neck, axillae, external genitalia, trunk and/or extremities (including hands and feet); over 30.0 cm
+12011,Simple repair of superficial wounds of face, ears, eyelids, nose, lips and/or mucous membranes; 2.5 cm or less
+12013,Simple repair of superficial wounds of face, ears, eyelids, nose, lips and/or mucous membranes; 2.6 cm to 5.0 cm
+12014,Simple repair of superficial wounds of face, ears, eyelids, nose, lips and/or mucous membranes; 5.1 cm to 7.5 cm
+12015,Simple repair of superficial wounds of face, ears, eyelids, nose, lips and/or mucous membranes; 7.6 cm to 12.5 cm
+12016,Simple repair of superficial wounds of face, ears, eyelids, nose, lips and/or mucous membranes; 12.6 cm to 20.0 cm
+12017,Simple repair of superficial wounds of face, ears, eyelids, nose, lips and/or mucous membranes; 20.1 cm to 30.0 cm
+12018,Simple repair of superficial wounds of face, ears, eyelids, nose, lips and/or mucous membranes; over 30.0 cm
+12031,Layer closure of wounds of scalp, axillae, trunk, and/or extremities (excluding hands and feet); 2.5 cm or less
+12032,Layer closure of wounds of scalp, axillae, trunk, and/or extremities (excluding hands and feet); 2.6 cm to 7.5 cm
+12034,Layer closure of wounds of scalp, axillae, trunk, and/or extremities (excluding hands and feet); 7.6 cm to 12.5 cm
+12035,Layer closure of wounds of scalp, axillae, trunk, and/or extremities (excluding hands and feet); 12.6 cm to 20.0 cm
+12036,Layer closure of wounds of scalp, axillae, trunk, and/or extremities (excluding hands and feet); 20.1 cm to 30.0 cm
+12037,Layer closure of wounds of scalp, axillae, trunk, and/or extremities (excluding hands and feet); over 30.0 cm
+12041,Layer closure of wounds of neck, hands, feet and/or external genitalia; 2.5 cm or less
+12042,Layer closure of wounds of neck, hands, feet and/or external genitalia; 2.6 cm to 7.5 cm
+12044,Layer closure of wounds of neck, hands, feet and/or external genitalia; 7.6 cm to 12.5 cm
+12045,Layer closure of wounds of neck, hands, feet and/or external genitalia; 12.6 cm to 20.0 cm
+12046,Layer closure of wounds of neck, hands, feet and/or external genitalia; 20.1 cm to 30.0 cm
+12047,Layer closure of wounds of neck, hands, feet and/or external genitalia; over 30.0 cm
+12051,Layer closure of wounds of face, ears, eyelids, nose, lips and/or mucous membrances; 2.5 cm or less
+12052,Layer closure of wounds of face, ears, eyelids, nose, lips and/or mucous membrances; 2.6 cm to 5.0 cm
+12053,Layer closure of wounds of face, ears, eyelids, nose, lips and/or mucous membrances; 5.1 cm to 7.5 cm
+12054,Layer closure of wounds of face, ears, eyelids, nose, lips and/or mucous membrances; 7.6 cm to 12.5 cm
+12055,Layer closure of wounds of face, ears, eyelids, nose, lips and/or mucous membrances; 12.6 cm to 20.0 cm
+12056,Layer closure of wounds of face, ears, eyelids, nose, lips and/or mucous membrances; 20.1 cm to 30.0 cm
+12057,Layer closure of wounds of face, ears, eyelids, nose, lips and/or mucous membrances; over 30.0 cm
+14000,Adjacent tissue transfer or rearrangement, trunk; defect 10 sq cm or less
+14001,Adjacent tissue transfer or rearrangement, trunk; defect 10.1 sq cm to 30.0 sq cm
+14020,Adjacent tissue transfer or rearrangement, scalp, arms and/or legs; defect 10 sq cm or less
+14021,Adjacent tissue transfer or rearrangement, scalp, arms and/or legs; defect 10.1 sq cm to 30.0 sq cm
+14040,Adjacent tissue transfer or rearrangement, forehead, cheeks, chin, mouth, neck, axillae, genitalia, hands and/or feet; defect 10 sq cm or less
+14041,Adjacent tissue transfer or rearrangement, forehead, cheeks, chin, mouth, neck, axillae, genitalia, hands and/or feet; defect 10.1 sq cm to 30.0 sq cm
+14060,Adjacent tissue transfer or rearrangement, eyelids, nose, ears and/or lips; defect 10 sq cm or less
+14061,Adjacent tissue transfer or rearrangement, eyelids, nose, ears and/or lips; defect 10.1 sq cm to 30.0 sq cm
+14300,Adjacent tissue transfer or rearrangement, more than 30 sq cm, unusual or complicated, any area
+14350,Filleted finger or toe flap, including preparation of recipient site
+15050,Pinch graft, single or multiple, to cover small ulcer, tip or digit, or other minimal open area (except on face), up to defect size 2 cm diameter
+15100,Split graft, trunk, scalp, arms, legs, hands, and/or feet (except multiple digits); 100 sq cm or less, or each one percent of body area of infants and children (except 15050)
+15120,Split graft, face, eyelids, mouth, neck, ears, orbits, genitalia, and/or multiple digits; 100 sq cm or less, or each one percent of body area of infants and children (except 15050)
+15200,Full thickness graft, free, including direct closure of donor site, trunk; 20 sq cm or less
+15220,Full thickness graft, free, including direct closure of donor site, scalp, arms, and/or legs; 20 sq cm or less
+15240,Full thickness graft, free, including direct closure of donor site, forehead, cheeks, chin, mouth, neck, axillae, genitalia, hands, and/or feet; 20 sq cm or less
+15260,Full thickness graft, free, including direct closure of donor site, nose, ears, eyelids, and/or lips; 20 sq cm or less
+15350,Application of allograft, skin
+15400,Application of xenograft, skin
+15570,Formation of direct or tubed pedicle, w/ or w/o transfer; trunk
+15572,Formation of direct or tubed pedicle, w/ or w/o transfer; scalp, arms, or legs
+15574,Formation of direct or tubed pedicle, w/ or w/o transfer; forehead, cheeks, chin, mouth, neck, axillae, genitalia, hands or feet
+15576,Formation of direct or tubed pedicle, w/ or w/o transfer; eyelids, nose, ears, lips or intraoral
+15580,Cross finger flap, including free graft to donor site
+15650,Transfer, intermediate, of any pedicle flap (e.g., abdomen to wrist, "Walking" tube), any location
+15732,Muscle, myocutaneous, or fasciocutaneous flap; head and neck (e.g., temporalis, masseter, sternocleidomastoid, levator scapulae)
+15734,Muscle, myocutaneous, or fasciocutaneous flap; trunk
+15736,Muscle, myocutaneous, or fasciocutaneous flap; upper extremity
+15738,Muscle, myocutaneous, or fasciocutaneous flap; lower extremity
+15740,Flap; island pedicle
+15750,Flap; neurovascular pedicle
+15756,Free muscle flap w/ or w/o skin graft w/ microvascular anastomosis
+15757,Free skin flap w/ microvascular anastomosis
+15758,Free fascial flap w/ microvascular anastomosis
+15760,Graft; composite (e.g., full thickness of external ear or nasal ala), including primary closure, donor area
+15770,Graft; derma-fat-fascia
+15820,Blepharoplasty, lower eyelid
+15822,Blepharoplasty, upper eyelid;
+15823,Blepharoplasty, upper eyelid; with excessive skin weighting down lid
+15840,Graft for facial nerve paralysis; free fascia graft (including obtaining fascia)
+15841,Graft for facial nerve paralysis; free muscle graft (including obtaining graft)
+15842,Graft for facial nerve paralysis; free muscle graft by microsurgical technique
+15845,Graft for facial nerve paralysis; regional muscle transfer
+15920,Excision, coccygeal pressure ulcer, w/ coccygectomy; w/ primary suture
+15922,Excision, coccygeal pressure ulcer, w/ coccygectomy; w/ flap closure
+15931,Excision, sacral pressure ulcer, w/ primary suture;
+15933,Excision, sacral pressure ulcer, w/ primary suture; w/ ostectomy
+15934,Excision, sacral pressure ulcer, w/ skin flap closure;
+15935,Excision, sacral pressure ulcer, w/ skin flap closure; w/ ostectomy
+15936,Excision, sacral pressure ulcer, w/ muscle or myocutaneous flap closure;
+15937,Excision, sacral pressure ulcer, w/ muscle or myocutaneous flap closure; w/ ostectomy
+15940,Excision, ischial pressure ulcer, w/ primary suture;
+15941,Excision, ischial pressure ulcer, w/ primary suture; w/ ostectomy (ischiectomy)
+15944,Excision, ischial pressure ulcer, w/ skin flap closure;
+15945,Excision, ischial pressure ulcer, w/ skin flap closure; w/ ostectomy
+15946,Excision, ischial pressure ulcer, w/ ostectomy, w/ muscle or myocutaneous flap closure
+15950,Excision, trochanteric pressure ulcer, w/ primary suture;
+15951,Excision, trochanteric pressure ulcer, w/ primary suture; w/ ostectomy
+15952,Excision, trochanteric pressure ulcer, w/ skin flap closure;
+15953,Excision, trochanteric pressure ulcer, w/ skin flap closure; w/ ostectomy
+15956,Excision, trochanteric pressure ulcer, w/ muscle or myocutaneous flap closure;
+15958,Excision, trochanteric pressure ulcer, w/ muscle or myocutaneous flap closure; w/ ostectomy
+16010,Dressings and/or debridement, initial or subsequent
+16035,Escharotomy
+16040,Excision burn wound, w/o skin grafting, employing alloplastic dressing (e.g., synthetic mesh), any anatomic site
+17000,Destruction by any method, including laser, w/ or w/o surgical curettement, all benign facial lesions or premalignant lesions in any location, or benign lesions other than cutaneous vascular proliferative lesions, including local anesthesia; any number of
+17100,Destruction by any method, including laser, of benign skin lesions other than cutaneous vascular proliferative lesions on any area other than the face, including local anesthesia; any number of lesions
+17106,Destruction of cutaneous vascular proliferative lesions (e.g., laser technique)
+17110,Destruction by any method of flat warts or molluscum contagiosum, milia, all lesions
+17200,Electosurgical destruction of multiple fibrocutaneous tags; all lesions
+17250,Chemical cauterization of granulation tissue (proud flesh, sinus or fistula)
+17260,Destruction, malignant lesion, any method, trunk, arms or legs; lesion diameter 0.5 cm or less
+17261,Destruction, malignant lesion, any method, trunk, arms or legs; lesion diameter 0.6 to 1.0 cm
+17262,Destruction, malignant lesion, any method, trunk, arms or legs; lesion diameter 1.1 to 2.0 cm
+17263,Destruction, malignant lesion, any method, trunk, arms or legs; lesion diameter 2.1 to 3.0 cm
+17264,Destruction, malignant lesion, any method, trunk, arms or legs; lesion diameter 3.1 to 4.0 cm
+17266,Destruction, malignant lesion, any method, trunk, arms or legs; lesion diameter over 4.0 cm
+17270,Destruction, malignant lesion, any method, scalp, neck, hands, feet, genitalia; lesion diameter 0.5 cm or less
+17271,Destruction, malignant lesion, any method, scalp, neck, hands, feet, genitalia; lesion diameter 0.6 to 1.0 cm
+17272,Destruction, malignant lesion, any method, scalp, neck, hands, feet, genitalia; lesion diameter 1.1 to 2.0 cm
+17273,Destruction, malignant lesion, any method, scalp, neck, hands, feet, genitalia; lesion diameter 2.1 to 3.0 cm
+17274,Destruction, malignant lesion, any method, scalp, neck, hands, feet, genitalia; lesion diameter 3.1 to 4.0 cm
+17276,Destruction, malignant lesion, any method, scalp, neck, hands, feet, genitalia; lesion diameter over 4.0 cm
+17280,Destruction, malignant lesion, any method, face, ears, eyelids, nose, lips, mucous membrane; lesion diameter 0.5 cm or less
+17281,Destruction, malignant lesion, any method, face, ears, eyelids, nose, lips, mucous membrane; lesion diameter 0.6 to 1.0 cm
+17282,Destruction, malignant lesion, any method, face, ears, eyelids, nose, lips, mucous membrane; lesion diameter 1.1 to 2.0 cm
+17283,Destruction, malignant lesion, any method, face, ears, eyelids, nose, lips, mucous membrane; lesion diameter 2.1 to 3.0 cm
+17284,Destruction, malignant lesion, any method, face, ears, eyelids, nose, lips, mucous membrane; lesion diameter 3.1 to 4.0 cm
+17286,Destruction, malignant lesion, any method, face, ears, eyelids, nose, lips, mucous membrane; lesion diameter over 4.0 cm
+17304,Chemosurgery (Mohs micrographic technique), including removal of all gross tumor, surgical excision of tissue specimens, mapping, color coding of specimens, microscopic examination of specimens by the surgeon, and complete histopathologic preparation;  st
+19000,Puncture aspiration of cyst of breast;
+19020,Mastotomy w/ exploration or drainage of abscess, deep
+19100,Biopsy of breast; needle core
+19101,Biopsy of breast; incisional
+19110,Nipple exploration, w/ or w/o excision of a solitary lactiferous duct or a papilloma lactiferous duct
+19112,Excision of lactiferous duct fistula
+19120,Excision of cyst, fibroadenoma, or other benign or malignant tumor aberrant breast tissue, duct lesion or nipple lesion (except 19140), male or female, one or more lesions
+19125,Excision of breast lesion identified by preoperative placement of radiological marker; single lesion
+19140,Mastectomy for gynecomastia
+19160,Mastectomy, partial;
+19162,Mastectomy, partial; with axillary lymphadenectomy
+19180,Mastectomy, simple, complete
+19182,Mastectomy, subcutaneous
+19200,Mastectomy, radical, icnluding pectoral muscles, axillary lymph nodes
+19220,Mastectomy, radical, including pectoral muscles, axillary and internal mammary lymph nodes (Urban type operation)
+19240,Mastectomy, modified radical, including axillary lymph nodes, w/ or w/o pectoralis minor muscle, but excluding pectoralis major muscle
+19260,Excision of chest wall tumor including ribs
+19271,Excision of chest wall tumor involving ribs, w/ plastic reconstruction; w/o mediastinal lymphadenectomy
+19272,Excision of chest wall tumor involving ribs, w/ plastic reconstruction; w/ mediastinal lymphadenectomy
+19340,Immediate insertion of breast prosthesis following mastopexy, mastectomy or in reconstruction
+19342,Delayed insertion of breast prosthesis following mastopexy, mastectomy or in reconstruction
+19350,Nipple/areola reconstruction
+19357,Breast reconstruction, immediate or delayed, with tissue expander, including subsequent expansion
+19361,Breast reconstruction with latissimus dorsi flap, with or without prosthetic implant
+19364,Breast reconstruction with free flap
+19366,Breast reconstruction with other technique
+19367,Breast reconstruction with transverse rectus abdominis myocutaneous flap (TRAM), single pedicle, including closure of donor site;
+19369,Breast reconstruction with transverse rectus abdominis myocutaneous flap (TRAM), double pedicle, including closure of donor site
+19370,Open periprosthetic capsulotomy, breast
+19371,Periprosthetic capsulectomy, breast
+20200,Biopsy, muscle
+20206,Biopsy, muscle, percutaneous needle
+20220,Biopsy, bone, trocar, or needle; superficial (e.g., ilium, sternum, spinous process, ribs)
+20225,Biopsy, bone, trocar, or needle; deep (vertebral body, femur)
+20240,Biopsy, excisional; superficial (e.g., ilium, sternum, spinous process, ribs, trochanter of femur)
+20245,Biopsy, excisional; deep (e.g., humerus, ischium, femur)
+20250,Biopsy, vertebral body, open; thoracic
+20251,Biopsy, vertebral body, open; lumbar or cervical
+20520,Removal of foreign body in muscle or tendon sheath
+20600,Arthrocentesis, aspiration and/or injection; small joint, bursa or ganglion cyst (e.g., fingers, toes)
+20605,Arthrocentesis, aspiration and/or injection; intermediate joint, bursa or ganglion cyst (e.g., temporomandibular, acromioclavicular, wrist, elbow or ankle, olecranon bursa)
+20610,Arthrocentesis, aspiration and/or injection; major joint or bursa (e.g., shoulder, hip, knee joint, subacromial bursa)
+20615,Aspiration and injection for treatment of bone cyst
+20650,Insertion of wire or pin w/ application of skeletal traction, including removal
+20660,Application of cranial tongs, caliper, or stereotactic frame, including removal
+20661,Application of halo, including removal; cranial
+20662,Application of halo, including removal; pelvic
+20663,Application of halo, including removal; femoral
+20670,Removal of implant; superficial (e.g., buried wire, pin or rod)
+20680,Removal of implant; deep (e.g., buried wire, pin, screw, metal band, nail, rod or plate)
+20690,Application of a uniplane (pins or wires in one plane), unilateral, external fixation system
+20692,Application of multiplane (pins or wires in more than one plane), unilateral, external fixation system (e.g., llizarov, Monticelli type)
+20802,Replantation, arm (includes surgical neck of humerus through elbow joint), complete amputation
+20805,Replantation, forearm (includes radius and ulna to radial carpal joint), complete amputation
+20808,Replantation, hand (includes hand through metacarpophalangeal joint(s), complete amputation
+20816,Replantation, digit, excluding thumb (includes metacarpophalangeal joint to insertion of flexor sublimis tendon), complete amputation
+20822,Replantation, digit, excluding thumb (includes distal tip to sublimis tendon insertion), complete amputation
+20824,Replantation, thumb (includes carpometacarpal joint to MP joint), complete amputation
+20827,Replantation, thumb (includes distal tip to MP joint), complete amputation
+20838,Replantation, foot, complete amputation
+20900,Bone graft, any donor area; minor or small (e.g., dowel or button)
+20902,Bone graft, any donor area; major or large
+20910,Cartilage graft; costochondral
+20912,Cartilage graft; nasal septum
+20920,Fascia lata graft; by stripper
+20922,Fascia lata graft; by incision and area exposure, complex or sheet
+20924,Tendon graft, form a distance (e.g., palmaris, toe extensor, plantaris)
+20926,Tissue grafts, other (e.g., paratenon, fat, dermis)
+20930,Allograft for spine surgery only; morselized
+20931,Allograft for spine surgery only; structural
+20936,Autograft for spine surgery only (includes harvesting the graft); local (e.g., ribs, spinous process, or laminar fragments) obtained from same incision
+20937,Autograft for spine surgery only (includes harvesting the graft); morselized (thorugh separate skin or fascial incision)
+20938,Autograft for spine surgery only (includes harvesting the graft); structural, bicortical or tricortial (through separate skin or fascial incision)
+20955,Bone graft w/ microvascular anastomosis; fibula
+20956,Bone graft w/ microvascular anastomosis; iliac crest
+20957,Bone graft w/ microvascular anastomosis; metatarsal
+20962,Bone graft w/ microvascular anastomosis; other than fibula, iliac crest, or metatarsal
+20969,Free osteocutaneous flap w/ microvascular anastomosis; other than iliac crest, metatarsal, or great toe
+20970,Free osteocutaneous flap w/ microvascular anastomosis; iliac crest
+20972,Free osteocutaneous flap w/ microvascular anastomosis; metatarsal
+20973,Free osteocutaneous flap w/ microvascular anastomosis; great toe w/ web space
+20982,Ablation, bone tumor(s) (e.g., osteoid osteoma, metastasis) radiofrequency, percutaneous, including computed tomographic guidance
+21010,Arthrotomy, temporomandibular joint
+21015,Radical resection of tumor (e.g., malignant neoplasm), soft tissue of face or scalp
+21025,Excision of bone (e.g., for osteomyelitis or bone abscess); mandible
+21026,Excision of bone (e.g., for osteomyelitis or bone abscess); facial bone(s)
+21029,Removal by contouring of benign tumor of facial bone (e.g., fibrous dysplasia)
+21030,Excision of benign tumor or cyst of facial bone other than mandible
+21031,Excision of torus mandibularis
+21032,Excision of maxillary torus palatinus
+21034,Excision of malignant tumor of facial bone other than mandible
+21040,Excision of benign cyst or tumor of mandible; simple
+21041,Excision of benign cyst or tumor of mandible; complex
+21044,Excision of malignant tumor of mandible;
+21045,Excision of malignant tumor of mandible; radical resection
+21050,Condylectomy, temporomandibular joint
+21060,Meniscectomy, partial or complete, temporomandibular joint
+21070,Coronoidectomy
+21120,Genioplasty; augmentation (autograft, allograft, prosthetic material)
+21121,Genioplasty; sliding osteotomy, single piece
+21122,Genioplasty; sliding osteotomies, two or more osteotomies (e.g., wedge excision or bone wedge reversal for asymmetrical chin)
+21123,Genioplasty; sliding, augmentation w/ interpositional bone grafts (includes obtaining autografts)
+21125,Augmentation, mandibular body or angle; prosthetic material
+21127,Augmentation, mandibular body or angle; w/ bone graft, onlay or interpositional (includes obtaining autograft)
+21137,Reduction forehead; contouring only
+21138,Reduction forehead; contouring and application of prosthetic material or bone graft (includes obtaining autograft)
+21139,Reduction forehead; contouring and setback of anterior frontal sinus wall
+21141,Reconstruction midface, LeFort I; single piece, segment movement in any direction (e.g., for Long Face Syndrome), w/o bone graft
+21142,Reconstruction midface, LeFort I; two pieces, segment movement in any direction, w/o bone graft
+21143,Reconstruction midface, LeFort I; three or more pieces, segment movement in any direction, w/o bone graft
+21145,Reconstruction midface, LeFort I; single piece, segment movement in any direction, requiring bone grafts (includes obtaining autografts)
+21146,Reconstruction midface, LeFort I; two pieces, segment movement in any direction, requiring bone grafts (includes obtaining autografts) (e.g., ungrafted unilateral alveolar cleft)
+21147,Reconstruction midface, LeFort I; three or more pieces, segment movement in any direction, requiring bone grafts (includes obtaining autografts) (e.g., ungrafted bilateral alveolar cleft or multiple osteotomies)
+21150,Reconstruction midface, LeFort II; anterior intrusion (e.g., Treacher-Collins Syndrome)
+21151,Reconstruction midface, LeFort II; any direction, requiring bone grafts (includes obtaining autografts)
+21154,Reconstruction midface, LeFort III (extracranial), any type, requiring bone grafts (includes obtaining autografts); w/o LeFort I
+21155,Reconstruction midface, LeFort III (extracranial), any type, requiring bone grafts (includes obtaining autografts); w/ LeFort I
+21159,Reconstruction midface, LeFort III (extra and intracranial) w/ forehead advancement (e.g., mono bloc), requiring bone grafts (includes obtaining autografts); w/o LeFort I
+21160,Reconstruction midface, LeFort III (extra and intracranial) w/ forehead advancement (e.g., mono bloc), requiring bone grafts (includes obtaining autografts); w/ LeFort I
+21172,Reconstruction superior-lateral orbital rim and lower forehead, advancement or alteration, w/ or w/o grafts (includes obtaining autografts)
+21175,Reconstruction, bifrontal, superior-lateral orbital rims and lower forehead, advancement or alteration (e.g., plagiocephaly, trigonocephaly, brachycephaly), w/ or w/o grafts (includes obtaining autografts)
+21179,Reconstruction, entire or majority of forehead and/or supraorbital rims; w/ grafts (allograft or prosthetic material)
+21180,Reconstruction, entire or majority of forehead and/or supraorbital rims; w/ autograft (includes obtaining grafts)
+21181,Reconstruction by contouring of benign tumor of cranial bones (e.g., fibrous dysplasia), extracranial
+21182,Reconstruction of orbital walls, rims, forehead, nasoethmoid complex following intra-and extracranial excision of benign tumor of cranial bone (e.g., fibrous dysplasia), w/ multiple autografts (includes obtaining grafts); total area of bone grafting less
+21183,Reconstruction of orbital walls, rims, forehead, nasoethmoid complex following intra-and extracranial excision of benign tumor of cranial bone (e.g., fibrous dysplasia), w/ multiple autografts (includes obtaining grafts); total area of bone grafting great
+21184,Reconstruction of orbital walls, rims, forehead, nasoethmoid complex following intra-and extracranial excision of benign tumor of cranial bone (e.g., fibrous dysplasia), w/ multiple autografts (includes obtaining grafts); total area of bone grafting great
+21188,Reconstruction midface, osteotomies (other than LeFort type) and bone grafts (includes obtaining autografts)
+21193,Reconstruction of mandibular rami, horizontal, vertical, "C", or "L" osteotomy; w/o bone graft
+21194,Reconstruction of mandibular rami, horizontal, vertical, "C", or "L" osteotomy; w/ bone graft (includes obtaining graft)
+21195,Reconstruction of mandibular rami and/or body, sagittal split; w/o internal rigid fixation
+21196,Reconstruction of mandibular rami and/or body, sagittal split; w/ internal rigid fixation
+21198,Osteotomy, mandible, segmental
+21206,Osteotomy, maxilla, segmental (e.g., Wassmund or Schuchard)
+21210,Graft, bone; nasal, maxillary or malar areas (includes obtaining graft)
+21215,Graft, bone; mandible (includes obtaining graft)
+21230,Graft; rib cartilage, autogenous, to face, chin, nose or ear (includes obtaining graft)
+21235,Graft; ear cartilage, autogenous, to nose or ear (includes obtaining graft)
+21240,Arthroplasty, temporomandibular joint, w/ or w/o autograft (includes obtaining graft)
+21242,Arthroplasty, temporomandibular joint, w/ allograft
+21243,Arthroplasty, temporomandibular joint, w/ prosthetic joint replacement
+21244,Reconstruction of mandible, extraoral, w/ transosteal bone plate (e.g., mandibular staple bone plate)
+21245,Reconstruction of mandible or maxilla, subperiosteal implant; partial
+21246,Reconstruction of mandible or maxilla, subperiosteal implant; complete
+21247,Reconstruction of mandibular condyle w/ bone and cartilage autografts (includes obtaining grafts) (e.g., for hemifacial microsomia)
+21248,Reconstruction of mandible or maxilla, endosteal implant (e.g. blade, cylinder); partial
+21249,Reconstruction of mandible or maxilla, endosteal implant (e.g. blade, cylinder); complete
+21255,Reconstruction of zygomatic arch and glenoid fossa w/ bone and cartilage (includes obtaining autografts)
+21256,Reconstruction of orbit w/ osteotomies (extracranial) and w/ bone grafts (includes obtaining autografts) (e.g., micro-ophthalmia)
+21260,Periorbital osteotomies for orbital hypertelorism, w/ bone grafts
+21267,Orbital repositioning, periorbital osteotomies, unilateral, w/ bone grafts; extracranial approach
+21300,Closed treatment of skull fracture w/o operation
+21315,Closed treatment of nasal bone fracture
+21325,Open treatment of nasal fracture; uncomplicated
+21330,Open treatment of nasal fracture; complicated, w/ internal and/or external skeletal fixation
+21335,Open treatment of nasal fracture; w/ concomitant open treatment of fractured septum
+21336,Open treatment of nasal septal fracture, w/ or w/o stabilization
+21337,Closed treatment of nasal septal fracture
+21338,Open treatment of nasoethmoid fracture; w/o external fixation
+21339,Open treatment of nasoethmoid fracture; w/ external fixation
+21340,Percutaneous treatment of nasoethmoid complex fracture, w/ splint, wire or headcap fixation, including repair of canthal ligaments and/or the nasolacrimal apparatus
+21343,Open treatment of depressed frontal sinus fracture
+21344,Open treatment of complicated (e.g., comminuted or involving posterior wall) frontal sinus fracture, via coronal or multiple approaches
+21345,Closed treatment of nasomaxillary complex fracture (LeFort II type), w/ interdental wire fixation or fixation of denture or splint
+21346,Open treatment of nasomaxillary complex fracture (LeFort II type); w/ wiring and/or local fixation
+21347,Open treatment of nasomaxillary complex fracture (LeFort II type); requiring multiple open approaches
+21348,Open treatment of nasomaxillary complex fracture (LeFort II type); w/ bone grafting (includes obtaining graft)
+21355,Percutaneous treatment of fracture of malar area, including zygomatic arch and malar tripod, w/ manipulation
+21356,Open treatment of depressed zygomatic arch fracture (e.g., Gilles approach)
+21360,Open treatment of depressed malar fracture, including zygomatic arch and malar tripod
+21365,Open treatment of complicated (e.g., comminuted or involving cranial nerve foramina) fracture(s) of malar area, including zygomatic arch and malar tripod; w/ internal fixation and multiple surgical approaches
+21366,Open treatment of complicated (e.g., comminuted or involving cranial nerve foramina) fracture(s) of malar area, including zygomatic arch and malar tripod; w/ bone grafting (includes obtaining graft)
+21385,Open treatment of orbital floor "blowout" fracture; transantral approach (Caldwell-Luc type operation)
+21386,Open treatment of orbital floor "blowout" fracture; periorbital approach
+21387,Open treatment of orbital floor "blowout" fracture; combined approach
+21390,Open treatment of orbital floor "blowout" fracture; periorbital approach, w/ alloplastic or other implant
+21395,Open treatment of orbital floor "blowout" fracture; periorbital approach w/ bone graft (includes obtaining graft)
+21400,Closed treatment of fracture of orbit, except "blowout"
+21406,Open treatment of fracture of orbit, except "blowout"; w/o implant
+21407,Open treatment of fracture of orbit, except "blowout"; w/ implant
+21408,Open treatment of fracture of orbit, except "blowout"; w/ bone grafting (includes obtaining graft)
+21421,Closed treatment of palatal or maxillary fracture (LeFort I type), w/ interdental wire fixation or fixation of denture or splint
+21422,Open treatment of palatal or maxillary fracture (LeFort I type);
+21423,Open treatment of palatal or maxillary fracture (LeFort I type); complicated (comminuted or involving cranial nerve foramina), multiple approaches
+21431,Closed treatment of craniofacial separation (LeFort III type) using interdental wire fixation of denture or splint
+21432,Open treatment of craniofacial separation (LeFort III type); w/ wiring and/or internal fixation
+21433,Open treatment of craniofacial separation (LeFort III type); complicated (e.g., comminuted or involving cranial nerve foramina); multiple surgical approaches
+21435,Open treatment of craniofacial separation (LeFort III type); complicated, utilizing internal and/or external fixation techniques (e.g., head cap, halo device, and/or intermaxillary fixation)
+21436,Open treatment of craniofacial separation (LeFort III type); complicated, multiple surgical approaches, internal fixation, w/ bone grafting (includes obtaining graft)
+21440,Closed treatment of mandibular or maxillary alveolar ridge fracture
+21445,Open treatment of mandibular or maxillary alveolar ridge fracture
+21450,Closed treatment of mandibular fracture
+21452,Percutaneous treatment of mandibular fractue, w/ external fixation
+21453,Closed treatment of mandibular fracture; w/ interdental fixation
+21454,Open treatment of mandibular fracture; w/ external fixation
+21461,Open treatment of mandibular fracture; w/o interdental fixation
+21462,Open treatment of mandibular fracture; w/ interdental fixation
+21465,Open treatment of mandibular condylar fracture
+21470,Open treatment of complicated mandibular fracture by multiple surgical approaches including internal fixation, interdental fixation, and/or wiring of dentures or splints
+21480,Closed treatment of temporomandibular dislocation; initial or subsequent
+21485,Closed treatment of temporomandibular dislocation; complicated (e.g., recurrent requiring intermaxillary fixation or splinting), initial or subsequent
+21490,Open treatment of temporomandibular dislocation
+21493,Closed treatment of hyoid fracture
+21495,Open treatment of hyoid fracture
+21497,Interdental wiring, for condition other than fracture
+21501,Incision and drainage, deep abscess or hematoma, soft tissues of neck or thorax;
+21502,Incision and drainage, deep abscess or hematoma, soft tissues of neck or thorax; w/ partial rib ostectomy
+21510,Incision, deep, w/ opening of bone cortex (e.g., for osteomyelitis or bone abscess), thorax
+21550,Biopsy, soft tissue of neck or thorax
+21555,Excision tumor, soft tissue of neck or thorax; subcutaneous
+21556,Excision tumor, soft tissue of neck or thorax; deep, subfascial, intramuscular
+21557,Radical resection of tumor (e.g., malignant neoplasm), soft tissue of neck or thorax
+21600,Excision of rib, partial
+21610,Costotransversectomy
+21615,Excision  and/or cervical rib;
+21616,Excision  and/or cervical rib; w/ sympathectomy
+21620,Ostectomy of sternum, partial
+21627,Sternal debridement
+21630,Radical resection of sternum;
+21700,Division of scalenus anticus; w/o resection of cervical rib
+21705,Division of scalenus anticus; w/ resection of cervical rib
+21720,Division of sternocleidomastoid for torticollis, open operation
+21740,Reconstructive repair of pectus excavatum or carinatum
+21750,Closure of sternotomy separation w/ or w/o debridement
+21800,Closed treatment of rib fracture
+21805,Open treatment of rib fracture w/o fixation
+21810,Treatment of rib fracture requiring external fixation ("flail chest")
+21820,Closed treatment of sternum fracture
+21825,Open treatment of sternum fracture w/ or w/o skeletal fixation
+21920,Biopsy, soft tissue of back or flank
+21930,Excision, tumor, soft tissue of back or flank
+21935,Radical resection of tumor (e.g., malignant neoplasm), soft tissue of back or flank
+22100,Partial excision of posterior vertebral component (e.g., spinous process, lamina or facet) for intrinsic bony lesion, single vertebral segment; cervical
+22101,Partial excision of posterior vertebral component (e.g., spinous process, lamina or facet) for intrinsic bony lesion, single vertebral segment; thoracic
+22102,Partial excision of posterior vertebral component (e.g., spinous process, lamina or facet) for intrinsic bony lesion, single vertebral segment; lumbar
+22110,Partial excision of vertebral body, for intrinsic bony lesion, w/o decompression of spinal cord or nerve root(s), single vertebral segment; cervical
+22112,Partial excision of vertebral body, for intrinsic bony lesion, w/o decompression of spinal cord or nerve root(s), single vertebral segment; thoracic
+22114,Partial excision of vertebral body, for intrinsic bony lesion, w/o decompression of spinal cord or nerve root(s), single vertebral segment; lumbar
+22210,Osteotomy of spine, posterior or posterolateral approach, one vertebral segment; cervical
+22212,Osteotomy of spine, posterior or posterolateral approach, one vertebral segment; thoracic
+22214,Osteotomy of spine, posterior or posterolateral approach, one vertebral segment; lumbar
+22220,Osteotomy of spine, including diskectomy, anterior approach, single vertebral segment; cervical
+22222,Osteotomy of spine, including diskectomy, anterior approach, single vertebral segment; thoracic
+22224,Osteotomy of spine, including diskectomy, anterior approach, single vertebral segment; lumbar
+22305,Closed treatment of vertebral process fracture(s)
+22310,Closed treatment of vertebral body fracture(s), requiring and including casting or bracing
+22325,Open treatment and/or reduction of vertebral fracture(s) and/or dislocation(s), posterior approach, one fractured vertebrae or dislocated segment; lumbar
+22326,Open treatment and/or reduction of vertebral fracture(s) and/or dislocation(s), posterior approach, one fractured vertebrae or dislocated segment; cervical
+22327,Open treatment and/or reduction of vertebral fracture(s) and/or dislocation(s), posterior approach, one fractured vertebrae or dislocated segment; thoracic
+22548,Arthrodesis, anterior transoral or extraoral technique, clivus-C1-C2 (atlas-axis), w/ or w/o excision of odontoid process
+22554,Arthrodesis, anterior interbody technique, including minimal diskectomy to prepare interspace (other than for decompression); cervical below C2
+22556,Arthrodesis, anterior interbody technique, including minimal diskectomy to prepare interspace (other than for decompression); thoracic
+22558,Arthrodesis, anterior interbody technique, including minimal diskectomy to prepare interspace (other than for decompression); lumbar
+22590,Arthrodesis; posterior technique, craniocervical (occiput-C2)
+22595,Arthrodesis, posterior technique, atlas-axis (C1-C2)
+22600,Arthrodesis, posterior or posterolateral technique, single level; cervical below C2 segment;
+22610,Arthrodesis, posterior or posterolateral technique, single level; cervical below C2 segment; thoracic (w/ or w/o lateral transverse technique)
+22612,Arthrodesis, posterior or posterolateral technique, single level; cervical below C2 segment; lumbar (w/ or w/o lateral transverse technique)
+22630,Arthrodesis, posterior interbody technique, single interspace; lumbar
+22800,Arthrodesis, posterior, for spinal deformity, w/ or w/o cast; up to 6 vertebral segments
+22802,Arthrodesis, posterior, for spinal deformity, w/ or w/o cast; 7 to 12 vertebral segments
+22804,Arthrodesis, posterior, for spinal deformity, w/ or w/o cast; 13 or more vertebral segments
+22808,Arthrodesis, anterior, for spinal deformity, w/ or w/o cast; 2 to 3 vertebral segments
+22810,Arthrodesis, anterior, for spinal deformity, w/ or w/o cast; 4 to 7 vertebral segments
+22812,Arthrodesis, anterior, for spinal deformity, w/ or w/o cast; 8 or more vertebral segments
+22840,Posterior non-segmental instrumentation (e.g., single Harrington rod technique)
+22841,Internal spinal fixation by wiring of spinous processes
+22842,Posterior segmental instrumentation (e.g., pedicle fixation, dual rods w/ multiple hooks and sublaminal wires); 3 to 6 vertebral segments
+22843,Posterior segmental instrumentation (e.g., pedicle fixation, dual rods w/ multiple hooks and sublaminal wires); 7 to 12 vertebral segments
+22844,Posterior segmental instrumentation (e.g., pedicle fixation, dual rods w/ multiple hooks and sublaminal wires); 13 or more vertebral segments
+22845,Anterior instrumentation; 2 to 3 vertebral segments
+22846,Anterior instrumentation; 4 to 7 vertebral segments
+22847,Anterior instrumentation; 8 or more vertebral segments
+22848,Pelvic fixation (attachment of caudal end of instrumentation to pelvic bony structures) other than sacrum
+22849,Reinsertion of spinal fixation device
+22850,Removal of posterior nonsegmental instrumentation (e.g., Harrington rod)
+22851,Application of prosthetic device (e.g., metal cages, methylmethacrylate) to vertebral defect or interspace
+22852,Removal of posterior segmental instrumentation
+22855,Removal of anterior instrumentation
+22900,Excision, abdominal wall tumor, subfascial (e.g., desmoid)
+23000,Removal of subdeltoid (or intratendinous) calcareous deposits, open method
+23020,Capsular contracture release (Sever type procedure)
+23030,Incision and drainage, shoulder area; deep abscess or hematoma
+23031,Incision and drainage, shoulder area; infected bursa
+23035,Incision, deep, w/ opening of cortex (e.g., for osteomyelitis or bone abscess), shoulder area
+23040,Arthrotomy, glenohumeral joint, for infection, w/ exploration, drainage, or removal of foreign body
+23044,Arthrotomy, acromioclavicular, sternoclavicular joint, for infection, w/ exploration, drainage, or removal of foreign body
+23065,Biopsy, soft tissue of shoulder area
+23075,Excision, tumor, shoulder area; subcutaneous
+23076,Excision, tumor, shoulder area; deep, subfascial, or intramuscular
+23077,Radical resection of tumor (e.g., malignant neoplasm), soft tissue of shoulder area
+23100,Arthrotomy w/ biopsy, glenohumeral joint
+23101,Arthrotomy w/ biopsy, or w/ excision of torn cartilage, acromioclavicular, sternoclavicular joint
+23105,Arthrotomy w/ synovectomy; glenohumeral joint
+23106,Arthrotomy w/ synovectomy; sternoclavicular joint
+23107,Arthrotomy, glenohumeral joint, w/ joint exploration, w/ or w/o removal of loose or foreign body
+23120,Claviculectomy; partial
+23125,Claviculectomy; total
+23130,Acromioplasty or acromionectomy, partial
+23140,Excision or curettage of bone cyst or benign tumor of clavicle or scapula;
+23145,Excision or curettage of bone cyst or benign tumor of clavicle or scapula; w/ autograft (includes obtaining graft)
+23146,Excision or curettage of bone cyst or benign tumor of clavicle or scapula; w/ allograft
+23150,Excision or curettage of bone cyst or benign tumor of proximal humerus;
+23155,Excision or curettage of bone cyst or benign tumor of proximal humerus; w/ autograft (includes obtaining graft)
+23156,Excision or curettage of bone cyst or benign tumor of proximal humerus; w/ allograft
+23170,Sequestrectomy (e.g., for osteomyelitis or bone abscess), clavicle
+23172,Sequestrectomy (e.g., for osteomyelitis or bone abscess), scapula
+23174,Sequestrectomy (e.g., for osteomyelitis or bone abscess), humeral head to surgical neck
+23180,Partial excision (craterization, saucerization,or diaphysectomy) of bone (e.g., for osteomyelitis), clavicle
+23182,Partial excision (craterization, saucerization,or diaphysectomy) of bone (e.g., for osteomyelitis), scapula
+23184,Partial excision (craterization, suacerization, or diaphysectomy) of bone (e.g., for osteomyelitis), proximal humerus
+23190,Ostectomy of scapula, partial (e.g., superior medial angle)
+23195,Resection humeral head
+23200,Radical resection for tumor; clavicle
+23210,Radical resection for tumor; scapula
+23220,Radical resection for tumor; proximal humerus;
+23221,Radical resection for tumor; proximal humerus; w/ autograft (includes obtaining graft)
+23222,Radical resection for tumor; proximal humerus; w/ prosthetic replacement
+23330,Removal of foreign body, shoulder; subcutaneous
+23331,Removal of foreign body, shoulder; deep (e.g., Neer prosthesis removal)
+23332,Removal of foreign body, shoulder; complicated , including "total shoulder"
+23395,Muscle transfer, any type, shoulder or upper arm; single
+23397,Muscle transfer, any type, shoulder or upper arm; multiple
+23400,Scapulopexy (e.g., Sprengels deformity or for paralysis)
+23405,Tenomyotomy, shoulder area; single
+23406,Tenomyotomy, shoulder area; multiple through same incision
+23410,Repair of ruptured musculotendinous cuff (e.g., rotator cuff); acute
+23412,Repair of ruptured musculotendinous cuff (e.g., rotator cuff); chronic
+23415,Coracoacromial ligament release, w/ or w/o acromioplasty
+23420,Repair of complete shoulder (rotator) cuff avulsion, chronic (includes acromioplasty)
+23430,Tenodesis of long tendon of biceps
+23440,Resection or transplantation of long tendon of biceps
+23450,Capsulorrhaphy, anterior; Putti-Platt procedure or Magnuson type operation
+23455,Capsulorrhaphy, anterior; Bankart type operation w/ or w/o stapling
+23460,Capsulorrhaphy, anterior, any type; w/ bone block
+23462,Capsulorrhaphy, anterior, any type; w/ coracoid process transfer
+23465,Capsulorrhaphy for recurrent dislocation, posterior, w/ or w/o bone block
+23466,Capsulorrhaphy w/ any type multi-directional instability
+23470,Arthroplasty w/ proximal humeral implant (e.g., Neer type operation)
+23472,Arthroplasty w/ glenoid and proximal humeral replacement (e.g. total shoulder)
+23480,Osteotomy, clavicle, w/ or w/o internal fixation;
+23485,Osteotomy, clavicle, w/ or w/o internal fixation; w/ bone graft for nonunion or malunion (includes obtaining graft and/or necessary fixation)
+23490,Prophylactic treatment (nailing, pinning, plating or wiring) w/ or w/o methylmethacrylate; clavicle
+23491,Prophylactic treatment (nailing, pinning, plating or wiring) w/ or w/o methylmethacrylate; proximal humerus and humeral head
+23500,Closed treatment of clavicular fracture
+23515,Open treatment of clavicular fracture, w/ or w/o internal or external fixation
+23520,Closed treatment of sternoclavicular dislocation
+23530,Open treatment of sternoclavicular disloction, acute or chronic;
+23532,Open treatment of sternoclavicular disloction, w/ fascial graft (includes obtaining graft)
+23540,Closed treatment of acromioclavicular dislocation
+23550,Open treatment of acromioclavicular dislocation, acute or chronic;
+23552,Open treatment of acromioclavicular dislocation, acute or chronic; w/ fascial graft (includes obtaining graft)
+23570,Closed treatment of scapular fracture
+23585,Open treatment of scapular fracture (body, glenoid or acromion) w/ or w/o internal fixation
+23600,Closed treatment of proximal humeral (surgical or anatomical neck) fracture
+23615,Open treatment of proximal humeral (surgical or anatomical neck) fracture, w/ or w/o internal or external fixation, w/ or w/o repair of tuberosity(-ies);
+23616,Open treatment of proximal humeral (surgical or anatomical neck) fracture, w/ or w/o internal or external fixation, w/ or w/o repair of tuberosity(-ies); w/ proximal humeral prosthetic replacement
+23620,Closed treatment of greater tuberosity fracture
+23630,Open treatment of greater tuberosity fracture, w/ or w/o internal or external fixation
+23650,Closed treatment of shoulder dislocation
+23657,Thoracoscopy, surgical; w/ wedge resection of lung, single or mutiple
+23660,Open treatment of acute shoulder dislocation
+23665,Closed treatment of shoulder dislocation,/ fracture of greater tuberosity
+23670,Open treatment of shoulder dislocation, w/ fracture of greater tuberosity, w/ or w/o internal or external fixation
+23675,Closed treatment of shoulder dislocation, w/ surgical or anatomical neck fracture
+23680,Open treatment of shoulder dislocation, w/ surgical or anatomical neck fracture, w/ or w/o internal or external fixation
+23700,Manipulation under anesthesia, shoulder joint, including application of fixation apparatus (dislocation excluded)
+23800,Arthrodesis, shoulder joint; w/ or w/o local bone graft
+23802,Arthrodesis, shoulder joint; w/ primary autogenous graft (includes obtaining graft)
+23900,Interthoracoscapular amputation (forequarter)
+23920,Disarticulation of shoulder;
+23930,Incision and drainage, upper arm or elbow area; deep abscess or hematoma
+23931,Incision and drainage, upper arm or elbow area; infected bursa
+23935,Incision, deep, w/ opening of bone cortex (e.g., for osteomyelitis of bone abscess), humerus or elbow
+24000,Arthrotomy, elbow, for infection, w/ exploration, drainage or removal of foreign body
+24006,Arthrotomy of the elbow, w/ capsular excision for capsular release
+24065,Biopsy, soft tissue of upper arm or elbow area
+24075,Excision, tumor, upper arm or elbow area; subcutaneous
+24076,Excision, tumor, upper arm or elbow area; deep, subfascial or intramuscular
+24077,Radical resection of tumor (e.g., malignant neoplasm), soft tissue of upper arm or elbow area
+24100,Arthrotomy, elbow; w/ synovial biopsy only
+24101,Arthrotomy, elbow; w/ joint exploration, w/ or w/o biopsy, w/ or w/o removal of loose or foreign body
+24102,Arthrotomy, elbow; w/ synovectomy
+24105,Excision, olecranon bursa
+24110,Excision or curettage of bone cyst or benign tumor, humerus;
+24115,Excision or curettage of bone cyst or benign tumor, humerus; w/ autograft (includes obtaining graft)
+24116,Excision or curettage of bone cyst or benign tumor, humerus; w/ allograft
+24120,Excision or curettage of bone cyst or benign tumor of head or neck of radius or olecranon process;
+24125,Excision or curettage of bone cyst or benign tumor of head or neck of radius or olecranon process; w/ autograft (includes obtaining graft)
+24126,Excision or curettage of bone cyst or benign tumor of head or neck of radius or olecranon process; w/ allograft
+24130,Excision, radial head
+24134,Sequestrectomy (e.g., for osteomyelitis or bone abscess), shaft or distal humerus
+24136,Sequestrectomy (e.g., for osteomyelitis or bone abscess), radial head or neck
+24138,Sequestrectomy (e.g., for osteomyelitis or bone abscess), olecranon process
+24140,Partial excision (craterization, saucerization, or diaphysectomy) of bone (e.g., for osteomyelitis), humerus
+24145,Partial excision (craterization, saucerization, or diaphysectomy) of bone (e.g., for osteomyelitis), radial head or neck
+24147,Partial excision (craterization, saucerization, or diaphysectomy) of bone (e.g., for osteomyelitis), olecranon process
+24149,Radical resection of capsule, soft tissue, and heterotopic bone, elbow, w/ contracture release
+24150,Radical resection for tumor, shaft or distal humerus;
+24151,Radical resection for tumor, shaft or distal humerus; w/ autograft (includes obtaining graft)
+24152,Radical resection for tumor, radial head or neck;
+24153,Radical resection for tumor, radial head or neck; w/ autograft (includes obtaining graft)
+24155,Resection of elbow joint (arthrectomy)
+24160,Implant removal; elbow joint
+24164,Implant removal; radial head
+24200,Removal of foreign body, upper arm or elbow area
+24301,Muscle or tendon transfer, any type, upper arm or elbow, single
+24305,Tendon lengthening, upper arm or elbow, single, each
+24310,Tenotomy, open, elbow to shoulder, single, each
+24320,Tenoplasty, w/ muscle transfer, w/ or w/o free graft, elbow to shoulder, single (Seddon-Brookes type procedure)
+24330,Flexor-plasty, elbow (e.g., Steindler type advancement);
+24331,Flexor-plasty, elbow (e.g., Steindler type advancement); w/ extensor advancement
+24340,Tenodesis of biceps tendon at elbow
+24341,Repair, tendon or muscle, upper arm or elbow, each tendon or muscle, primary or secondary (excludes rotator cuff)
+24342,Reinsertion of ruptured biceps or triceps tendon, distal, w/ or w/o tendon graft
+24350,Fasciotomy, lateral or medial (e.g., "tennis elbow" or epicondylitis);
+24351,Fasciotomy, lateral or medial (e.g., "tennis elbow" or epicondylitis); w/ extensor origin detachment
+24352,Fasciotomy, lateral or medial (e.g., "tennis elbow" or epicondylitis); w/ annular ligament resection
+24354,Fasciotomy, lateral or medial (e.g., "tennis elbow" or epicondylitis); w/ stripping
+24356,Fasciotomy, lateral or medial (e.g., "tennis elbow" or epicondylitis); w/ partial ostectomy
+24360,Arthroplasty, elbow; w/ membrane;
+24361,Arthroplasty, elbow; w/ membrane; w/ distal humeral prosthetic replacement
+24362,Arthroplasty, elbow; w/ membrane; w/ implant and fascia lata ligament reconstruction
+24363,Arthroplasty, elbow; w/ membrane; w/ distal humerus and proximal ulnar prosthetic replacement ("total elbow")
+24365,Arthroplasty, radial head;
+24366,Arthroplasty, radial head; w/ implant
+24400,Osteotomy, humerus, w/ or w/o internal fixation
+24410,Multiple osteotomies w/ realignment on intramedullary rod, humeral shaft (Sofield type procedure)
+24420,Osteoplasty, humerus (e.g., shortening or lengthening)
+24430,Repair of non-union or malunion, humerus; w/o graft (e.g., compression technique);
+24435,Repair of non-union or malunion, humerus; w/o graft (e.g., compression technique); w/ iliac or other autograft (includes obtaining graft)
+24470,Hemiepiphyseal arrest (e.g., for cubitus varus or valgus, distal humerus)
+24495,Decompression fasciotomy, forearm, w/ brachial artery exploration
+24498,Prophylactic treatment (nailing, pinning, plating or wiring), w/ or w/o methylmethacrylate, humerus
+24500,Closed treatment of humeral shaft fracture
+24515,Open treatment of humeral shaft fracture w/ plate/screws, w/ or w/o cerclage
+24516,Open treatment of humeral shaft fracture, w/ insertion of intramedullary implant, w/ or w/o cerclage and/or locking screws
+24530,Closed treatment of supracondylar or transcondylar humeral fracture, w/ or w/o intercondylar extension
+24538,Percutaneous skeletal fixation of supracondylar or transcondylar humeral fracture, w/ or w/o intercondylar extension
+24545,Open treatment of humeral supracondylar or transcondylar fracture, w/ or w/o internal or external fixation; w/o intercondylar extension
+24546,Open treatment of humeral supracondylar or transcondylar fracture, w/ or w/o internal or external fixation; w/ intercondylar extension
+24560,Closed treatment of humeral epicondylar fracture, medial or lateral;
+24566,Percutaneous skeletal fixation of humeral epicondylar fracture, medial or lateral, w/ manipulation
+24575,Open treatment of humeral epicondylar fracture, medial or lateral, w/ or w/o internal or external fixation
+24576,Closed treatment of humeral condylar fracture, medial or lateral
+24579,Open treatment of humeral condylar fracture, medial or lateral, w/ or w/o internal or external fixation
+24582,Percutaneous skeletal fixation of humeral condylar fracture, medial or lateral, w/ manipulation
+24586,Open treatment of periarticular fracture and/or dislocation of the elbow (fracture distal humerus and proximal ulna and/or proximal radius);
+24587,Open treatment of periarticular fracture and/or dislocation of the elbow (fracture distal humerus and proximal ulna and/or proximal radius); w/ implant arthroplasty
+24600,Treatment of closed elbow dislocation
+24615,Open treatment of acute or chronic elbow dislocation
+24620,Closed treatment of Monteggia type of fracture dislocation at elbow (fracture proximal end of ulna w/ dislocation of radial head)
+24635,Open treatment of Monteggia type of fracture dislocation at elbow (fracture proximal end of ulna w/ dislocation of radial head), w/ or w/o internal or external fixation
+24640,Closed treatment of radial head subluxation in child, "nursemaid elbow"
+24650,Closed treatment of radial head or neck fracture
+24665,Open treatment of radial head or neck fracture, w/ or w/o internal fixation or radial head excision;
+24666,Open treatment of periarticular fracture and/or dislocation of the elbow (fracture distal humerus and proximal ulna and/or proximal radius); w/ radial head prosthetic replacement
+24670,Closed treatment of ulnar fracture, proximal end (olecranon process)
+24685,Open treatment of ulnar fracture proximal end (olecranon process), w/ or w/o internal or external fixation
+24800,Arthrodesis, elbow joint; w/ or w/o local autograft or allograft
+24802,Arthrodesis, elbow joint; w/ autograft (includes obtaining graft other than locally obtained)
+24900,Amputation, arm through humerus; w/ primary closure
+24920,Amputation, arm through humerus; open, circular (guillotine)
+24925,Amputation, arm through humerus; secondary closure or scar revision
+24930,Amputation, arm through humerus; re-amputation
+24931,Amputation, arm through humerus; w/ implant
+24935,Stump elongation, upper extremity
+24940,Cineplasty, upper extremity, complete procedure
+25000,Tendon sheath incision; at radial styloid (e.g., for deQuervains disease)
+25020,Decompression fasciotomy, forearm and/or wrist; flexor or extensor compartment
+25023,Decompression fasciotomy, forearm and/or wrist; w/ debridement of nonviable muscle and/or nerve
+25028,Incision and drainage, forearm and/or wrist; deep abscess or hematoma
+25031,Incision and drainage, forearm and/or wrist; infected bursa
+25035,Incision, deep, w/ opening of bone cortex (e.g., for osteomyelitis or bone abscess), forearm and/or wrist
+25040,Arthrotomy, radiocarpal or midcarpal joint, w/ exploration, drainage, or removal of foreign body
+25065,Biopsy, soft tissue of forearm and/or wrist
+25075,Excision, tumor, forearm and/or wrist area; subcutaneous
+25076,Excision, tumor, forearm and/or wrist area; deep, subfascial or intramuscular
+25077,Radical resection of tumor (e.g., malignant neoplasm), soft tissue of forearm and/or wrist area
+25085,Capsulotomy, wrist (e.g., for contracture)
+25100,Arthrotomy, wrist joint; w/ biopsy
+25101,Arthrotomy, wrist joint; w/ joint exploration, w/ or w/o biopsy, w/ or w/o removal of loose or foreign body
+25105,Arthrotomy, wrist joint; w/ synovectomy
+25107,Arthrotomy, distal radioulnar joint for repair of triangle cartilage complex
+25110,Excision, lesion of tendon sheath, forearm and/or wrist
+25111,Excision of ganglion, wrist (dorsal or volar)
+25115,Radical excision of bursa, synovia of wrist, or forearm tendon sheaths (e.g., tenosynovitis, fungus, Tbc, or other granulomas, rheumatoid arthritis); flexors
+25116,Radical excision of bursa, synovia of wrist, or forearm tendon sheaths (e.g., tenosynovitis, fungus, Tbc, or other granulomas, rheumatoid arthritis); extensors, w/ or w/o transposition of dorsal retinaculum
+25118,Synovectomy, extensor tendon sheath, wrist, single compartment;
+25119,Synovectomy, extensor tendon sheath, wrist, single compartment; w/ resection of distal ulna
+25120,Excision or curettage of bone cyst or benign tumor of radius or ulna (excluding head or neck of radius and olecranon process);
+25125,Excision or curettage of bone cyst or benign tumor of radius or ulna (excluding head or neck of radius and olecranon process); w/ autograft (includes obtaining graft)
+25126,Excision or curettage of bone cyst or benign tumor of radius or ulna (excluding head or neck of radius and olecranon process); w/ allograft
+25130,Excision or curettage of bone cyst or benign tumor of carpal bones;
+25135,Excision or curettage of bone cyst or benign tumor of carpal bones; w/ autograft (includes obtaining graft)
+25136,Excision or curettage of bone cyst or benign tumor of carpal bones; w/ allograft
+25145,Sequestrectomy (e.g., for osteomyelitis or bone abscess), forearm and/or wrist
+25150,Partial excision (craterization, saucerization, or diaphysectomy) of bone (e.g., for osteomyelitis); ulna
+25151,Partial excision (craterization, saucerization, or diaphysectomy) of bone (e.g., for osteomyelitis); radius
+25170,Radical resection for tumor, radius or ulna
+25210,Carpectomy; one bone
+25215,Carpectomy; all bones of proximal row
+25230,Radial styloidectomy
+25240,Excision distal ulna partial or complete (e.g., Darrach type or matched resection)
+25248,Exploration w/ removal of deep foreign body, forearm or wrist
+25250,Removal of wrist prosthesis;
+25251,Removal of wrist prosthesis; complicated, including "total wrist"
+25260,Repair, tendon or muscle, flexor, forearm and/or wrist; primary, single, each tendon or muscle
+25263,Repair, tendon or muscle, flexor, forearm and/or wrist; secondary, single, each tendon or muscle
+25265,Repair, tendon or muscle, flexor, forearm and/or wrist; secondary, w/ free graft (includes obtaining graft), each tendon or muscle
+25270,Repair, tendon or muslce, extensor, forearm and/or wrist; primary, single, each tendon or muscle
+25272,Repair, tendon or muslce, extensor, forearm and/or wrist; secondary, single, each tendon or muscle
+25274,Repair, tendon or muscle, extensor, secondary, w/ tendon graft (includes obtaining graft), forearm and/or wrist, each tendon or muscle
+25280,Lengthening or shortening of flexor or extensor tendon, forearm and/or wrist, single, each tendon
+25290,Tenotomy, open, flexor or extensor tendon, forearm and/or wrist, single, each tendon
+25295,Tenolysis, flexor or extensor tendon, forearm and/or wrist, single each tendon
+25300,Tenodesis at wrist; flexors of fingers
+25301,Tenodesis at wrist; extensors of fingers
+25310,Tendon transplantation or transfer, flexor or extensor, forearm and/or wrist, single; each tendon
+25312,Tendon transplantation or transfer, flexor or extensor, forearm and/or wrist, single; w/ tendon graft(s) (includes obtaining graft), each tendon
+25315,Flexor origin slide (e.g., for cerebral palsy, Volkmann contracture), forearm and/or wrist;
+25316,Flexor origin slide (e.g., for cerebral palsy, Volkmann contracture), forearm and/or wrist; w/ tendon(s) transfer
+25320,Capsulorrhaphy or reconstruction, wrist, any method (e.g., capsulodesis, ligament repair, tendon transfer or graft) (includes synovectomy, capsulotomy and open reduction) for carpal instability
+25332,Arthroplasty, wrist, w/ or w/o interposition, w/ or w/o external or internal fixation
+25335,Centralization of wrist on ulna (e.g., radial club hand)
+25337,Reconstruction for stabilization of unstable distal ulna or distal radioulnar joint, secondary by soft tissue stabilization (e.g., tendon transfer, tendon graft or weave, or tenodesis) w/ or w/o open reduction of distal radioulnar joint
+25350,Osteotomy, radius; distal third
+25355,Osteotomy, radius; middle or proximal third
+25360,Osteotomy; ulna
+25365,Osteotomy; radius and ulna
+25370,Multiple osteotomies, w/ realignment on intramedullary rod (Sofield type procedure); radius or ulna
+25375,Multiple osteotomies, w/ realignment on intramedullary rod (Sofield type procedure); radius and ulna
+25390,Osteoplasty, radius or ulna; shortening
+25391,Osteoplasty, radius or ulna; lengthening w/ autograft
+25392,Osteoplasty, radius and ulna; shortening
+25393,Osteoplasty, radius and ulna; lengthening w/ autograft
+25400,Repair of nonunion or malunion, radius or ulna; w/o graft (compression technique)
+25405,Repair of nonunion or malunion, radius or ulna; w/ iliac or other autograft (includes obtaining graft)
+25415,Repair of nonunion or malunion, radius and ulna; w/o graft (e.g. compression technique)
+25420,Repair of nonunion or malunion, radius and ulna; w/ iliac or other autograft (includes obtaining graft)
+25425,Repair of defect w/ autograft; radius or ulna
+25426,Repair of defect w/ autograft; radius and ulna
+25440,Repair of nonunion, scaphoid (navicular) bone, w/ or w/o radial styloidectomy (includes obtaining graft and necessary fixation)
+25441,Arthroplasty w/ prosthetic replacement; distal radius
+25442,Arthroplasty w/ prosthetic replacement; distal ulna
+25443,Arthroplasty w/ prosthetic replacement; scaphoid (navicular)
+25444,Arthroplasty w/ prosthetic replacement; lunate
+25445,Arthroplasty w/ prosthetic replacement; trapezium
+25446,Arthroplasty w/ prosthetic replacement; distal radius and partial or entire carpus ("total wrist")
+25447,Arthroplasty w/ prosthetic replacement; Interposition arthroplasty, intercarpal or carpometacarpal joints
+25449,Revision of arthroplasty, including removal of implant, wrist joint
+25450,Epiphyseal arrest by epiphysiodesis or stapling; distal radius or ulna
+25455,Epiphyseal arrest by epiphysiodesis or stapling; distal radius and ulna
+25490,Prophylactic treatment (nailing, pinning, plating or wiring) w/ or w/o methylmethacrylate; radius
+25491,Prophylactic treatment (nailing, pinning, plating or wiring) w/ or w/o methylmethacrylate; ulna
+25492,Prophylactic treatment (nailing, pinning, plating or wiring) w/ or w/o methylmethacrylate; radius and ulna
+25500,Closed treatment of radial shaft fracture
+25515,Open treatment of radial shaft fracture, w/ or w/o internal or external fixation
+25520,Closed treatment of radial shaft fracture, w/ dislocation of distal radio-ulnar joint (Galeazzi fracture/dislocation)
+25525,Open treatment of radial shaft fracture, w/ internal and/or external fixation and closed treatment of dislocation of distal radio-ulnar joint (Galeazzi fracture/dislocation), w/ or w/o percutaneous skeletal fixation
+25526,Open treatment of radial shaft fracture, w/ internal and/or external fixation and open treatment, w/ or w/o internal or external fixation of distal radio-ulnar joint (Galleazi fracture/dislocation), includes repair of triangular cartilage
+25530,Closed treatment of ulnar shaft fracture
+25545,Open treatment of ulnar shaft fracture, w/ or w/o internal or external fixation
+25560,Closed treatment of radial and ulnar shaft fractures
+25574,Open treatment of radial and ulnar shaft fractures, w/ internal or external fixation; of radius or ulna
+25575,Open treatment of radial and ulnar shaft fractures, w/ internal or external fixation; of radius and ulna
+25600,Closed treatment of distal radial fracture (e.g., Colles or Smith type) or epiphyseal separation, w/ or w/o fracture of ulnar styloid
+25611,Percutaneous skeletal fixation of distal radial fracture (e.g., Colles or Smith type) or epiphyseal separation, w/ or w/o fracture of ulnar styloid , requiring manipulation, w/ or w/o external fixation
+25620,Open treatment of distal radial fracture (e.g., Colles or Smith type) or epiphyseal separation, w/ or w/o fracture of ulnar styloid, w/ or w/o internal or external fixation
+25622,Closed treatment of carpal scaphoid (navicular) fracture
+25628,Open treatment of carpal scaphoid (navicular) fracture, w/ or w/o internal or external fixation
+25630,Closed treatment of carpal bone fracture (excluding carpal scaphoid (navicular))
+25645,Open treatment of carpal bone fracture (excluding carpal scaphoid (navicular)), each bone
+25650,Closed treatment of ulnar styloid fracture
+25660,Closed treatment of radiocarpal or intercarpal dislocation, one or more bones
+25670,Open treatment of radiocarpal or intercarpal dislocation, one or more bones
+25675,Closed treatment of distal radioulnar dislocation
+25676,Open treatment of distal radioulnar dislocation, acute or chronic
+25680,Closed treatment of trans-scaphoperilunar type of fracture dislocation
+25685,Open treatment of trans-scaphoperilunar type of fracture dislocation
+25690,Closed treatment of lunate dislocation
+25695,Open treatment of lunate dislocation
+25800,Arthrodesis, wrist joint (including radiocarpal and/or ulnocarpal fusion); w/o bone graft
+25805,Arthrodesis, wrist joint (including radiocarpal and/or ulnocarpal fusion); w/ sliding graft
+25810,Arthrodesis, wrist joint (including radiocarpal and/or ulnocarpal fusion); w/ iliac or other autograft (includes obtaining graft)
+25820,Intercarpal fusion; w/o bone graft
+25825,Intercarpal fusion; w/ autograft (includes obtaining graft)
+25830,Distal radioulnar joint arthrodesis and segmental resection of ulna (e.g. Sauve-Kapandji procedure), w/ or w/o bone graft
+25900,Amputation, forearm, through, radius and ulna;
+25905,Amputation, forearm, through, open, circular (guillotine)
+25907,Amputation, forearm, through, secondary closure or scar revision
+25909,Amputation, forearm, through, re-amputation
+25915,Krukenberg procedure
+25920,Disarticulation through wrist;
+25922,Disarticulation through wrist; secondary closure or scar revision
+25924,Disarticulation through wrist; re-amputation
+25927,Transmetacarpal amputation;
+25929,Transmetacarpal amputation; secondary closure or scar revision
+25931,Transmetacarpal amputation; re-amputation
+26010,Drainage of finger abscess; simple
+26011,Drainage of finger abscess; complicated (e.g., felon)
+26020,Drainage of tendon sheath, one digit and/or palm
+26025,Drainage of palmar bursa; single, ulnar or radial
+26030,Drainage of palmar bursa; single, multiple or complicated
+26034,Inicision, deep, w/ opening of bone cortex (e.g., for osteomyelitis or bone abscess), hand or finger
+26035,Decompression fingers and/or hand, injection injury (e.g., grease gun)
+26037,Decompressive fasciotomy, hand (excludes 26035)
+26040,Fasciotomy, palmar, for Dupuytrens contracture; percutaneous
+26045,Fasciotomy, palmar, for Dupuytrens contracture; open, partial
+26055,Tendon sheath incision (e.g., for trigger finger)
+26060,Tenotomy, percutaneous, single, each digit
+26070,Arthrotomy, w/ exploration, drainage, or removal of foreign body; carpometacarpal joint
+26075,Arthrotomy, w/ exploration, drainage, or removal of foreign body; metacarpophalangeal joint
+26080,Arthrotomy, w/ exploration, drainage, or removal of foreign body; interphalangeal joint, each
+26100,Arthrotomy w/ synovial biopsy, carpometacarpal joint
+26105,Arthrotomy w/ synovial biopsy, metacarpophalangeal joint
+26110,Arthrotomy w/ synovial biopsy, interphalangeal joint, each
+26115,Excision, tumor or vascular malformation, hand or finger; subcutaneous
+26116,Excision, tumor or vascular malformation, hand or finger; deep, subfascial, intramuscular
+26117,Radical resection of tumor (e.g., malignant neoplasm), soft tissue of hand or finger
+26121,Fasciectomy, palm only, w/ or w/o Z-plasty, other local tissue rearrangement, or skin grafting (includes obtaining graft)
+26123,Fasciectomy, partial palmar w/ release of single digit including proximal interphalangeal joint, w/ or w/o Z-plasty, other local tissue rearrangement, or skin grafting (includes obtaining graft);
+26125,Fasciectomy, partial palmar w/ release of single digit including proximal interphalangeal joint, w/ or w/o Z-plasty, other local tissue rearrangement, or skin grafting (includes obtaining graft); each additional digit (List separately in addition to code
+26130,Synovectomy, capometacarpal joint
+26135,Synovectomy, metacarpophalangeal joint including intrinsic release and extensor hood reconstruction, each digit
+26140,Synovectomy, proximal interphalangeal joint, including extensor reconstruction, each interphalangeal joint
+26145,Synovectomy tendon sheath, radical (tenosynovectomy), flexor, palm or finger, single, each digit
+26160,Excision of lesion of tendon sheath or capsule (e.g., cyst, mucous cyst, or ganglion), hand or finger
+26170,Excision of tendon, palm, flexor, single , each
+26180,Excision of tendon, finger, flexor
+26185,Sesamoidectomy, thumb or finger
+26200,Excision or curettage of bone cyst or benign tumor of metacarpal;
+26205,Excision or curettage of bone cyst or benign tumor of metacarpal; w/ autograft (includes obtaining graft)
+26210,Excision or curettage of bone cyst or benign tumor of proximal, middle; or distal phalanx of finger;
+26215,Excision or curettage of bone cyst or benign tumor of proximal, middle; or distal phalanx of finger; w/ autograft (includes obtaining graft)
+26230,Partial excision (craterization, saucerization, or diaphysectomy) of bone (e.g., for osteomyelitis); metacarpal
+26235,Partial excision (craterization, saucerization, or diaphysectomy) of bone (e.g., for osteomyelitis); proximal or middle phalanx of finger
+26236,Partial excision (craterization, saucerization, or diaphysectomy) of bone (e.g., for osteomyelitis); distal phalanx of finger
+26250,Radical resection (ostectomy) for tumor, metacarpal;
+26255,Radical resection (ostectomy) for tumor, metacarpal; w/ autograft (includes obtaining graft)
+26260,Radical resection (ostectomy) for tumor, proximal or middle phalanx of finger;
+26261,Radical resection (ostectomy) for tumor, proximal or middle phalanx of finger; w/ autograft (includes obtaining graft)
+26262,Radical resection (ostectomy) for tumor, distal phalanx of finger
+26350,Flexor tendon repair or advancement, single, not in "no mans land", primary or secondary w/o free graft, each tendon
+26352,Flexor tendon repair or advancement, single, not in "no mans land", secondary w/ free graft (includes obtaining graft), each tendon
+26356,Flexor tendon repair or advancement, single, in "no mans land"; primary, each tendon
+26357,Flexor tendon repair or advancement, single, in "no mans land"; secondary, each tendon
+26358,Flexor tendon repair or advancement, single, in "no mans land"; secondary w/ free graft (includes obtaining graft), each tendon
+26370,Profundus tendon repair or advancement, w/ intact sublimis; primary
+26372,Profundus tendon repair or advancement, w/ intact sublimis; secondary w/ free graft (includes obtaining graft)
+26373,Profundus tendon repair or advancement, w/ intact sublimis; secondary w/o free graft
+26390,Flexor tendon excision, implantation of plastic tube or rod for delayed tendon graft, hand or finger
+26392,Removal of tube or rod and insertion of flexor tendon graft (includes obtaining graft), hand or finger
+26410,Extensor tendon repair, dorsum of hand, single, primary or secondary; w/o free graft, each tendon
+26412,Extensor tendon repair, dorsum of hand, single, primary or secondary; w/ free graft (includes obtaining graft), each tendon
+26415,Extensor tendon excision, implantation of plastic tube or rod for delayed extensor tendon graft, hand or finger
+26416,Removal of tube or rod and insertion of extensor tendon graft (includes obtaining graft), hand or finger
+26418,Extensor tendon repair, dorsum of finger, single, primary or secondary; w/o free graft, each tendon
+26420,Extensor tendon repair, dorsum of finger, single, primary or secondary; w/ free graft (includes obtaining graft), each tendon
+26426,Extensor tendon repair, central slip repair, secondary (boutonniere deformity); using local tissues
+26428,Extensor tendon repair, central slip repair, secondary (boutonniere deformity); w/ free graft (includes obtaining graft)
+26432,Extensor tendon repair, distal insertion ("mallet finger"), closed splinting w/ or w/o percutaneous pinning
+26433,Extensor tendon repair, distal insertion ("mallet finger"), open, primary or secondary repair; w/o graft
+26434,Extensor tendon repair, distal insertion ("mallet finger"), open, primary or secondary repair; w/ free graft (includes obtaining graft)
+26437,Extensor tendon realignment, hand
+26440,Tenolysis, simple, flexor tendon; palm or finger, single, each tendon
+26442,Tenolysis, simple, flexor tendon; palm and finger, each tendon
+26445,Tenolysis, extensor tendon, dorsum of hand or finger; each tendon
+26449,Tenolysis, complex, extensor tendon, dorsum of hand or finger, including hand and forearm
+26450,Tenotomy, flexor, single, palm, open, each
+26455,Tenotomy, flexor, single, finger, open, each
+26460,Tenotomy, extensor, hand or finger, single, open, each
+26471,Tenodesis; for proximal interphalangeal joint stabilization
+26474,Tenodesis; for distal joint stabilizaton
+26476,Tendon lengthening, extensor, hand or finger, single, each
+26477,Tendon shortening, extensor, hand or finger, single, each
+26478,Tendon lengthening, flexor, hand or finger, single, each
+26479,Tendon shortening, flexor, hand or finger, single, each
+26480,Tendon transfer or transplant, carpometacarpal area or dorsum of hand, single; w/o free graft, each
+26483,Tendon transfer or transplant, carpometacarpal area or dorsum of hand, single; w/ free tendon graft (includes obtaining graft), each tendon
+26485,Tendon transfer or transplant, palmar, single, each tendon; w/o free tendon graft
+26489,Tendon transfer or transplant, palmar, single, each tendon; w/ free tendon graft (includes obtaining graft), each tendon
+26490,Opponensplasty; sublimis tendon transfer type
+26492,Opponensplasty; tendon transfer w/ graft (includes obtaining graft)
+26494,Opponensplasty; hypothenar muscle transfer
+26496,Opponensplasty; other methods
+26497,Tendon trasfer to restore intrinsic function; ring and small finger
+26498,Tendon trasfer to restore intrinsic function; all four fingers
+26499,Correction claw finger,other methods
+26500,Tendon pulley reconstruction; w/ local tissues
+26502,Tendon pulley reconstruction; w/ tendon or fascial graft (includes obtaining graft)
+26504,Tendon pulley reconstruction; w/ tendon prosthesis
+26508,Thenar muscle release for thumb contracture
+26510,Cross intrinsic transfer
+26516,Capsulodesis for M-P joint stabilization; single digit
+26517,Capsulodesis for M-P joint stabilization; two digits
+26518,Capsulodesis for M-P joint stabilization; three or four digits
+26520,Capsulectomy or capsulotomy for contracture; metacarpophalangeal joint, single, each
+26525,Capsulectomy or capsulotomy for contracture; interphalangeal joint, single, each
+26530,Arthroplasty, metacarpophalangeal joint; single, each
+26531,Arthroplasty, metacarpophalangeal joint; w/ prosthetic implant, single, each
+26535,Arthroplasty interphalangeal joint, single, each
+26536,Arthroplasty interphalangeal joint, w/ prosthetic implant, single, each
+26540,Repair of collateral ligament, metacarpophalangeal or interphalangeal joint
+26541,Reconstruction, collateral ligament, metacarpophalangeal joint, single, w/ tendon or fascial graft (includes obtainig graft)
+26542,Reconstruction, collateral ligament, metacarpophalangeal joint, single, w/ local tissue (e.g., adductor advancement)
+26545,Reconstruction, collateral ligament, interphalangeal joint, single, including graft, each joint
+26546,Repair non-union, metacarpal or phalanx, (includes obtaining bone graft w/ or w/o external or internal fixation)
+26548,Repair and reconstruction, finger, volar plate, interphalangeal joint
+26550,Pollicization of a digit
+26551,Toe-to-hand transfer w/ microvascular anastmosis; great toe "wrap-around" w/ bone graft
+26553,Toe-to-hand transfer w/ microvascular anastmosis; other than great toe, single
+26554,Toe-to-hand transfer w/ microvascular anastmosis; other than great toe, double
+26555,Positional change of other finger
+26556,Free toe joint transfer w/ microvascular anastomosis
+26560,Repair of syndactyly (web finger) each web space; w/ skin flaps
+26561,Repair of syndactyly (web finger) each web space; w/ skin flaps and grafts
+26562,Repair of syndactyly (web finger) each web space; complex (e.g., involving bone, nails)
+26565,Osteotomy for correction of deformity; metacarpal
+26567,Osteotomy for correction of deformity; phalanx of finger
+26568,Osteoplasty for lengthening of metacarpal or phalanx
+26580,Repair cleft hand
+26585,Repair bifid digit
+26587,Reconstruction of supernumerary digit, soft tissue and bone
+26590,Repair macrodactylia
+26591,Repair, intrinsic muscles of hand (specify)
+26593,Release, intrinsic muscles of hand (specify)
+26596,Excision of constricting ring of finger, w/ multiple Z-plasties
+26597,Release of scar contracture, flexor or extensor, w/ skin grafts, rearrangement flaps, or Z-plasties, hand and/or finger
+26600,Closed treatment of metacarpal fracture, single
+26607,Closed treatment of metacarpal fracture, w/ internal or external fixation
+26608,Percutaneous skeletal fixation of metacarpal fracture, each bone
+26615,Open treatment of metacarpal fracture, single, w/ or w/o internal or external fixation, each bone
+26641,Closed treatment of carpometacarpal dislocation, thumb
+26645,Closed tratment of carpometacarpal fracture dislocation, thumb (Bennett fracture)
+26650,Percutaneous skeletal fixation of carpometacarpal fracture dislocation, thumb (Bennett fracture), w/ manipulation, w/ or w/o external fixation
+26665,Open treatment of carpometacarpal fracture dislocation, thumb (Bennett fracture), w/ or w/o internal or external fixation
+26670,Closed treatment of carpometacarpal dislocation, other than thumb (Bennett fracture); single
+26676,Percutaneous skeletal fixation of carpometacarpal dislocation, other than thumb (Bennett fracture), single, w/ manipulation
+26685,Open treatment of carpometacarpal dislocation, other than thumb (Bennett fracture); single, w/ or w/o Open treatment of carpometacarpal dislocation, other than thumb (Bennett fracture); single, internal or external fixation
+26686,Open treatment of carpometacarpal dislocation, other than thumb (Bennett fracture); single, complex, multiple or delayed reduction
+26700,Closed treatment of metacarpophalangeal dislocation, single
+26706,Percutaneous skeletal fixation of metacarpophalangeal dislocation, single, w/ manipulation
+26715,Open treatment of metacarpophalangeal dislocation, single, w/ or w/o internal or external fixation
+26720,Closed treatment of phalangeal shaft fracture, proximal or middle phalanx, finger or thumb
+26727,Percutaneous skeletal fixation of unstable phalangeal shaft fracture, proximal or middle phalanx, finger or thumb, w/ manipulation, each
+26735,Open treatment of phalangeal shaft fracture, proximal or middle phalanx, finger or thumb, w/ or w/o internal or external fixation, each
+26740,Closed treatment of articular fracture, involving metacarpophalangeal or interphalangeal joint
+26746,Open treatment of articular fracture, involving metacarpophalangeal or interphalangeal joint, w/ or w/o internal or external fixation, each
+26750,Closed treatment of distal phalangeal fracture, finger or thumb
+26756,Percutaneous skeletal fixation of distal phalangeal fracture, finger or thumb, each
+26765,Open treatment of distal phalangeal fracture, finger or thumb, w/ or w/o internal or external fixation, each
+26770,Closed treatment of interphalangeal joint dislocation, single
+26776,Percutaneous skeletal fixation of interphalangeal joint dislocation, single, w/ manipulation
+26785,Open treatment of interphalangeal joint dislocation, w/ or w/o internal or external fixation, single
+26820,Fusion in opposition, thumb, w/ autogenous graft (includes obtaining graft)
+26841,Arthrodesis, carpometacarpal joint, thumb, w/ or w/o internal fixation;
+26842,Arthrodesis, carpometacarpal joint, thumb, w/ or w/o internal fixation; w/ autograft (includes obtaining graft)
+26843,Arthrodesis, carpometacarpal joint, digits, other than thumb;
+26844,Arthrodesis, carpometacarpal joint, digits, other than thumb; w/ autograft (includes obtaining graft)
+26850,Arthrodesis, metacarpophalangeal joint, w/ or w/o internal fixation;
+26852,Arthrodesis, metacarpophalangeal joint, w/ or w/o internal fixation; w/ autograft (includes obtaining graft)
+26860,Arthrodesis, interphalangeal joint, w/ or w/o internal fixation;
+26862,Arthrodesis, interphalangeal joint, w/ or w/o internal fixation; w/ autograft (includes obtaining graft)
+26910,Amputation, metacarpal, w/ finger or thumb (ray amputation), single, w/ or w/o interosseous transfer
+26951,Amputation, finger or thumb, primary or secondary, any joint or phalanx, single, including neurectomies; w/ direct closure
+26952,Amputation, finger or thumb, primary or secondary, any joint or phalanx, single, including neurectomies; w/ local advancement flaps (V-Y, hood)
+26990,Incision and drainage, pelvis or hip joint area; deep abscess or hematoma
+26991,Incision and drainage, pelvis or hip joint area; infected bursa
+26992,Incision, deep, w/ opening of bone cortex (e.g., for osteomyelitis or bone abscess), pelvis and/or hip joint
+27000,Tenotomy, adductor of hip, subcutaneous, closed
+27001,Tenotomy, adductor of hip, subcutaneous, open
+27003,Tenotomy, adductor, subcutaneous, open, w/ obturator neurectomy
+27005,Tenotomy, iliopsoas, open
+27006,Tenotomy, abductors of hip, open
+27025,Fasciotomy, hip or thigh, any type
+27030,Arthrotomy, hip, for infection, w/ drainage
+27033,Arthrotomy, hip, w/ exploration or removal of loose or foreign body
+27035,Hip joint denervation, intrapelvic or extrapelvic intra-articular branches of sciatic, femoral, or obturator nerves
+27036,Capsulectomy or capsulotomy of hip, w/ or w/o excision of heterotopic bone, w/ release of hip flexor muscles (ie, gluteus medius, gluteus minimus, tensor fascia latae, rectus femoris, sartorius, iliopsoas)
+27040,Biopsy, soft tissue of pelvis and hip area
+27047,Excision, tumor, pelvis and hip area; subcutaneous
+27048,Excision, tumor, pelvis and hip area; deep, subfascial, intramuscular
+27049,Radical resection of tumor (e.g., malignant neoplasm), soft tissue of pelvis and hip area
+27050,Arthrotomy, w/ biopsy; sacroiliac joint
+27052,Arthrotomy, w/ biopsy; hip joint
+27054,Arthrotomy w/ synovectomy, hip joint
+27060,Excision; ischial bursa
+27062,Excision; trochanteric bursa or calcification
+27065,Excision of bone cyst or benign tumor; superficial (wing of ilium, symphysis pubis, or greater trochanter of femur) w/ or w/o autograft
+27066,Excision of bone cyst or benign tumor; deep, w/ or w/o autograft
+27067,Excision of bone cyst or benign tumor; w/ autograft requiring separate incision
+27070,Partial excision (craterization, saucerization) (e.g., for osteomyelitis); superficial (e.g., wing of ilium, symphysis pubis or greater trochanter of femur)
+27071,Partial excision (craterization, saucerization) (e.g., for osteomyelitis); deep
+27075,Radical resection of tumor or infection; wing of ilium, one pubic or ischial ramus or symphysis pubis
+27076,Radical resection of tumor or infection; ilium, including acetabulum, both pubic rami, or ischium and acetabulum
+27077,Radical resection of tumor or infection; innominate bone, total
+27078,Radical resection of tumor or infection; ischial tuberosity and greater trochanter of femur
+27079,Radical resection of tumor or infection; ischial tuberosity and greater trochanter of femur, w/ skin flaps
+27080,Coccygectomy, primary
+27086,Removal of foreign body, pelvis or hip
+27090,Removal of hip prosthesis;
+27091,Removal of hip prosthesis; complicated, including "total hip" and methlmethacrylate, when applicable
+27097,Hamstring recession, proximal
+27098,Adductor transfer to ischium
+27100,Transfer external oblique muscle to greater trochanter including fascial or tendon extension (graft)
+27105,Transfer paraspinal muscle to hip (includes fascial or tendon extension graft)
+27110,Transfer iliopsoas; to greater trochanter
+27111,Transfer iliopsoas; to femoral neck
+27120,Acetabuloplasty; (e.g., Whitman, Colonna, Haygroves, or cup type)
+27122,Acetabuloplasty; resection femoral head (Girdlestone procedure)
+27125,Partial hip replacement, prosthesis (e.g., femoral stem prosthesis, bipolar arthroplasty)
+27130,Arthroplasty, acetabular and proximal femoral prosthetic replacement (total hip replacement), w/ or w/o autograft or allograft
+27132,Conversion of previous hip surgery to total hip replacement, w/ or w/o autograft or allograft
+27134,Revision of total hip arthroplasty; both components, w/ or w/o autograft or allograft
+27137,Revision of total hip arthroplasty; acetabular component only, w/ or w/o autograft or allograft
+27138,Revision of total hip arthroplasty; femoral component only, w/ or w/o allograft
+27140,Osteotomy and transfer of greater trochanter
+27146,Osteotomy , iliac, acetabular or innominate bone;
+27147,Osteotomy , iliac, acetabular or innominate bone; w/ open reduction of hip
+27151,Osteotomy , iliac, acetabular or innominate bone; w/ femoral osteotomy
+27156,Osteotomy , iliac, acetabular or innominate bone; w/ femoral osteotomy and w/ open reduction of hip
+27158,Osteotomy, pelvis, bilateral (e.g., for congenital malformation)
+27161,Osteotomy, femoral neck
+27165,Osteotomy, intertrochanteric or subtrochanteric including internal or external fixation and/or cast
+27170,Bone graft, femoral head, neck, intertrochanteric or subtrochanteric area (includes obtaining bone graft)
+27175,Treatment of slipped femoral epiphysis; by traction, w/o reduction
+27176,Treatment of slipped femoral epiphysis; by single or multiple pinning, in situ
+27177,Open treatment of slipped femoral epiphysis; single of multiple pinning or bone graft (includes obtaining graft)
+27178,Open treatment of slipped femoral epiphysis; closed manipulation w/ single or multiple pinning
+27179,Open treatment of slipped femoral epiphysis; osteoplasty of femoral neck (Heyman type procedure)
+27181,Open treatment of slipped femoral epiphysis; osteotomy and internal fixation
+27185,Epiphyseal arrest by epiphysiodesis or stapling, greater trochanter
+27187,Prophylactic treatment (nailing, pinning, plating, or wiring) w/ or w/o methylmethacrylate, femoral neck and proximal femur
+27193,Closed treatment of pelvic ring fracture, dislocation, diastasis or subluxation
+27200,Closed treatment of coccygeal fracture
+27202,Open treatment of coccygeal fracture
+27215,Open treatment of iliac spine(s), tuberosity avulsion, or iliac wing fracture(s) (e.g., pelvic fracture(s) w/c do not disrupt the pelvic ring), w/ internal fixation
+27216,Percutaneous skeletal fixation of posterior pelvic ring fracture and/or dislocation (includes ilium, sacroiliac joint and/or sacrum)
+27217,Open treatment of anterior ring fracture and/or dislocation w/ internal fixation (includes pubic symphysis and/or rami)
+27218,Open treatment of posterior ring fracture and/or dislocation w/ internal fixation (includes ilium, sacroiliac joint and/or sacrum)
+27220,Closed treatment of acetabulum (hip socket) fracture(s)
+27226,Open treatment of posterior or anterior acetabular wall fracture, w/ internal fixation
+27227,Open treatment of acetabular fracture(s) involving anterior or posterior (one) column, or a fracture running transversely across the acetabulum, w/ internal fixation
+27228,Open treatment of acetabular fracture(s) involving anterior and posterior (two) columns, includes T-fracture and both column fracture w/ complete articular detachment, or single column or transverse fracture w/ associated acetabular wall fracture, w/ inte
+27230,Closed treatment of femoral fracture, proximal end, neck
+27235,Percutaneous skeletal fixation of femoral fracture, proximal end, neck, undisplaced, mildly displaced, or impacted fracture
+27236,Open treatment of femoral fracture, proximal end, neck, internal fixation or prosthetic replacement (direct fracture exposure)
+27238,Closed treatment of intertrochanteric, pertrochanteric, or subtrochanteric femoral fracture
+27244,Open treatment of intertrochanteric, pertrochanteric, or subtrochanteric femoral fracture; w/ plate/screw type implant, w/ or w/o cerclage
+27245,Open treatment of intertrochanteric, pertrochanteric, or subtrochanteric femoral fracture; w/ intramedullary implant, w/ or w/o interlocking screws and/or cerclage
+27246,Closed treatment of greater trochanteric fracture
+27248,Open treatment of greater trochanteric fracture, w/ or w/o internal or external fixation
+27250,Closed treatment of hip dislocation, traumatic
+27253,Open treatment of hip dislocation, traumatic, w/o internal fixation
+27254,Open treatment of hip dislocation, traumatic w/ acetabular wall and femoral head fracture, w/ or w/o internal or external fixation
+27258,Open treatment of spontaneous hip dislocation (developmental, including congenital or pathological), replacement of femoral head in acetabulum (including tenotomy, etc);
+27259,Open treatment of spontaneous hip dislocation (developmental, including congenital or pathological), replacement of femoral head in acetabulum (including tenotomy, etc); w/ femoral shaft shortening
+27265,Closed treatment of post hip arthroplasty dislocation
+27280,Arthrodesis, sacroiliac joint (including obtaining graft)
+27282,Arthrodesis, symphysis pubis (including obtaining graft)
+27284,Arthrodesis, hip joint (includes obtaining graft);
+27286,Arthrodesis, hip joint (includes obtaining graft); w/ subtrochanteric osteotomy
+27290,Interpelviabdominal amputation (hindquarter amputation)
+27295,Disarticulation of hip
+27301,Incision and drainage of deep abscess, infected bursa, or hematoma, thigh or knee region
+27303,Incision, deep, w/ opening of bone cortex (e.g., for osteomyelitis or bone abscess), femur or knee
+27305,Fasciotomy, iliotibial (tenotomy), open
+27306,Tenotomy, subcutaneous, closed, adductor or hamstring; single
+27307,Tenotomy, subcutaneous, closed, adductor or hamstring; multiple
+27310,Arthrotomy, knee, for infection, w/ exploration, drainage or removal of foreign body
+27315,Neurectomy, hamstring muscle
+27320,Neurectomy, popliteal (gastrocnemius)
+27323,Biopsy, soft tissue of thigh or knee area
+27327,Excision, tumor, thigh or knee area; subcutaneous
+27328,Excision, tumor, thigh or knee area; deep, subfascial, or intramuscular
+27329,Radical resection of tumor (e.g., malignant neoplasm), soft tissue of thigh or knee area
+27330,Arthrotomy, knee; w/ synovial biopsy only
+27331,Arthrotomy, knee; w/ joint exploration, w/ or w/o biopsy, w/ or w/o removal of loose or foreign bodies
+27332,Arthrotomy, knee, w/ excision of semilunar cartilage (meniscectomy); medial or lateral
+27333,Arthrotomy, knee, w/ excision of semilunar cartilage (meniscectomy); medial and lateral
+27334,Arthrotomy, knee, w/ synovectomy; anterior or posterior
+27335,Arthrotomy, knee, w/ synovectomy; anterior and posterior including popliteal area
+27340,Excision, prepatellar bursa
+27345,Excision of synovial cyst of popliteal space (Bakers cyst)
+27350,Patellectomy or hemipatellectomy
+27355,Excision or curettage of bone cyst or benign tumor of femur;
+27356,Excision or curettage of bone cyst or benign tumor of femur; w/ allograft
+27357,Excision or curettage of bone cyst or benign tumor of femur; w/ autograft (includes obtaining graft)
+27358,Excision or curettage of bone cyst or benign tumor of femur; w/ internal fixation
+27360,Partial excision (craterization, saucerization, or diaphysectomy) of bone (e.g., for osteomyelitis), femur, proximal tibia and/or fibula
+27365,Radical resection of tumor, bone, femur or knee
+27372,Removal of foreign body, deep, thigh region or knee area
+27380,Suture of infrapatellar tendon; primary
+27381,Suture of infrapatellar tendon; secondary reconstruction, including fascial or tendon graft
+27385,Suture of quadriceps or hamstring muscle rupture; primary
+27386,Suture of quadriceps or hamstring muscle rupture; secondary reconstruction, including fascial or tendon graft
+27390,Tenotomy, open, hamstring, knee to hip; single
+27391,Tenotomy, open, hamstring, knee to hip; multiple, one leg
+27392,Tenotomy, open, hamstring, knee to hip; multiple, bilateral
+27393,Lengthening of hamstring tendon; single
+27394,Lengthening of hamstring tendon; multiple, one leg
+27395,Lengthening of hamstring tendon; multiple, bilateral
+27396,Transplant, hamstring tendon to patella; single
+27397,Transplant, hamstring tendon to patella; multiple
+27400,Tendon or muscle transfer, hamstrings to femur (e.g.gers type procedure)
+27403,Arthrotomy w/ open meniscus repair
+27405,Repair, primary, torn ligament and/or capsule, knee; collateral
+27407,Repair, primary, torn ligament and/or capsule, knee; cruciate
+27409,Repair, primary, torn ligament and/or capsule, knee; collateral and cruciate ligaments
+27418,Anterior tibial tubercleplasty (e.g., for chondromalacia patellae)
+27420,Reconstruction for recurrent dislocating patella; (Hauser type procedure)
+27422,Reconstruction for recurrent dislocating patella; w/ extensor realignment and/or muscle advancement or release (Campbell, Goldwaite type procedure)
+27424,Reconstruction for recurrent dislocating patella; w/ patellectomy
+27425,Lateral retinacular release (any method)
+27427,Ligamentous reconstruction (augmentation), knee; extra-articular
+27428,Ligamentous reconstruction (augmentation), knee; intra-articular (open)
+27429,Ligamentous reconstruction (augmentation), knee; intra-articular (open) and extra-articular
+27430,Quadricepsplasty (Bennett or Thompson type)
+27435,Capsulotomy, knee, posterior capsular release
+27437,Arthroplasty, patella; w/o prosthesis
+27438,Arthroplasty, patella; w/ prosthesis
+27440,Arthroplasty, knee, tibial plateau;
+27441,Arthroplasty, knee, tibial plateau; w/ debridement and partial synovectomy
+27442,Arthroplasty, knee, femoral condyles or tibial plateaus;
+27443,Arthroplasty, knee, femoral condyles or tibial plateaus; w/ debridement and partial synovectomy
+27445,Arthroplasty, knee, constrained prosthesis (e.g., Walldius type)
+27446,Arthroplasty, knee, condyle and plateau; medial or lateral compartment
+27447,Arthroplasty, knee, condyle and plateau; medial and lateral compartments w/ or w/o patella resurfacing ("total knee replacement")
+27448,Osteotomy, femur, shaft or supracondylar; w/o fixation
+27450,Osteotomy, femur, shaft or supracondylar; w/ fixation
+27454,Osteotomy, multiple, femoral shaft, w/ realignment on intramedullary rod (Sofield type procedure)
+27455,Osteotomy, proximal tibia, including fibular excision or osteotomy (includes correction of genu varus (bowleg) or genu valgus (knock-knee)); before epiphyseal closure
+27457,Osteotomy, proximal tibia, including fibular excision or osteotomy (includes correction of genu varus (bowleg) or genu valgus (knock-knee)); after epiphyseal closure
+27465,Osteoplasty, femur; shortening (excluding 64876)
+27466,Osteoplasty, femur; lengthening
+27468,Osteoplasty, femur; combined, lengthening and shortening w/ femoral segment transfer
+27470,Repair, nonunion or malunion, femur, distal to head and neck; w/o graft (e.g., compression technique)
+27472,Repair, nonunion or malunion, femur, distal to head and neck; w/ iliac or other autogenous bone graft (includes obtaining graft)
+27475,Epiphyseal arrest by epiphysiodesis or stapling; distal femur
+27477,Epiphyseal arrest by epiphysiodesis or stapling; tibia and fibula, proximal
+27479,Epiphyseal arrest by epiphysiodesis or stapling; combined distal femur, proximal tibia and fibula
+27485,Arrest, hemiepiphyseal, distal femur or proximal leg (e.g., for genu varus or valgus)
+27486,Revision of total knee arthroplasty, w/ or w/o allograft; one component
+27487,Revision of total knee arthroplasty, w/ or w/o allograft; all components
+27488,Removal of knee prosthesis, including "total knee" methylmethacrylate and insertion of spacer, when applicable
+27495,Prophylactic treatment (nailing, pinning, plating or writing) w/ or w/o methylmethacrylate, femur
+27496,Decompression fasciotomy, thigh and/or knee, one compartment (flexor or extensor or adductor);
+27497,Decompression fasciotomy, thigh and/or knee, one compartment (flexor or extensor or adductor); w/ debridement of nonviable muscle and/or nerve
+27498,Decompression fasciotomy, thigh and/or knee, multiple compartments;
+27499,Decompression fasciotomy, thigh and/or knee, multiple compartments; w/ debridement of nonviable muscle and/or nerve
+27501,Closed treatment of supracondylar or transcondylar femoral fracture w/ or w/o intercondylar extension
+27502,Closed treatment of femoral shaft fracture, w/ or w/o skin or skeletal traction
+27503,Closed treatment of supracondylar or transcondylar femoral fracture w/ or w/o intercondylar extension, w/ or w/o skin or skeletal traction
+27506,Open treatment of femoral shaft fracture, w/ or w/o external fixation, w/ insertion of intramedullary implant, w/ or w/o cerclage and/or locking screws
+27507,Open treatment of femoral shaft fracture w/ plate/screws, w/ or w/o cerclage
+27509,Percutaneous skeletal fixation of femoral fracture, distal end, medial or lateral condyle, or supracondylar or transcondylar, w/ or w/o intercondylar extension, or distal femoral epiphyseal separation
+27510,Closed treatment of femoral fracture, distal end, medial or lateral condyle
+27511,Open treatment of femoral supracondylar or transcondylar fracture w/o intercondylar extension, w/ or w/o internal or external fixation
+27513,Open treatment of femoral supracondylar or transcondylar fracture w/ intercondylar extension, w/ or w/o internal or external fixation
+27514,Open treatment of femoral fracture, distal end, medial or lateral condyle, w/ or w/o internal or external fixation
+27516,Closed treatment of distal femoral epiphyseal separation
+27519,Open treatment of distal femoral epiphyseal separation, w/ or w/o internal or external fixation
+27520,Closed treatment of patellar fracture
+27524,Open treatment of patellar fracture, w/ internal fixation and/or partial or complete patellectomy and soft tissue repair
+27530,Closed treatment of tibial fracture, proximal (plateau)
+27535,Open treatment of tibial fracture, proximal (plateau); unicondylar, w/ or w/o internal or external fixation
+27536,Open treatment of tibial fracture, proximal (plateau); bicondylar, w/ or w/o internal fixation
+27538,Closed treatment of intercondylar spine(s) and/or tuberosity fracture(s) of knee
+27540,Open treatment of intercondylar spine(s) and/or tuberosity fracture(s) of the knee, w/ or w/o internal or external fixation
+27550,Closed treatment of knee dislocation
+27556,Open treatment of knee dislocation, w/ or w/o internal or external fixation; w/o primary ligamentous repair or augmentation/reconstruction
+27557,Open treatment of knee dislocation, w/ or w/o internal or external fixation; w/ primary ligamentous repair
+27558,Open treatment of knee dislocation, w/ or w/o internal or external fixation; w/ primary ligamentous repair, w/ augmentation/reconstruction
+27560,Closed treatment of patellar dislocation
+27566,Open treatment of patellar dislocation, w/ or w/o partial or total patellectomy
+27580,Fusion of knee, any technique
+27590,Amputation, thigh, through femur, any level;
+27591,Amputation, thigh, through femur, any level; immediate fitting technique including  cast
+27592,Amputation, thigh, through femur, any level; open, circular (guillotine)
+27594,Amputation, thigh, through femur, any level; secondary closure or scar revision
+27596,Amputation, thigh, through femur, any level; re-amputaion
+27598,Disarticulation at knee
+27600,Decompression fasciotomy, leg; anterior and/or lateral compartments only
+27601,Decompression fasciotomy, leg; posterior compartments(s) only
+27602,Decompression fasciotomy, leg; anterior and/or lateral, and posterior compartment(s)
+27603,Incision and drainage, leg or ankle; deep abscess or hematoma
+27604,Incision and drainage, leg or ankle; infected bursa
+27605,Tenotomy, Achilles tendon, subcutaneous ; local anesthesia;
+27606,Tenotomy, Achilles tendon, subcutaneous ; local anesthesia; general anesthesia
+27607,Incision, deep, w/ opening of bone cortex (e.g., for osteomyelitis or bone abscess), leg or ankle
+27610,Arthrotomy, ankle, for infection, w/ exploration, drainage, or removal of foreign body
+27612,Arthrotomy, ankle, posterior capsular release, w/ or w/o Achilles tendon lengthening
+27613,Biopsy, soft tissue of leg or ankle area
+27615,Radical resection of tumor (e.g., malignant neoplasm), soft tissue of leg or ankle area
+27618,Excision, tumor, leg or ankle area; subcutaneous
+27619,Excision, tumor, leg or ankle area; deep, subfascial or intramuscular
+27620,Arthrotomy, ankle, w/ joint exploration, w/ or w/o biopsy, w/ or w/o removal of loose or foreign body
+27625,Arthrotomy, ankle, w/ synovectomy;
+27626,Arthrotomy, ankle, w/ synovectomy; including tenosynovectomy
+27630,Excision of lesion of tendon sheath or capsule (e.g., cyst or ganglion), leg and/or ankle
+27635,Excision or curettage of bone cyst or benign tumor, tibia or fibula;
+27637,Excision or curettage of bone cyst or benign tumor, tibia or fibula; w/ autograft(includes obtaining graft)
+27638,Excision or curettage of bone cyst or benign tumor, tibia or fibula; w/ allograft
+27640,Partial excision (craterization, saucerization, or diaphysectomy) of bone (e.g., for osteomyelitis or exostosis); tibia
+27641,Partial excision (craterization, saucerization, or diaphysectomy) of bone (e.g., for osteomyelitis or exostosis); fibula
+27645,Radical resection of tumor, bone; tibia
+27646,Radical resection of tumor, bone; fibula
+27647,Radical resection of tumor, bone; talus or calcaneus
+27650,Repair, primary, open or percutaneous, ruptured Achilles tendon;
+27652,Repair, primary, open or percutaneous, ruptured Achilles tendon; w/ graft (includes obtaining graft)
+27654,Repair, secondary, ruptured Achilles tendon, w/ or w/o graft
+27656,Repair, fascial defect of leg
+27658,Repair or suture of flexor tendon of leg; primary, w/o graft, single, each
+27659,Repair or suture of flexor tendon of leg; secondary w/ or w/o graft, single tendon, each
+27664,Repair or suture of extensor tendon of leg; primary, w/o graft, single, each
+27665,Repair or suture of extensor tendon of leg; secondary w/ or w/o graft, single tendon, each
+27675,Repair for dislocating peroneal tendons; w/o fibular osteotomy
+27676,Repair for dislocating peroneal tendons; w/ fibular osteotomy
+27680,Tenolysis, including tibia, fibula, and ankle flexor; single
+27681,Tenolysis, including tibia, fibula, and ankle flexor; multiple (through same incision), each
+27685,Lengthening or shortening of tendon, leg or ankle; single
+27686,Lengthening or shortening of tendon, leg or ankle; multiple (through same incision), each
+27687,Gastrocnemius recession (e.g., Strayer procedure)
+27690,Transfer or transplant of single tendon (w/ muscle redirection or rerouting); superficial (e.g., anterior tibial extensors into midfoot)
+27692,Transfer or transplant of single tendon (w/ muscle redirection or rerouting); each additional tendon
+27695,Suture, primary, torn, ruptured or severed ligament, ankle; collateral
+27696,Suture, primary, torn, ruptured or severed ligament, ankle; both collateral ligaments
+27698,Suture, secondary repair, torn, ruptured or severed ligament, ankle, collateral (Watson-Jones procedure)
+27700,Arthroplasty, ankle;
+27702,Arthroplasty, ankle; w/ implant ("total ankle")
+27703,Arthroplasty, ankle; secondary reconstruction, total ankle
+27704,Removal of ankle implant
+27705,Osteotomy; tibia
+27707,Osteotomy; fibula
+27709,Osteotomy; tibia and fibula
+27712,Osteotomy; multiple, w/ realignment on intramedullary rod (Sofield type procedure)
+27715,Osteoplasty, tibia and fibula, lengthening
+27720,Repair of nonunion or malunion, tibia; w/o graft, (e.g., compression technique)
+27722,Repair of nonunion or malunion, tibia; w/ sliding graft
+27724,Repair of nonunion or malunion, tibia; w/ iliac or other autograft (includes obtaining graft)
+27725,Repair of nonunion or malunion, tibia; by synostosis, w/ fibula, any method
+27727,Repair of congenital pseudarthrosis, tibia
+27730,Epiphyseal arrest by epiphysiodesis or stapling; distal tibia
+27732,Epiphyseal arrest by epiphysiodesis or stapling; distal fibula
+27734,Epiphyseal arrest by epiphysiodesis or stapling; distal tibia and fibula
+27740,Epiphyseal arrest by epiphysiodesis or stapling, combined, proximal and distal tibia and fibula;
+27742,Epiphyseal arrest by epiphysiodesis or stapling, combined, proximal and distal tibia and fibula; and distal femur
+27745,Prophylactic treatment (nailing, pinning, plating or wiring) w/ or w/o methylmethacrylate, tibia
+27750,Closed treatment of tibial shaft fracture (w/ or w/o fibular fracture)
+27752,Closed treatment of tibial shaft fracture (with or without fibular fracture); with manipulation, with or without skeletal traction
+27756,Percutaneous skeletal fixation of tibial shaft fracture (w/ or w/o fibular fracture) (e.g., pins or screws)
+27758,Open treatment of tibial shaft fracture (w/ or w/o fibular fracture) w/ plate/screws, w/ or w/o cerclage
+27759,Open treatment of tibial shaft fracture (w/ or w/o fibular fracture) by intramedullary implant, w/ or w/o interlocking screws and/or cerclage
+27760,Closed treatment of medial malleolus fracture
+27766,Open treatment of medial malleolus fracture, w/ or w/o internal or external fixation
+27780,Closed treatment of proximal fibula or shaft fracture
+27784,Open treatment of proximal fibula or shaft fracture, w/ or w/o internal or external fixation
+27786,Closed treatment of distal fibular fracture (lateral malleolus)
+27792,Open treatment of distal fibular fracture (lateral malleolus), w/ or w/o internal or external fixation w/o manipulation
+27808,Closed treatment of bimalleolar ankle fracture, (including Potts)
+27814,Open treatment of bimalleolar ankle fracture, w/ or w/o internal or external fixation
+27816,Closed treatment of trimalleolar ankle fracture
+27822,Open treatment of trimalleolar ankle fracture, w/ or w/o internal or external fixation, medial and/or lateral malleolus; w/o fixation of posterior lip
+27823,Open treatment of trimalleolar ankle fracture, w/ or w/o internal or external fixation, medial and/or lateral malleolus; w/ fixation of posterior lip
+27824,Closed treatment of fracture of weight bearing articular portion of distal tibia (e.g., pilon or tibial plafond)
+27826,Open treatment of fracture of weight bearing articular surface/portion of distal tibia (e.g., pilon or tibial plafond), w/ internal or external fixation; of fibula only
+27827,Open treatment of fracture of weight bearing articular surface/portion of distal tibia (e.g., pilon or tibial plafond), w/ internal or external fixation; of tibia only
+27828,Open treatment of fracture of weight bearing articular surface/portion of distal tibia (e.g., pilon or tibial plafond), w/ internal or external fixation; of both tibia and fibula
+27829,Open treatment of distal tibiofibular joint (syndesmosis) disruption, w/ or w/o internal or external fixation
+27830,Closed treatment of proximal tibiofibular joint dislocation
+27832,Open treatment of proximal tibiofibular joint dislocation, w/ or w/o internal or external fixation, or w/ excision of proximal fibula
+27840,Closed treatment of ankle dislocation
+27846,Open treatment of ankle dislocation, w/ or w/o percutaneous skeletal fixation; w/o repair or internal fixation
+27848,Open treatment of ankle dislocation, w/ or w/o percutaneous skeletal fixation; w/ repair or internal or external fixation
+27870,Arthrodesis, ankle, any method
+27871,Arthrodesis, tibiofibular joint, proximal or distal
+27880,Amputation, leg, through tibia and fibula;
+27881,Amputation, leg, through tibia and fibula; w/ immediate fitting technique including application of  cast
+27882,Amputation, leg, through tibia and fibula; open, circular (guillotine)
+27884,Amputation, leg, through tibia and fibula; secondary closure or scar revision
+27886,Amputation, leg, through tibia and fibula; re-amputation
+27888,Amputation, ankle, through malleoli of tibia and fibula (Syme, Pirogoff type procedures), w/ plastic closure and resection of nerves
+27889,Ankle disarticulation
+27892,Decompression fasciotomy, leg; anterior and/or lateral compartments only, w/ debridement of nonviable muscle and/or nerve
+27893,Decompression fasciotomy, leg; posterior compartment(s) only, w/ debridement of nonviable muscle and/or nerve
+27894,Decompression fasciotomy, leg; anterior and/or lateral, and posterior compartment(s), w/ debridement of nonviable muscle and/or nerve
+28001,Incision and drainage, infected bursa, foot
+28002,Deep dissection below fascia, for deep infection of foot, w/ or w/o tendon sheath involvement; single bursal space, specify;
+28003,Deep dissection below fascia, for deep infection of foot, w/ or w/o tendon sheath involvement; single bursal space, specify; multiple areas
+28005,Incision, deep, w/ opening of bone cortex (e.g. for osteomyelitis or bone abscess), foot
+28008,Fasciotomy, foot and/or toe
+28010,Tenotomy, subcutaneous, toe; single
+28011,Tenotomy, subcutaneous, toe; multiple
+28020,Arthrotomy, w/ exploration, drainage, or removal of loose or foreign body; intertarsal or tarsometatarsal joint
+28022,Arthrotomy, w/ exploration, drainage, or removal of loose or foreign body; metatarsophalangeal joint
+28024,Arthrotomy, w/ exploration, drainage, or removal of loose or foreign body; interphalangeal joint
+28030,Neurectomy of intrinsic musculature of foot
+28035,Tarsal tunnel release (posterior tibial nerve decompression)
+28043,Excision, tumor, foot; subcutaneous
+28045,Excision, tumor, foot; deep, subfascial, intramuscular
+28046,Radical resection of tumor (e.g., malignant neoplasm), soft tissue of foot
+28050,Arthrotomy for synovial biopsy; intertarsal or tarsometatarsal joint
+28052,Arthrotomy for synovial biopsy; metatarsophalangeal joint
+28054,Arthrotomy for synovial biopsy; interphalangeal joint
+28060,Fasciectomy, excision of plantar fascia; partial
+28062,Fasciectomy, excision of plantar fascia; radical
+28070,Synovectomy; intertarsal or tarsometatarsal joint, each
+28072,Synovectomy; metatarsophalangeal joint, each
+28080,Excision of interdigital (Morton) neuroma, single, each
+28086,Synovectomy, tendon sheath, foot; flexor
+28088,Synovectomy, tendon sheath, foot; extensor
+28090,Excision of lesion of tendon or fibrous sheath or capsule (including synovectomy) (cyst or ganglion); foot
+28092,Excision of lesion of tendon or fibrous sheath or capsule (including synovectomy) (cyst or ganglion); toes
+28100,Excision or curettage of bone cyst or benign tumor, talus or calcaneus;
+28102,Excision or curettage of bone cyst or benign tumor, talus or calcaneus; w/ iliac or other autograft (includes obtaining graft)
+28103,Excision or curettage of bone cyst or benign tumor, talus or calcaneus; w/ allograft
+28104,Excision or curettage of bone cyst or benign tumor, talus or metatarsal bones, except tarsal or calcaneus;
+28106,Excision or curettage of bone cyst or benign tumor, talus or metatarsal bones, except tarsal or calcaneus; w/ iliac or other autograft (includes obtaining graft)
+28107,Excision or curettage of bone cyst or benign tumor, talus or metatarsal bones, except tarsal or calcaneus; w/ allograft
+28108,Excision or curettage of bone cyst or benign tumor, phalanges of foot
+28110,Ostectomy, partial excision, fifth metatarsal head (bunionette)
+28111,Ostectomy, complete excision;  metatarsal head
+28112,Ostectomy, complete excision; other metatarsal head (second, third or fourth)
+28113,Ostectomy, complete excision; fifth metatarsal head
+28114,Ostectomy, complete excision; all metatarsal heads, w/ partial proximal phalangectomy, excluding  metatarsal (Clayton type procedure)
+28116,Ostectomy, excision of tarsal coalition
+28118,Ostectomy, calcaneus;
+28119,Ostectomy, calcaneus; for spur, w/ or w/o plantar fascial release
+28120,Partial excision (craterization, saucerization, sequestrectomy, or diaphysectomy) of bone (e.g., for osteomyelitis or talar bossing); talus or calcaneus
+28122,Partial excision (craterization, saucerization, or diaphysectomy) of bone (e.g., for osteomyelitis or tarsal bossing), tarsal or metatarsal bone, except talus or calcaneus
+28124,Partial excision (craterization, saucerization, or diaphysectomy) of bone (e.g., for osteomyelitis or dorsal bossing), phalanx of toe
+28126,Resection, partial or complete, phalangeal base, single toe, each
+28130,Talectomy (astragalectomy)
+28140,Metatarsectomy
+28150,Phalangectomy of toe, single, each
+28153,Resection, head of phalanx, toe
+28160,Hemiphalangectomy or interphalangeal joint excision, toe, single, each
+28171,Radical resection of tumor, bone; tarsal (except talus or calcaneus)
+28173,Radical resection of tumor, bone; metatarsal
+28175,Radical resection of tumor, bone; phalanx of toe
+28200,Repair or suture of tendon, foot, flexor, single; primary or secondary, w/o free graft, each tendon
+28202,Repair or suture of tendon, foot, flexor, single; secondary w/ free graft, each tendon (includes obtaining graft)
+28208,Repair or suture of tendon, foot, extensor, single; primary or secondary, each tendon
+28210,Repair or suture of tendon, foot, extensor, single; secondary w/ free graft, each tendon (includes obtaining graft)
+28220,Tenolysis, flexor, foot; single
+28222,Tenolysis, flexor, foot; multiple (through same incision)
+28225,Tenolysis, extensor, foot; single
+28226,Tenolysis, extensor, foot; multiple (through same incision)
+28230,Tenotomy, open, flexor; foot, single or multiple;
+28232,Tenotomy, open, flexor; foot, single or multiple; toe, single
+28234,Tenotomy, open, extensor, foot or toe
+28238,Advancement of posterior tibial tendon w/ excision of accessory navicular bone (Kidner type procedure)
+28240,Tenotomy, lengthening, or release, abductor hallucis muscle
+28250,Division of plantar fascia and muscle ("Steindler stripping")
+28260,Capsulotomy, midfoot; medial release only
+28261,Capsulotomy, midfoot; w/ tendon lengthening
+28262,Capsulotomy, midfoot; extensive, including posterior talotibial capsulotomy and tendon(s) lengthening as for resistant clubfoot deformity
+28264,Capsulotomy, midtarsal (Heyman type procedure)
+28270,Capsulotomy; metatarsophalangeal joint, w/ or w/o tenorrhaphy, single, each joint
+28272,Capsulotomy; interphalangeal joint, single each joint
+28280,Webbing operation (create syndactylism of toes) (Kelikian type procedure)
+28285,Hammertoe operation, one toe (e.g., interphalangeal fusion, filleting, phalangectomy)
+28286,Cock-up fifth toe operation w/ plastic skin closure (Ruiz-Mora type procedure)
+28288,Ostectomy, partial, exostectomy or condylectomy, single, metatarsal head,  through fifth, each metatarsal head
+28290,Hallux valgus (bunion) correction, w/ or w/o sesamoidectomy; simple exostectomy (Silver type procedure)
+28292,Hallux valgus (bunion) correction, w/ or w/o sesamoidectomy; Keller, McBride, or Mayo type procedure
+28293,Hallux valgus (bunion) correction, w/ or w/o sesamoidectomy; resection of joint w/ implant
+28294,Hallux valgus (bunion) correction, w/ or w/o sesamoidectomy; w/ tendon transplants (Joplin type procedure)
+28296,Hallux valgus (bunion) correction, w/ or w/o sesamoidectomy; w/ metatarsal osteotomy (e.g., Mitchell, Chevron, or concentric type procedures)
+28297,Hallux valgus (bunion) correction, w/ or w/o sesamoidectomy; Lapidus type procedure
+28298,Hallux valgus (bunion) correction, w/ or w/o sesamoidectomy; by phalanx osteotomy
+28299,Hallux valgus (bunion) correction, w/ or w/o sesamoidectomy; by other methods (e.g., double osteotomy)
+28300,Osteotomy; calcaneus (Dwyer or Chambers type procedure), w/ or w/o internal fixation
+28302,Osteotomy; talus
+28304,Osteotomy, midtarsal bones, other than calcaneus or talus;
+28305,Osteotomy, midtarsal bones, other than calcaneus or talus; w/ autograft (includes obtaining graft)(Fowler type)
+28306,Osteotomy, metatarsal, base or shaft, single, w/ or w/o lenghtening, for shortening or angular correction;  metatarsal
+28307,Osteotomy, metatarsal, base or shaft, single, w/ or w/o lenghtening, for shortening or angular correction;  metatarsal w/ autograft
+28308,Osteotomy, metatarsal, base or shaft, single, w/ or w/o lenghtening, for shortening or angular correction; other than  metatarsal
+28309,Osteotomy, metatarsals, multiple, for cavus foot (Swanson type procedure)
+28310,Osteotomy for shortening, angular or rotational correction; proximal phalanx,  toe
+28312,Osteotomy for shortening, angular or rotational correction; other phalanges, any toe
+28313,Reconstruction, angular deformity of toe (overlapping second toe, fifth toe, curly toes), soft tissue procedures only
+28315,Sesamoidectomy,  toe
+28320,Repair of nonunion or malunion; tarsal bones (e.g., calcaneus, talus)
+28322,Repair of nonunion or malunion; metatarsal, w/ or w/o bone graft (includes obtaining graft)
+28340,Reconstruction, toe, macrodactyly; soft tissue resection
+28341,Reconstruction, toe, macrodactyly; requiring bone resection
+28344,Reconstruction, toe(s); polydactyly
+28345,Reconstruction, toe(s); syndactyly, w/ or w/o skin graft(s)
+28360,Reconstruction, cleft foot
+28400,Closed treatment of calcaneal fracture
+28406,Percutaneous skeletal fixation of calcaneal fracture, w/ manipulation
+28415,Open treatment of calcaneal fracture, w/ or w/o internal or external fixation;
+28420,Open treatment of calcaneal fracture, w/ or w/o internal or external fixation; w/ primary iliac or other autogenous bone graft (includes obtaining graft)
+28430,Closed treatment of talus fracture
+28436,Percutaneous skeletal fixation of talus fracture, w/ manipulation
+28445,Open treatment of talus fracture, w/ or w/o internal or external fixation
+28450,Treatment of tarsal bone fracture (except talus and calcaneus)
+28456,Percutaneous skeletal fixation of tarsal bone fracture (except talus and calcaneus), w/ manipulation
+28465,Open treatment of tarsal bone fracture (except talus and calcaneus), w/ or w/o internal or external fixation
+28470,Closed treatment of metatarsal fracture
+28476,Percutaneous skeletal fixation of metatarsal fracture, w/ manipulation
+28485,Open treatment of metatarsal fracture, w/ or w/o internal or external fixation
+28490,Closed treatment of fracture great toe, phalanx or phalanges
+28496,Percutaneous skeletal fixation of fracture great toe, phalanx or phalanges, w/ manipulation
+28505,Open treatment of fracture great toe, phalanx or phalanges, w/ or w/o internal or external fixation
+28510,Closed treatment of fracture, phalanx or phalanges, other than great toe
+28525,Open treatment of fracture, phalanx or phalanges, other than great toe, w/ or w/o internal or external fixation
+28530,Closed treatment of sesamoid fracture
+28531,Open treatment of sesamoid fracture, w/ or w/o internal fixation
+28540,Closed treatment of tarsal bone dislocation, other than talotarsal
+28546,Percutaneous skeletal fixation of tarsal bone dislocation, other than talotarsal ,w/ manipulation
+28555,Open treatment of tarsal bone dislocation, w/ or w/o internal or external fixation
+28570,Closed treatment of talotarsal joint dislocation
+28576,Percutaneous skeletal fixation of talotarsal joint dislocation, w/ manipulation
+28585,Open treatment of talotarsal joint dislocation, w/ or w/o internal or external fixation
+28600,Closed treatment of tarsometatarsal joint dislocation
+28606,Percutaneous skeletal fixation of tarsometatarsal joint dislocation, w/ manipulation
+28615,Open treatment of tarsometatarsal joint dislocation, w/ or w/o internal or external fixation
+28630,Closed treatment of metatarsophalangeal joint dislocation
+28636,Percutaneous skeletal fixation of metatarsophalangeal joint dislocation, w/ manipulation
+28645,Open treatment of metatarsophalangeal joint dislocation, w/ or w/o internal or external fixation
+28660,Closed treatment of interphalangeal joint dislocation
+28666,Percutaneous skeletal fixation of interphalangeal joint dislocation, w/ manipulation
+28675,Open treatment of interphalangeal joint dislocation, w/ or w/o internal or external fixation
+28705,Pantalar arthrodesis
+28715,Triple arthrodesis
+28725,Subtalar arthrodesis
+28730,Arthrodesis, midtarsal or tarsometatarsal, multiple or transverse;
+28735,Arthrodesis, midtarsal or tarsometatarsal, multiple or transverse; w/ osteotomy as for flatfoot correction
+28737,Arthrodesis, midtarsal navicular-cuneiform, w/ tendon lengthening and advancement (Miller type procedure)
+28740,Arthrodesis, midtarsal or tarsometatarsal, single joint
+28750,Arthrodesis, great toe; metatarsophalangeal joint
+28755,Arthrodesis, great toe; interphalangeal joint
+28760,Arthrodesis, great toe, interphalangeal joint, w/ extensor hallucis longus transfer to  metatarsal neck (Jones type procedure)
+28800,Amputation, foot; midtarsal (Chopart type procedure)
+28802,Deep disection below fascia, for deep infection of foot, w/ or w/o tendon shealth involvement; single bursal space specify
+28805,Deep disection below fascia, for deep infection of foot, w/ or w/o tendon shealth involvement; transmetatarsal
+28810,Amputation, metatarsal, w/ toe, single
+28820,Amputation, toe; metatarsophalangeal joint
+28825,Amputation, toe; interphalangeal joint
+29000,Application of halo type body cast (see 20661-20663 for insertion)
+29010,Application of Risser jacket, localizer, body; only
+29015,Application of Risser jacket, localizer, body; including head
+29020,Application of turnbuckle jacket, body; only
+29025,Application of turnbuckle jacket, body; including head
+29035,Application of body cast, shoulder to hips;
+29040,Application of body cast, shoulder to hips; including head, Minerva type
+29044,Application of body cast, shoulder to hips; including one thigh
+29046,Application of body cast, shoulder to hips; including both thighs
+29055,Application of body cast, shoulder to hips; shoulder spica
+29058,Application of body cast, shoulder to hips; plaster Velpeau
+29065,Application of body cast, shoulder to hips; shoulder to hand (long arm)
+29075,Application of body cast, shoulder to hips; elbow to finger (short arm)
+29085,Application of body cast, shoulder to hips; hand and lower forearm (gauntlet)
+29305,Application of hip spica cast; one leg
+29325,Application of hip spica cast; one and one-half spica or both legs
+29345,Application of long leg cast (thigh to toes);
+29355,Application of long leg cast (thigh to toes); walker or ambulatory type
+29358,Application of long leg cast brace
+29365,Application of cylinder cast (thigh to ankle)
+29405,Application of short leg cast (below knee to toes);
+29425,Application of short leg cast (below knee to toes); walking or ambulatory type
+29435,Application of patellar tendon bearing (PTB) cast
+29445,Application of rigid total contact leg cast
+29450,Application of clubfoot cast w/ molding or manipulation, long or short leg
+29800,Arthroscopy, temporomandibular joint, diagnostic, w/ or w/o synovial biopsy
+29804,Arthroscopy, temporomandibular joint, surgical
+29815,Arthroscopy, shoulder, diagnostic, w/ or w/o synovial biopsy
+29819,Arthroscopy, shoulder, surgical; w/ removal of loose body or foreign body
+29820,Arthroscopy, shoulder, surgical; synovectomy, partial
+29821,Arthroscopy, shoulder, surgical; synovectomy, complete
+29822,Arthroscopy, shoulder, surgical; debridement, limited
+29823,Arthroscopy, shoulder, surgical; debridement, extensive
+29825,Arthroscopy, shoulder, surgical; w/ lysis and resection of adhesions, w/ or w/o manipulation
+29826,Arthroscopy, shoulder, surgical; decompression of subacromial space w/ partial acromioplasty, w/ or w/o coracoacromial release
+29830,Arthroscopy, elbow, dianostic, w/ or w/o synovial biopsy
+29834,Arthroscopy, elbow, surgical; w/ removal of loose body or foreign body
+29835,Arthroscopy, elbow, surgical; synovectomy, partial
+29836,Arthroscopy, elbow, surgical; synovectomy, complete
+29837,Arthroscopy, elbow, surgical; debridement, limited
+29838,Arthroscopy, elbow, surgical; debridement, extensive
+29840,Arthroscopy, wrist, diagnostic, w/ or w/o synovial biopsy
+29843,Arthroscopy, wrist, surgical; for infection, lavage and drainage
+29844,Arthroscopy, wrist, surgical; synovectomy, partial
+29845,Arthroscopy, wrist, surgical; synovectomy, complete
+29846,Arthroscopy, wrist, surgical; excision and/or repair of triangular fibrocartilage and/or joint debridement
+29847,Arthroscopy, wrist, surgical; internal fixation for fracture or instability
+29848,Arthroscopy, wrist, surgical; w/ release of transverse carpal ligament
+29850,Arthroscopically aided treatment of intercondylar spine(s) and/or tuberosity fracture(s) of the knee, w/ or w/o manipulation; w/o internal or external fixation (includes arthroscopy)
+29851,Arthroscopically aided treatment of intercondylar spine(s) and/or tuberosity fracture(s) of the knee, w/ or w/o manipulation; w/ internal or external fixation (includes arthroscopy)
+29855,Arthroscopically aided treatment of tibial fracture, proximal (plateau); unicondylar, w/ or w/o internal or external fixation (includes arthroscopy)
+29856,Arthroscopically aided treatment of tibial fracture, proximal (plateau); bicondylar, w/ or w/o internal or external fixation (includes arthroscopy)
+29870,Arthroscopy, knee, diagnostic, w/ or w/o synovial biopsy
+29871,Arthroscopy, knee, surgical; for infection, lavage and drainage
+29874,Arthroscopy, knee, surgical; for removal of loose body or foreign body (e.g., osteochondritis dissecans fragmentation, chondral fragmentation)
+29875,Arthroscopy, knee, surgical; synovectomy, limited (e.g., plica or shelf resection)
+29876,Arthroscopy, knee, surgical; synovectomy, major, two or more compartments (e.g., medial or lateral)
+29877,Arthroscopy, knee, surgical; debridement/shaving of articular cartilage (chondroplasty)
+29879,Arthroscopy, knee, surgical; abrasion arthroplasty (includes chondroplasty where necessary) or multiple drilling
+29880,Arthroscopy, knee, surgical; w/ meniscectomy (medial and lateral, including any meniscal shaving)
+29881,Arthroscopy, knee, surgical; w/ meniscectomy (medial or lateral, including any meniscal shaving)
+29882,Arthroscopy, knee, surgical; w/ meniscus repair (medial or lateral)
+29883,Arthroscopy, knee, surgical; w/ meniscus repair (medial and lateral)
+29884,Arthroscopy, knee, surgical; w/ lysis of adhesions, w/ or w/o manipulation
+29885,Arthroscopy, knee, surgical; drilling for osteochondritis dissecans w/ bone grafting, w/ or w/o internal fixation (including debridement of base of lesion)
+29886,Arthroscopy, knee, surgical; drilling for intact osteochondritis dissecans lesion
+29887,Arthroscopy, knee, surgical; drilling for intact osteochondritis dissecans lesion w/ internal fixation
+29888,Arthroscopically aided anterior cruciate ligament repair/augmentation or reconstruction
+29889,Arthroscopically aided posterior cruciate ligament repair/augmentation or reconstruction
+29894,Arthroscopy, ankle (tibiotalar and fibulotalar joints), surgical; w/ removal of loose body or foreign body
+29895,Arthroscopy, ankle (tibiotalar and fibulotalar joints), surgical; synovectomy, partial
+29897,Arthroscopy, ankle (tibiotalar and fibulotalar joints), surgical; debridement, limited
+29898,Arthroscopy, ankle (tibiotalar and fibulotalar joints), surgical; debridement, extensive
+30000,Drainage abscess or hematoma, nasal, internal approach
+30020,Drainage abscess or hematoma, nasal septum
+30100,Biopsy, intranasal
+30110,Excision, nasal polyp(s), simple
+30115,Excision, nasal polyp(s), extensive
+30117,Excision or destruction, any method (including laser), intranasal lesion; internal approach
+30118,Excision or destruction, any method (including laser), intranasal lesion; external approach (lateral rhinotomy)
+30130,Excision turbinate, partial or complete
+30140,Submucous resection turbinate, partial or complete
+30310,Removal foreign body, intranasal; requiring general anesthesia
+30320,Removal foreign body, intranasal; by lateral rhinotomy
+30460,Rhinoplasty for nasal deformity secondary to congenital cleft tip and/or palate, including columellar lengthening; tip only
+30462,Rhinoplasty for nasal deformity secondary to congenital cleft tip and/or palate, including columellar lengthening; tip, septum, osteotomies
+30465,Rhinoplasty for nasal vestibular stenosis
+30520,Septoplasty or submucous resection, w/ or w/o cartilage scoring, contouring or replacement w/ graft
+30540,Repair choanal atresia; intranasal
+30545,Repair choanal atresia; transpalatine
+30560,Lysis intranasal synechia
+30580,Repair fistula; oromaxillary (combine w/ 31030 if antrotomy is included)
+30600,Repair fistula; oronasal
+30630,Repair nasal septal perforations
+30801,Cauterization and/or ablation, mucosa of turbinates, unilateral or bilateral, any method, ; superficial
+30802,Cauterization and/or ablation, mucosa of turbinates, unilateral or bilateral, any method, ; intramural
+30905,Control nasal hemorrhage, posterior, w/ posterior nasal packs and/or cauterization, any method; initial
+30915,Ligation arteries; ethmoidal
+30920,Ligation arteries; internal maxillary artery, transantral
+30930,Fracture nasal turbinate(s), therapeutic
+31000,Lavage by cannulation; maxillary sinus (antrum puncture or natural ostium)
+31002,Lavage by cannulation; sphenoid sinus
+31020,Sinusotomy, maxillary (antrotomy); intranasal
+31030,Sinusotomy, maxillary (antrotomy); radical (Caldwell-Luc) w/o removal of antrochoanal polyps
+31032,Sinusotomy, maxillary (antrotomy); radical (Caldwell-Luc) w/ removal of antrochoanal polyps
+31040,Pterygomaxillary fossa surgery, any approach
+31050,Sinusotomy, sphenoid, w/ or w/o biopsy;
+31051,Sinusotomy, sphenoid, w/ or w/o biopsy; w/ mucosal stripping or removal of polyp(s)
+31070,Sinusotomy frontal; external, simple (trephine operation)
+31075,Sinusotomy frontal; transorbital, unilateral (for mucocele or osteoma, Lynch type)
+31080,Sinusotomy frontal; obliterative w/o osteoplastic flap, brow incision (includes ablation)
+31081,Sinusotomy frontal; obliterative, w/o osteoplastic flap, coronal inicision (includes ablation)
+31084,Sinusotomy frontal; obliterative, w/ osteoplastic flap, brow incision
+31085,Sinusotomy frontal; obliterative, w/ osteoplastic flap, coronal incision
+31086,Sinusotomy frontal; nonobliterative, w/ osteoplastic flap, brow incision
+31087,Sinusotomy frontal; nonobliterative, w/ osteoplastic flap, coronal incision
+31090,Sinusotomy combined, three or more sinuses
+31200,Ethmoidectomy; intranasal, anterior
+31201,Ethmoidectomy; intranasal, total
+31205,Ethmoidectomy; extranasal, total
+31225,Maxillectomy; w/o orbital exenteration
+31230,Maxillectomy; w/ orbital exenteration (en bloc)
+31231,Nasal endoscopy, diagnostic, unilateral or bilateral
+31233,Nasal/sinus endoscopy, diagnostic w/ maxillary sinusoscopy (via inferior meatus or canine fossa puncture)
+31235,Nasal/sinus endoscopy, diagnostic w/ sphenoid sinusoscopy (via puncture of sphenoidal face or cannulation of ostium)
+31237,Nasal/sinus endoscopy, surgical; w/ biopsy, polypectomy or debridement
+31238,Nasal/sinus endoscopy, surgical; w/ control of epistaxis
+31239,Nasal/sinus endoscopy, surgical; w/ dacrylocystorhinostomy
+31240,Nasal/sinus endoscopy, surgical; w/ concha bullosa resection
+31254,Nasal/sinus endoscopy, surgical; w/ ethmoidectomy, partial (anterior)
+31255,Nasal/sinus endoscopy, surgical; w/ ethmoidectomy, total (anterior and posterior)
+31256,Nasal/sinus endoscopy, surgical, w/ maxillary antrostomy
+31267,Nasal/sinus endoscopy, surgical, w/ removal of tissue from maxillary sinus
+31276,Nasal/sinus endoscopy, surgical w/ frontal sinus exploration, w/ or w/o removal of tissue from frontal sinus
+31287,Nasal/sinus endoscopy, surgical, w/ sphenoidotomy
+31288,Nasal/sinus endoscopy, surgical, w/ removal of tissure from the sphenoid sinus
+31290,Nasal/sinus endoscopy, surgical, w/ repair of cerebrospinal fluid leak; ethmoid region
+31291,Nasal/sinus endoscopy, surgical, sphenoid region
+31292,Nasal/sinus endoscopy, surgical; w/ medial or inferior orbital wall decompression
+31293,Nasal/sinus endoscopy, surgical; w/ medial orbital wall and inferior orbital wall decompression
+31294,Nasal/sinus endoscopy, surgical; w/ optic nerve decompression
+31300,Laryngotomy (thyrotomy, laryngofissure); w/ removal of tumor or laryngocele, cordectomy
+31360,Laryngectomy; total, w/o radical neck dissection
+31365,Laryngectomy; total, w/ radical neck dissection
+31367,Laryngectomy; subtotal supraglottic, w/o radical neck dissection
+31368,Laryngectomy; subtotal supraglottic, w/ radical neck dissection
+31370,Partial laryngectomy (hemilaryngectomy); horizontal
+31375,Partial laryngectomy (hemilaryngectomy); laterovertical
+31380,Partial laryngectomy (hemilaryngectomy); anterovertical
+31382,Partial laryngectomy (hemilaryngectomy); antero-latero-vertical
+31390,Pharyngolaryngectomy, w/ radical neck dissection; w/o reconstruction
+31395,Pharyngolaryngectomy, w/ radical neck dissection; w/ reconstruction
+31400,Arytenoidectomy or arytenoidopexy, external approach
+31420,Epiglottidectomy
+31500,Intubation, endotracheal, emergency emergency procedure
+31515,Laryngoscopy direct, w/ or w/o tracheoscopy; for aspiration
+31520,Laryngoscopy direct, w/ or w/o tracheoscopy; diagnostic, newborn
+31525,Laryngoscopy direct, w/ or w/o tracheoscopy; diagnostic, except newborn
+31526,Laryngoscopy direct, w/ or w/o tracheoscopy; diagnostic, w/ operating microscope
+31527,Laryngoscopy direct, w/ or w/o tracheoscopy; w/ insertion of obturator
+31528,Laryngoscopy direct, w/ or w/o tracheoscopy; w/ dilatation, initial
+31529,Laryngoscopy direct, w/ or w/o tracheoscopy; w/ dilatation, subsequent
+31530,Laryngoscopy, direct, operative, w/ foreign body removal;
+31531,Laryngoscopy, direct, operative, w/ foreign body removal; w/ operating microscope
+31535,Laryngoscopy, direct, operative, w/ biopsy;
+31536,Laryngoscopy, direct, operative, w/ biopsy; w/ operating microscope
+31540,Laryngoscopy, direct, operative, w/ excision of tumor and/or stripping of vocal cords or epiglottis;
+31541,Laryngoscopy, direct, operative, w/ excision of tumor and/or stripping of vocal cords or epiglottis; w/ operating microscope
+31560,Laryngoscopy, direct, operative, w/ arytenoidectomy;
+31561,Laryngoscopy, direct, operative, w/ arytenoidectomy; w/ operating microscope
+31570,Laryngoscopy, direct, w/ injection into vocal cord(s), therapeutic;
+31571,Laryngoscopy, direct, w/ injection into vocal cord(s), therapeutic; w/ operating microscope
+31575,Laryngoscopy, flexible fiberoptic; diagnostic
+31576,Laryngoscopy, flexible fiberoptic; w/ biopsy
+31577,Laryngoscopy, flexible fiberoptic; w/ removal of foreign body
+31578,Laryngoscopy, flexible fiberoptic; w/ removal of lesion
+31579,Laryngoscopy, flexible or rigid fiberoptic, w/ stroboscopy
+31580,Laryngoplasty; for laryngeal web, two stage, w/ keel insertion and removal
+31582,Laryngoplasty; for laryngeal stenosis, w/ graft or core mold, including tracheotomy
+31584,Laryngoplasty; w/ open reduction of fracture
+31586,Laryngoplasty; w/ closed manipulative reduction
+31587,Laryngoplasty, cricoid split
+31588,Laryngoplasty, not otherwise specified (e.g., for burns, reconstruction after partial laryngectomy)
+31590,Laryngeal reinnervation by neuromuscular pedicle
+31595,Section recurrent laryngeal nerve, therapeutic , unilateral
+31600,Tracheostomy, planned ;
+31601,Tracheostomy, planned ; under two years
+31603,Tracheostomy, emergency procedure; transtracheal
+31605,Tracheostomy, emergency procedure; cricothyroid membrane
+31610,Tracheostomy, fenestration procedure with skin flaps
+31611,Construction of tracheoesophageal fistula and subsequent insertion of an alaryngeal speech prosthesis (e.g., voice button, Blom-Singer prosthesis)
+31612,Tracheal puncture, percutaneous w/ transtracheal aspiration and/or injection
+31613,Tracheostoma revision; simple, w/o flap rotation
+31614,Tracheostoma revision; complex, w/ flap rotation
+31615,Tracheobronchoscopy through established tracheostomy incision
+31622,Bronchoscopy; diagnostic, (flexible or rigid), w/ or w/o cell washing or brushing
+31625,Bronchoscopy; w/ biopsy
+31628,Bronchoscopy; w/ transbronchial lung biopsy, w/ or w/o fluoroscopic guidance
+31629,Bronchoscopy; w/ transbronchial needle aspiration biopsy
+31630,Bronchoscopy; w/ tracheal or bronchial dilation or closed reduction of fracture
+31631,Bronchoscopy; w/ tracheal dilation and placement of tracheal stent
+31635,Bronchoscopy; w/ removal of foreign body
+31636,Bronchoscopy; diagnostic, (flexible or rigid),w/ placement of bronchial stents
+31640,Bronchoscopy; w/ excision of tumor
+31641,Bronchoscopy; w/ destruction of tumor or relief of stenosis by any method other than excision (e.g., laser)
+31643,Bronchoscopy; w/ placement of catheters for intracavitary radioelement application
+31645,Bronchoscopy; w/ therapeutic aspiration of tracheobronchial tree, (e.g., drainage of lung abscess)
+31710,Catheterization for bronchography, w/ or w/o instillation of contrast material
+31717,Catheterization w/ bronchial brush biopsy
+31750,Tracheoplasty; cervical
+31755,Tracheoplasty; tracheopharyngeal fistulization, each stage
+31760,Tracheoplasty; intrathoracic
+31766,Carinal reconstruction
+31770,Bronchoplasty; graft repair
+31775,Bronchoplasty; excision stenosis and anastomosis
+31780,Excision tracheal stenosis and anastomosis; cervical
+31781,Excision tracheal stenosis and anastomosis; cervicothoracic
+31785,Excision of tracheal tumor or carcinoma; cervical
+31786,Excision of tracheal tumor or carcinoma; thoracic
+31800,Suture of tracheal wound or injury; cervical
+31805,Suture of tracheal wound or injury; intrathoracic
+31820,Surgical closure tracheostomy or fistula w/o plastic repair
+31825,Surgical closure tracheostomy or fistula with plastic repair
+32000,Thoracentesis, puncture of pleural cavity for aspiration, initial or subsequent
+32002,Thoracentesis w/ insertion of tube w/ or w/o water seal (e.g., for pneumothorax)
+32005,Chemical pleurodesis (e.g., for recurrent or persistent pneumothorax)
+32020,Tube thoracostomy w/ or w/o water seal (e.g., for abscess, hemothorax, empyema)
+32035,Thoracostomy; w/ rib resection for empyema
+32036,Thoracostomy; w/ open flap drainage for empyema
+32095,Thoracotomy, limited, for biopsy of lung or pleura
+32100,Thoracotomy, major; w/ exploration and biopsy
+32110,Thoracotomy, major; w/ control of traumatic hemorrhage and/or repair of lung tear
+32120,Thoracotomy, major; for postoperative complications
+32124,Thoracotomy, major; w/ open intrapleural pneumonolysis
+32140,Thoracotomy, major; w/ cyst(s) removal, w/ or w/o a pleural procedure
+32141,Thoracotomy, major; w/ excision-plication of bullae, w/ or w/o a pleural procedure
+32150,Thoracotomy, major; w/ removal of intrapleural foreign body or fibrin deposit
+32151,Thoracotomy, major; w/ removal of intrapulmonary foreign body
+32160,THORACOTOMY, MAJOR; w/ cardiac massage
+32200,Pneumonostomy, w/ open drainage of abscess or cyst
+32215,Pleural scarification for repeat pneumothorax
+32220,Decortication, pulmonary ; total
+32225,Decortication, pulmonary ; partial
+32310,Pleurectomy, parietal
+32320,Decortication and parietal pleurectomy
+32400,Biopsy, pleura; percutaneous needle
+32402,Biopsy, pleura; open
+32405,Biopsy, lung or mediastinum, percutaneous needle
+32420,Pneumonocentesis, puncture of lung for aspiration
+32440,Removal of lung, total pneumonectomy
+32442,Removal of lung, w/ resection of segment of trachea followed by broncho-tracheal anastomosis (sleeve pneumonectomy)
+32445,Removal of lung, extrapleural
+32480,Removal of lung, other than total pneumonectomy; single lobe (lobectomy)
+32482,Removal of lung, other than total pneumonectomy; two lobes (bilobectomy)
+32484,Removal of lung, other than total pneumonectomy; single segment (segmentectomy)
+32486,Removal of lung, other than total pneumonectomy; w/ circumferential resection of segment of bronchus followed by broncho-bronchial anastomosis (sleeve lobectomy)
+32488,Removal of lung, other than total pneumonectomy; all remaining lung following previous removal of a portion of lung (completion pneumonectomy)
+32491,Removal of lung, other than total pneumonectomy; excision-plication of emphysematous lung(s) (bullous or non-bullous) for lung volumeRemoval of lung, other than total pneumonectomy; reduction, sternal split or transthoracic approach, w/ or w/o any pleural
+32500,Removal of lung, other than total pneumonectomy; wedge resection, single or multiple
+32520,Resection of lung; w/ resection of chest wall
+32522,Resection of lung; w/ reconstruction of chest wall, w/o prothesis
+32525,Resection of lung; w/ major reconstruction of chest wall, w/ prosthesis
+32540,Extrapleural enucleation of empyema (empyemectomy)
+32601,Thoracoscopy, diagnostic ; lungs and pleural space, w/o biopsy
+32602,Thoracoscopy, diagnostic ; lungs and pleural space, w/ biopsy
+32603,Thoracoscopy, diagnostic ; pericardial sac, w/o biopsy
+32604,Thoracoscopy, diagnostic ; pericardial sac, w/ biopsy
+32605,Thoracoscopy, diagnostic ; mediastinal space, w/o biopsy
+32606,Thoracoscopy, diagnostic ; mediastinal space, w/ biopsy
+32650,Thoracoscopy, surgical; w/ pleurodesis, any method
+32651,Thoracoscopy, surgical; w/ partial pulmonary decortication
+32652,Thoracoscopy, surgical; w/ total pulmonary decortication, including intrapleural pneumonolysis
+32653,Thoracoscopy, surgical; w/ removal of intrapleural foreign body or firbin deposit
+32654,Thoracoscopy, surgical; w/ control of traumatic hemorrhage
+32655,Thoracoscopy, surgical; w/ excision-plication of bullae, including any pleural procedure
+32656,Thoracoscopy, surgical; w/ parietal pleurectomy
+32658,Thoracoscopy, surgical; w/ removal of clot or foreign body from pericardial sac
+32659,Thoracoscopy, surgical; w/ creation of percardial window or partial resection of pericardial sac for drainage
+32660,Thoracoscopy, surgical; w/ total pericardiectomy
+32661,Thoracoscopy, surgical; w/ excision of pericardial cyst, tumor, or mass
+32662,Thoracoscopy, surgical; w/ excision of mediastinal cyst, tumor, or mass
+32663,Thoracoscopy, surgical; w/ lobectomy, total or segmental
+32664,Thoracoscopy, surgical; w/ thoracic sympathectomy
+32665,Thoracoscopy, surgical; w/ esophagomyotomy (Heller type)
+32800,Repair lung hernia through chest wall
+32810,Closure of chest wall following open flap drainage for empyema (Clagett type procedure)
+32815,Open closure of major bronchial fistula
+32820,Major reconstruction, chest wall (posttraumatic)
+32850,Donor pneumonectomy(ies) w/ preparation and maintenance of allograft (cadaver)
+32851,Lung transplant, single; w/o cardiopulmonary bypass
+32852,Lung transplant, single; w/ cardiopulmonary bypass
+32853,Lung transplant, double (bilateral sequential or en bloc); w/o cardiopulmonary bypass
+32854,Lung transplant, double (bilateral sequential or en bloc); w/ cardiopulmonary bypass
+32900,Resection of ribs, extrapleural, all stages
+32905,Thoracoplasty, Schede type or extrapleural (all stages);
+32906,Thoracoplasty, Schede type or extrapleural (all stages); w/ closure of bronchial fistula
+32940,Pneumonolysis, extraperiosteal, including filling or packing procedures
+32960,Pneumothorax, therapeutic, intrapleural injection of air
+33010,Pericardiocentesis
+33015,Tube pericardiostomy
+33020,Pericardiotomy for removal of clot or foreign body (primary procedure)
+33025,Creation of pericardial window or partial resection for drainage
+33030,Pericardiectomy, subtotal or complete; w/o cardiopulmonary bypass
+33031,Pericardiectomy, subtotal or complete; w/ cardiopulmonary bypass
+33050,Excision of pericardial cyst or tumor
+33120,Excision of intracardiac tumor, resection w/ cardiopulmonary bypass
+33130,Resection of external cardiac tumor
+33200,Insertion of permanent pacemaker w/ epicardial electrode(s); by thoracotomy
+33201,Insertion of permanent pacemaker w/ epicardial electrode(s); by xiphoid approach
+33206,Insertion or replacement of permanent pacemaker w/ transvenous electrode(s); atrial
+33207,Insertion or replacement of permanent pacemaker w/ transvenous electrode(s); ventricular
+33208,Insertion or replacement of permanent pacemaker w/ transvenous electrode(s); atrial and ventricular
+33210,Insertion or placement of temporary transvenous single chamber cardiac electrodes
+33211,Insertion or replacement of temporary transvenous dual chamber cardiac electrodes
+33212,Insertion or replacement of pacemaker pulse generator only; single chamber
+33213,Insertion or replacement of pacemaker pulse generator only; dual chamber
+33214,Upgrade of implanted pacemaker system, conversion of single chamber system to dual chamber system (includes removal of previously placed pulse generator, testing of existing lead, insertion of new lead, insertion of new pulse generator)
+33216,Insertion, replacement or repositioning of permanent transvenous electrode(s) only (15 days or more after initial insertion); single chamber, atrial or ventricular
+33217,Insertion, replacement or repositioning of permanent transvenous electrode(s) only (15 days or more after initial insertion); dual chamber
+33218,Repair of single transvenous electrode for a single chamber, permanent pacemaker or single chamber pacing cardioverter-defibrillator
+33220,Repair of two transvenous electrode for a dual chamber, permanent pacemaker or dual chamber pacing cardioverter-defibrillator
+33222,Revision or relocation of skin pocket for pacemaker
+33223,Revision or relocation of skin pocket for single or dual chamber pacing cardioverter-defibrillator
+33233,Removal of transvenous pacemaker pulse generator
+33234,Removal of permanent of transvenous pacemaker electrode(s); single lead system, atrial or ventricular
+33235,Removal of permanent of transvenous pacemaker electrode(s); dual lead chamber
+33236,Removal of permanent epicardial pacemaker and electrodes by thoracotomy; single lead system, atrial or ventricular
+33237,Removal of permanent epicardial pacemaker and electrodes by thoracotomy; dual lead chamber
+33238,Removal of permanent transvenous electrode(s) by thoracotomy
+33240,Insertion or replacement of implantable cardioverter-defibrillator pulse generator
+33241,Removal of implantable cardioverter-defibrillator pulse generator
+33243,Removal of implantable cardioverter-defibrillator pulse generator and/or lead system; by thoracotomy
+33244,Removal of implantable cardioverter-defibrillator pulse generator and/or lead system; by transvenous extraction
+33245,Implantation or replacement of implantable cardioverter-defibrillator pads by thoracotomy, w/ or w/o sensing electrodes;
+33246,Implantation or replacement of implantable cardioverter-defibrillator pads by thoracotomy, w/ insertion of implantable cardioverter-defibrillator pulse generator
+33249,Implantation or replacement of implantable cardioverter-defibrillator pads by thoracotomy, w/ insertion of cardio-defibrillator pulse generator
+33250,Operative ablation of supraventicular arrhythmogenic focus or pathway (e.g., Wolff-Parkinson-White, A-V node reentry), tract(s) and/or focus (foci); w/o cardiopulmonary bypass
+33251,Operative ablation of supraventicular arrhythmogenic focus or pathway (e.g., Wolff-Parkinson-White, A-V node reentry), tract(s) and/or focus (foci); w/ cardiopulmonary bypass
+33253,Operative incisions and reconstruction of atria for treatment of atrial fibrillation or atrial flutter (e.g., maze procedure)
+33261,Operative ablation of ventricular arrhythmogenic focus w/ cardiopulmonary bypass
+33300,Repair of cardiac wound; w/o bypass
+33305,Repair of cardiac wound; w/ cardiopulmonary bypass
+33310,Cardiotomy, exploratory (includes removal of foreign body); w/o bypass
+33315,Cardiotomy, exploratory (includes removal of foreign body); w/ cardiopulmonary bypass
+33320,Suture repair of aorta or great vessels; w/o shunt or cardiopulmonary bypass
+33321,Suture repair of aorta or great vessels; w/ shunt bypass
+33322,Suture repair of aorta or great vessels; w/ cardiopulmonary bypass
+33330,Insertion of graft, aorta or great vessels; w/o shunt, or cardiopulmonary bypass
+33332,Insertion of graft, aorta or great vessels; w/ shunt bypass
+33335,Insertion of graft, aorta or great vessels; w/ cardiopulmonary bypass
+33400,Valvuloplasty, aortic valve; open, w/ cardiopulmonary bypass
+33401,Valvuloplasty, aortic valve; open, w/ inflow occlusion
+33403,Valvuloplasty, aortic valve; using transventricular dilation, w/ cardiopulmonary bypass
+33404,Construction of apica-aortic conduit
+33405,Replacement, aortic valve, w/ cardiopulmonary bypass; w/ prosthetic valve other than homograft
+33406,Replacement, aortic valve, w/ cardiopulmonary bypass; w/ homograft valve (freehand)
+33411,Replacement, aortic valve; w/ aortic annulus enlargement, noncoronary cusp
+33412,Replacement, aortic valve; w/ transventricular aortic annulus enlargement (Konno procedure)
+33413,Replacement, aortic valve; w/ translocation of autologous pulmonary valve w/ hemograft repacement of pulmonary valve (Ross procedure)
+33414,Repair of left ventricular outflow tract obtruction by patch enlargement of the outflow tract
+33415,Resection or incision of subvalvular tissue for discrete subaortic stenosis (e.g., asymmetric septal hypertrophy)
+33416,Ventriculomyotomy (-myectomy) for idiopathic hypertrophic subaortic stenosis (e.g., asymmetric septal hypertrophy)
+33417,Aortoplasty (gusset) for supravalvular stenosis
+33420,Valvotomy, mitral valve; closed heart
+33422,Valvotomy, mitral valve; open heart, w/ cardiopulmonary bypass
+33425,Valvuloplasty, mitral valve, w/ cardiopulmonary bypass;
+33426,Valvuloplasty, mitral valve, w/ cardiopulmonary bypass; w/ prosthetic ring
+33427,Valvuloplasty, mitral valve, w/ cardiopulmonary bypass; radical reconstruction, w/ or w/o ring
+33430,Replacement, mitral valve, w/ cardiopulmonary bypass
+33460,Valvectomy, tricuspid valve, w/ cardiopulmonary bypass
+33463,Valvuloplasty, tricuspid valve; w/o ring insertion
+33464,Valvuloplasty, tricuspid valve; w/ ring insertion
+33465,Replacement, tricuspid valve, w/ cardiopulmonary bypass
+33468,Tricuspid valve repositioning and plication for Ebstein anomaly
+33470,Valvotomy, pulmonary valve, closed heart; transventricular
+33471,Valvotomy, pulmonary valve, closed heart; via pulmonary artery
+33472,Valvotomy, pulmonary valve, open heart; w/ inflow occlusion
+33474,Valvotomy, pulmonary valve, open heart; w/ cardiopulmonary bypass
+33475,Replacement, pulmonary valve
+33476,Right ventricular resection for infundibular stenosis, with or without commisurotomy
+33478,Outflow tract augmentation (gusset), w/ or w/o commissurotomy or infundibular resection
+33500,Repair of coronary arteriovenous or arteriocardiac chamber fistula; w/ cardiopulmonary bypass
+33501,Repair of coronary arteriovenous or arteriocardiac chamber fistula; w/o cardiopulmonary bypass
+33502,Repair of anomalous coronary artery; by ligation
+33503,Repair of anomalous coronary artery; by graft, w/o cardiopulmonary bypass
+33504,Repair of anomalous coronary artery; by graft, w/ cardiopulmonary bypass
+33505,Repair of anomalous coronary artery; with construction of intrapulmonary artery tunnel (Takeuchi procedure)
+33506,Repair of anomalous coronary artery; by translocation from pulmonary artery to aorta
+33510,Coronary artery bypass, vein only; single coronary venous graft
+33511,Coronary artery bypass, vein only; two coronary venous grafts
+33512,Coronary artery bypass, vein only; three coronary venous grafts
+33513,Coronary artery bypass, vein only; four coronary venous grafts
+33514,Coronary artery bypass, vein only; five coronary venous grafts
+33516,Coronary artery bypass, vein only; six or more coronary venous grafts
+33517,Coronary artery bypass, using venous graft(s) and arterial graft(s); single vein graft (list separately in addition to code for arterial graft)
+33518,Coronary artery bypass, using venous graft(s) and arterial graft(s); two venous grafts (list separately in addition to code for arterial graft)
+33519,Coronary artery bypass, using venous graft(s) and arterial graft(s); three venous grafts (list separately in addition to code for arterial graft)
+33521,Coronary artery bypass, using venous graft(s) and arterial graft(s); four venous grafts (list separately in addition to code for arterial graft)
+33522,Coronary artery bypass, using venous graft(s) and arterial graft(s); five venous grafts (list separately in addition to code for arterial graft)
+33523,Coronary artery bypass, using venous graft(s) and arterial graft(s); six or more venous grafts (list separately in addition to code for arterial graft)
+33530,Reoperation, coronary artery bypass procedure or valve procedure, more than one month after original operation (list separately in addition to code for primary procedure)
+33533,Coronary artery bypass, using arterial graft(s); single arterial graft
+33534,Coronary artery bypass, using arterial graft(s); two coronary arterial grafts
+33535,Coronary artery bypass, using arterial graft(s); three coronary arterial grafts
+33536,Coronary artery bypass, using arterial graft(s); four or more coronary arterial grafts
+33542,Myocardial resection (e.g., ventricular aneurysmectomy)
+33545,Repair of postinfarction ventricular septal defect, w/ or w/o myocardial resection
+33572,Coronary endarterectomy, open, any method, of left anterior descending, circumflex, or right coronary artery performed in conjuction w/ coronary artery bypass graft procedure, each vessel (list separately in addition to primary procedure)
+33600,Closure of atrioventricular valve (mitral or tricuspid) by suture or patch
+33602,Closure of semilunar valve (aortic or pulmonary) by suture or patch
+33606,Anastomosis of pulmonary artery to aorta (Damus-Kaye-Stansel procedure)
+33608,Repair of complex cardiac anomaly other than pulmonary atresia with ventricular septal defect by construction or replacemnet of conduit from right or left ventricle to pulmonary artery
+33610,Repair of complex cardiac anomalies (e.g., single ventricle with subaortic obstruction) by surgical enlargement of interventricular septal defect
+33611,Repair of double outlet right ventricle with intraventricular tunnel repair
+33612,Repair of double outlet right ventricle with intraventricular tunnel repair with repair of right ventricular outflow tract obstruction
+33615,Repair of complex cardiac anomalies (e.g., tricuspid atresia) by closure of atrial septal defect and anastomosis of atria or vena cava to pulmonary artery (simple Fontan procedure)
+33617,Repair of complex cardiac anomalies (e.g., single ventricle) by modified Fontan procedure
+33619,Repair of single ventricle w/ aortic outflow obstruction and aortic arch hypoplasia (hypoplastic left heart syndrome) (e.g., Norwood procedure)
+33641,Repair atrial septal defect, secundum, w/ cardiopulmonary bypass, w/ or w/o patch
+33645,Direct or patch closure, sinus venosus, w/ or w/o anomalous pulmonary venous drainage
+99999,Others
