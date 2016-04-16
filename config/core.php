@@ -9,6 +9,7 @@ return [
         "Users",
         "Healthcareservices",
         "Patients",
-        "LOV"
+        "LOV",
+        "Extensions"
     ),
 ];

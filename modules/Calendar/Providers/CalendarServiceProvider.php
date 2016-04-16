@@ -23,7 +23,7 @@ class CalendarServiceProvider extends ServiceProvider {
         $this->registerTranslations();
         $this->registerViews();
 
-        /*create Module table/s when required
+        //create Module table/s when required
         $dbtable = "CREATE TABLE IF NOT EXISTS `calendar` (
         `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
           `calendar_id` varchar(60) COLLATE utf8_unicode_ci NOT NULL ,
@@ -42,9 +42,9 @@ class CalendarServiceProvider extends ServiceProvider {
           `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
           PRIMARY KEY (id),
           UNIQUE KEY `calendar_calendar_id_unique` (`calendar_id`)
-        ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;";
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;";
 
-        DB::statement($dbtable);*/
+        DB::statement($dbtable);
 
     }
 
