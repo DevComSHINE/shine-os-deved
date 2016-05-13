@@ -26,6 +26,7 @@
                     <li><a href="#tab_2" data-toggle="tab">Background</a></li>
                     <li><a href="#tab_3" data-toggle="tab">Password</a></li>
                     <li><a href="#tab_4" data-toggle="tab">Settings</a></li>
+                    <li><a href="#tab_5" data-toggle="tab">Role</a></li>
                 </ul>
                 <div class="tab-content">
 
@@ -48,6 +49,12 @@
                     <div class="tab-pane" id="tab_4">
                         @include('users::pages.userprofiles.settings')
                     </div><!-- /.tab-pane -->
+
+                    <!-- TAB 5 -->
+                    <div class="tab-pane" id="tab_5">
+                        @include('users::pages.userprofiles.userrole')
+                    </div><!-- /.tab-pane -->
+
                 </div><!-- /.tab-content -->
             </div><!-- nav-tabs-custom -->
         </div>

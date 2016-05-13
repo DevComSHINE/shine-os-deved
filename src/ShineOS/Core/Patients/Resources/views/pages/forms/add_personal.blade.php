@@ -16,6 +16,9 @@
                       <label class="btn btn-default @if(isset($patient) AND $patient->suffix == 'third') active @endif">
                         <i class="fa fa-check"></i> <input type="radio" name="inputPatientSuffix" id="" autocomplete="off" value="third"> III
                       </label>
+                      <label class="btn btn-default">
+                        <i class="fa fa-check"></i> <input type="radio" name="inputPatientSuffix" id="" autocomplete="off" value=""> None
+                      </label>
                     </div>
                 </div>
             </div>
@@ -35,9 +38,11 @@
                       <label class="btn btn-default required @if(isset($patient) AND $patient->gender=='F') active @endif">
                         <i class="fa fa-check"></i> {!! Form::radio('inputPatientGender', 'F', $genderf, array('class' => 'gender required')) !!} Female
                       </label>
+                      @if($genderu)
                       <label class="btn btn-default required @if(isset($patient) AND $patient->gender=='U') active @endif">
                         <i class="fa fa-check"></i> {!! Form::radio('inputPatientGender', 'U', $genderu, array('class' => 'gender required')) !!} Unknown
                       </label>
+                      @endif
                     </div>
                 </div>
                 <label class="col-sm-2 control-label" for="marital_status">Marital Status *</label>
@@ -74,7 +79,7 @@
                 <label class="col-sm-2 control-label">Time of Birth</label>
                 <div class="col-sm-4 iconed-input bootstrap-timepicker">
                     <i class="fa fa-clock-o inner-icon"></i>
-                    {!! Form::text('birthtime', null, array('class' => 'form-control', 'name'=>'inputPatientBirthTime','id'=>'timepicker')) !!}
+                    {!! Form::text('birthtime', null, array('class' => 'form-control timepicker', 'name'=>'inputPatientBirthTime','id'=>'')) !!}
                 </div>
             </div>
         </fieldset>

@@ -85,9 +85,10 @@ class PatientsController extends Controller {
         $allergyReactions = Lovs::getLovs('allergy_reaction');
         $religion = $utilities->religion();
         $education = $utilities->education();
+        $facility = Session::get('facility_details');
         $action = 'add';
 
-        return view($this->formPath.'add',compact('medical_history','action','disabilities','allergyReactions','religion','education'))->with($data);
+        return view($this->formPath.'add',compact('medical_history','action','disabilities','allergyReactions','religion','education', 'facility'))->with($data);
     }
 
     /**
@@ -157,7 +158,7 @@ class PatientsController extends Controller {
         $contactInfo->patient_contact_id = IdGenerator::generateId();
         $contactInfo->street_address = Input::get('inputPatientAddress');
         $contactInfo->barangay = Input::get('brgy');
-        $contactInfo->city = Input::has('city');
+        $contactInfo->city = Input::get('city');
         $contactInfo->province = Input::get('province');
         $contactInfo->region = Input::get('region');
         $contactInfo->country = Input::get('inputPatientCountry');
@@ -166,6 +167,7 @@ class PatientsController extends Controller {
         $contactInfo->phone_ext = Input::get('inputPatientPhoneExtension');
         $contactInfo->mobile = Input::get('inputPatientMobile');
         $contactInfo->email = Input::get('inputPatientEmail');
+
         $contactInfo->save();
 
         /**
@@ -304,7 +306,7 @@ class PatientsController extends Controller {
         sortBy('pdata', $plugs, 'desc');
 
         if($patient):
-            return view($this->viewPath.'view', compact('plugs','action','patient','disabilities','allergyReactions','bloodType','religion', 'education'))->with($data);
+            return view($this->viewPath.'view', compact('plugs','action','patient','disabilities','allergyReactions','bloodType','religion', 'education', 'facility'))->with($data);
         else:
             Session::flash('alert-class', 'alert-danger alert-dismissible');
             $message = "The patient profile does not exist. Please choose another.";
@@ -322,7 +324,10 @@ class PatientsController extends Controller {
         $religion = $utilities->religion();
         $education = $utilities->education();
 
-        $patient = findHealthRecordByPatientID($id);
+        $facility = Session::get('facility_details');
+        $roles = Session::get('roles');
+
+        $patient = getCompletePatientByPatientID($id);
 
         //let us collect consultation history for this patient
         //for table display
@@ -365,16 +370,44 @@ class PatientsController extends Controller {
         }
         $data['creator'] = findCreatedByFacilityUserID($id);
 
-        return view($this->viewPath.'dashboard', compact('action','patient','regions','disabilities','allergyReactions','bloodType','religion', 'education', 'seenBy', 'facilityInfo'))->with($data);
+        //Developer Edition implementation
+        //get all available plugins in the patients plugin folder
+        //later on will use options DB to get only activated plugins
+        //**Production implementation should come from the database of activated plugins.
+        $patientPluginDir = plugins_path()."/";
+        $plugins = directoryFiles($patientPluginDir);
+        asort($plugins);
+        $plugs = array();
+        foreach($plugins as $k=>$plugin) {
+            $pdata = NULL;
+            if(strpos($plugin, ".")===false) { //isolate folders
+                //check if config.php exists
+                if(file_exists(plugins_path().$plugin.'/config.php')){
+                    //load the config file
+                    include(plugins_path().$plugin.'/config.php');
+
+                    //check if this folder is enabled
+                    if(in_array($plugin_id, json_decode($facility->enabled_plugins)) OR $roles['role_name'] == 'Developer'){
+
+                        //get only plugins for this module
+                        if($plugin_module == 'patients'){
+                            if($plugin_table == 'plugintable') {
+                                $pdata = Plugin::where('primary_key_value',$id)->first();
+                            } else {
+                                if (Schema::hasTable($plugin_table)) {
+                                    $pdata = DB::table($plugin_table)->where($plugin_primaryKey, $id)->first();
+                                }
+                            }
+                            $plugs[$k]['plugin'] = $plugin_id;
+                            $plugs[$k]['pdata'] = $pdata;
+                        }
+                    }
+                }
+            }
+        }
+//dd($patient);
+        return view($this->viewPath.'dashboard', compact('action','patient','regions','disabilities','allergyReactions','bloodType','religion', 'education', 'seenBy', 'facilityInfo', 'facility','roles','plugs'))->with($data);
     }
-
-    /**
-     *  To be refurbished. Rename view to edit.
-     */
-    // public function edit($id)
-    // {
-
-    // }
 
     // revised by Romel
     public function update($id)
@@ -648,13 +681,16 @@ class PatientsController extends Controller {
 
         $facilityInfo = FacilityHelper::facilityInfo();
         $facilityUser = FacilityHelper::facilityUserId($user->user_id, $facilityInfo->facility_id);
-        $facpatid = FacilityPatientUser::where('facilityuser_id', $facilityUser->facilityuser_id)->first();
+        $facpatid = FacilityPatientUser::where('facilityuser_id', $facilityUser->facilityuser_id)->where('patient_id', $id)->first();
 
-        $deletePatient = Patients::destroy($id);
-        $deleteFacilityPatientUser = FacilityPatientUser::where('facilitypatientuser_id', $facpatid->facilitypatientuser_id)->delete();
-        $deleteHealthCareServices = HealthCareServices::where('facilitypatientuser_id', $facpatid->facilitypatientuser_id)->get();
+        $deletePatient = Patients::where('patient_id', $id)->delete();
 
-        if ($deletePatient && $deleteFacilityPatientUser) :
+        if($facpatid) {
+            $deleteFacilityPatientUser = FacilityPatientUser::where('facilitypatientuser_id', $facpatid->facilitypatientuser_id)->delete();
+            //$deleteHealthCareServices = Healthcareservices::where('facilitypatientuser_id', $facpatid->facilitypatientuser_id)->delete();
+        }
+
+        if ($deletePatient) :
             Session::flash('alert-class', 'alert-success alert-dismissible');
             $message = "Successfully Deleted a Patient.";
         else:
@@ -663,6 +699,37 @@ class PatientsController extends Controller {
         endif;
 
         return Redirect::to('records')->with('message', $message);
+    }
+
+    public function undelete($id)
+    {
+        $user = UserHelper::getUserInfo();
+
+        $facilityInfo = FacilityHelper::facilityInfo();
+        $facilityUser = FacilityHelper::facilityUserId($user->user_id, $facilityInfo->facility_id);
+        $facpatid = FacilityPatientUser::withTrashed()->where('facilityuser_id', $facilityUser->facilityuser_id)->where('patient_id', $id)->first();
+
+        $undeletePatient = Patients::withTrashed()->where('patient_id', $id)->restore();
+        if($facpatid) {
+            $undeleteFacilityPatientUser = FacilityPatientUser::withTrashed()->where('facilitypatientuser_id', $facpatid->facilitypatientuser_id)->restore();
+            //$undeleteHealthCareServices = Healthcareservices::withTrashed()->where('facilitypatientuser_id', $facpatid->facilitypatientuser_id)->restore();
+        } else {
+            $facpat = new FacilityPatientUser;
+                $facpat->facilitypatientuser_id = IdGenerator::generateId();
+                $facpat->facilityuser_id = $facilityUser->facilityuser_id;
+                $facpat->patient_id = $id;
+            $facpat->save();
+        }
+
+        if ($undeletePatient) :
+            Session::flash('alert-class', 'alert-success alert-dismissible');
+            $message = "Successfully Restored a delted Patient record.";
+        else:
+            Session::flash('alert-class', 'alert-danger alert-dismissible');
+            $message = "An error was encountered while restoring the record. Kindly try again.";
+        endif;
+
+        return Redirect::to('patients/view/'.$id);
     }
 
     public static function patientDetails($id)
@@ -681,6 +748,7 @@ class PatientsController extends Controller {
 
 
         $patient = DB::table('patients')
+            ->select('patients.patient_id', 'patients.first_name', 'patients.last_name', 'facilities.facility_name', 'patients.deleted_at')
             ->join('facility_patient_user', 'patients.patient_id', '=', 'facility_patient_user.patient_id')
             ->join('facility_user', 'facility_patient_user.facilityuser_id', '=', 'facility_user.facilityuser_id')
             ->join('facilities', 'facility_user.facility_id', '=', 'facilities.facility_id')

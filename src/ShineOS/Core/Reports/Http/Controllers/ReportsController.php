@@ -6,6 +6,7 @@ use ShineOS\Core\Healthcareservices\Entities\Healthcareservices;
 use ShineOS\Core\Healthcareservices\Entities\Diagnosis;
 use ShineOS\Core\Facilities\Entities\FacilityPatientUser;
 use ShineOS\Core\Patients\Entities\Patients;
+use ShineOS\Core\Referrals\Entities\Referrals;
 use ShineOS\Core\Reports\Entities\Reports;
 use ShineOS\Core\Reports\Entities\M1;
 use Shine\Libraries\FacilityHelper;
@@ -116,6 +117,7 @@ class ReportsController extends Controller {
         $data['patient_count'] = Patients::whereHas('facilityUser', function($query) use ($facility) {
                     $query->where('facility_id', '=', $facility->facility_id); })->count();
         $data['visit_count'] = Healthcareservices::count();
+        $data['referral_count'] = Referrals::where('facility_id', '=', $facility_id->facility_id)->count(); // change this to facility ID
 
         return $data;
     }

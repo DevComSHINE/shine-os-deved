@@ -23,29 +23,6 @@ class CalendarServiceProvider extends ServiceProvider {
         $this->registerTranslations();
         $this->registerViews();
 
-        //create Module table/s when required
-        $dbtable = "CREATE TABLE IF NOT EXISTS `calendar` (
-        `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-          `calendar_id` varchar(60) COLLATE utf8_unicode_ci NOT NULL ,
-          `allday` varchar(1) COLLATE utf8_unicode_ci DEFAULT '0',
-          `start` datetime NOT NULL,
-          `end` datetime NOT NULL,
-          `title` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
-          `description` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
-          `url` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-          `color` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
-          `textcolor` varchar(30) COLLATE utf8_unicode_ci DEFAULT NULL,
-          `facility_id` varchar(60) COLLATE utf8_unicode_ci NOT NULL,
-          `user_id` varchar(60) COLLATE utf8_unicode_ci DEFAULT NULL,
-          `deleted_at` timestamp NULL DEFAULT NULL,
-          `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-          `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-          PRIMARY KEY (id),
-          UNIQUE KEY `calendar_calendar_id_unique` (`calendar_id`)
-        ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;";
-
-        DB::statement($dbtable);
-
     }
 
     /**

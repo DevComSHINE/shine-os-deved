@@ -157,7 +157,7 @@ class Users extends Model implements AuthenticatableContract, CanResetPasswordCo
      * @return object
      */
     protected static function getRecordById ( $user_id = 0 ) {
-        return self::where('user_id', $user_id)->first();
+        return self::with('mdUsers')->where('user_id', $user_id)->first();
     }
 
     /**
@@ -359,22 +359,27 @@ class Users extends Model implements AuthenticatableContract, CanResetPasswordCo
 
     public function contact()
     {
-        return $this->hasOne('ShineOS\Core\Users\Entities\Contact','user_id');
+        return $this->hasOne('ShineOS\Core\Users\Entities\Contact','user_id','user_id');
     }
 
     public function mdUsers()
     {
-        return $this->hasOne('ShineOS\Core\Users\Entities\MDUsers','user_id');
+        return $this->hasOne('ShineOS\Core\Users\Entities\MDUsers','user_id','user_id');
     }
 
     public function userlogs ()
     {
-        return $this->hasMany('ShineOS\Core\Users\Entities\UserLogs','user_id');
+        return $this->hasMany('ShineOS\Core\Users\Entities\UserLogs','user_id','user_id');
     }
 
     public function facilityUser()
     {
-        return $this->hasMany('ShineOS\Core\Users\Entities\FacilityUser','user_id');
+        return $this->hasMany('ShineOS\Core\Users\Entities\FacilityUser','user_id','user_id');
+    }
+
+    public function rolesaccess()
+    {
+        return $this->belongsToMany('ShineOS\Core\Users\Entities\RolesAccess', 'facility_user', 'facilityuser_id', 'facilityuser_id')->withPivot('facilityuser_id');
     }
 
     // public function roles ()

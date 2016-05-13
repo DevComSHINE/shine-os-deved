@@ -13,7 +13,7 @@
                 <th>Age</th>
                 <th>Birthdate</th>
                 <th>Family Folder</th>
-                <th>Barangay</th>
+                <th class="nosort">Barangay</th>
                 <th class="nosort" width="247">&nbsp;</th>
             </tr>
             </thead>
@@ -52,7 +52,8 @@
             ],
             "columnDefs": [
                 { "orderable": false, "targets": 'nosort' }
-            ]
+            ],
+            "order": [[ 0, "desc" ]]
           });
 
           var T2 = $('table#dataTable_healthcare').DataTable({

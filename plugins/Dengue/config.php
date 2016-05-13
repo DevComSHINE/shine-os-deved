@@ -4,7 +4,7 @@ $plugin_module = 'healthcareservices';          //module owner
 $plugin_location = 'dropdown';                  //UI location where plugin will be accessible
 $plugin_primaryKey = 'dengue_id';        //primary_key used to find data
 $plugin_table = 'dengue_record';            //plugintable default; table_name custom table
-$plugin_tabs_child = array('addservice', 'vitals', 'dengue_plugin', 'medicalorders', 'disposition'); //,
+$plugin_tabs_child = array('addservice', 'complaints', 'vitals', 'dengue_plugin', 'impanddiag', 'medicalorders', 'disposition'); //,
 
 $plugin_relationship = array();
 $plugin_folder = 'Dengue'; //module owner
@@ -21,10 +21,13 @@ $plugin_tabs = [
     'disposition' => 'Disposition',
     'medicalorders' => 'Medical Orders',
     'vitals' => 'Vitals & Physical',
-    'dengue_plugin' => 'Dengue Status'
+    'dengue_plugin' => 'Dengue Status',
+    'impanddiag' => 'Impressions & Diagnosis',
+    'complaints' => 'Complaints'
 ];
 
 $plugin_tabs_models = [
+    'complaints' => 'GeneralConsultation',
     'disposition' => 'Disposition',
     'medicalorders' => 'MedicalOrder',
     'vitals' => 'VitalsPhysical',

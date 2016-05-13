@@ -20,6 +20,7 @@ use ShineOS\Core\Users\Libraries\Salt;
 use ShineOS\Core\Users\Libraries\UserActivation;
 use Input, Hash;
 use Shine\Libraries\IdGenerator;
+use Shine\Libraries\Utils\Lovs;
 
 class Register {
 
@@ -54,14 +55,19 @@ class Register {
             $facility->facility_type = $doh->type;
             $facility->DOH_facility_code = $doh->code;
 
-            $facilityContact->address = $doh->address;
-            $facilityContact->barangay = $doh->barangay;
-            $facilityContact->city = $doh->city;
-            $facilityContact->province = $doh->province;
-            $facilityContact->region = $doh->region;
+            //get lov values for location
+            $brgycode = getBrgyCode($doh->barangay);
+            $citycode = getCityCode($doh->city);
+            $provcode = getProvinceCode($doh->province);
+            $regioncode = getRegionCode($doh->region);
+
+            $facilityContact->barangay = $brgycode;
+            $facilityContact->city = $citycode;
+            $facilityContact->province = $provcode;
+            $facilityContact->region = $regioncode;
             $facilityContact->zip = $doh->zip;
-            $facilityContact->country = "Philippines";
-            $facility->enabled_plugins = '["MaternalCare","FamilyPlanning","Pediatrics","Tuberculosis","Employment","FamilyInfo","MedicalHistory","Philhealth"]';
+            $facilityContact->country = "PHL";
+            $facility->enabled_plugins = '["MaternalCare","FamilyPlanning","Pediatrics","Tuberculosis","Employment","FamilyInfo","MedicalHistory"]';
         } else {
             $facility->facility_name = Input::get('facility_name');
             $facility->provider_type = Input::get('provider_type');
@@ -70,6 +76,7 @@ class Register {
             $facility->DOH_facility_code = Input::get('DOH_facility_code');
             $facility->enabled_plugins = '["MaternalCare","FamilyPlanning","Pediatrics","Tuberculosis","Employment","FamilyInfo","MedicalHistory"]'; //add PHIE later
         }
+
         $facility->enabled_modules = '["Calendar"]';
         $facility->save();
 
@@ -105,8 +112,8 @@ class Register {
         $users->first_name = Input::get('first_name');
         $users->last_name = Input::get('last_name');
         $users->email = Input::get('email');
-        $users->status = 'Active'; //auto-active for Developer Edition
-        $users->user_type = 'Developer'; //set to Developer for Developer Edition
+        $users->status = 'Pending'; //auto-active for Developer Edition
+        $users->user_type = 'Admin'; //set to Developer for Developer Edition
         $users->salt = $salt;
         $users->password = Hash::make($password.$salt);
         $users->save();
@@ -157,7 +164,7 @@ class Register {
     public static function addRole ( $facilityUserID ) {
         // add role
         $userRole = new RolesAccess();
-        $userRole->role_id = 0;  //change to 0 for DevEd
+        $userRole->role_id = 1;  //change to 0 for DevEd
         $userRole->facilityuser_id = $facilityUserID;
         $userRole->save();
 

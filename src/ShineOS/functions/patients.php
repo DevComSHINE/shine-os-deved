@@ -53,32 +53,39 @@ use ShineOS\Core\Healthcareservices\Entities\Healthcareservices;
     /**
      * Get all patients of the Facility of current user
      * @return [array] Array of patient records
+     *
+     * WE NEED TO FIX THIS USING NORMALIZED VIEW
      */
+
     function getAllPatientsByFacility($order = NULL, $search = NULL, $dir = NULL, $limit = NULL, $offset = NULL)
     {
         $facilityInfo = FacilityHelper::facilityInfo();
 
-        $sql = "patients.deleted_at IS NULL";
+        $arg = "select *, `patients`.`patient_id` as PID from `patients` LEFT JOIN `patient_contact` ON `patient_contact`.`patient_id` = `patients`.`patient_id` LEFT JOIN `patient_death_info` ON `patient_death_info`.`patient_id` = `patients`.`patient_id` LEFT JOIN `patient_familyinfo` ON `patient_familyinfo`.`patient_id` = `patients`.`patient_id` where `patients`.`deleted_at` is null and (select count(*) from `facility_user` inner join `facility_patient_user` on `facility_user`.`facilityuser_id` = `facility_patient_user`.`facilityuser_id`";
+
+        $sql = " where `facility_patient_user`.`patient_id` = `patients`.`patient_id` and `facility_id` = ".$facilityInfo->facility_id.")";
 
         if($search) {
-            $sql .= ' AND (patients.first_name LIKE "%'.$search.'%" OR patients.last_name LIKE "%'.$search.'%" OR patients.middle_name LIKE "%'.$search.'%" OR patients.birthdate LIKE "%'.$search.'%")';
+            $sql .= ' AND (`patients`.`first_name` LIKE "%'.$search.'%" OR `patients`.`last_name` LIKE "%'.$search.'%" OR `patients`.`middle_name` LIKE "%'.$search.'%" OR `patients`.`birthdate` LIKE "%'.$search.'%")';
         }
-        if($order) {
-            $sql .= ' order by patients.'.$order.' '.$dir;
+
+        if($order){
+            if($order == 'barangay'){
+                $sql .= ' order by `patient_contact`.`'.$order.'` '.$dir;
+            } elseif($order == 'family_folder_name'){
+                $sql .= ' order by `patient_familyinfo`.`'.$order.'` '.$dir;
+            } else {
+                $sql .= ' order by `patients`.`'.$order.'` '.$dir;
+            }
         }
         if($limit) {
             $sql .= ' limit '.$limit;
-        }
-        if($offset) {
-            $sql .= ' offset '.$offset;
+            if($offset) {
+                $sql .= ' offset '.$offset;
+            }
         }
 
-        $patients = Patients::with('patientContact','facilityUser','patientDeathInfo')
-            ->whereHas('facilityUser', function($query) use ($facilityInfo) {
-                $query->where('facility_id', '=', $facilityInfo->facility_id);
-            })
-            ->whereRaw( $sql )
-            ->get();
+        $patients = DB::select( $arg.$sql );
 
         return $patients;
     }

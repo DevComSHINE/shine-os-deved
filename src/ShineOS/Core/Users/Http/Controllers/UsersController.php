@@ -14,7 +14,7 @@ use Shine\Libraries\Utils;
 use ShineOS\Core\Users\Libraries\Salt;
 use ShineOS\Core\Facilities\Entities\Facilities;
 use Shine\Libraries\UserHelper;
-
+use Shine\Libraries\IdGenerator;
 use App\Libraries\FacilityHelper;
 
 use View,
@@ -119,6 +119,8 @@ class UsersController extends Controller {
         $data = array();
 
         $curUser = UserHelper::getUserInfo();
+        $userFacility = Users::with('facilityUser')->where('user_id', $id)->first();
+
 
         // get data
         $data['currentID'] = $curUser->user_id;
@@ -129,7 +131,9 @@ class UsersController extends Controller {
         $userMd = MDUsers::getRecordById($id);
         $data['userMd'] = $userMd;
         $data['profile_completeness'] = Users::computeProfileCompleteness($id);
-
+        $data['role'] = Roles::all()->toArray();
+        $data['userRole'] = getRoleByFacilityUserID($userFacility->facilityUser[0]->facilityuser_id);
+        //dd($data['userRole']);
         // lovs
         $regions = Lovs::getLovs('region');
         $data['regions'] = $regions;
@@ -137,6 +141,7 @@ class UsersController extends Controller {
         $data['provinces'] = $provinces;
         $citymunicipalities = Lovs::getLovs('citymunicipalities');
         $data['citymunicipalities'] = $citymunicipalities;
+
 
         return view($this->viewPath.'userprofile')->with($data);
     }
@@ -291,7 +296,12 @@ class UsersController extends Controller {
      */
     public function updateBackground($id)
     {
-        DB::table('user_md')
+        //check if this exist
+        $userMD = DB::table('user_md')
+            ->where('user_id', $id)->first();
+
+        if($userMD) {
+            DB::table('user_md')
             ->where('user_id', $id)
             ->update(array(
                 'profession' => Input::get('profession'),
@@ -300,6 +310,20 @@ class UsersController extends Controller {
                 'residency_trn_inst' => Input::get('residency_trn_inst'),
                 'residency_grad_yr' => Input::get('residency_grad_yr'),
             ) );
+        } else {
+            $md = new MDUsers();
+
+                $md->usermd_id = IdGenerator::generateId();
+                $md->user_id= $id;
+                $md->profession= Input::get('profession');
+                $md->professional_license_number= Input::get('professional_license_number');
+                $md->med_school= Input::get('med_school');
+                $md->residency_trn_inst= Input::get('residency_trn_inst');
+                $md->residency_grad_yr= Input::get('residency_grad_yr');
+
+            $md->save();
+
+        }
 
         // redirect
         Session::flash('message', 'Successfully updated User Background!');
@@ -413,7 +437,13 @@ class UsersController extends Controller {
     public function saveRole ($id)
     {
         $facilityuser_id = DB::table('facility_user')->where('user_id', $id)->first();
+        $newRole = Input::get('role');
 
         $role = RolesAccess::where('facilityuser_id', $facilityuser_id->facilityuser_id)->first();
+        $role->role_id = $newRole;
+        $role->save();
+
+        Session::flash('message', 'Successfully changed user role!');
+        return Redirect::to($this->modulePath.'/'.$id);
     }
 }

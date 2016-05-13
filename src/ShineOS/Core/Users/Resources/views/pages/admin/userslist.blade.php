@@ -49,18 +49,22 @@
                                 <th>ID</th>
                                 <th>Name</th>
                                 <th>Email Address</th>
-                                <!-- <th>Role</th> -->
+                                <th>Role</th>
                                 <th>Status</th>
                                 <th class="text-center">Action</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach( $records as $record )
+
                             <tr>
                                 <td>{{ $record->user_id }}</td>
                                 <td>{{ $record->first_name }} {{ $record->middle_name }} {{ $record->last_name }}</td>
                                 <td>{{ $record->email }}</td>
-                                <!-- <td>  to follow  </td> -->
+                                <?php
+                                    $role = getRoleByFacilityUserID($record->facilityUser[0]->facilityuser_id);
+                                ?>
+                                <td>{{ $role->role_name }}</td>
                                 <td>
                                     @if ( $record->status == 'Pending' )
                                         <?php $statusClass = 'default'; ?>
@@ -70,7 +74,6 @@
                                         <?php $statusClass = 'success'; ?>
                                     @endif
                                     <span class="label label-{{ $statusClass }}">
-
                                         {{ $record->status }}
                                     </span>
                                 </td>

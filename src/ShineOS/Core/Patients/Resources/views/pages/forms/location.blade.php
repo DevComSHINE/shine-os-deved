@@ -16,6 +16,13 @@ $emergency_phone = NULL;
 $emergency_mobile = NULL;
 $emergency_address = NULL;
 
+if($facility) {
+    $region = $facility->facilityContact->region;
+    $province = $facility->facilityContact->province;
+    $city = $facility->facilityContact->city;
+    $barangay = $facility->facilityContact->barangay;
+}
+
 if(isset($patient)) {
     if($patient->patientContact){
         $phone = $patient->patientContact->phone;
@@ -27,7 +34,7 @@ if(isset($patient)) {
         $province = $patient->patientContact->province;
         $city = $patient->patientContact->city;
         $barangay = $patient->patientContact->barangay;
-        $zip = $patient->patientContact->zip;
+        $zip = ($patient->patientContact->zip > 0) ? $patient->patientContact->zip : NULL;
         $country = $patient->patientContact->country;
     }
     if($patient->patientEmergencyInfo){

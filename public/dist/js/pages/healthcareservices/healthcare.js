@@ -4,16 +4,6 @@ var Healthcare = {};
 
 function firedate(el)
 {
-    /* Initialize datepicker
-    $(el).datepicker({
-        setDate: new Date(),
-        changeMonth: true,
-        changeYear: true,
-        minDate: '0D'
-    });
-    // Initialize mask datepicker
-    $(el).inputmask("mm/dd/yyyy", {"placeholder": "mm/dd/yyyy"});*/
-
     $(el).daterangepicker({
         singleDatePicker: true,
         showDropdowns: true
@@ -64,66 +54,40 @@ Healthcare.init = function () {
     url : baseurl+"/lov/api/diagnosis/subsubCat",
     loading : "Loading . . ."
   });
+  $('#OT').on('ifChecked', function(event){
+        $("#labOthers").removeClass("hidden");
+  });
+  $('#OT').on('ifUnchecked', function(event){
+        $("#labOthers").addClass("hidden");
+  });
 
    Healthcare.computeBMI();
    Healthcare.impAndDIag();
    Healthcare.medOrder();
 
-   /*if($(".diagnosis_input").length > 0) {
-       Healthcare.diagAutoComplete();
-   }*/
-
-   if($(".procedure_input").length > 0) {
-       Healthcare.procedureAutoComplete();
-   }
-
-   if($('.MO_PROCEDURE_ON').length > 0) {
-       //remove procedure in selection
-       $('#medorders').find('[value="MO_PROCEDURE"]').remove();
-       $('.procedure_add').click(function() {
-            $procclone = $(this).parents('.procedure_group').clone(true);
-            $procclone.find('.form-control').val("");
-            $procclone.appendTo( $(this).parents('.MO_PROCEDURE_ON') );
-            return false;
+   if($('.diagnosis_input').length>0) {
+       $('.diagnosis_input').autocomplete({
+            source: availableTags
        });
-       $('.procedure_less').click(function() {
-           var pcount = $('.procedure_group').length;
-           if(pcount > 2) {
-                $procclone = $(this).parents('.procedure_group').remove();
-            } else {
-                alert("You can delete this last entry. If you do not need this Medical Order, click on Remove Order on the right side.");
-            }
-            return false;
-       })
-   }
-   if($('.MO_MED_PRESCRIPTION_ON').length > 0) {
-       //remove prescription in selection
+    }
+
+   if(!$('#prescriptionTab.hidden').length) {
+       //remove laboratory in selection
        $('#medorders').find('[value="MO_MED_PRESCRIPTION"]').remove();
-       $('.prescription_add').click(function() {
-           $presclone = $(this).parents('.prescription_group').clone(true);
-           $presclone.find('.form-control').val("");
-           $presclone.appendTo( $(this).parents('.MO_MED_PRESCRIPTION_ON') );
-           return false;
-       });
-       $('.prescription_less').click(function() {
-            var pcount = $('.prescription_group').length;
-            if(pcount > 2) {
-                $(this).parents('.prescription_group').remove();
-            } else {
-                alert("You can delete this last entry. If you do not need this Medical Order, click on Remove Order on the right side.");
-            }
-            return false;
-        })
-
    }
-   if($('.MO_LAB_TEST_ON').length > 0) {
+   if(!$('#procedureTab.hidden').length) {
+       //remove others in selection
+       $('#medorders').find('[value="MO_PROCEDURE"]').remove();
+   }
+   if(!$('#labTab.hidden').length) {
        //remove laboratory in selection
        $('#medorders').find('[value="MO_LAB_TEST"]').remove();
    }
-   if($('.MO_OTHERS_ON').length > 0) {
+   if(!$('#otherTab.hidden').length) {
        //remove others in selection
        $('#medorders').find('[value="MO_OTHERS"]').remove();
    }
+
 }
 
 Healthcare.diagAutoComplete = function () {
@@ -138,27 +102,32 @@ Healthcare.diagAutoComplete = function () {
 }
 
 Healthcare.procedureAutoComplete = function () {
-    var c = 1;
+    var c = 0;
     var procforms = $('.procedure_input');
     procforms.each(function() {
-        $( "#procedure_input"+c ).autocomplete({
+        $( ".procedure_input" ).autocomplete({
             source: availableProcedures
         });
         c++;
     })
 }
 
-Healthcare.fireDiagAutoComplete = function() {
+Healthcare.fireDiagAutoComplete = function()
+{
     var diagnosisforms = $('.diagnosis_input');
     $( ".diagnosis_input" ).autocomplete({
         source: availableTags
     });
 }
-
-Healthcare.fireProcedureAutoComplete = function() {
-    $( ".procedure_input" ).autocomplete({
-        source: availableProcedures
-    });
+Healthcare.fireProcedureAutoComplete = function(id)
+{
+    var procforms = $('.procedure_input');
+    procforms.each(function() {
+        console.log("id "+id);
+        $( "#procedure_input"+id).autocomplete({
+            source: availableProcedures
+        });
+    })
 }
 
 Healthcare.computeBMI = function () {
@@ -257,121 +226,203 @@ Healthcare.impAndDIag = function () {
 
 }
 
-Healthcare.cloneForm = function (form) {
+function prescriptionEdit() {
 
+    $(".prescription_edit").click(function(){
+
+        $('.prescription_group input[name=PrescriptionMedID]').val($(this).parents('.medical_prescription_item').find('input.prescid').val());
+        $('.prescription_group #drug_input').val($(this).parents('.medical_prescription_item').find('input.dcode').val());
+        $('.prescription_group input[name=Drug_Brand_Name]').val($(this).parents('.medical_prescription_item').find('input.brand').val());
+        $('.prescription_group input[name=Dose_Qty]').val($(this).parents('.medical_prescription_item').find('input.dqty').val());
+        $('.prescription_group select[name=Dose_UOM]').val($(this).parents('.medical_prescription_item').find('input.dqtyoum').val());
+        $('.prescription_group input[name=Total_Quantity]').val($(this).parents('.medical_prescription_item').find('input.TQ').val());
+        $('.prescription_group select[name=Total_Quantity_UOM]').val($(this).parents('.medical_prescription_item').find('input.TQuom').val());
+        $('.prescription_group select[name=dosage]').val($(this).parents('.medical_prescription_item').find('input.regimen').val());
+        $('.prescription_group input[name=Duration_Intake]').val($(this).parents('.medical_prescription_item').find('input.di').val());
+        $('.prescription_group select[name=Duration_Intake_Freq]').val($(this).parents('.medical_prescription_item').find('input.dio').val());
+
+        if($(this).parents('.medical_prescription_item').find('input.dio').val() == 'OTH'){
+            $('#forregimenothers').removeClass('hidden');
+            $('.prescription_group input[name=Specify]').val($(this).parents('.medical_prescription_item').find('input.regimenothers').val())
+        }
+
+        if($(this).parents('.medical_prescription_item').find('input.dio').val() == 'O'){
+            $('#forintakeothers').removeClass('hidden');
+            $('.prescription_group input[name=IntakeOther]').val($(this).parents('.medical_prescription_item').find('input.intakeothers').val())
+        }
+        if($(this).parents('.medical_prescription_item').find('input.dio').val() != 'C'){
+            $('#regimen_range').removeClass('hidden');
+            $('.prescription_group select#daterangepicker').val($(this).parents('.medical_prescription_item').find('input.regimen_dates').val())
+        }
+        //remove the listed prescription
+        $(this).parents(".medical_prescription_item").remove();
+
+        var newPrescCount = $('.medical_prescription_item.added').length;
+
+        if(newPrescCount == 0) {
+            $(".printPrescription").addClass('hidden');
+        }
+    })
+}
+function procedureEdit() {
+    $(".procedure_edit").click(function(){
+
+        $('.procedure_group input[name=ProcedureMedID]').val($(this).parents('.medical_procedure_item').find('input.procid').val());
+        $('.procedure_group #procedure_input').val($(this).parents('.medical_procedure_item').find('input.procorder').val());
+        $('.procedure_group #datepicker_future').val($(this).parents('.medical_procedure_item').find('input.procdate').val());
+        $('.procedure_group input[name=Procedure_Remarks]').val($(this).parents('.medical_procedure_item').find('input.procinstruct').val());
+
+        //remove the listed prescription
+        $(this).parents(".medical_procedure_item").remove();
+
+    })
+}
+function removePrescriptionTab() {
+    $('a.removePrescriptionTab').click(function(){
+        $('#medorders').append('<option value="MO_MED_PRESCRIPTION">Give Medical Prescription</option>');
+        $('.medicalOrders .nav-tabs li.prescTab').addClass('hidden');
+        $('#prescriptionTab').addClass('hidden');
+
+        var pitems = $('.medical_prescription_item.added');
+        if( pitems.length > 0) {
+            pitems.each(function(){
+                var id = $(this).find("input.remid").val();
+                var mid = $(this).find("input.medid").val();
+                $(this).html('<input type="hidden" name="delete[type][]" value="MO_MED_PRESCRIPTION" /><input type="hidden" name="delete[MO_MED_PRESCRIPTION][medicalorder_id][]" value="'+mid+'" /><input type="hidden" name="delete[MO_MED_PRESCRIPTION][medicalorderprescription_id][]" value="'+id+'" />').addClass('removed').removeClass("added");
+            })
+        }
+        $('#prescriptionTab textarea.instructions').html("");
+        $('#prescriptionTab').find('.form-control').val("");
+
+    })
+}
+function removeProcedureTab() {
+    $('a.removeProcedureTab').click(function(){
+        $('#medorders').append('<option value="MO_PROCEDURE">Medical Procedure</option>');
+        $('.medicalOrders .nav-tabs li.procTab').addClass('hidden');
+        $('#procedureTab').addClass('hidden');
+
+        var pitems = $('.medical_procedure_item.added');
+        if( pitems.length > 0) {
+            pitems.each(function(){
+                var id = $(this).find("input.remid").val();
+                var mid = $(this).find("input.medid").val();
+                $(this).html('<input name="delete[type][]" value="MO_PROCEDURE" type="hidden"><input type="hidden" name="delete[MO_PROCEDURE][medicalorder_id][]" value="'+mid+'" /><input type="hidden" name="delete[MO_PROCEDURE][medicalorderprocedure_id][]" value="'+id+'" />').addClass('removed').removeClass("added");
+            })
+        }
+        $('#procedureTab textarea.instructions').html("");
+        $('#procedureTab').find('.form-control').val("");
+
+    })
+}
+function removeLaboratoryTab() {
+    $('a.removeLaboratoryTab').click(function(){
+        $('#medorders').append('<option value="MO_LAB_TEST">Laboratory Exam</option>');
+        $('.medicalOrders .nav-tabs li.labTab').addClass('hidden');
+        $('#labTab').addClass('hidden');
+
+        $('#labTab textarea.instructions').remove();
+        $('#labTab').find('.form-control').val("");
+        $('#labTab').find('.form-control').removeAttr("checked");
+        $('#labTab').find('.form-control').html("");
+
+    })
+}
+function removeOtherTab() {
+    $('a.removeOtherTab').click(function(){
+        $('#medorders').append('<option value="MO_OTHER">Specify Other</option>');
+        $('.medicalOrders .nav-tabs li.otherTab').addClass('hidden');
+        $('#otherTab').addClass('hidden');
+
+        $('#otherTab textarea.instructions').html("");
+        $('#otherTab').find('.form-control').val("");
+        $('#otherTab').find('.form-control').html("");
+
+    })
+}
+
+function lessPresc()
+{
+    $(".prescription_less").click(function(){
+        var id = $(this).parents(".medical_prescription_item").find("input.remid").val();
+
+        $(this).parents(".medical_prescription_item").html('<input type="hidden" name="delete[type][]" value="MO_MED_PRESCRIPTION" /><input type="hidden" name="delete[MO_MED_PRESCRIPTION][medicalorderprescription_id][]" value="'+id+'" />').addClass('removed').removeClass("added");
+
+        var newPrescCount = $('.medical_prescription_item.added').length;
+        if(newPrescCount == 0) {
+            $(".printPrescription").addClass('hidden');
+        }
+    })
+}
+
+function lessProc()
+{
+    $(".procedure_less").click(function(){
+        var id = $(this).parents(".medical_procedure_item").find("input.remid").val();
+
+        $(this).parents(".medical_procedure_item").html('<input name="delete[type][]" value="MO_PROCEDURE" type="hidden"><input type="hidden" name="delete[MO_PROCEDURE][medicalorderprocedure_id][]" value="'+id+'" />').addClass('removed').removeClass("added");
+
+    })
 }
 
 Healthcare.medOrder = function () {
+
   var count = 1;
   $('select[id=medorders]').on('change', function() {
       var $selected = $(this).val();
 
       //check if this is a new form
-      var formCount = $('.dynamic-content.hidden').length;
-      if(formCount == 1) {
-          $('.dynamic-content').removeClass('hidden');
-          $('.dynamic-content').find('div.form-add').addClass('hidden');
-          $('.dynamic-content').find('div.'+$selected).removeClass('hidden');
-          $('.dynamic-content').find('input[name="insert[type][]"]').attr('value', $selected);
-          $('.dynamic-content').find('.procedure_input').attr('id','procedure_input_1').autocomplete({
-                    source: availableProcedures
-                });
-          $('.dynamic-content').attr('id', "added1");
-          $('.dynamic-content').find('.datepicker_future').attr('id','datepicker_future_1')
-          firedate($('#datepicker_future_1'));
-      } /*else {
-          var $clone = $('.dynamic-content:eq(-1)').clone(true);
-          $clone.removeClass('hidden');
-          console.log('count '+count);
-          var idcounter = ++count;
-          $clone.attr('id', "added"+idcounter);
-          $clone.find('.form-control').val("");
-          $clone.find('div.form-add').addClass('hidden');
-          $clone.find('div.'+$selected).removeClass('hidden');
-          $clone.find('input[name="insert[type][]"]').attr('value', $selected);
-
-          $clone.find('.rmvbtn').attr('id','rmvbtn'+idcounter);
-          $clone.find('#rmvbtn'+idcounter).removeClass('hidden');
-          $('.dynamic-content').last().after($clone);
-
-          $clone.find('#rmvbtn'+idcounter).click(function(){
-              //$('#added'+idcounter).remove();
-              $(this).parents('.dynamic-content').remove();
-              if (count>1)  $('#rmvbtn').removeAttr('disabled');
-              else $('#rmvbtn').attr('disabled', 'disabled');
-          });
-
-          if($selected == 'MO_PROCEDURE') {
-              $clone.find('.procedure_input').attr('id','procedure_input'+idcounter);
-          }
-          Healthcare.fireProcedureAutoComplete();
-      }*/
-
       if($selected == 'MO_MED_PRESCRIPTION') {
           $('#medorders').find('[value="MO_MED_PRESCRIPTION"]').remove();
-          $('.prescription_add').click(function() {
-                $presclone = $(this).parents('.prescription_group').clone(true)
-                $presclone.find('.form-control').val("");
-                $presclone.appendTo( $(this).parents('.MO_MED_PRESCRIPTION') );
-
-                $('.prescription_less').click(function() {
-                    var pcount = $('.prescription_group').length;
-                    if(pcount > 2) {
-                        $(this).parents('.prescription_group').remove();
-                    } else {
-                        alert("You can delete this last entry. If you do not need this Medical Order, click on Remove Order on the right side.");
-                    }
-                    return false;
-                })
-                return false;
-          });
+          $('.medicalOrders .nav-tabs li.prescTab').removeClass('hidden');
+          $('#prescriptionTab').removeClass('hidden');
       }
       if($selected == 'MO_PROCEDURE') {
-
           $('#medorders').find('[value="MO_PROCEDURE"]').remove();
-          $('.procedure_add').click(function() {
-                var pcount = $('.procedure_group').length;
-                idcounter = ++pcount;
-
-                $procclone = $(this).parents('.procedure_group').clone(true);
-                $procclone.attr('id', "procedure_form_"+idcounter);
-                $procclone.find('.form-control').val("");
-                $procclone.find('.procedure_input').attr('id', "procedure_input_"+idcounter).autocomplete({
-                    source: availableProcedures
-                });
-                $procclone.find('.datepicker_future').attr('id', "datepicker_future_"+idcounter)
-                $procclone.appendTo( $(this).parents('.MO_PROCEDURE') );
-                firedate($('#datepicker_future_'+idcounter));
-                return false;
-          });
-
-          $('.procedure_less').click(function() {
-                var pcount = $('.procedure_group').length;
-                if(pcount > 1) {
-                    $procclone = $(this).parents('.procedure_group').remove();
-                } else {
-                    alert("You can delete this last entry. If you do not need this Medical Order, click on Remove Order on the right side.");
-                }
-                return false;
-          })
+          $('.medicalOrders .nav-tabs li.procTab').removeClass('hidden');
+          $('#procedureTab').removeClass('hidden');
       }
       if($selected == 'MO_LAB_TEST') {
           $('#medorders').find('[value="MO_LAB_TEST"]').remove();
+          $('.medicalOrders .nav-tabs li.labTab').removeClass('hidden');
+          $('#labTab').removeClass('hidden');
       }
       if($selected == 'MO_OTHERS') {
           $('#medorders').find('[value="MO_OTHERS"]').remove();
+          $('.medicalOrders .nav-tabs li.otherTab').removeClass('hidden');
+          $('#otherTab').removeClass('hidden');
       }
 
       $('#medorders').prop('selectedIndex', 0);
   });
 
-  $('#regimenothers0').change(function(e) {
+  $('#regimenothers').change(function(e) {
       var value = $.trim( this.value );
-      //console.log('value '+value);
       if(value=='OTH') {
-        $("#forregimenothers0").removeClass("hidden");
+        $("#forregimenothers").removeClass("hidden");
       } else {
-        $("#forregimenothers0").addClass("hidden");
+        $("#forregimenothers").addClass("hidden");
+      }
+  });
+  $('#intakeothers').change(function(e) {
+      var value = $.trim( this.value );
+      if(value=='O') {
+        $("#forintakeothers").removeClass("hidden");
+      } else {
+        $("#forintakeothers").addClass("hidden");
+      }
+
+      if(value!='C') {
+        $("#regimen_range").removeClass("hidden");
+        $("#intake_input").removeAttr('disabled');
+        $("#intake_input").addClass('required');
+        $("#regimen_range input").addClass("required");
+      } else {
+        $("#regimen_range").addClass("hidden");
+        $("#regimen_range input").removeClass("required");
+        $("#intake_input").attr('disabled','disabled');
+        $("#intake_input").removeClass('required');
+        $("#intake_input").val('');
       }
   });
 
@@ -382,8 +433,143 @@ Healthcare.medOrder = function () {
     });
 
   $('.prescription_add').click(function() {
-      $(this).parents('.prescription_group').clone().appendTo('MO_MED_PRESCRIPTION');
+      var mayempty = 0;
+      var itemCount = $('.medical_prescription_item.added').length;
+      var f = "none";
+      var chkforms = $('.prescription_group').find('.required');
+      var formfield = "insert";
+      chkforms.each( function(e) {
+          if( mayempty == 0 && ($(this).val() == "" || $(this).val() == "undefined" )) {
+              f = $(this).attr('name');
+              mayempty = 1;
+          };
+      })
+      if($('input[name=PrescriptionMedID]').val()) {
+          formfield = "update";
+      }
+
+      if( $('input[name=Drug_Brand_Name]').val() ) {
+          brand = "<p><strong>( "+$('input[name=Drug_Brand_Name]').val()+" )</strong><br />";
+      } else {
+          brand = "<p>";
+      }
+
+      var newform = '<div class="medical_prescription_item added"><input name="'+formfield+'[type][]" value="MO_MED_PRESCRIPTION" type="hidden" class="presctype"><input class="remid" name="'+formfield+'[medicalorder_id][]" value="'+$('input[name=prescriptionmedicalorder_id]').val()+'" type="hidden"><input name="'+formfield+'[MO_MED_PRESCRIPTION][medicalorderprescription_id][]" class="prescid" type="hidden" value="'+$('input[name=PrescriptionMedID]').val()+'"><input name="'+formfield+'[MO_MED_PRESCRIPTION][Drug_Code][]" class="dcode" type="hidden" value="'+$('textarea[name=Drug_Code]').val()+'"><input name="'+formfield+'[MO_MED_PRESCRIPTION][Drug_Brand_Name][]" type="hidden" class="brand" value="'+$('input[name=Drug_Brand_Name]').val()+'"><input name="'+formfield+'[MO_MED_PRESCRIPTION][Dose_Qty][]" type="hidden" class="dqty" value="'+$('input[name=Dose_Qty]').val()+'"><input name="'+formfield+'[MO_MED_PRESCRIPTION][Dose_UOM][]" class="dqtyuom" type="hidden" value="'+$('select[name=Dose_UOM]').val()+'"><input name="'+formfield+'[MO_MED_PRESCRIPTION][Total_Quantity][]" type="hidden" class="TQ" value="'+$('input[name=Total_Quantity]').val()+'"><input name="'+formfield+'[MO_MED_PRESCRIPTION][Total_Quantity_UOM][]" type="hidden" class="TQuom" value="'+$('select[name=Total_Quantity_UOM]').val()+'"><input name="'+formfield+'[MO_MED_PRESCRIPTION][dosage][]" type="hidden" class="regimen" value="'+$('select[name=dosage]').val()+'"><input name="'+formfield+'[MO_MED_PRESCRIPTION][Specify][]" type="hidden" class="regimenothers" value="'+$('textarea[name=Specify]').val()+'"><input name="'+formfield+'[MO_MED_PRESCRIPTION][Duration_Intake][]" type="hidden" class="di" value="'+$('input[name=Duration_Intake]').val()+'"><input name="'+formfield+'[MO_MED_PRESCRIPTION][Duration_Intake_Freq][]" type="hidden" class="dio" value="'+$('select[name=Duration_Intake_Freq]').val()+'"><input name="'+formfield+'[MO_MED_PRESCRIPTION][regimen_startend_date][]" type="hidden" class="regimen_dates" value="'+$('input[name=regimen_startend_date]').val()+'"><input name="'+formfield+'[MO_MED_PRESCRIPTION][Remarks][]" type="hidden" class="remarks" value="'+$('textarea[name=Remarks]').val()+'"><div class="col-md-12 form-group dynamic-row"><label class="col-md-1 control-label">&nbsp;</label><div class="col-md-10 has-feedback bordered-bottom"><h4>'+$('textarea[name=Drug_Code]').val()+' '+$('input[name=Dose_Qty]').val()+$('select[name=Dose_UOM]').val()+'  #'+$('input[name=Total_Quantity]').val()+' '+$('select[name=Total_Quantity_UOM]').val()+'</h4>'+brand+$('select[name=dosage] option:selected').html()+'<br />'+$('input[name=Duration_Intake]').val()+' '+$('select[name=Duration_Intake_Freq] option:selected').html()+' [ '+$('input[name=regimen_startend_date]').val()+' ]<br /><em>'+$('textarea[name=Remarks]').val()+'</em></p></div><div class="col-md-1"><span class="btn btn-default btn-sm prescription_less" id="" title="Remove Prescription"><i class="fa fa-times"></i></span><span class="btn btn-default btn-sm prescription_edit" id="" title="Edit Prescription"><i class="fa fa-pencil"></i></span></div></div>';
+
+      if(mayempty == 0) {
+          $('#medical_prescription_data').append(newform);
+          $('.prescription_group').find('.form-control').val("");
+      } else {
+        bootbox.alert({
+          title: "Incomplete Form!",
+          message: "Please complete the form and try again."
+        });
+      }
+
+      prescriptionEdit();
+      lessPresc();
+
   })
+
+  $('.procedure_add').click(function() {
+      var mayempty = 0;
+      var itemCount = $('.medical_procedure_item.added').length;
+
+      var f = "none";
+      var chkforms = $('.procedure_group').find('.required');
+      chkforms.each( function(e) {
+          if( mayempty == 0 && ($(this).val() == "" || $(this).val() == "undefined" )) {
+              f = $(this).attr('name');
+              mayempty = 1;
+          };
+      })
+      var formfield = "insert";
+      if($('input[name=ProcedureMedID]').val()) {
+          formfield = "update";
+      }
+
+      var newform = '<div class="medical_procedure_item added"><input name="'+formfield+'[type][]" value="MO_PROCEDURE" type="hidden" class="proctype"><input name="'+formfield+'[medicalorder_id][]" value="'+$('input[name=proceduremedicalorder_id]').val()+'" type="hidden" class="medorderid"><input class="remid" name="'+formfield+'[MO_PROCEDURE][medicalorderprocedure_id][]" type="hidden" class="procid" value="'+$('input[name=ProcedureMedID]').val()+'"><input name="'+formfield+'[MO_PROCEDURE][Procedure_Order][]" type="hidden" class="procorder" value="'+$('textarea[name=Procedure_Order]').val()+'"><input name="'+formfield+'[MO_PROCEDURE][Date_of_Procedure][]" type="hidden" class="procdate" value="'+$('input[name=Date_of_Procedure]').val()+'"><input name="'+formfield+'[MO_PROCEDURE][Procedure_Remarks][]" type="hidden" class="procinstruct" value="'+$('textarea[name=Procedure_Remarks]').val()+'"><div class="col-md-12 form-group dynamic-row"><label class="col-md-1 control-label">&nbsp;</label><div class="col-md-10 has-feedback bordered-bottom"><h4>'+$('textarea[name=Procedure_Order]').val()+'</h4><p>'+$('input[name=Date_of_Procedure]').val()+'<br /><em>'+$('textarea[name=Procedure_Remarks]').val()+'</em></p></div><div class="col-md-1"><span class="btn btn-default btn-sm procedure_less" id="" title="Remove Procedure"><i class="fa fa-times"></i></span><span class="btn btn-default btn-sm procedure_edit" id="" title="Edit Procedure"><i class="fa fa-pencil"></i></span></div></div>';
+
+      if(mayempty == 0) {
+          $('#medical_procedure_data').append(newform);
+          $('.procedure_group').find('.form-control').val("");
+      } else {
+          bootbox.alert({
+              title: "Incomplete Form!",
+              message: "Please complete the form and try again."
+            });
+      }
+
+      procedureEdit();
+      lessProc();
+
+  })
+
+  $('#saveMedOrder').click( function(e){
+
+       if( $('#drug_input').val() != '') {
+           e.preventDefault();
+           var $this = $(this);
+           bootbox.confirm({
+               message: "There is a new Prescription entry that has not been added to the list.<br />If you choose Continue, it will not be saved.",
+               title: "Form Alert",
+               buttons: {
+                   cancel: {
+                       label: "Cancel"
+                   },
+                   confirm: {
+                       label: "Continue"
+                   }
+               },
+               callback: function(result){
+                   if (result) {
+                      $this.submit();
+                   }
+               }
+           });
+       }
+      if( $('#procedure_input').val() != '') {
+           e.preventDefault();
+           var $this = $(this);
+           bootbox.confirm({
+               message: "There is a new Medical Procedure entry that has not been added to the list.<br />If you choose Continue, it will not be saved.",
+               title: "Form Alert",
+               buttons: {
+                   cancel: {
+                       label: "Cancel"
+                   },
+                   confirm: {
+                       label: "Continue"
+                   }
+               },
+               callback: function(result){
+                   if (result) {
+                      $this.submit();
+                   }
+               }
+           });
+       }
+
+   })
+
+   $( "#drug_input" ).autocomplete({
+        source: availableDrugs
+    });
+
+   $("#procedure_input").autocomplete({
+        source: availableProcedures
+    });
+
+    lessPresc();
+    lessProc();
+
+    prescriptionEdit();
+    procedureEdit();
+
+    removePrescriptionTab();
+    removeProcedureTab();
+    removeLaboratoryTab();
+    removeOtherTab();
 
 }
 

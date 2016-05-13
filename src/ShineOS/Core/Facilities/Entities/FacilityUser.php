@@ -44,4 +44,11 @@ class FacilityUser extends Model {
     {
         return $this->belongsToMany('ShineOS\Core\Facilities\Entities\Facilities','facilityuser_id');
     }
+
+    public function users()
+    {
+        return $this->belongsTo('ShineOS\Core\Users\Entities\Users','user_id');
+    }
+
+
 }

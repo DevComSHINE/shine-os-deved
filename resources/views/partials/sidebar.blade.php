@@ -66,7 +66,7 @@
             if( (in_array($modules['role_name'], json_decode($roles))) OR  $modules['role_name'] == "Developer") {
           ?>
               <li class="@if($pagename == $name)) active @endif @if($cnt == 1) divider-top @endif @if($cnt == $totalc) divider-bottom @endif">
-                <a href="{{ url('/', $key)}}" class="{{ Request::is('*'.$v['name']) ? 'active' : '' }}">
+                <a href="{{ url('/', $key)}}" class="{{ Request::is('*'.$name) ? 'active' : '' }}">
                   <i class="fa {{ $c }}"></i> <span>{{ ucfirst($name) }}</span>
                 </a>
               </li>

@@ -99,7 +99,6 @@ class ExtensionsController extends Controller {
             $enabled_modules = json_decode($facilityModules[0]->enabled_modules);
         endif;
 
-
         foreach ($allModules as $key => $val):
             $active = 0;
             if($enabled_modules AND in_array($key, $enabled_modules)) {
@@ -115,7 +114,6 @@ class ExtensionsController extends Controller {
                 $mods[$key]['mod_copy'] = Config::get($module.'.copy');
                 $mods[$key]['mod_url'] = Config::get($module.'.url');
                 $mods[$key]['mod_active'] = $active;
-
 
         endforeach;
 
@@ -152,7 +150,9 @@ class ExtensionsController extends Controller {
         $roles = Session::get('roles');
         $enabled_modules = array();
         if(isset($roles['external_modules'])){
-            $enabled_modules = $roles['external_modules'];
+            foreach($roles['external_modules'] as $mods) {
+                array_push($enabled_modules, $mods);
+            }
         }
         $enabled_plugins = json_decode($facility->enabled_plugins);
 
@@ -183,6 +183,7 @@ class ExtensionsController extends Controller {
         } else {
             if($action == 'Activate') {
                 //add to array
+
                 array_push($uparray, $update);
             }
             Facilities::where('facility_id', $facility->facility_id)
@@ -242,7 +243,7 @@ class ExtensionsController extends Controller {
             else:
                 foreach ($enab_modules as $mod):
                     $directory_name = strtolower($mod);
-                    $roles['external_modules'][] = $mod;
+                    $roles['external_modules'][strtolower($mod)] = $mod;
                 endforeach;
             endif;
         endforeach;

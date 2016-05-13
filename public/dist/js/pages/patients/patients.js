@@ -172,12 +172,18 @@ Patients.wizard = function() {
                     $("#results").removeClass("hidden");
 
                     htmltext = "<h4>Found records with same name and birthdate:</h4>";
-
+                    var del = "";
+                    var name = "";
                     for(var i=0;i<data.length;i++){
                         var obj = data[i];
-
-                        htmltext = htmltext + "<p><a href='"+baseurl+"patients/"+obj['patient_id']+"' class='ajax-link'>&rsaquo; "+obj['first_name']+" "+obj['last_name']+"</a> - Profiled by: "+obj['facility_name']+"</p>";
-
+                        if(obj['deleted_at']!=null){
+                            del = " --- Record deleted: <a href='"+baseurl+"patients/undelete/"+obj['patient_id']+"'>Undelete</a>?";
+                            name = "&rsaquo; "+obj['first_name']+" "+obj['last_name'];
+                        } else {
+                            name = "<a href='"+baseurl+"patients/"+obj['patient_id']+"' class='ajax-link'>&rsaquo; "+obj['first_name']+" "+obj['last_name']+"</a>";
+                        }
+                        htmltext = htmltext + "<p>"+name+" - Profiled by: "+obj['facility_name']+del+"</p>";
+                        del = ""; name="";
                     }
 
                     $("#results").html(htmltext); //.fadeTo(5000, 0);

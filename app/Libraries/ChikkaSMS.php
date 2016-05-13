@@ -1,45 +1,47 @@
 <?php
 namespace Shine\Libraries;
+use \App;
+
 /**
  * Class ChikkaSMS Class handles the methods and properties of sending or receiving an SMS message.
  * The main inspiration of this class was from Nexmo PHP Library
- *  
+ *
  * Usage: $var = new NexoMessage ( $account_key, $account_password );
  * Methods:
- *      
+ *
  *      sendText($requestId, $to, $message)
  *      receiveTxt()
  *      reply()
  *      receiveNotifications()
- *      
+ *
  */
 
 class ChikkaSMS {
 
     //authorization
-    protected $clientId = '57a1b22c77a8c925b94c5ef93d9913c4e7977a29d91d317332714a90feacaedc';
-    protected $secretKey = 'ad876454d204e6a72544a198ac81ecc649ec44a8f2bda2707227c307523458ea';
-    protected $shortCode = '292906818';
+    protected $clientId = '';
+    protected $secretKey = '';
+    protected $shortCode = '';
     protected $sslVerify = false;
-    
+
     //Chikka's default URI for sending SMS
     protected $chikkaSendUrl = 'https://post.chikka.com/smsapi/request';
-    
+
     protected $sendRequest = 'send';
     protected $receiveRequest = 'incoming';
     protected $replyRequest = 'reply';
     protected $notificationRequest = 'outgoing';
 
     private $requestCost = array(
-        'free' => 'FREE', 
-        '1' =>1, 
-        '2.5'=> 2.5, 
-        '5'=> 5, 
-        '10' => 10, 
+        'free' => 'FREE',
+        '1' =>1,
+        '2.5'=> 2.5,
+        '5'=> 5,
+        '10' => 10,
         '15' => 15
         );
-    
-    
+
+
     private $expectedChikkaResponse = array(
         'message_type'=>'',
         'short_code' => '',
@@ -47,27 +49,27 @@ class ChikkaSMS {
         'status' => '',
         'credits_cost' => '',
         'timestamp' => '');
-    
+
     private $responseAccepted = array(
         'status' => 'Accepted',
         'message' => 'Message has been successfully processed.',
         'code' => 202
         );
-    
+
     private $responseDenied = array(
         'status' => 'Error',
         'message' => 'Message has not been processed.',
         'code' => 400
         );
-    
+
     /**
      * [__construct description]
      * @param [type] $clientId  [description]
      * @param [type] $secretKey [description]
      * @param [type] $shortCode [description]
      */
-    public function __construct(){ 
-        
+    public function __construct(){
+
     }
 
 
@@ -75,9 +77,9 @@ class ChikkaSMS {
      * SendText allows sending of SMS message to Chikka API
      * @param type $requestId This identifier should be unique or your message will not be sent and you will be deducted
      * @param type $to  The mobile number you are sending an SMS
-     * @param type $message The SMS message 
+     * @param type $message The SMS message
      */
-    
+
     public function sendText($messageID, $to, $message) {
         $messageID = strip_tags($messageID);
 
@@ -86,7 +88,7 @@ class ChikkaSMS {
             trigger_error('Message ID is required');
             return false;
         }
-        
+
         // Making sure strings are UTF-8 encoded
         if (!is_numeric($to) && !mb_check_encoding($to, 'UTF-8')) {
             trigger_error('TO needs to be a valid UTF-8 encoded string');
@@ -97,30 +99,30 @@ class ChikkaSMS {
             trigger_error('Message needs to be a valid UTF-8 encoded string');
             return false;
         }
-        
-        //urlencode 
+
+        //urlencode
         //$message = urlencode($message);
 
         //sendText post params
         $sendData = array(
             'message_type' => $this->sendRequest,
             'mobile_number' => $to,
-            'shortcode' => $this->shortCode,
+            'shortcode' => getenv('CHIKKA_SCODE'),
             'message_id' => $messageID,
             'message' => $message
             );
-        
-        //send Api request to Chikka and process it 
+
+        //send Api request to Chikka and process it
         return $this->sendApiRequest($sendData);
     }
 
     public function receiveText() {
-        
+
     }
 
 
     /**
-     * Reply - ability to send reply message  
+     * Reply - ability to send reply message
      *
      * @param [String] [requestID] [The requestID supplied by Chikka SMS]
      * @param [String] [messageID] [Unique identifier]
@@ -134,7 +136,7 @@ class ChikkaSMS {
             trigger_error('Message ID is required');
             return false;
         }
-        
+
         // Making sure strings are UTF-8 encoded
         if (!is_numeric($to) && !mb_check_encoding($to, 'UTF-8')) {
             trigger_error('TO needs to be a valid UTF-8 encoded string');
@@ -151,32 +153,32 @@ class ChikkaSMS {
             return false;
         }
 
-        //urlencode 
+        //urlencode
         $message = urlencode($message);
 
         //reply post params
         $replyData = array(
             'message_type' => $this->ReplyRequest,
             'mobile_number' => $to,
-            'shortcode' => $this->shortCode,
+            'shortcode' => getenv('CHIKKA_SCODE'),
             'message_id' => $messageID,
             'message' => $message,
             'cost' => $this->requestCost[$cost],
             'request_id' => $requestID
             );
-        
-        //send Api request to Chikka and process it 
+
+        //send Api request to Chikka and process it
         return $this->sendApiRequest($replyData);
     }
 
     /**
      * [fetchNotifications description] removed the logic of showing Accepted and Error on receiving notification from Chikka API
      * the operator should be the one doing it
-     *  
+     *
      */
     public function receiveNotifications() {
         $fromChikka = $_POST;
-        
+
         if (count(array_diff_key($this->expectedChikkaResponse, $fromChikka)) != 0) {
             //header("HTTP/1.1 " . $this->responseDenied['code']  . " " . $this->responseDenied['status']);
             //echo $this->responseDenied['message'];
@@ -186,7 +188,7 @@ class ChikkaSMS {
         //    echo $this->responseAccepted['message'];
         //}
 
-        
+
         return $fromChikka;
     }
 
@@ -195,18 +197,18 @@ class ChikkaSMS {
      * @param type $response
      */
     //private function receiveApiResponse($response){
-        
-    //  
+
+    //
     //}
-    
+
     /**
      * sendApiRequest - the functionality that sends request to Chikka API endpoint
-     * @param  [array] $data post params 
-     * @return [object]       
+     * @param  [array] $data post params
+     * @return [object]
      */
     private function sendApiRequest($data){
-        $data = array_merge($data, array('client_id'=>$this->clientId, 'secret_key' => $this->secretKey));
-        //  build a request query from arrays of data 
+        $data = array_merge($data, array('client_id'=>getenv('CHIKKA_CLIENTID'), 'secret_key' => getenv('CHIKKA_SECRET')));
+        //  build a request query from arrays of data
         $post = http_build_query($data);
 
         // If available, use CURL
@@ -247,8 +249,8 @@ class ChikkaSMS {
     /**
      * parseApiResponse - process and handle Chikka api responses
      * @param  [array] $response    Response from Chikka API
-     * @param  [string] $requestType This is the message type of the sms 
-     * @return [type]              
+     * @param  [string] $requestType This is the message type of the sms
+     * @return [type]
      */
     private function parseApiResponse($response, $requestType = null){
         //combine the current response from Chikka and the message type that was requested
@@ -257,7 +259,7 @@ class ChikkaSMS {
         if($requestType){
             $response['request_type'] = $requestType;
         }
-        
+
         return json_decode(json_encode($response));;
     }
 

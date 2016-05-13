@@ -55,7 +55,7 @@ class FacilitiesController extends Controller {
         //$thisfacility = json_decode(Cache::get('facility_details'));
         $thisfacility = json_decode(Session::get('facility_details'));
         $thisUser = Session::get('_global_user');
-
+        $roles = Session::get('roles');
         $facilities = Facilities::getCurrentFacility($thisfacility->facility_id);
 
         //get all available plugins in the patients plugin folder
@@ -70,21 +70,25 @@ class FacilitiesController extends Controller {
                 //check if config.php exists
                 if(file_exists(plugins_path().$plugin.'/config.php')){
                     include(plugins_path().$plugin.'/config.php');
-                    //get only plugins for this module
-                    if($plugin_module == 'facilities'){
-                        if($plugin_table == 'plugintable') {
-                            $pdata = Plugin::where('primary_key_value',$thisfacility->facility_id)->first();
-                        } else {
-                            if (Schema::hasTable($plugin_table)) {
-                                $pdata = DB::table($plugin_table)->where($plugin_primaryKey, $thisfacility->facility_id)->first();
+
+                    //check if this folder is enabled
+                    if(in_array($plugin_id, json_decode($thisfacility->enabled_plugins)) OR $roles['role_name'] == 'Developer'){
+                        //get only plugins for this module
+                        if($plugin_module == 'facilities'){
+                            if($plugin_table == 'plugintable') {
+                                $pdata = Plugin::where('primary_key_value',$thisfacility->facility_id)->first();
+                            } else {
+                                if (Schema::hasTable($plugin_table)) {
+                                    $pdata = DB::table($plugin_table)->where($plugin_primaryKey, $thisfacility->facility_id)->first();
+                                }
                             }
+                            $plugs[$k]['plugin_location'] = $plugin_location;
+                            $plugs[$k]['folder'] = $plugin_folder;
+                            $plugs[$k]['parent'] = $plugin_module;
+                            $plugs[$k]['title'] = $plugin_title;
+                            $plugs[$k]['plugin'] = $plugin_id;
+                            $plugs[$k]['pdata'] = $pdata;
                         }
-                        $plugs[$k]['plugin_location'] = $plugin_location;
-                        $plugs[$k]['folder'] = $plugin_folder;
-                        $plugs[$k]['parent'] = $plugin_module;
-                        $plugs[$k]['title'] = $plugin_title;
-                        $plugs[$k]['plugin'] = $plugin_id;
-                        $plugs[$k]['pdata'] = $pdata;
                     }
                 }
             }

@@ -20,7 +20,7 @@
             <p>{{ Session::get('warning') }}</p>
         </div>
     @endif
-    
+
     <div class="row">
         <div class="col-xs-12">
             <div class="box box-primary">
@@ -50,7 +50,8 @@
                         <div class="form-group">
                           <label class="col-sm-2 control-label">Name</label>
                           <div class="col-sm-10">
-                            <input type="text" class="form-control" name="input_name" id="input_name">
+                            <input type="text" placeholder="Part of the name" class="form-control" name="input_name" id="input_name">
+                            <small>Use part of the name only: firstname, lastname or middlename</small>
                           </div>
                         </div>
 

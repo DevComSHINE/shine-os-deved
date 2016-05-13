@@ -10,8 +10,8 @@ class VitalsPhysicalFormRequest extends FormRequest
         return [
             'temperature'     => array('required','regex:/[\d]*,?[\d]*/'),
             'heart_rate'     => 'numeric',
-            'bloodpressure_systolic'     => 'integer',
-            'bloodpressure_diastolic'     => 'integer',
+            'bloodpressure_systolic'     => 'numeric',
+            'bloodpressure_diastolic'     => 'numeric',
             'height'     => 'numeric',
             'weight'     => 'numeric',
             'waist'     => 'numeric'

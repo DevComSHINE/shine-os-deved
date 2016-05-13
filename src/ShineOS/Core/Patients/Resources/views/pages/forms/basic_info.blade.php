@@ -42,6 +42,9 @@
                       <label class="btn btn-default @if(isset($patient) AND $patient->suffix == 'third') active @endif">
                         <i class="fa fa-check"></i> <input type="radio" name="inputPatientSuffix" id="" autocomplete="off" value="third"> III
                       </label>
+                      <label class="btn btn-default">
+                        <i class="fa fa-check"></i> <input type="radio" name="inputPatientSuffix" id="" autocomplete="off" value=""> None
+                      </label>
                     </div>
                 </div>
 
@@ -53,6 +56,7 @@
                         if(isset($patient) AND $patient->gender == "M") $genderm = true;
                         if(isset($patient) AND $patient->gender == "F") $genderf = true;
                         if(isset($patient) AND $patient->gender == "U") $genderu = true;
+                        if(isset($patient) AND $patient->gender == "") $genderu = true;
                       ?>
                       <label class="btn btn-default required @if(isset($patient) AND $patient->gender=='M') active @endif">
                         <i class="fa fa-check"></i> {!! Form::radio('inputPatientGender', 'M', $genderm, array('class' => 'form-control gender')) !!} Male
@@ -60,9 +64,11 @@
                       <label class="btn btn-default required @if(isset($patient) AND $patient->gender=='F') active @endif">
                         <i class="fa fa-check"></i> {!! Form::radio('inputPatientGender', 'F', $genderf, array('class' => 'form-control gender')) !!} Female
                       </label>
+                      @if($genderu)
                       <label class="btn btn-default required @if(isset($patient) AND $patient->gender=='U') active @endif">
                         <i class="fa fa-check"></i> {!! Form::radio('inputPatientGender', 'U', $genderu, array('class' => 'form-control gender')) !!} Unknown
                       </label>
+                      @endif
                     </div>
                 </div>
 
@@ -102,7 +108,7 @@
                 <label class="col-sm-2 control-label">Birth Date *</label>
                 <div class="col-sm-4 iconed-input">
                     <i class="fa fa-calendar inner-icon"></i>
-                    {!! Form::text('birthdate', date("m/d/Y", strtotime($patient->birthdate)), array('id' => 'datepicker', 'class' => 'form-control', 'name'=>'inputPatientBirthDate')) !!}
+                    {!! Form::text('birthdate', date("m/d/Y", strtotime($patient->birthdate)), array('id' => '', 'class' => 'form-control datepicker_null', 'name'=>'inputPatientBirthDate')) !!}
                 </div>
                 <label class="col-sm-2 control-label">Age</label>
                 <div class="col-sm-4">
@@ -111,7 +117,7 @@
                 <label class="col-sm-2 control-label">Time of Birth</label>
                 <div class="col-sm-4 bootstrap-timepicker timepicker iconed-input">
                     <i class="fa fa-clock-o inner-icon"></i>
-                    {!! Form::text('birthtime', date("h:i A", strtotime($patient->birthtime)), array('id' => 'timepicker', 'class' => 'form-control input-small', 'name'=>'inputPatientBirthTime')) !!}
+                    {!! Form::text('birthtime', date("h:i A", strtotime($patient->birthtime)), array('id' => '', 'class' => 'form-control input-small timepicker', 'name'=>'inputPatientBirthTime')) !!}
                 </div>
                 <label class="col-sm-2 control-label">Place of Birth</label>
                 <div class="col-sm-4">

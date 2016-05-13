@@ -24,7 +24,7 @@ var requiredalphaonly = {
               message: 'Alphabetical characters and spaces only'
           },
           notEmpty: {
-            message: 'This is required and can\'t be empty'
+            message: 'This is field required.'
           }
         }
     };
@@ -45,14 +45,14 @@ var telephoneonly = {
               stringLength: {
                 min: '10',
                 max: '10',
-                message: 'The value must be a valid phone string'
+                message: 'Not a valid phone string'
               }
             }
 };
 var mobileonly = {
     validators: {
               notEmpty: {
-                message: 'Mobile Number is required and can\'t be empty'
+                message: 'This is field required.'
               },
               regexp: {
                   regexp: /^[-0-9\s]+$/i,
@@ -61,7 +61,7 @@ var mobileonly = {
               stringLength: {
                 min: '12',
                 max: '12',
-                message: 'The value must be a valid phone string'
+                message: 'Not a valid phone string'
               }
             }
 };
@@ -77,10 +77,29 @@ $(document).ready(function() {
             validating: 'glyphicon glyphicon-refresh'
         },
         fields: {
+          Required: {
+              selector: '.require',
+              validators: {
+                    notEmpty: {
+                        message: 'This is field required.'
+                    }
+                }
+          },
+          DOH_facility_code: {
+              validators: {
+                    callback: {
+                        message: 'This is field required.',
+                        callback: function(value, validator, $field) {
+                            var channel = $('form').find('[name="ownership_type"]').val();
+                                return (channel == 'government') ? true : false;
+                        }
+                    }
+              }
+          },
           role: {
             validators: {
               notEmpty: {
-                message: 'User Role is required and can\'t be empty'
+                message: 'This is field required.'
               }
             }
           },
@@ -92,17 +111,49 @@ $(document).ready(function() {
           email: {
             validators: {
               notEmpty: {
-                message: 'The Email Address is required and can\'t be empty'
+                message: 'This is field required.'
               },
               emailAddress: {
-                message: 'The input is not a valid email address'
+                message: 'Not a valid email address'
+              }
+            }
+          },
+          reminder_email: {
+            validators: {
+              emailAddress: {
+                message: 'Not a valid email address'
               }
             }
           },
           phone: telephoneonly,
           emergency_phone: telephoneonly,
           mobile: mobileonly,
-          emergency_mobile: mobileonly,
+          emergency_mobile: {
+              validators: {
+                  regexp: {
+                      regexp: /^[-0-9\s]+$/i,
+                      message: 'Numbers and dashes only'
+                  },
+                  stringLength: {
+                    min: '12',
+                    max: '12',
+                    message: 'Not a valid phone string'
+                  }
+                }
+          },
+          reminder_mobile: {
+              validators: {
+                  regexp: {
+                      regexp: /^[-0-9\s]+$/i,
+                      message: 'Numbers and dashes only'
+                  },
+                  stringLength: {
+                    min: '12',
+                    max: '12',
+                    message: 'Not a valid phone string'
+                  }
+                }
+          },
           inputPatientBirthDate: {
                 validators: {
                     date: {
@@ -150,9 +201,9 @@ $(document).ready(function() {
                         message: 'The systolic must contain numbers'
                     },
                     between: {
-                        min: 70,
-                        max: 200,
-                        message: 'Must be between 70 and 200'
+                        min: 40,
+                        max: 210,
+                        message: 'Must be between 40 and 210'
                     }
                 }
           },
@@ -162,74 +213,80 @@ $(document).ready(function() {
                         message: 'The diastolic must contain numbers'
                     },
                     between: {
-                        min: 40,
-                        max: 100,
-                        message: 'Must be between 40 and 100'
+                        min: 0,
+                        max: 170,
+                        message: 'Must be between 0 and 170'
                     }
                 }
           },
           heart_rate: {
               validators: {
-                    integer: {
+                    numeric: {
                         message: 'The Heart Rate must contain numbers'
                     },
                     between: {
-                        min: 60,
+                        min: 0,
                         max: 200,
-                        message: 'Must be between 60 and 200'
+                        message: 'Must be between 0 and 300'
                     }
                 }
           },
           pulse_rate: {
               validators: {
-                    integer: {
+                    numeric: {
                         message: 'The Pulse Rate must contain numbers'
                     },
                     between: {
-                        min: 60,
+                        min: 0,
                         max: 200,
-                        message: 'Must be between 60 and 200'
+                        message: 'Must be between 0 and 300'
                     }
                 }
           },
           respiratory_rate: {
               validators: {
-                    integer: {
+                    numeric: {
                         message: 'The Respiratory Rate must contain numbers'
                     },
                     between: {
-                        min: 12,
-                        max: 25,
-                        message: 'Must be between 12 and 25'
+                        min: 0,
+                        max: 70,
+                        message: 'Must be between 0 and 70'
                     }
                 }
           },
           height: {
               validators: {
-                    integer: {
+                    numeric: {
                         message: 'The Height must contain numbers'
-                    },
-                    between: {
-                        min: 50,
-                        max: 200,
-                        message: 'Must be between 50 and 200'
                     }
                 }
           },
           weight: {
               validators: {
-                    integer: {
+                    numeric: {
                         message: 'The Weight must contain numbers'
+                    }
+                }
+          },
+          waist: {
+              validators: {
+                    numeric: {
+                        message: 'The Waist must contain numbers'
                     }
                 }
           },
           role: {
               notEmpty: {
-                message: 'Please select a role for your new user'
+                message: 'This is field required.'
               }
           },
           newPassword: {
+                selector: ".password",
                 validators: {
+                    notEmpty: {
+                        message: 'This is field required.'
+                    },
                     identical: {
                         field: 'confirmPassword',
                         message: 'The new password and its confirm are not the same'
@@ -240,7 +297,11 @@ $(document).ready(function() {
                 }
             },
             confirmPassword: {
+                selector: ".confirmPassword",
                 validators: {
+                    notEmpty: {
+                        message: 'This is field required.'
+                    },
                     identical: {
                         field: 'newPassword',
                         message: 'The new password and its confirm are not the same'
@@ -254,9 +315,54 @@ $(document).ready(function() {
             "inputAlertOthers" : alphaonly,
             "update[MO_MED_PRESCRIPTION][Dose_Qty][]":numericonly,
             "insert[MO_MED_PRESCRIPTION][Dose_Qty][]":numericonly,
-            height:numericonly,
-            weight:numericonly,
-            waist:numericonly
+            "update[MO_MED_PRESCRIPTION][Total_Quantity][]":numericonly,
+            "update[MO_MED_PRESCRIPTION][Duration_Intake][]":numericonly,
+            Dose_Qty:numericonly,
+            Total_Quantity:numericonly,
+            Duration_Intake:numericonly,
+            NumericOnly: {
+                selector: ".numericonly",
+                validators: {
+                  numeric: {
+                        message: 'The value is not a number',
+                        // The default separators
+                        thousandsSeparator: '',
+                        decimalSeparator: '.'
+                    }
+                }
+            },
+            Captcha: {
+              selector: '.captcha',
+              validators: {
+                    notEmpty: {
+                        message: 'This is field required.'
+                    },
+                    remote: {
+                        url: 'registration/check_captcha',
+                        type: 'POST',
+                        cache: false,
+                        async: false,
+                        data: {
+                            'captcha' : function () {
+                                return $('input[name=test_captcha]').val();
+                            },
+                            '_token' : $('input[name=_token]').val()
+                        },
+                        dataFilter: function(response) {
+                            return response;
+                        }
+                    }
+              }
+          }
         }
-      });
+      }).on('error.field.bv', function(e, data) {
+            if (data.bv.getSubmitButton()) {
+                data.bv.disableSubmitButtons(false);
+            }
+        })
+        .on('success.field.bv', function(e, data) {
+            if (data.bv.getSubmitButton()) {
+                data.bv.disableSubmitButtons(false);
+            }
+        });
 });

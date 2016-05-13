@@ -26,8 +26,7 @@
                 </div>
                 <label class="col-sm-2 control-label">Birth Date *</label>
                 <div class="col-sm-4">
-
-                    {!! Form::text('birthdate', null, array('class' => 'form-control required', 'name'=>'inputPatientBirthDate','id'=>'datepicker')) !!}
+                    {!! Form::text('birthdate', null, array('class' => 'form-control required datepicker_null', 'name'=>'inputPatientBirthDate')) !!}
                 </div>
 
             </div>
@@ -35,7 +34,7 @@
     </fieldset>
 
     <fieldset>
-        <div id="results" class="hidden bg-yellow black"></div>
+        <div id="results" class="hidden opac-yellow black"></div>
     </fieldset>
 
 </div><!-- /.tab-pane -->

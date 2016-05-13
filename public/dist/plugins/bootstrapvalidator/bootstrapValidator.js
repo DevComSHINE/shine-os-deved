@@ -110,8 +110,8 @@ if (typeof jQuery === 'undefined') {
                 })
                 .on('click.bv', this.options.submitButtons, function() {
                     that.$submitButton  = $(this);
-					// The user just click the submit button
-					that._submitIfValid = true;
+                    // The user just click the submit button
+                    that._submitIfValid = true;
                 })
                 // Find all fields which have either "name" or "data-bv-field" attribute
                 .find('[name], [data-bv-field]')
@@ -318,7 +318,7 @@ if (typeof jQuery === 'undefined') {
                 $field.off(events).on(events, function() {
                     that.updateStatus($(this), that.STATUS_NOT_VALIDATED);
                 });
-                
+
                 // Create help block elements for showing the error messages
                 $field.data('bv.messages', $message);
                 for (validatorName in this.options.fields[field].validators) {
@@ -386,7 +386,7 @@ if (typeof jQuery === 'undefined') {
                         // All fields with the same name have the same icon
                         fields.data('bv.icon', $icon);
                     }
-                    
+
                     if (container) {
                         $field
                             // Show tooltip/popover message when field gets focus
@@ -615,7 +615,7 @@ if (typeof jQuery === 'undefined') {
             var cannotType = $.inArray($field.attr('type'), ['button', 'checkbox', 'file', 'hidden', 'image', 'radio', 'reset', 'submit']) !== -1;
             return (cannotType || $field.val().length >= threshold);
         },
-        
+
         // ---
         // Events
         // ---
@@ -992,7 +992,7 @@ if (typeof jQuery === 'undefined') {
                 $(this).data('bv.messages').find('.help-block[data-bv-validator="' + validator + '"][data-bv-for="' + field + '"]').html(message);
             });
         },
-        
+
         /**
          * Update all validating results of field
          *
@@ -2076,7 +2076,7 @@ if (typeof jQuery === 'undefined') {
                 return true;
             }
 
-			value = this._format(value);
+            value = this._format(value);
             if (!$.isNumeric(value)) {
                 return false;
             }
@@ -2087,7 +2087,7 @@ if (typeof jQuery === 'undefined') {
                 maxValue = this._format(max);
 
             value = parseFloat(value);
-			return (options.inclusive === true || options.inclusive === undefined)
+            return (options.inclusive === true || options.inclusive === undefined)
                     ? {
                         valid: value >= minValue && value <= maxValue,
                         message: $.fn.bootstrapValidator.helpers.format(options.message || $.fn.bootstrapValidator.i18n.between['default'], [min, max])
@@ -2568,7 +2568,7 @@ if (typeof jQuery === 'undefined') {
             if (creditCard === '') {
                 return true;
             }
-            
+
             creditCard = creditCard.replace(/\D/g, '');
 
             // Supported credit card types
@@ -3229,7 +3229,7 @@ if (typeof jQuery === 'undefined') {
             if (value === '') {
                 return true;
             }
-            
+
             value = this._format(value);
             if (!$.isNumeric(value)) {
                 return false;
@@ -3239,7 +3239,7 @@ if (typeof jQuery === 'undefined') {
                 compareToValue = this._format(compareTo);
 
             value = parseFloat(value);
-			return (options.inclusive === true || options.inclusive === undefined)
+            return (options.inclusive === true || options.inclusive === undefined)
                     ? {
                         valid: value >= compareToValue,
                         message: $.fn.bootstrapValidator.helpers.format(options.message || $.fn.bootstrapValidator.i18n.greaterThan['default'], compareTo)
@@ -3944,7 +3944,7 @@ if (typeof jQuery === 'undefined') {
             if (!/^\d{15}$/.test(value) && !/^\d{17}[\dXx]{1}$/.test(value)) {
                 return false;
             }
-            
+
             // Check China PR Administrative division code
             var adminDivisionCodes = {
                 11: {
@@ -4398,11 +4398,11 @@ if (typeof jQuery === 'undefined') {
                 81: { 0: [0] },
                 82: { 0: [0] }
             };
-            
+
             var provincial  = parseInt(value.substr(0, 2), 10),
                 prefectural = parseInt(value.substr(2, 2), 10),
                 county      = parseInt(value.substr(4, 2), 10);
-            
+
             if (!adminDivisionCodes[provincial] || !adminDivisionCodes[provincial][prefectural]) {
                 return false;
             }
@@ -4420,12 +4420,12 @@ if (typeof jQuery === 'undefined') {
             if (!inRange) {
                 return false;
             }
-            
+
             // Check date of birth
             var dob;
             if (value.length === 18) {
                 dob = value.substr(6, 8);
-            } else /* length == 15 */ { 
+            } else /* length == 15 */ {
                 dob = '19' + value.substr(6, 6);
             }
             var year  = parseInt(dob.substr(0, 4), 10),
@@ -4434,7 +4434,7 @@ if (typeof jQuery === 'undefined') {
             if (!$.fn.bootstrapValidator.helpers.date(year, month, day)) {
                 return false;
             }
-            
+
             // Check checksum (18-digit system only)
             if (value.length === 18) {
                 var sum    = 0,
@@ -4446,10 +4446,10 @@ if (typeof jQuery === 'undefined') {
                 var checksum = (value.charAt(17).toUpperCase() !== 'X') ? parseInt(value.charAt(17), 10) : 10;
                 return checksum === sum;
             }
-            
+
             return true;
         },
-        
+
         /**
          * Validate Czech national identification number (RC)
          * Examples:
@@ -5084,11 +5084,11 @@ if (typeof jQuery === 'undefined') {
             if (!/^IMO \d{7}$/i.test(value)) {
                 return false;
             }
-            
+
             // Grab just the digits
             var sum    = 0,
                 digits = value.replace(/^.*(\d{7})$/, '$1');
-            
+
             // Go over each char, multiplying by the inverse of it's position
             // IMO 9176187
             // (9 * 7) + (1 * 6) + (7 * 5) + (6 * 4) + (1 * 3) + (8 * 2) = 147
@@ -5491,8 +5491,8 @@ if (typeof jQuery === 'undefined') {
             if (value === '') {
                 return true;
             }
-            
-			value = this._format(value);
+
+            value = this._format(value);
             if (!$.isNumeric(value)) {
                 return false;
             }
@@ -5819,11 +5819,11 @@ if (typeof jQuery === 'undefined') {
                     isValid = (/^(?:(?:(?:\+|00)33[ ]?(?:\(0\)[ ]?)?)|0){1}[1-9]{1}([ .-]?)(?:\d{2}\1?){3}\d{2}$/).test(value);
                     break;
 
-            	case 'GB':
-            		// http://aa-asterisk.org.uk/index.php/Regular_Expressions_for_Validating_and_Formatting_GB_Telephone_Numbers#Match_GB_telephone_number_in_any_format
-            		// Test: http://regexr.com/38uhv
-            		value   = $.trim(value);
-            		isValid = (/^\(?(?:(?:0(?:0|11)\)?[\s-]?\(?|\+)44\)?[\s-]?\(?(?:0\)?[\s-]?\(?)?|0)(?:\d{2}\)?[\s-]?\d{4}[\s-]?\d{4}|\d{3}\)?[\s-]?\d{3}[\s-]?\d{3,4}|\d{4}\)?[\s-]?(?:\d{5}|\d{3}[\s-]?\d{3})|\d{5}\)?[\s-]?\d{4,5}|8(?:00[\s-]?11[\s-]?11|45[\s-]?46[\s-]?4\d))(?:(?:[\s-]?(?:x|ext\.?\s?|\#)\d+)?)$/).test(value);
+                case 'GB':
+                    // http://aa-asterisk.org.uk/index.php/Regular_Expressions_for_Validating_and_Formatting_GB_Telephone_Numbers#Match_GB_telephone_number_in_any_format
+                    // Test: http://regexr.com/38uhv
+                    value   = $.trim(value);
+                    isValid = (/^\(?(?:(?:0(?:0|11)\)?[\s-]?\(?|\+)44\)?[\s-]?\(?(?:0\)?[\s-]?\(?)?|0)(?:\d{2}\)?[\s-]?\d{4}[\s-]?\d{4}|\d{3}\)?[\s-]?\d{3}[\s-]?\d{3,4}|\d{4}\)?[\s-]?(?:\d{5}|\d{3}[\s-]?\d{3})|\d{5}\)?[\s-]?\d{4,5}|8(?:00[\s-]?11[\s-]?11|45[\s-]?46[\s-]?4\d))(?:(?:[\s-]?(?:x|ext\.?\s?|\#)\d+)?)$/).test(value);
                     break;
 
                 case 'MA':
@@ -5839,11 +5839,11 @@ if (typeof jQuery === 'undefined') {
                     isValid = (/^0?3[0-9]{2}[0-9]{7}$/).test(value);
                     break;
 
-        		case 'RO':
-        		    // All mobile network and land line
+                case 'RO':
+                    // All mobile network and land line
                     // http://regexr.com/39fv1
-        		    isValid = (/^(\+4|)?(07[0-8]{1}[0-9]{1}|02[0-9]{2}|03[0-9]{2}){1}?(\s|\.|\-)?([0-9]{3}(\s|\.|\-|)){2}$/g).test(value);
-        		    break;
+                    isValid = (/^(\+4|)?(07[0-8]{1}[0-9]{1}|02[0-9]{2}|03[0-9]{2}){1}?(\s|\.|\-)?([0-9]{3}(\s|\.|\-|)){2}$/g).test(value);
+                    break;
 
                 case 'RU':
                     // http://regex101.com/r/gW7yT5/5
@@ -5856,9 +5856,9 @@ if (typeof jQuery === 'undefined') {
                     break;
 
                 case 'TH':
-        		    // http://regex101.com/r/vM5mZ4/2
-        		    isValid = (/^0\(?([6|8-9]{2})*-([0-9]{3})*-([0-9]{4})$/).test(value);
-        		    break;
+                    // http://regex101.com/r/vM5mZ4/2
+                    isValid = (/^0\(?([6|8-9]{2})*-([0-9]{3})*-([0-9]{4})$/).test(value);
+                    break;
 
                 case 'VE':
                     // http://regex101.com/r/eM2yY0/6
@@ -6019,7 +6019,7 @@ if (typeof jQuery === 'undefined') {
 
                 return dfd;
             }
-            
+
             if (options.delay) {
                 // Since the form might have multiple fields with the same name
                 // I have to attach the timer to the field element
@@ -6106,9 +6106,9 @@ if (typeof jQuery === 'undefined') {
                 weight = [1, 3, 1, 7, 3, 9, 1],
                 length = value.length;
             for (var i = 0; i < length - 1; i++) {
-	            sum += weight[i] * parseInt(value.charAt(i), 36);
-	        }
-	        sum = (10 - sum % 10) % 10;
+                sum += weight[i] * parseInt(value.charAt(i), 36);
+            }
+            sum = (10 - sum % 10) % 10;
             return sum + '' === value.charAt(length - 1);
         }
     };
@@ -6118,35 +6118,35 @@ if (typeof jQuery === 'undefined') {
         'default': 'Please enter a valid SIREN number'
     });
 
-	$.fn.bootstrapValidator.validators.siren = {
-		/**
-		 * Check if a string is a siren number
-		 *
-		 * @param {BootstrapValidator} validator The validator plugin instance
-		 * @param {jQuery} $field Field element
-		 * @param {Object} options Consist of key:
+    $.fn.bootstrapValidator.validators.siren = {
+        /**
+         * Check if a string is a siren number
+         *
+         * @param {BootstrapValidator} validator The validator plugin instance
+         * @param {jQuery} $field Field element
+         * @param {Object} options Consist of key:
          * - message: The invalid message
-		 * @returns {Boolean}
-		 */
-		validate: function(validator, $field, options) {
-			var value = $field.val();
-			if (value === '') {
-				return true;
-			}
+         * @returns {Boolean}
+         */
+        validate: function(validator, $field, options) {
+            var value = $field.val();
+            if (value === '') {
+                return true;
+            }
 
             if (!/^\d{9}$/.test(value)) {
                 return false;
             }
             return $.fn.bootstrapValidator.helpers.luhn(value);
-		}
-	};
+        }
+    };
 }(window.jQuery));
 ;(function($) {
     $.fn.bootstrapValidator.i18n.siret = $.extend($.fn.bootstrapValidator.i18n.siret || {}, {
         'default': 'Please enter a valid SIRET number'
     });
 
-	$.fn.bootstrapValidator.validators.siret = {
+    $.fn.bootstrapValidator.validators.siret = {
         /**
          * Check if a string is a siret number
          *
@@ -6156,28 +6156,28 @@ if (typeof jQuery === 'undefined') {
          * - message: The invalid message
          * @returns {Boolean}
          */
-		validate: function(validator, $field, options) {
-			var value = $field.val();
-			if (value === '') {
-				return true;
-			}
+        validate: function(validator, $field, options) {
+            var value = $field.val();
+            if (value === '') {
+                return true;
+            }
 
-			var sum    = 0,
+            var sum    = 0,
                 length = value.length,
                 tmp;
-			for (var i = 0; i < length; i++) {
+            for (var i = 0; i < length; i++) {
                 tmp = parseInt(value.charAt(i), 10);
-				if ((i % 2) === 0) {
-					tmp = tmp * 2;
-					if (tmp > 9) {
-						tmp -= 9;
-					}
-				}
-				sum += tmp;
-			}
-			return (sum % 10 === 0);
-		}
-	};
+                if ((i % 2) === 0) {
+                    tmp = tmp * 2;
+                    if (tmp > 9) {
+                        tmp -= 9;
+                    }
+                }
+                sum += tmp;
+            }
+            return (sum % 10 === 0);
+        }
+    };
 }(window.jQuery));
 ;(function($) {
     $.fn.bootstrapValidator.i18n.step = $.extend($.fn.bootstrapValidator.i18n.step || {}, {
@@ -6808,7 +6808,7 @@ if (typeof jQuery === 'undefined') {
 
             return false;
         },
-        
+
         /**
          * Validate Brazilian VAT number (CNPJ)
          *

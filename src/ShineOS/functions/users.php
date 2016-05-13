@@ -30,3 +30,14 @@ use ShineOS\Core\Users\Entities\Users;
     {
 
     }
+
+    function getRoleByFacilityUserID($id = NULL)
+    {
+        $role = DB::table('roles_access')
+            ->join('roles', 'roles.role_id', '=', 'roles_access.role_id')
+            ->select('roles.role_name')
+            ->where('roles_access.facilityuser_id', $id)
+            ->first();
+
+        return $role;
+    }

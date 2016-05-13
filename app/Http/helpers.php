@@ -98,7 +98,7 @@ function getCityCode($cityname) {
             ->first();
 
     if($city) {
-        return $city->citymunicipality_id;
+        return $city->city_code;
     } else {
         return NULL;
     }
@@ -115,12 +115,34 @@ function getProvinceName($provcode) {
     }
 }
 
+function getProvinceCode($province) {
+    $province = DB::table('lov_province')
+            ->where('province_name', '=', $province)
+            ->first();
+    if($province) {
+        return $province->province_code;
+    } else {
+        return NULL;
+    }
+}
+
 function getRegionName($regioncode) {
     $region = DB::table('lov_region')
             ->where('region_code', '=', $regioncode)
             ->first();
     if($region) {
         echo $region->region_name;
+    } else {
+        return NULL;
+    }
+}
+
+function getRegionCode($region) {
+    $region = DB::table('lov_region')
+            ->where('region_short', '=', $region)
+            ->first();
+    if($region) {
+        return $region->region_code;
     } else {
         return NULL;
     }

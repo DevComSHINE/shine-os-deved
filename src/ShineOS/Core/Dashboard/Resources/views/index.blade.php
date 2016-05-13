@@ -49,10 +49,10 @@
 @stop
 
 @section('scripts')
-    <!-- Chart /dashboard-page-->
-    <script src="{{ asset('public/dist/plugins/chartjs/Chart.min.js') }}" type="text/javascript"></script>
     <!-- Bootstrap Switch JS -->
     <script src="{{ asset('public/dist/js/bootstrap-switch.min.js') }}" type="text/javascript"></script>
-    <!-- jQuery Knob Chart -->
-    <script src="{{ asset('public/dist/plugins/knob/jquery.knob.js') }}" type="text/javascript"></script>
+    <!-- Add widget JS Scripts -->
+    @yield('widget_jsscripts')
 @stop
+
+

@@ -1,12 +1,11 @@
 <?php
-    //$facility = json_decode(Cache::get('facility_details'));
-    //$facuser = Cache::get('user_details');
     $facility = json_decode(Session::get('facility_details'));
     $facuser = Session::get('user_details');
+    $roles = Session::get('roles');
 
-    $inbound_count = count(findByTable('referrals', array('facility_id' => $facility->facility_id)));
-    $reminders_count = count(findByTable('reminders', array('facilityuser_id' => $facuser->facilityUser[0]->facilityuser_id)));
-    $message_count = count(findByTable('referrals', array('facility_id' => $facility->facility_id)));
+    $inbound_count = countInboundReferrals($facility->facility_id);
+    $reminders_count = countRemindersByFacilityID($facility->facility_id);
+    $message_count = countReferralMessages($facility->facility_id);
 ?>
 <!-- Logo -->
     <!-- Sidebar toggle button-->
@@ -62,7 +61,7 @@
                     $user = Session::get('_global_user');
                     $userPhoto = $user->profile_picture;
                 ?>
-                @if ( $userPhoto != '' )
+                @if ( $userPhoto != '' AND is_file(url('public/uploads/profile_picture/'.$userPhoto)) )
                     <img src="{{ url('public/uploads/profile_picture/'.$userPhoto) }}" class="profile-img" />
                 @else
                     <img src="{{ asset('public/dist/img/noimage_male.png') }}" class="profile-img" />
@@ -72,7 +71,7 @@
                 @if( Auth::check() )
                     {{ Auth::user()->first_name }} {{ Auth::user()->last_name }}
                     <?php $id = Auth::user()->user_id; ?>
-                    <small>Doctor</small>
+                    <small>{{ $roles['role_name'] }}</small>
                 @endif
                 </p>
               </li>

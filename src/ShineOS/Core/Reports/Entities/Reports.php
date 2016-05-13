@@ -117,7 +117,7 @@ class Reports {
 
         $data['top_patients'] = DB::select('SELECT patients.patient_id, patients.last_name, patients.first_name, patients.middle_name, patients.photo_url, count(*) as visits FROM healthcare_services JOIN facility_patient_user ON healthcare_services.facilitypatientuser_id = facility_patient_user.facilitypatientuser_id JOIN patients ON facility_patient_user.patient_id = patients.patient_id WHERE facility_patient_user.facilityuser_id = :facid AND patients.deleted_at IS NULL AND healthcare_services.created_at BETWEEN :from_date AND :to_date GROUP BY healthcare_services.facilitypatientuser_id ORDER BY count(*) DESC LIMIT 10', ['from_date' => $from, 'to_date' => $to, 'facid' => $facilityInfo->facilityUser[0]->facilityuser_id]);
 
-        $data['count_by_gender_sex'] = Patients::select('birthdate', 'gender', DB::raw('count(*) as total'))
+        $data['count_by_gender_sex'] = Patients::select('gender', DB::raw('count(*) as total'))
             ->whereBetween('created_at', [$from, $to])
             ->where('deleted_at', NULL)
             ->groupby('gender')
@@ -135,7 +135,7 @@ class Reports {
                 WHEN age BETWEEN 40 and 59 THEN "D"
                 WHEN age BETWEEN 60 and 79 THEN "E"
                 WHEN age >= 80 THEN "F"
-                WHEN age IS NULL THEN "Not Filled In (NULL)"
+                WHEN age IS NULL THEN "G"
             END as age_range,
             COUNT(*) AS count
               FROM (SELECT TIMESTAMPDIFF(YEAR, birthdate, CURDATE()) AS age FROM patients

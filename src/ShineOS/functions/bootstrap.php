@@ -79,6 +79,7 @@ include_once($functions_dir . 'patients.php');
 include_once($functions_dir . 'healthcareservices.php');
 include_once($functions_dir . 'referrals.php');
 include_once($functions_dir . 'reminders.php');
+include_once($functions_dir . 'lovs.php');
 
 date_default_timezone_set('Asia/Manila');
 

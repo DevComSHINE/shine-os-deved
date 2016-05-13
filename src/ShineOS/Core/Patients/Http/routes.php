@@ -15,11 +15,12 @@ Route::group(['prefix' => 'patients', 'namespace' => 'ShineOS\Core\Patients\Http
     Route::post('/{id}/update', 'PatientsController@update');
     Route::get('/{id}/delete', ['as' => "{$r_alias}.delete", 'uses' => 'PatientsController@delete']);
     Route::get('/delete/{id}', 'PatientsController@delete');
+    Route::get('/undelete/{id}', 'PatientsController@undelete');
 
     Route::get('/consultations', 'PatientsController@consultations');
     Route::get('{id}/deathinfo', 'PatientsController@viewDeathInfo');
     Route::get('/{id}/checkPatientMorbidity', 'PatientsController@checkPatientMorbidity');
     Route::patch('/saveDeathInfo', 'PatientsController@saveDeathInfo');
     Route::post('/deathinfo', 'PatientsController@saveDeathInfo');
-    
+
 });

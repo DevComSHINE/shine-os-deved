@@ -145,7 +145,7 @@
                                                     <?php $selectd = "checked='checked'"; ?>
                                                 @endif
                                               @endforeach
-                                              <input type="checkbox" value="{{ $llabs->laboratorycode }}" {{ $selectd }} class="form-control" /> {{ $llabs->laboratorydescription }}
+                                              <input type="checkbox" disabled value="{{ $llabs->laboratorycode }}" {{ $selectd }} class="form-control" /> {{ $llabs->laboratorydescription }}
 
                                             </label>
                                           </div>

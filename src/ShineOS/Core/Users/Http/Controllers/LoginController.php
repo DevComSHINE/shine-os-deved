@@ -253,7 +253,7 @@ class LoginController extends Controller {
         $forgot_password_code = str_random(25);
 
         // save the forgot password code first
-        ForgotPassword::insertChangePasswordRequest($forgot_password_code);
+        ForgotPassword::insertChangePasswordRequest($email, $forgot_password_code);
 
         // then send the change password link
         $changepassword_link = url('/')."/forgotpassword/changepassword/".$forgot_password_code;

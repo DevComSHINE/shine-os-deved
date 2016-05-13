@@ -70,7 +70,7 @@
         color: #000;
     }
     .help-block {
-        display:none !important;
+        /*display:none !important;*/
     }
     .regbtn {
         padding: 8px 10px;
@@ -98,7 +98,7 @@
                 <h2>Provider Registration</h2>
                 <h3>Please complete the information.</h3>
                 <p>Registration is required for new providers and validation is required for existing Shine users.</p>
-            <p><strong>If you want to verify your DOH Facility code, please refer to this website, <a href="http://nhfr.doh.gov.ph/rfacilities2list.php" target+"new">NHFR</a>.</strong></p>
+            <p><strong>If you want to verify your DOH Facility code, please refer to this website, <a href="http://nhfr.doh.gov.ph/" target="_blank">NHFR</a>.</strong></p>
             </div>
 
         </div>
@@ -126,17 +126,12 @@
 
             <div class="form-group input-group">
                 <span class="input-group-addon" data-placement="left" data-toggle="popover" data-trigger="hover" title="Ownership Type" data-content="The ownership type of your facility whether you own it as a private clinic or owned by the government. Choose from the list."><i class="fa fa-question-circle font20"></i></span>
-                <select name="ownership_type" id="ownership_type" class="required form-control hidden" required>
-                    <option value="">Select Ownership Type</option>
-                    <option value="government">Government</option>
-                    <option value="private">Private</option>
-                </select>
                 <div class="btn-group toggler" data-toggle="buttons">
                   <label class="btn btn-default regbtn">
-                    <i class="fa fa-check"></i> <input type="radio" class="ownership_type" name="disposition" id="" autocomplete="off" value="government"> Government Facility
+                    <i class="fa fa-check"></i> <input type="radio" class="required ownership_type" name="ownership_type" id="" autocomplete="off" value="government"> Government Facility
                   </label>
                   <label class="btn btn-default regbtn">
-                    <i class="fa fa-check"></i> <input type="radio" class="ownership_type" name="disposition" id="" autocomplete="off" value="private"> Private Facility
+                    <i class="fa fa-check"></i> <input type="radio" class="required ownership_type" name="ownership_type" id="" autocomplete="off" value="private"> Private Facility
                   </label>
                 </div>
             </div>
@@ -149,6 +144,11 @@
                 <div class="form-group input-group ">
                     <span class="input-group-addon" data-placement="left" data-toggle="popover" data-trigger="hover" title="DOH Facility Code" data-content="This is your DOH Facility Code. This is optional but if you are a Government-owned facility, this is required for your compliance. If you typed in your correct Code, all pertinent fields will be pre-filled for you if data is available."><i class="fa fa-question-circle font20"></i></span>
                     <input type="text" data-mask="" data-inputmask="'mask': 'DOH000000000099999'" placeholder="DOH Facility Code. Enter only last 5 digits. Optional." class="form-control" id="DOH_facility_code" name="DOH_facility_code" value="{{ $DOH_facility_code }}" />
+
+                    <input class="opthidden" type="hidden" name="facility_barangay" value="" />
+                    <input class="opthidden" type="hidden" name="facility_city" value="" />
+                    <input class="opthidden" type="hidden" name="facility_province" value="" />
+                    <input class="opthidden" type="hidden" name="facility_region" value="" />
                 </div>
             </div>
 
@@ -220,21 +220,21 @@
 
             <div class="form-group input-group">
                 <span class="input-group-addon" data-placement="left" data-toggle="popover" data-trigger="hover" title="Administrator Password" data-content="This is your Administrator Password. Enter a password for your account."><i class="fa fa-question-circle font20"></i></span>
-                <input type="password" placeholder="Administrator Password" class="form-control required" id="password" value="" name="password" />
+                <input type="password" placeholder="Administrator Password" class="form-control required password" id="password" value="" name="password" />
             </div>
 
             <div class="form-group input-group">
                 <span class="input-group-addon" data-placement="left" data-toggle="popover" data-trigger="hover" title="Password Confirmation" data-content="Please confirm the password you entered above by repeating it here."><i class="fa fa-question-circle font20"></i></span>
-                <input type="password" placeholder="Confirm Administrator Password" class="form-control required" id="password_confirm" value="" name="password_confirm" />
+                <input type="password" placeholder="Confirm Administrator Password" class="form-control required confirmPassword" id="password_confirm" value="" name="password_confirm" />
             </div>
 
-            <div class="form-group input-group">
+            <div class="form-group input-group has-succes">
                 <img src="{{ url('registration/captcha') }}" alt="Please verify if you are a human" id="captcha-image" />
                 <a href="#" class="fa fa-refresh captcha-refresh">&nbsp;</a>
             </div>
             <div class="form-group input-group">
                 <span class="input-group-addon" data-placement="left" data-toggle="popover" data-trigger="hover" title="Captcha" data-content="Please verify if you are a human."><i class="fa fa-question-circle font20"></i></span>
-                <input id="test_captcha" placeholder="Copy the code above." name="test_captcha" value="" type="text" class="form-control required" />
+                <input id="test_captcha" placeholder="Copy the code above." name="test_captcha" value="" type="text" class="form-control required captcha" />
             </div>
 
             <div class="form-group pull-right">
@@ -249,7 +249,6 @@
 
 
 @section('footer')
-    <script src="{{ asset('public/dist/plugins/jquery-validation/jquery.validate.min.js') }}"></script>
     <script src="{{ asset('public/dist/plugins/input-mask/inputmask.js') }}"></script>
     <script src="{{ asset('public/dist/plugins/input-mask/inputmask.date.extensions.js') }}"></script>
     <script src="{{ asset('public/dist/plugins/input-mask/inputmask.extensions.js') }}"></script>

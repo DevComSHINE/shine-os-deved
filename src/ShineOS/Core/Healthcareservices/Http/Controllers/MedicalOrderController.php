@@ -22,7 +22,7 @@ use View, Response, Validator, Input, Mail, Session, Redirect,
 class MedicalOrderController extends Controller {
 
     protected $facility_name = "samplefacility name";
-    protected $tb_unique_id = "";
+    protected $unique_id = "";
     protected $current_timestamp;
 
     protected $default_tbl = "medicalorder";
@@ -43,7 +43,7 @@ class MedicalOrderController extends Controller {
 
         $date = new Datetime('now');
         $this->current_timestamp = strtotime($date->format('His'));
-        $this->tb_unique_id =  IdGenerator::generateId();
+        $this->unique_id =  IdGenerator::generateId();
         $this->txt_hservices_id = Input::has('hservices_id') ? Input::get('hservices_id')  : false;
 
         View::addNamespace('healthcareservices', 'src/ShineOS/Core/Healthcareservices/Resources/Views');
@@ -51,24 +51,27 @@ class MedicalOrderController extends Controller {
 
     public function UpdateCreate(MedicalOrderFormRequest $request) {
         $input = Request::all();
-        // dd($input);
-        // echo '<pre>'; print_r($input); echo '</pre><br><br>========<br>'; exit;
 
-        if (array_key_exists('insert', $input) ) {
+        if (array_key_exists('insert', $input)) {
 
             foreach ($input['insert']['type'] as $key => $value) {
                 if( $value != 'MO_NONE' ) {
 
-                    $med_query = new MedicalOrder;
-                    $med_query->medicalorder_id = $this->tb_unique_id.$key;
-                    $med_query->healthcareservice_id = $this->txt_hservices_id;
-                    $med_query->medicalorder_type = $value;
-                    $med_query->user_instructions = $input['insert']['instructions'][$key];
+                    if( isset($input['insert']['medicalorder_id'][$key]) AND ($input['insert']['medicalorder_id'][$key] != NULL AND $input['insert']['medicalorder_id'][$key] != "undefined")  ){
+                        $medorderID = $input['insert']['medicalorder_id'][$key];
+
+                    } else {
+
+                        $med_query = new MedicalOrder;
+                        $med_query->medicalorder_id = $medorderID = $this->unique_id.$key;
+                        $med_query->healthcareservice_id = $this->txt_hservices_id;
+                        $med_query->medicalorder_type = $value;
+                    }
 
                     if($value == 'MO_MED_PRESCRIPTION') {
                         $pres_query = new MedicalOrderPrescription;
-                        $pres_query->medicalorderprescription_id = $this->tb_unique_id.$key;
-                        $pres_query->medicalorder_id = $this->tb_unique_id.$key;
+                        $pres_query->medicalorderprescription_id = IdGenerator::generateId().$key;
+                        $pres_query->medicalorder_id = $medorderID;
                         $pres_query->generic_name = $input['insert'][$value]['Drug_Code'][$key];
                         $pres_query->brand_name = $input['insert'][$value]['Drug_Brand_Name'][$key];
                         $pres_query->dose_quantity = $input['insert'][$value]['Dose_Qty'][$key].' '.$input['insert'][$value]['Dose_UOM'][$key];
@@ -79,57 +82,115 @@ class MedicalOrderController extends Controller {
 
                             $regimen_startend_date = explode(" - ", $input['insert'][$value]['regimen_startend_date'][$key]);
                             $start_date = new Datetime($regimen_startend_date[0]);
-                            $end_date = new Datetime($regimen_startend_date[1]);
+                            if(isset($regimen_startend_date[1])) {
+                                $end_date = new Datetime($regimen_startend_date[1]);
+                                $pres_query->regimen_enddate = $end_date;
+                            }
 
                         $pres_query->regimen_startdate = $start_date;
-                         $pres_query->regimen_enddate = $end_date;
-                         $pres_query->dosage_regimen_others = $input['insert'][$value]['Specify'][$key];
-                         $pres_query->prescription_remarks = $input['insert'][$value]['Remarks'][$key];
 
-                         $MedicalOrder_insert = $med_query->save();
-                         $pres_query->save();
-                         // echo '<pre>'; print_r($pres_query); echo '</pre>';
+                        $pres_query->dosage_regimen_others = $input['insert'][$value]['Specify'][$key];
+                        $pres_query->prescription_remarks = $input['insert'][$value]['Remarks'][$key];
+
+                        if(isset($med_query) AND $med_query->medicalorder_type = "MO_MED_PRESCRIPTION") {
+                            if(isset($input['insert']['prescription_instructions'][$key])){
+                                $med_query->user_instructions = $input['insert']['prescription_instructions'][$key];
+                            }
+                            $MedicalOrder_insert = $med_query->save();
+                        }
+                        if(isset($input['update']['prescription_instructions'][$key])):
+                            $med_query_u['user_instructions'] = $input['update']['prescription_instructions'][$key];
+                            if($med_query_u['user_instructions']):
+                                $MedicalOrder_update = MedicalOrder::where('medicalorder_id', $medorderID)->update($med_query_u);
+                            endif;
+                        endif;
+
+                        $pres_query->save();
 
                     }
                     else if($value == 'MO_LAB_TEST') {
-                        $Examination_Code = $input['insert'][$value]['Examination_Code'];
 
-                        foreach ($Examination_Code as $keyExamination_Code => $valueExamination_Code) {
-                            $lab_query = new MedicalOrderLabExam;
-                            $lab_query->medicalorderlaboratoryexam_id = $this->tb_unique_id.$key.$keyExamination_Code;
-                            $lab_query->medicalorder_id = $this->tb_unique_id.$key;
-                            $lab_query->laboratory_test_type = $valueExamination_Code;
-                            $lab_query->laboratory_test_type_others = $input['insert'][$value]['others'][$key];
+                        if(isset($input['insert'][$value]['Examination_Code'])) {
+                            $Examination_Code = $input['insert'][$value]['Examination_Code'];
 
-                            $MedicalOrder_insert = $med_query->save();
-                            $lab_query->save();
+                            foreach ($Examination_Code as $keyExamination_Code => $valueExamination_Code) {
+                                $lab_query = new MedicalOrderLabExam;
+                                $lab_query->medicalorderlaboratoryexam_id = IdGenerator::generateId().$keyExamination_Code;
+                                $lab_query->medicalorder_id = $medorderID;
+                                $lab_query->laboratory_test_type = $valueExamination_Code;
+                                if(isset($input['insert'][$value]['others'][$key])){
+                                    $lab_query->laboratory_test_type_others = $input['insert'][$value]['others'][$key];
+                                }
+                                if(isset($med_query) AND $med_query->medicalorder_type = "MO_LAB_TEST") {
+                                    if(isset($input['insert']['laboratory_instructions'][$key])){
+                                        $med_query->user_instructions = $input['insert']['laboratory_instructions'][$key];
+                                    }
+                                    $MedicalOrder_insert = $med_query->save();
+                                }
+                                if(isset($input['update']['laboratory_instructions'][$key])):
+                                    $med_query_u['user_instructions'] = $input['update']['laboratory_instructions'][$key];
+                                    if($med_query_u['user_instructions']):
+                                        $MedicalOrder_update = MedicalOrder::where('medicalorder_id', $medorderID)->update($med_query_u);
+                                    endif;
+                                endif;
+                                $lab_query->save();
+                            }
                         }
                     }
                     else if($value == 'MO_PROCEDURE') {
-                        $prod_query = new MedicalOrderProcedure;
-                        $prod_query->medicalorderprocedure_id = $this->tb_unique_id.$key;
-                        $prod_query->medicalorder_id = $this->tb_unique_id.$key;
-                        $prod_query->procedure_order = $input['insert'][$value]['Procedure_Order'][$key];
-                        $prod_query->procedure_date = new Datetime($input['insert'][$value]['Date_of_Procedure'][$key]);
 
-                        $MedicalOrder_insert = $med_query->save();
-                        $prod_query->save();
+                        foreach($input['insert'][$value]['medicalorderprocedure_id'] as $pkey => $procedure) {
 
-                        // echo '<pre>'; print_r($prod_query); echo '</pre>';
+                            $prod_query = new MedicalOrderProcedure;
+                            $prod_query->medicalorderprocedure_id = IdGenerator::generateId().$key;
+                            $prod_query->medicalorder_id = $medorderID;
+                            $prod_query->procedure_order = $input['insert'][$value]['Procedure_Order'][$pkey];
+                            $prod_query->procedure_date = new Datetime($input['insert'][$value]['Date_of_Procedure'][$pkey]);
+                            $prod_query->procedure_instructions = $input['insert'][$value]['Procedure_Remarks'][$pkey];
+                            $prod_query->save();
+
+                            if(isset($med_query) AND $med_query->medicalorder_type = "MO_PROCEDURE") {
+                                if(isset($input['insert']['procedure_user_instructions'][$key])) {
+                                    $med_query->user_instructions = $input['insert']['procedure_user_instructions'][$key];
+                                }
+                                $MedicalOrder_insert = $med_query->save();
+                            }
+                            if(isset($input['update']['procedure_user_instructions'][$key])):
+                                $med_query_u['user_instructions'] = $input['update']['procedure_user_instructions'][$key];
+                                if($med_query_u['user_instructions']):
+                                    $MedicalOrder_update = MedicalOrder::where('medicalorder_id', $medorderID)->update($med_query_u);
+                                endif;
+                            endif;
+                        }
+
                     }
                     else if($value == 'MO_OTHERS') {
 
-                        $med_query->medicalorder_others = $input['insert'][$value]['order_type_others'][$key];
-                        $MedicalOrder_insert = $med_query->save();
-                        // echo '<pre>'; print_r($input['insert'][$value]['order_type_others'][$key]); echo '</pre>';
+                        if(!empty($input['insert'][$value]['order_type_others'])) {
+                            foreach($input['insert'][$value]['order_type_others'] as $okey => $others) {
+                                if($others){
+                                    if(isset($input['insert'][$value]['order_type_others'][$okey])) {
+                                        $med_query->medicalorder_others = $input['insert'][$value]['order_type_others'][$okey];
+                                    }
+                                    if(isset($med_query) AND $med_query->medicalorder_type = "MO_OTHERS") {
+                                        if(isset($input['insert']['other_instructions'][$okey])) {
+                                            $med_query->user_instructions = $input['insert']['other_instructions'][$okey];
+                                        }
+                                    $MedicalOrder_insert = $med_query->save();
+                                    }
+                                    if(isset($input['update']['other_instructions'][$okey])):
+                                        $med_query_u['user_instructions'] = $input['update']['other_instructions'][$okey];
+                                        if($med_query_u['user_instructions']):
+                                            $MedicalOrder_update = MedicalOrder::where('medicalorder_id', $medorderID)->update($med_query_u);
+                                        endif;
+                                    endif;
+                                }
+                            }
+                        }
                     }
                     else {
 
                     }
-
-                    // echo "insert <pre>"; print_r($med_query); echo '</pre>';
-
-
                 } else {
                     $MedicalOrder_insert = FALSE;
                 }
@@ -140,8 +201,7 @@ class MedicalOrderController extends Controller {
 
             foreach ($input['update']['type'] as $key => $value) {
                 if( $value != 'MO_NONE' ) {
-                    // $med_query_u['medicalorder_type'] = $value;
-                    $med_query_u['user_instructions'] = $input['update']['instructions'][$key];
+
 
 
                     if($value == 'MO_MED_PRESCRIPTION') {
@@ -151,7 +211,7 @@ class MedicalOrderController extends Controller {
                         $pres_query_u['dose_quantity'] = $input['update'][$value]['Dose_Qty'][$key].' '.$input['update'][$value]['Dose_UOM'][$key];
                         $pres_query_u['total_quantity'] = $input['update'][$value]['Total_Quantity'][$key].' '.$input['update'][$value]['Total_Quantity_UOM'][$key];
                         $pres_query_u['dosage_regimen'] = $input['update'][$value]['dosage'][$key];
-                        $pres_query_u['dosage_regimen_others'] = $input['update'][$value]['Specify'][$key];
+                        $pres_query_u['dosage_regimen_others'] = isset($input['update'][$value]['Specify'][$key]) ? $input['update'][$value]['Specify'][$key] : NULL;
                         $pres_query_u['duration_of_intake'] = $input['update'][$value]['Duration_Intake'][$key].' '.$input['update'][$value]['Duration_Intake_Freq'][$key];
 
                         $regimen_startend_date  = explode(" - ", $input['update'][$value]['regimen_startend_date'][$key]);
@@ -160,44 +220,111 @@ class MedicalOrderController extends Controller {
 
                         $pres_query_u['regimen_startdate'] = $start_date;
                         $pres_query_u['regimen_enddate'] = $end_date;
-                        $pres_query_u['dosage_regimen_others'] = $input['update'][$value]['Specify'][$key];
+
                         $pres_query_u['prescription_remarks'] = $input['update'][$value]['Remarks'][$key];
 
-                         // echo '<pre>'; print_r($pres_query_u); echo '</pre>';
-                         $pres_query_u_update = MedicalOrderPrescription::where('medicalorderprescription_id', $input['update'][$value]['medicalorderprescription_id'][$key])->update($pres_query_u);
+                        $pres_query_u_update = MedicalOrderPrescription::where('medicalorderprescription_id', $input['update'][$value]['medicalorderprescription_id'][$key])->update($pres_query_u);
 
+                        $med_query_u['user_instructions'] = isset($input['update']['prescription_instructions'][$key]) ? $input['update']['prescription_instructions'][$key] : NULL;
+
+                        $MedicalOrder_update = MedicalOrder::where('medicalorder_id', $input['update']['medicalorder_id'][$key])->update($med_query_u);
                     }
                     else if($value == 'MO_LAB_TEST') {
-                        $Examination_Code = $input['update'][$value]['Examination_Code'];
-                        foreach ($Examination_Code as $key_u_e_code => $value_u_e_code) {
-                            $lab_query_u['laboratory_test_type'] = $value_u_e_code;
-                            $lab_query_u['laboratory_test_type_others'] = $input['update'][$value]['others'][$key];
-
-                            // echo '<pre>'; print_r($lab_query_u); echo '</pre>';
-                            $lab_query_u_update = MedicalOrderLabExam::where('medicalorderlaboratoryexam_id', $input['update'][$value]['medicalorderlaboratoryexam_id'][$key])->update($lab_query_u);
+                        //reset all lab exams by force deleting all so that unchecked items will be removed
+                        $deleteAllExam = MedicalOrderLabExam::where('medicalorder_id',$input['update']['medicalorder_id'][$key])->forceDelete();
+                        if(isset($input['update'][$value]['Examination_Code'])){
+                            $Examination_Code = $input['update'][$value]['Examination_Code']; //dd($key, $Examination_Code, $input['update']);
+                            foreach ($Examination_Code as $key_u_e_code => $value_u_e_code) {
+                                    $lab_query = new MedicalOrderLabExam;
+                                    $lab_query->medicalorderlaboratoryexam_id = IdGenerator::generateId().$key;
+                                    $lab_query->medicalorder_id = $input['update']['medicalorder_id'][$key];
+                                    $lab_query->laboratory_test_type = $value_u_e_code;
+                                    $lab_query->laboratory_test_type_others = isset($input['update'][$value]['others'][$key_u_e_code]) ? $input['update'][$value]['others'][$key_u_e_code] : NULL;
+                                    $lab_query->save();
+                            }
+                        } else {
+                            //there is no checked lab
+                            //delete this medical order ID
+                            $MedicalOrder_update = MedicalOrder::where('medicalorder_id', $input['update']['medicalorder_id'][$key])->forceDelete();
                         }
+                        $med_query_u['user_instructions'] = isset($input['update']['laboratory_instructions'][$key]) ? $input['update']['laboratory_instructions'][$key] : NULL;
+
+                        $MedicalOrder_update = MedicalOrder::where('medicalorder_id', $input['update']['medicalorder_id'][$key])->update($med_query_u);
+
                     }
                     else if($value == 'MO_PROCEDURE') {
-                        $prod_query_u['procedure_order'] = $input['update'][$value]['Procedure_Order'][$key];
-                        $prod_query_u['procedure_date'] =  new Datetime($input['update'][$value]['Date_of_Procedure'][$key]);
+                        foreach($input['update'][$value]['Procedure_Order'] as $key => $v){
+                            $prod_query_u['procedure_order'] = $input['update'][$value]['Procedure_Order'][$key];
+                            $prod_query_u['procedure_date'] =  new Datetime($input['update'][$value]['Date_of_Procedure'][$key]);
+                            $prod_query_u['procedure_instructions'] =  $input['update'][$value]['Procedure_Remarks'][$key];
 
-                        // echo '<pre>'; print_r($prod_query_u); echo '</pre>';
+                            $prod_query_u_update = MedicalOrderProcedure::where('medicalorderprocedure_id', $input['update'][$value]['medicalorderprocedure_id'][$key])->update($prod_query_u);
+                        }
+                        $med_query_u['user_instructions'] = isset($input['update']['procedure_user_instructions'][$key]) ? $input['update']['procedure_user_instructions'][$key] : NULL;
 
-                        $prod_query_u_update = MedicalOrderProcedure::where('medicalorderprocedure_id', $input['update'][$value]['medicalorderprocedure_id'][$key])->update($prod_query_u);
+                        $MedicalOrder_update = MedicalOrder::where('medicalorder_id', $input['update']['medicalorder_id'][$key])->update($med_query_u);
+
+
                     }
                     else if($value == 'MO_OTHERS') {
 
-                        $med_query_u['medicalorder_others'] = $input['update'][$value]['order_type_others'][$key];
+                        $other_query_u['medicalorder_others'] = isset($input['update'][$value]['order_type_others'][$key]) ? $input['update'][$value]['order_type_others'][$key] : NULL;
+
+                        $med_query_u['user_instructions'] = isset($input['update']['other_instructions'][$key]) ? $input['update']['other_instructions'][$key] : NULL;
+
+                        //if others entry to empty - delete medical order others
+                        if($other_query_u['medicalorder_others'] == "") {
+                            MedicalOrder::where('medicalorder_id', $input['update']['medicalorder_id'][$key])->forceDelete();
+                        //else update the entry
+                        } else {
+                            $other_query_u_update = MedicalOrder::where('medicalorder_id', $input['update']['medicalorder_id'][$key])->update($other_query_u);
+                            $MedicalOrder_update = MedicalOrder::where('medicalorder_id', $input['update']['medicalorder_id'][$key])->update($med_query_u);
+                        }
+
 
                     }
                     else {
 
                     }
 
-                    $MedicalOrder_update = MedicalOrder::where('medicalorder_id', $input['update']['medicalorder_id'][$key])->update($med_query_u);
-                    // echo '<pre>'; print_r($med_query_u); echo '</pre>';
+                }
+            }
+        }
 
+        if (array_key_exists('delete', $input)) {
 
+            foreach ($input['delete']['type'] as $key => $value) {
+
+                if($value == 'MO_MED_PRESCRIPTION') {
+                       $prescripDelete = MedicalOrderPrescription::where('medicalorderprescription_id', $input['delete'][$value]['medicalorderprescription_id'][$key])->delete();
+
+                        if(isset($input['delete'][$value]['medicalorder_id'][$key])) {
+                            $medprescDelete = MedicalOrder::where('medicalorder_id', $input['delete'][$value]['medicalorder_id'][$key])->forceDelete();
+                        }
+                }
+                if($value == 'MO_PROCEDURE') {
+                    //delete the item for deletion
+                    $procDelete = MedicalOrderProcedure::where('medicalorderprocedure_id', $input['delete'][$value]['medicalorderprocedure_id'][$key])->forceDelete();
+
+                    //check if there still orders here
+                    $mayronpa = 0;
+                    $mayprodcedurespa = MedicalOrder::where('healthcareservice_id', $input['hservices_id'])->get();
+
+                    foreach($mayprodcedurespa as $proc){
+                        $proced = MedicalOrderProcedure::where('medicalorder_id', $proc->medicalorder_id)->get();
+                        if(empty($proced)) {
+                            $mayronpa++;
+                        }
+                    }
+
+                    //if the order is empty, delete medicalorder item
+                    if($mayronpa == 0){
+                        $procDelete = MedicalOrder::where('healthcareservice_id', $input['hservices_id'])->forceDelete();
+                    }
+                    //if the whole order form is deleted, delete medicalorder item
+                    if(isset($input['delete'][$value]['medicalorder_id'][$key])) {
+                        $procDelete = MedicalOrder::where('medicalorder_id', $input['delete'][$value]['medicalorder_id'][$key])->forceDelete();
+                    }
                 }
             }
         }
@@ -217,8 +344,6 @@ class MedicalOrderController extends Controller {
 
         $data['order'] = $medicalorder_record = getMedicalOrdersByHealthServiceID($hservice_id);
 
-        //$glab = $order->medical_order_lab_exam;
-        //dd($medicalorder_record);
         foreach($medicalorder_record as $order)
         {
             if($order->medical_order_lab_exam) {
@@ -228,11 +353,11 @@ class MedicalOrderController extends Controller {
         }
 
         $data['consultation_id'] = $hservice_id;
-        $data['user'] = $doctor = getUserDetailsByUserID($consultation->user_id);
         $phic = "NP";
 
         //get provider
         $data['provider'] = $provider = getFacilityByFacilityUserID($consultation->facilityuser_id);
+        $data['user'] = $doctor = getUserDetailsByUserID($provider->facility_user->user_id);
 
         //get patient data
         $data['patient'] = $patient = getCompletePatientByPatientID($consultation->patient_id);
@@ -389,7 +514,6 @@ class MedicalOrderController extends Controller {
                     "medicineid": "'.$drugcode.'",
                     "medicineName": "'.$drugcode.'",
                     "brandname": "'.$drug->brand_name.'",
-                    "medicineType": "maintenance",
                     "doseqty": "'.$dosage[0].'",
                     "doseuom": "'.$dosage[1].'",
                     "totalquantity": "'.$total[0].'",

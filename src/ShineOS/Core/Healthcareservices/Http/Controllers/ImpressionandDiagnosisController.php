@@ -71,10 +71,20 @@ class ImpressionandDiagnosisController extends Controller {
             }
 
             if (array_key_exists('update', $this->txt_diag)) {
+                //delete all diagnosis to reset
+                //then save again
+                $AllDiag = Diagnosis::where('healthcareservice_id',$this->txt_hservices_id)->forceDelete();
                 $ctr = 0;
                     foreach ($this->txt_diag['update']['type'] as $k => $v) {
-                        // dd("Update ".$v);
-                        if (array_key_exists($k, $this->txt_diag['update']['type']) AND array_key_exists($k, $this->txt_diag['update']['notes']) AND array_key_exists($k, $this->txt_diag['update']['diagnosis_id']) )
+                        $query = new Diagnosis;
+                                $query->diagnosis_id = $this->tb_unique_id . $ctr;
+                                $query->healthcareservice_id = $this->txt_hservices_id;
+                                $query->diagnosislist_id = $this->txt_diag['update']['diagnosislist_id'][$k];
+                                $query->diagnosis_type = $this->txt_diag['update']['type'][$k];
+                                $query->diagnosis_notes = $this->txt_diag['update']['notes'][$k];
+                                $query->save();
+
+                        /*if (array_key_exists($k, $this->txt_diag['update']['type']) AND array_key_exists($k, $this->txt_diag['update']['notes']) AND array_key_exists($k, $this->txt_diag['update']['diagnosis_id']) )
                         {
                             if($this->txt_diag['update']['diagnosis_id'][$k] != "") {
                                 $update = Diagnosis::where('diagnosis_id', $this->txt_diag['update']['diagnosis_id'][$k])
@@ -90,8 +100,8 @@ class ImpressionandDiagnosisController extends Controller {
                                 $query->diagnosis_notes = $this->txt_diag['update']['notes'][$k];
                                 $query->save();
                             }
-                        }
-                        // echo "<pre>"; print_r('parent '.$this->icd10['parent']); echo '</pre>';
+                        }*/
+
                         if ($this->txt_diag['update']['type'][$k] == 'FINDX' AND $this->icd10['parent']) {
                             $updated = DiagnosisICD10::where('diagnosis_id', $this->txt_diag['update']['diagnosis_id'][$k])
                                 ->update(array('icd10_classifications' => $this->icd10['parent'],

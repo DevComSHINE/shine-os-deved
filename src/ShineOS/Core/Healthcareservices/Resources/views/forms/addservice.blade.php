@@ -25,7 +25,7 @@ endif;
             <div class="col-sm-2">
                 <div class="input-group">
                     <i class="fa fa-calendar inner-icon"></i>
-                    {!! Form::text('e-date', (empty($healthcareData) ? getCurrentDate('m/d/Y') : date('m/d/Y', strtotime($healthcareData->encounter_datetime))), ['class' => 'form-control', 'id'=>'datepicker', $read]); !!}
+                    {!! Form::text('e-date', getCurrentDate('m/d/Y'), ['class' => 'form-control datepicker', 'readonly' => 'readonly',  $read]); !!}
                 </div>
             </div>
             <div class="col-sm-2">
@@ -87,7 +87,7 @@ endif;
 
                         @if($healthcareType=='FOLLO')
                         <label id="consuTypeFollow" class="btn btn-default required @if($healthcareType=='FOLLO') active @endif {{$read}}">
-                            <i class="fa fa-check"></i> {!! Form::radio('consultationtype_id', 'FOLLO', ''); !!} Follow-up
+                            <i class="fa fa-check"></i> {!! Form::radio('consultationtype_id', 'FOLLO', 'checked'); !!} Follow-up
                         </label>
                         @endif
                     </div>
@@ -102,6 +102,7 @@ endif;
                             <?php
                                 $chk = "";
                                 if($healthcareType=='CONSU') $chk = "checked";
+                                if($healthcareType=='FOLLO') $chk = "checked";
                             ?>
                             <i class="fa fa-check"></i> {!! Form::radio('encounter_type', 'O', $chk) !!} Out Patient
                         </label>

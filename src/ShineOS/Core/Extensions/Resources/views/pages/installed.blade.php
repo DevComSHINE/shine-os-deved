@@ -41,8 +41,9 @@
                                 $but_color = "btn-warning";
                             endif;
                             ?>
-                            <input type="hidden" name="type" value="modules" />
+
                             <tr>
+                                <input type="hidden" name="type" value="modules" />
                                 <td width="15" valign="top"><input type="checkbox" disabled {{ $enabled }} /></td>
                                 <td width="300" valign="top">
                                     <strong>{{ $m['mod_title'] }}</strong>

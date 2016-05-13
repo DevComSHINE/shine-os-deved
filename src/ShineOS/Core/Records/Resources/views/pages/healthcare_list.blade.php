@@ -1,3 +1,9 @@
+@section('heads')
+    <style>
+        table#dataTable_healthcare th { vertical-align: bottom; }
+        table#dataTable_healthcare td { vertical-align: top; }
+    </style>
+@stop
 
 <div class="box no-border">
     @if(Session::has('message'))
@@ -12,8 +18,8 @@
                 <th nowrap>Patient Name</th>
                 <th>Service</th>
                 <th>Encounter</th>
-                <th>Seen by</th>
-                <th>Encounter Date</th>
+                <th>AttendedBy</th>
+                <th>EncounterDate</th>
                 <th class="nosort">&nbsp;</th>
             </tr>
             </thead>

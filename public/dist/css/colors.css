@@ -256,3 +256,7 @@ Gradient Background colors
   background: -o-linear-gradient(#67a8ce, #0079C0) !important;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#67a8ce', endColorstr='#0079C0', GradientType=0) !important;
 }
+
+.opac-yellow {
+    background-color: RGBA(252, 210, 0, 0.5);
+}

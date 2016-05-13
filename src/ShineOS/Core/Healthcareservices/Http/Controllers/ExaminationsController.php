@@ -5,7 +5,7 @@ use ShineOS\Core\Healthcareservices\Entities\Healthcareservices; //model
 use ShineOS\Core\Healthcareservices\Entities\Examination; //model
 
 use Shine\Http\Requests\Healthcareservices\TBFormRequest;
-
+use Shine\Libraries\UserHelper;
 use ShineOS\Core\Patients\Models\Patients;
 use Shine\Libraries\IdGenerator;
 use View,
@@ -40,6 +40,8 @@ class ExaminationsController extends Controller {
         $date = new Datetime('now');
         $this->current_timestamp = strtotime($date->format('Y-m-d H:i:s'));
 
+        $this->user = UserHelper::getUserInfo();
+        $this->roles = Session::get('roles');
 
         $this->tb_unique_id =  IdGenerator::generateId();
 
@@ -55,6 +57,12 @@ class ExaminationsController extends Controller {
     }
 
     public function add() {
+        $hc =  Healthcareservices::where('healthcareservice_id', $this->txt_hservices_id);
+        if($hc AND strtolower($this->roles['role_name']) == 'physician' OR strtolower($this->roles['role_name']) == 'doctor') { //if this is a doctor set the seen_by (attending physician)
+            $hc->seen_by = $this->user->user_id;
+            $hc->save();
+        }
+
         $data = Input::get();
         $query = new Examination;
         $query->examination_id = IdGenerator::generateId();
@@ -82,6 +90,12 @@ class ExaminationsController extends Controller {
     }
 
     public function edit() {
+
+        if(strtolower($this->roles['role_name']) == 'physician' OR strtolower($this->roles['role_name']) == 'doctor') { //if this is a doctor set the seen_by (attending physician)
+            Healthcareservices::where('healthcareservice_id', $this->txt_hservices_id)
+                ->update(['seen_by' => $this->user->user_id]);
+        }
+
         $data = Input::get();
         $query = Examination::find($data['examination_id']);
         if($data['anatomy']) {

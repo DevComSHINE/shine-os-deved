@@ -132,7 +132,14 @@ class RegistrationController extends Controller {
         $captcha = Session::get('registration_captcha');
         $userInput = Input::get('captcha');
 
-        echo ( $userInput == $captcha ) ? 'true' : 'false';
+        if( $userInput == $captcha ){
+            $isAvailable = 'true';
+        } else {
+            $isAvailable = 'false';
+        }
+        echo json_encode(array(
+            'valid' => $isAvailable,
+        ));
     }
 
     public function activate_account ( $activation_code = '' )

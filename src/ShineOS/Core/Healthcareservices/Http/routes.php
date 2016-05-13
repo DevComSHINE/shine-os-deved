@@ -5,6 +5,7 @@ Route::group(['prefix' => 'healthcareservices', 'namespace' => 'ShineOS\Core\Hea
 
     Route::get('/', ['as' => 'healthcare.index', 'uses' => 'HealthcareservicesController@index']);
     Route::get('/{action}/{patiend_id}', ['as' => 'healthcare.add', 'uses' => 'HealthcareservicesController@index']);
+
     /** Follow up  */
     Route::get('/{action}/{patiend_id}/{hservice_id}', ['as' => 'healthcare.add', 'uses' => 'HealthcareservicesController@index']);
     Route::get('/{action}/{patiend_id}/{hservice_id}', ['as' => 'healthcare.edit', 'uses' => 'HealthcareservicesController@index']);

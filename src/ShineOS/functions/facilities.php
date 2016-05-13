@@ -41,6 +41,28 @@ function getFacilityByFacilityUserID($id, $field=NULL)
 }
 
 /**
+ * Get the name of the Facility by user ID
+ * @param  [string] $id User ID
+ * @return [string] Full name of the user
+ */
+function getFacilityNameByUserID($id)
+{
+    $facility = DB::table('facility_user')
+        ->join('users', 'facility_user.user_id', '=', 'users.user_id')
+        ->join('facilities', 'facilities.facility_id', '=', 'facility_user.facility_id')
+        ->join('facility_patient_user', 'facility_patient_user.facilityuser_id', '=', 'facility_user.facilityuser_id')
+        ->select('facilities.*')
+        ->where('users.user_id', $id)
+        ->first();
+    if($facility) {
+        return $facility->facility_name;
+    } else {
+        return NULL;
+    }
+
+}
+
+/**
  * Get the full details user of a facility
  * @param  int $id User ID
  * @return Object Array array of details

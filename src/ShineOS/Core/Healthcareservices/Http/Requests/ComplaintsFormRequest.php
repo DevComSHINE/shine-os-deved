@@ -8,7 +8,7 @@ class ComplaintsFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'complaint'     => 'required|max:500|min:10'
+            'complaint'     => 'required'
         ];
     }
 

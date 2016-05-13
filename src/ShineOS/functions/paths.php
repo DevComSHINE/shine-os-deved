@@ -4,7 +4,7 @@ function userfiles_path()
 {
     static $folder;
     if (!$folder) {
-        $folder = normalize_path(base_path() . "/" . SHINEOS_USERFILES_FOLDER_NAME . "/");
+        $folder = normalize_path(base_path() . DIRECTORY_SEPARATOR . SHINEOS_USERFILES_FOLDER_NAME . DIRECTORY_SEPARATOR);
     }
     return $folder;
 }
@@ -13,7 +13,7 @@ function userfiles_url()
 {
     static $folder;
     if (!$folder) {
-        $folder = site_url() . SHINEOS_USERFILES_FOLDER_NAME . "/";
+        $folder = site_url() . SHINEOS_USERFILES_FOLDER_NAME . DIRECTORY_SEPARATOR;
     }
     return $folder;
 }
@@ -31,7 +31,7 @@ function media_base_path()
 {
     static $folder;
     if (!$folder) {
-        $folder = userfiles_path() . (SHINEOS_MEDIA_FOLDER_NAME . "/");
+        $folder = userfiles_path() . (SHINEOS_MEDIA_FOLDER_NAME . DIRECTORY_SEPARATOR);
     }
     return $folder;
 }
@@ -40,7 +40,7 @@ function upload_base_path()
 {
     static $folder;
     if (!$folder) {
-        $folder = userfiles_path() . (SHINEOS_UPLOADS_FOLDER_NAME . "/");
+        $folder = userfiles_path() . (SHINEOS_UPLOADS_FOLDER_NAME . DIRECTORY_SEPARATOR);
     }
     return $folder;
 }
@@ -50,7 +50,7 @@ function modules_path()
 {
     static $folder;
     if (!$folder) {
-        $folder = normalize_path(base_path() . "/" . SHINEOS_MODULES_FOLDER_NAME . "/");
+        $folder = normalize_path(base_path() . DIRECTORY_SEPARATOR . SHINEOS_MODULES_FOLDER_NAME . DIRECTORY_SEPARATOR);
     }
     return $folder;
 }
@@ -59,7 +59,7 @@ function plugins_path()
 {
     static $folder;
     if (!$folder) {
-        $folder = normalize_path(base_path() . "/" . SHINEOS_PLUGINS_FOLDER_NAME . "/");
+        $folder = normalize_path(base_path() . DIRECTORY_SEPARATOR . SHINEOS_PLUGINS_FOLDER_NAME . DIRECTORY_SEPARATOR);
     }
     return $folder;
 }
@@ -68,7 +68,7 @@ function widgets_path()
 {
     static $folder;
     if (!$folder) {
-        $folder = normalize_path(base_path() . "/" . SHINEOS_WIDGETS_FOLDER_NAME . "/");
+        $folder = normalize_path(base_path() . DIRECTORY_SEPARATOR . SHINEOS_WIDGETS_FOLDER_NAME . DIRECTORY_SEPARATOR);
     }
     return $folder;
 }
@@ -77,7 +77,7 @@ function elements_path()
 {
     static $folder;
     if (!$folder) {
-        $folder = (userfiles_path() . SHINEOS_ELEMENTS_FOLDER_NAME . "/");
+        $folder = (userfiles_path() . SHINEOS_ELEMENTS_FOLDER_NAME . DIRECTORY_SEPARATOR);
     }
     return $folder;
 }
@@ -86,7 +86,7 @@ function uploads_url()
 {
     static $folder;
     if (!$folder) {
-        $folder = site_url(SHINEOS_USERFILES_FOLDER_NAME. "/" .SHINEOS_UPLOADS_FOLDER_NAME . "/");
+        $folder = site_url(SHINEOS_USERFILES_FOLDER_NAME. DIRECTORY_SEPARATOR .SHINEOS_UPLOADS_FOLDER_NAME . DIRECTORY_SEPARATOR);
 
     }
     return $folder;
@@ -124,7 +124,7 @@ function templates_path()
 {
     static $folder;
     if (!$folder) {
-        $folder = (userfiles_path() . SHINEOS_TEMPLATES_FOLDER_NAME . "/");
+        $folder = (userfiles_path() . SHINEOS_TEMPLATES_FOLDER_NAME . DIRECTORY_SEPARATOR);
     }
     return $folder;
 }
@@ -152,7 +152,7 @@ function admin_url($add_string = false)
 
 function shineos_cache_path()
 {
-    return storage_path() . "/" . 'cache' . "/";
+    return storage_path() . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR;
 }
 
 function shineos_includes_url()

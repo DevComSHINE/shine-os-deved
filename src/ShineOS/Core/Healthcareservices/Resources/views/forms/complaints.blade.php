@@ -17,7 +17,7 @@ else { $read = 'disabled'; }
     <div class="form-group">
         <label class="col-md-2 control-label">Complaint*</label>
         <div class="col-md-10">
-            {!! Form::textarea('complaint', null, ['class' => 'form-control required noresize', 'placeholder' => 'Complaint', 'cols'=>'10', 'rows'=>'5', $read, 'required'=>'required']) !!}
+            {!! Form::textarea('complaint', null, ['class' => 'form-control required noresize', 'placeholder' => 'Complaint', 'cols'=>'10', 'rows'=>'5', $read]) !!}
         </div>
     </div>
 </fieldset>

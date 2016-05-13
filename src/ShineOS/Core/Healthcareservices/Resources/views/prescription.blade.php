@@ -245,7 +245,7 @@
         <?php } ?>
     </body>
 </html>
-{!! HTML::script('public/dist/js/bootbox.min.js') !!}
+{!! HTML::script('public/dist/plugins/bootbox.min.js') !!}
 <script type="text/javascript">
 
     $(document).load(function() {

@@ -44,7 +44,7 @@ class DispositionController extends Controller {
 
         if ($query->save()) {
             return Redirect::back()
-                 ->with('flash_message', 'Well done! You successfully Added Complaints Information.')
+                 ->with('flash_message', 'Well done! You successfully Updated Disposition Information.')
                     ->with('flash_type', 'alert-success alert-dismissible')
                         ->with('flash_tab', 'disposition');
         }

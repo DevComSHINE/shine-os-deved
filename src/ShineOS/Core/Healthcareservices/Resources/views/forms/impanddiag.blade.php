@@ -15,7 +15,7 @@ else { $read = 'disabled'; }
                 <tbody class="appendHere">
                 @if ($diagnosis_record != NULL)
                     @foreach($diagnosis_record as $krecord => $vrecord)
-                        <tr class="impanddiag">
+                        <tr class="impanddiag" id="added{{ $krecord }}">
                             <td class='col-sm-11'>
                                 {!! Form::hidden('diag[update][diagnosis_id][]', $vrecord->diagnosis_id) !!}
                                 <table class="col-sm-12">
@@ -68,7 +68,7 @@ else { $read = 'disabled'; }
                     @endforeach
                 @else
                     <?php $krecord = 0; ?>
-                    <tr class="impanddiag">
+                    <tr class="impanddiag" id="added{{ $krecord }}">
                             <td class='col-sm-10'>
                                 {!! Form::hidden('diag[insert][diagnosis_id][]', '') !!}
                                 <table class="col-sm-12">
@@ -119,8 +119,7 @@ else { $read = 'disabled'; }
                 </tbody>
             </table>
 
-
-            @if(empty($disposition_record))
+            @if(empty($disposition_record->disposition))
                 @if($ctr_FINDX != 1)
                     <div class="col-sm-12">
                         <button type="button" class="addRow btn btn-success"><i class="fa fa-plus-circle"></i> Add More</button>
@@ -224,6 +223,7 @@ else { $read = 'disabled'; }
         </div>
     </div>
 </fieldset>
+
 @if(empty($disposition_record->disposition))
 <fieldset>
     <div class="form-group">
@@ -235,6 +235,7 @@ else { $read = 'disabled'; }
     </div>
 </fieldset>
 @endif
+
 {!! Form::close() !!}
 
 <script>

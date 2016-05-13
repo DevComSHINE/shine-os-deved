@@ -2,7 +2,7 @@
 {!! HTML::style('public/dist/plugins/summernote/summernote.css') !!}
 @stop
 
-<h3>User Settings</h3>
+<h4>User Settings</h4>
 
 <div class="nav-tabs-custom">
     <ul class="nav nav-tabs">

@@ -340,8 +340,10 @@
                                         <?php _e("Database"); ?>
                                         <span data-help="<?php _e("The name of your database."); ?>"><span
                                                 class="shineos-icon-help-outline shineosahi tip"></span></span></label>
+                                    <p>Make sure you have created this database in your database.</p>
                                     <input type="text" class="shineos-ui-field form-control"
                                            name="db_name" id="db_name_value" value="<?php if(isset($config['database'])) echo $config['database']; ?>"/>
+
                                 </div>
                             </div>
                             <div id="db-form-sqlite" style="display:none">

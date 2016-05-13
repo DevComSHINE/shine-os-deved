@@ -20,8 +20,6 @@
           </li>
 
           <li class="floatright"><button class="btn btn-danger deadPatient-button deathModal" data-id="{{ $patient->patient_id }}" data-toggle="modal" data-target="#deathModal">Declare Dead</button></li>
-
-          <li class="floatright"><a class="btn btn-primary" href="{{ url('healthcareservices/add', [$patient->patient_id]) }}">Add New Consultation</a></li>
     </ul>
 <?php } ?>
 <?php if($action == "add") { ?>

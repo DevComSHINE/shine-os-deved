@@ -64,21 +64,13 @@
                     <div class="form-group">
                       <label for="ownership_type" class="col-sm-3 control-label">Ownership Type</label>
                       <div class="col-sm-9">
-                        <select name="ownership_type" id="ownership_type" class="form-control">
-                            <option value="">Ownership Type</option>
-                            <option value="government" @if ($currentFacility->ownership_type == 'government') selected="selected" @endif>Government</option>
-                            <option value="private" @if ($currentFacility->ownership_type == 'private') selected="selected" @endif>Private</option>
-                        </select>
+                        <input type="text" class="form-control" readonly placeholder="DOH Facility Code" value="{{ ucfirst($currentFacility->ownership_type) }}" />
                       </div>
                     </div>
                     <div class="form-group">
                       <label for="provider_type" class="col-sm-3 control-label">Provider Type</label>
                       <div class="col-sm-9">
-                        <select name="provider_type" id="provider_type" class="form-control">
-                            <option value="">Provider Type</option>
-                            <option value="facility" @if ($currentFacility->provider_type == 'facility') selected="selected" @endif>Facility</option>
-                            <option value="individual" @if ($currentFacility->provider_type == 'individual') selected="selected" @endif>Individual</option>
-                        </select>
+                        <input type="text" class="form-control" readonly placeholder="DOH Facility Code" value="{{ ucfirst($currentFacility->provider_type) }}" />
                       </div>
                     </div>
                     <div class="form-group">
@@ -102,7 +94,7 @@
                     <div class="form-group">
                       <label for="registration_date" class="col-sm-3 control-label">Registration Date</label>
                       <div class="col-sm-9">
-                        <input type="date" class="form-control" id="registration_date" name="registration_date" placeholder="Registration Date" value="{{ $currentFacility->created_at }}" />
+                        <input type="date" class="form-control" id="registration_date" name="registration_date" placeholder="Registration Date" readonly value="{{ $currentFacility->created_at }}" />
                       </div>
                     </div>
                     <div class="form-group">

@@ -10,9 +10,15 @@
     {!! Form::hidden('bmi', '') !!}
 
 <?php
-//dd($vitals_record);
+//dd($patient->birthdate);
 if(empty($disposition_record->disposition)) { $read = ''; }
 else { $read = 'disabled'; }
+//let us get the age of the patient
+$age = getAge($patient->birthdate);
+$required = "required";
+if($age <= 14) {
+    $required = "";
+}
 ?>
 <div class="icheck">
     <fieldset {{ $disabled }}>
@@ -29,10 +35,10 @@ else { $read = 'disabled'; }
             {!! Form::text('temperature', (isset($vitals->temperature) ? (($vitals->temperature) ? $vitals->temperature : '') : ''), ['class' => 'form-control required', 'step' => 'any', 'placeholder'=>'Temperature', $read, 'required'=>'required']) !!}
           </div>
           <div class="col-md-2">
-            {!! Form::text('bloodpressure_systolic', (isset($vitals->bloodpressure_systolic) ? (($vitals->bloodpressure_systolic) ? $vitals->bloodpressure_systolic : '') : ''), ['class' => 'form-control required', 'placeholder'=> 'Systolic', $read, 'required'=>'required']) !!}
+            {!! Form::text('bloodpressure_systolic', (isset($vitals->bloodpressure_systolic) ? (($vitals->bloodpressure_systolic) ? $vitals->bloodpressure_systolic : '') : ''), ['class' => 'form-control '.$required, 'placeholder'=> 'Systolic', $read, $required]) !!}
           </div>
           <div class="col-md-2">
-            {!! Form::text('bloodpressure_diastolic', (isset($vitals->bloodpressure_diastolic) ? (($vitals->bloodpressure_diastolic) ? $vitals->bloodpressure_diastolic : '') : ''), ['class' => 'form-control required', 'placeholder'=> 'Diastolic', $read, 'required'=>'required']) !!}
+            {!! Form::text('bloodpressure_diastolic', (isset($vitals->bloodpressure_diastolic) ? (($vitals->bloodpressure_diastolic) ? $vitals->bloodpressure_diastolic : '') : ''), ['class' => 'form-control '.$required, 'placeholder'=> 'Diastolic', $read, $required]) !!}
           </div>
           <div class="col-md-2">
             {!! Form::text('heart_rate', (isset($vitals->heart_rate) ? (($vitals->heart_rate) ? $vitals->heart_rate : '') : ''), ['class' => 'form-control', 'placeholder'=>'Heart rate', $read]) !!}
@@ -188,7 +194,7 @@ else { $read = 'disabled'; }
                 </table>
             </div>
             <div class="col-md-4">
-                Put human image here
+                <!-- Put human image here -->
             </div>
         </div>
         <div class="form-group">

@@ -14,7 +14,7 @@ $('.captcha-refresh').on('click.captcha-refresh', function () {
     return false;
 });
 
-// additional validation(s)
+/* additional validation(s)
 $.validator.addMethod("phic_accr_id_validator", function(value, element) {
     return this.optional(element) || /^[-0-9\s]+$/i.test(value);
 }, "Must be numbers, dashes and spaces only");
@@ -23,66 +23,7 @@ $.validator.addMethod("alphanumeric_spaces", function(value, element) {
 }, "Must be letters, numbers, and spaces only.");
 $.validator.addMethod("numbers_dashes", function(value, element) {
     return this.optional(element) || value == value.match(/^\d+(-\d+)*$/);
-}, "Numbers and dashes only.");
-
-// form validation
-$('#crudForm').validate({
-    rules: {
-        DOH_facility_code: {
-            required: function(element) {
-                return $("#ownership_type").val() == 'government';
-            }
-        },
-        facility_code : {
-            'required': true,
-            //'facility_code_regex': /^[DOH0-9]+$/i
-        },
-        password: {
-            'required': true,
-            'minlength': 4
-        },
-        password_confirm: {
-            equalTo: "#password"
-        },
-        phic_accr_id: {
-            'phic_accr_id_validator': true
-        },
-        first_name: {
-            'alphanumeric_spaces': true
-        },
-        last_name: {
-            'alphanumeric_spaces': true
-        },
-        mobile: {
-            'required': true,
-            //'numbers_dashes': true
-        },
-        test_captcha : {
-            required: true,
-            remote: {
-                url: "registration/check_captcha",
-                type: "post",
-                cache: false,
-                async: false,
-                data: {
-                    "captcha" : function () {
-                        return $('input[name="test_captcha"]').val();
-                    },
-                    "_token" : $('input[name="_token"]').val()
-                },
-                dataFilter: function(response) {
-                    return response;
-                }
-            }
-        }
-    },
-    onkeyup: false,
-    messages: {
-        test_captcha: {
-            "remote": "Invalid captcha."
-        }
-    }
-});
+}, "Numbers and dashes only.");*/
 
 // if there's a DOH Code, owner type is automatically set to "government"
 var DOH_facility_code = $('#DOH_facility_code');
@@ -139,11 +80,21 @@ function prefillRegistration () {
             if ( result.flag_result == true ) {
                 var result_info = result.result;
                 $('#facility_name').val(result_info.name);
-                $('#facility_name').val(result_info.name);
                 $('[name=provider_type]').val('facility');
                 $('[name=facility_type]').val(result_info.type);
                 $('#phic_accr_id').attr('required','required');
                 $('#phic_accr_id').addClass('required');
+
+                $('[name=facility_barangay]').val(result_info.barangay);
+                $('[name=facility_city]').val(result_info.city);
+                $('[name=facility_province]').val(result_info.province);
+                $('[name=facility_region]').val(result_info.region);
+
+                $('form')
+                    .formValidation('revalidateField', '#facility_name')
+                    .formValidation('revalidateField', '[name=provider_type]')
+                    .formValidation('revalidateField', '[name=facility_type]')
+                    .formValidation('revalidateField', '#phic_accr_id');
             }
 
         }

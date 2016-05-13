@@ -30,8 +30,8 @@ class CreateFacilitiesTable extends Migration
             $table->text('specializations')->nullable;
             $table->text('services')->nullable;
             $table->text('equipment')->nullable;
-            $table->string('enabled_modules')->nullable;
-            $table->string('enabled_plugins')->nullable;
+            $table->text('enabled_modules')->nullable;
+            $table->text('enabled_plugins')->nullable;
             $table->string('facility_logo', 150)->nullable;
 
             $table->softDeletes();
@@ -44,7 +44,6 @@ class CreateFacilitiesTable extends Migration
             $table->increments('id');
             $table->string('facilitycontact_id', 60);
             $table->string('facility_id', 60);
-            $table->string('address', 60);
             $table->string('barangay', 60);
             $table->string('city', 60);
             $table->string('province', 60);
@@ -60,9 +59,6 @@ class CreateFacilitiesTable extends Migration
             $table->string('village', 60)->nullable;
             $table->string('email_address', 60)->nullable;
             $table->string('website', 60)->nullable;
-            $table->string('flag_allow_referral', 1)->nullable;
-            $table->string('bmonc_cmonc', 5)->nullable;
-            $table->string('hospital_license_number', 60)->nullable;
 
             $table->softDeletes();
             $table->timestamps();

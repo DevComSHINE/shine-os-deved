@@ -44,6 +44,19 @@
                 {{ $creator->first_name." ".$creator->last_name }}
               </p>
             </li>
+            <?php if(isset($plugs)) {
+              foreach($plugs as $k=>$p) {
+                  if($p['plugin'] == 'Philhealth' AND $p['pdata']) { ?>
+                      <li>
+                          <label>PhilHealth No. </label>
+                          <p class="text-muted">
+                            {{ $plugs[$k]['pdata']->philhealth_id }}
+                          </p>
+                      </li>
+                  <?php }
+                  break;
+              }
+            } ?>
           </ul>
         </div><!-- /.box-body -->
       </div>
@@ -62,26 +75,26 @@
           <p class="text-muted">{{ dateFormat($patient->birthdate,"M. d, Y") }}</p>
 
           <label>Age</label>
-          <p class="text-muted">{{ getAge($patient->birthdate) }} years old</p>
+          <p class="text-muted"><?php echo getAge($patient->birthdate); ?> years old</p>
 
           <label>Email Address</label>
-          <p class="text-muted">{{ $patient->patientContact->email or "n/a" }}</p>
+          <p class="text-muted"><?php echo $patient->patientContact->email; ?></p>
 
           <label>Phone No.</label>
-          <p class="text-muted">{{ $patient->patientContact->mobile or "n/a" }}</p>
+          <p class="text-muted"><?php echo $patient->patientContact->mobile; ?></p>
 
-          <label>Address</label>
-          <p>{{ $patient->patientContact->street_address or "n/a" }}
-              {{ getBrgyName($patient->patientContact->barangay) or "" }}</p>
+          <label>Address/Barangay</label>
+          <p><?php echo $patient->patientContact->street_address; ?>
+             <?php echo getBrgyName($patient->patientContact->barangay); ?></p>
 
           <label>City/Province</label>
-          <p>{{ getCityName($patient->patientContact->city) or "" }} {{ getProvinceName($patient->patientContact->province) or "" }}</p>
+          <p><?php echo getCityName($patient->patientContact->city); ?> @if($patient->patientContact->province), <?php echo getProvinceName($patient->patientContact->province); ?>@endif</p>
 
           <label>Region</label>
-          <p>{{ getRegionName($patient->patientContact->region) or "" }}</p>
+          <p><?php echo getRegionName($patient->patientContact->region); ?></p>
 
           <label>ZIP Code</label>
-          <p>{{ $patient->patientContact->zip or "n/a" }}</p>
+          <p><?php echo $patient->patientContact->zip; ?></p>
 
           <label>Country</label>
           <p>{{ $patient->patientContact->country or "n/a" }}</p>
@@ -145,7 +158,7 @@
         </div><!-- /.box-header -->
         <?php if(isset($currentConsultation)) { ?>
             <div class="box-body">
-              <h3 class="blue">Recent Consultation |  <a href="{{ url('healthcareservices/edit', [$patient->patient_id,$currentConsultation->healthcareservice_id]) }}" class="btn btn-sm btn-info">Open Current Consultation <i class="fa fa-external-link-square"></i></a> <a href="{{ url('healthcareservices/add', [$patient->patient_id, $currentConsultation->healthcareservice_id]) }}" class="btn btn-sm btn-success">Add Followup <i class="fa fa-plus"></i></a></h3>
+              <h3 class="blue">Recent Consultation |  <a href="{{ url('healthcareservices/edit', [$patient->patient_id,$currentConsultation->healthcareservice_id]) }}" class="btn btn-sm btn-info">Open Current Consultation <i class="fa fa-external-link-square"></i></a> @if($patient->patientDeathInfo == null)<a href="{{ url('healthcareservices/add', [$patient->patient_id, $currentConsultation->healthcareservice_id]) }}" class="btn btn-sm btn-success">Add Followup <i class="fa fa-plus"></i></a>@endif</h3>
               <div class="row">
                 <div class="col-lg-6">
                   <label>Consultation Date:</label>
@@ -178,8 +191,8 @@
 
                   <label>Attending Physician:</label>
                   <p class="text-muted">
-                      @if($currentConsultation->seen_by)
-                      Dr. {{ getUserFullNameByFacilityUserID($currentConsultation->seen_by) }} [{{ getFacilityByFacilityUserID($currentConsultation->seen_by, 'facility_name') }}]
+                      @if($dr = getUserFullNameByUserID($currentConsultation->seen_by))
+                      Dr. {{ $dr }} [{{ getFacilityNameByUserID($currentConsultation->seen_by) }}]
                       @endif
                   </p>
                 </div>

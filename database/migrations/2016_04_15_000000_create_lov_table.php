@@ -40,10 +40,15 @@ class CreateLovTable extends Migration
             $table->increments('id');
             $table->string('disease_id');
             $table->string('disease_category');
-            $table->string('disease_name');
+            $table->string('disease_code', 60);
+            $table->string('disease_name',255);
             $table->string('phie_name');
             $table->string('disease_input_type');
             $table->string('disease_radio_values');
+            $table->char('sex_limit',1);
+            $table->integer('min_age_limit',11);
+            $table->integer('max_age_limit',11);
+            $table->smallInteger('block_width',6);
 
             $table->softDeletes();
             $table->timestamps();
@@ -265,9 +270,9 @@ class CreateLovTable extends Migration
             $table->increments('id');
             $table->string('module_name', 60);
             $table->string('icon', 60);
-            $table->boolean('menu_show');
-            $table->string('menu_order', 60);
-            $table->enum('status', ['0','1']);
+            $table->tinyInteger('menu_show');
+            $table->integer('menu_order', 11);
+            $table->integer('status', 11);
             $table->softDeletes();
             $table->timestamps();
         });
@@ -286,9 +291,9 @@ class CreateLovTable extends Migration
             $table->integer('role_id');
             $table->integer('module_id');
             $table->enum('module_access', ['1','2','3','4']);
-            $table->integer('form_id');
+            $table->integer('form_id',50);
             $table->enum('form_access', ['1','2','3','4']);
-            $table->boolean('status');
+            $table->tinyInteger('status');
             $table->softDeletes();
             $table->timestamps();
         });

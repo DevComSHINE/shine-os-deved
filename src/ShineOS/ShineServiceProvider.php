@@ -81,6 +81,7 @@ class ShineServiceProvider extends ServiceProvider {
         } else {
             $this->commands('ShineOS\Commands\InstallCommand');
         }
+
         // Register routes
         $this->registerRoutes();
     }
