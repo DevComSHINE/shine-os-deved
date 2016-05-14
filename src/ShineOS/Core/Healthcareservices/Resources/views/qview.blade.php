@@ -82,7 +82,7 @@
                         <!-- /.col -->
                         <div class="col-sm-3 border-right">
                           <div class="description-block">
-                            <h5 class="description-header">{{ $data['vitals_record']->height ? $data['vitals_record']->height : 0 }} CM</h5>
+                            <h5 class="description-header">{{ $data['vitals_record']->height ? $data['vitals_record']->height : 0 }} cm</h5>
                             <span class="description-text">Height</span>
                           </div>
                           <!-- /.description-block -->
@@ -90,7 +90,7 @@
                         <!-- /.col -->
                         <div class="col-sm-3">
                           <div class="description-block">
-                            <h5 class="description-header">{{ $data['vitals_record']->weight ? $data['vitals_record']->weight : 0 }} KG</h5>
+                            <h5 class="description-header">{{ $data['vitals_record']->weight ? $data['vitals_record']->weight : 0 }} kg</h5>
                             <span class="description-text">Weight</span>
                           </div>
                           <!-- /.description-block -->

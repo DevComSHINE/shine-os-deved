@@ -111,7 +111,7 @@ class PatientsController extends Controller {
         $patient->middle_name = Input::get('inputPatientMiddleName');
         $patient->maiden_lastname = Input::get('inputMaidenLastName');
         $patient->maiden_middlename = Input::get('inputMaidenMiddleName');
-        $patient->name_suffix = Input::has('inputPatientSuffix');
+        $patient->name_suffix = Input::get('inputPatientSuffix');
         $patient->gender = Input::get('inputPatientGender');
         $patient->civil_status = Input::get('inputPatientStatus');
         $patient->birthdate = date("Y-m-d", strtotime(Input::get('inputPatientBirthDate'))); /*RJBS*/
@@ -123,11 +123,11 @@ class PatientsController extends Controller {
         $patient->religion_others = Input::get('inputPatientOtherReligion');
         $patient->nationality = Input::get('inputPatientNationality');
         $patient->blood_type = Input::get('inputPatientBloodType');
-        $patient->broadcast_notif = Input::has('inputBroadcastNotif');
-        $patient->referral_notif = Input::has('inputReferralNotif');
-        $patient->nonreferral_notif = Input::has('inputNonReferralNotif');
-        $patient->myshine_acct = Input::has('inputMyShineAcct');
-        $patient->patient_consent = Input::has('inputPatientConsent');
+        $patient->broadcast_notif = Input::get('inputBroadcastNotif');
+        $patient->referral_notif = Input::get('inputReferralNotif');
+        $patient->nonreferral_notif = Input::get('inputNonReferralNotif');
+        $patient->myshine_acct = Input::get('inputMyShineAcct');
+        $patient->patient_consent = Input::get('inputPatientConsent');
 
         $patient->save();
 
@@ -162,7 +162,7 @@ class PatientsController extends Controller {
         $contactInfo->province = Input::get('province');
         $contactInfo->region = Input::get('region');
         $contactInfo->country = Input::get('inputPatientCountry');
-        $contactInfo->zip = Input::has('inputPatientZip');
+        $contactInfo->zip = Input::get('inputPatientZip');
         $contactInfo->phone = Input::get('inputPatientPhone');
         $contactInfo->phone_ext = Input::get('inputPatientPhoneExtension');
         $contactInfo->mobile = Input::get('inputPatientMobile');
@@ -405,7 +405,7 @@ class PatientsController extends Controller {
                 }
             }
         }
-//dd($patient);
+
         return view($this->viewPath.'dashboard', compact('action','patient','regions','disabilities','allergyReactions','bloodType','religion', 'education', 'seenBy', 'facilityInfo', 'facility','roles','plugs'))->with($data);
     }
 
@@ -419,7 +419,7 @@ class PatientsController extends Controller {
             "middle_name" => Input::get('inputPatientMiddleName'),
             "maiden_lastname" => Input::get('inputMaidenLastName'),
             "maiden_middlename" => Input::get('inputMaidenMiddleName'),
-            "name_suffix" => Input::has('inputPatientSuffix'),
+            "name_suffix" => Input::get('inputPatientSuffix'),
             "gender" => Input::get('inputPatientGender'),
             "civil_status" => Input::get('inputPatientStatus'),
             "birthdate" => date("Y-m-d", strtotime(Input::get('inputPatientBirthDate'))),
@@ -431,11 +431,11 @@ class PatientsController extends Controller {
             "religion_others" => Input::get('inputPatientOtherReligion'),
             "nationality" => Input::get('inputPatientNationality'),
             "blood_type" => Input::get('inputPatientBloodType'),
-            "broadcast_notif" => Input::has('inputBroadcastNotif'),
-            "referral_notif" => Input::has('inputReferralNotif'),
-            "nonreferral_notif" => Input::has('inputNonReferralNotif'),
-            "myshine_acct" => Input::has('inputMyShineAcct'),
-            "patient_consent" => Input::has('inputPatientConsent')
+            "broadcast_notif" => Input::get('inputBroadcastNotif'),
+            "referral_notif" => Input::get('inputReferralNotif'),
+            "nonreferral_notif" => Input::get('inputNonReferralNotif'),
+            "myshine_acct" => Input::get('inputMyShineAcct'),
+            "patient_consent" => Input::get('inputPatientConsent')
         );
 
         Patients::where('patient_id', $id)

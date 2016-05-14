@@ -11,18 +11,6 @@
  */
 
 @font-face {
-    font-family: 'latoblack';
-    src: url('./fonts/lato-black-webfont.eot');
-    src: url('./fonts/lato-black-webfont.eot?#iefix') format('embedded-opentype'),
-         url('./fonts/lato-black-webfont.woff2') format('woff2'),
-         url('./fonts/lato-black-webfont.woff') format('woff'),
-         url('./fonts/lato-black-webfont.ttf') format('truetype'),
-         url('./fonts/lato-black-webfont.svg#latoblack') format('svg');
-    font-weight: normal;
-    font-style: normal;
-}
-
-@font-face {
     font-family: 'latobold';
     src: url('../fonts/lato-bold-webfont.eot');
     src: url('../fonts/lato-bold-webfont.eot?#iefix') format('embedded-opentype'),
@@ -35,26 +23,36 @@
 }
 
 @font-face {
-    font-family: 'latoregular';
-    src: url('../fonts/lato-regular-webfont.eot');
-    src: url('../fonts/lato-regular-webfont.eot?#iefix') format('embedded-opentype'),
-         url('../fonts/lato-regular-webfont.woff2') format('woff2'),
-         url('../fonts/lato-regular-webfont.woff') format('woff'),
-         url('../fonts/lato-regular-webfont.ttf') format('truetype'),
-         url('../fonts/lato-regular-webfont.svg#latoregular') format('svg');
-    font-weight: normal;
+    font-family: 'Raleway';
+    src: url('../fonts/Raleway-Regular-webfont.eot');
+    src: url('../fonts/Raleway-Regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/Raleway-Regular-webfont.woff2') format('woff2'),
+         url('../fonts/Raleway-Regular-webfont.woff') format('woff'),
+         url('../fonts/Raleway-Regular-webfont.ttf') format('truetype'),
+         url('../fonts/Raleway-Regular-webfont.svg#ralewayregular') format('svg');
+    font-weight: 400;
     font-style: normal;
 }
-
 @font-face {
-    font-family: 'Raleway';
-    src: url('../fonts/raleway-regular-webfont.eot');
-    src: url('../fonts/raleway-regular-webfont.eot?#iefix') format('embedded-opentype'),
-         url('../fonts/raleway-regular-webfont.woff2') format('woff2'),
-         url('../fonts/raleway-regular-webfont.woff') format('woff'),
-         url('../fonts/raleway-regular-webfont.ttf') format('truetype'),
-         url('../fonts/raleway-regular-webfont.svg#ralewayregular') format('svg');
-    font-weight: normal;
+    font-family: 'RalewayLit';
+    src: url('../fonts/Raleway-Light-webfont.eot');
+    src: url('../fonts/Raleway-Light-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/Raleway-Light-webfont.woff2') format('woff2'),
+         url('../fonts/Raleway-Light-webfont.woff') format('woff'),
+         url('../fonts/Raleway-Light-webfont.ttf') format('truetype'),
+         url('../fonts/Raleway-Light-webfont.svg#ralewaythin') format('svg');
+    font-weight: 200;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'RalewayThin';
+    src: url('../fonts/Raleway-Thin-webfont.eot');
+    src: url('../fonts/Raleway-Thin-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/Raleway-Thin-webfont.woff2') format('woff2'),
+         url('../fonts/Raleway-Thin-webfont.woff') format('woff'),
+         url('../fonts/Raleway-Thin-webfont.ttf') format('truetype'),
+         url('../fonts/Raleway-Thin-webfont.svg#ralewaythin') format('svg');
+    font-weight: 100;
     font-style: normal;
 }
 
@@ -70,17 +68,6 @@
     font-style: normal;
 }
 
-@font-face {
-    font-family: 'open_sans';
-    src: url('opensans-regular-webfont.eot');
-    src: url('opensans-regular-webfont.eot?#iefix') format('embedded-opentype'),
-         url('opensans-regular-webfont.woff2') format('woff2'),
-         url('opensans-regular-webfont.woff') format('woff'),
-         url('opensans-regular-webfont.ttf') format('truetype'),
-         url('opensans-regular-webfont.svg#open_sansregular') format('svg');
-    font-weight: normal;
-    font-style: normal;
-}
 
 html,
 body {
@@ -4693,7 +4680,7 @@ table.text-center th {
 /** Customized CSS**/
 .jumbotron { background: #fff; padding: 0; margin-bottom: 20px;}
 .jumbotron p { margin-bottom: 5px;font-weight: 200; }
-.jumbotron h1 { margin-top: 0px; color: #0E8CCD; font-size: 50px; font-family: 'Raleway', sans-serif; font-weight: 200; letter-spacing: -1.8px; }
+.jumbotron h1 { margin-top: 0px; color: #0E8CCD; font-size: 50px; font-family: 'RalewayThin', sans-serif; font-weight: 200; letter-spacing: -1.8px; }
 .welcome-widget {padding: 15px 20px; position: relative; overflow: auto;}
 .welcome-widget p.subwelcome {
     font-size: 19px;

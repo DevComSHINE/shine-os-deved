@@ -32,7 +32,7 @@ class VisitList extends AbstractWidget
         $facilityInfo = FacilityHelper::facilityInfo();
         $this->HealthcareRepository = $healthcareRepository;
         $this->UserRepository = $UserRepository;
-        $visits = json_decode($this->HealthcareRepository->findHealthcareByFacilityID($facilityInfo->facility_id, 5));
+        $visits = getAllHealthcareByDate('today');
 
         foreach ($visits as $k => $v) {
             $v->seen_by = json_decode($this->UserRepository->findUserByFacilityUserID($v->seen_by));

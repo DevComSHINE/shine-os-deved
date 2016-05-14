@@ -15,11 +15,10 @@ class CreateDiagnosisTable extends Migration {
             $table->increments('id');
             $table->string('diagnosis_id', 60);
             $table->string('healthcareservice_id', 60);
-            $table->text('diagnosislist_id');
-            $table->text('diagnosislist_other');
+            $table->string('diagnosislist_id', 60);
             $table->string('diagnosis_type', 60);
-            $table->text('diagnosis_notes');
-
+            $table->binary('diagnosis_notes');
+ 
             $table->softDeletes();
             $table->timestamps();
             $table->unique('diagnosis_id');
@@ -33,7 +32,7 @@ class CreateDiagnosisTable extends Migration {
             $table->string('icd10_subClassifications', 60);
             $table->string('icd10_type', 60);
             $table->string('icd10_code', 60);
-
+ 
             $table->softDeletes();
             $table->timestamps();
             $table->unique('diagnosisicd10_id');

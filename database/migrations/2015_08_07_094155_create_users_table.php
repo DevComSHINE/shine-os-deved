@@ -20,7 +20,7 @@ class CreateUsersTable extends Migration
             $table->string('email', 60);
             $table->string('activation_code', 60);
             $table->string('first_name', 60);
-            $table->string('middle_name', 60)->nullable;
+            $table->string('middle_name', 60);
             $table->string('last_name', 60);
             $table->string('suffix', 60);
 
@@ -30,9 +30,7 @@ class CreateUsersTable extends Migration
             $table->string('user_type', 60);
 
             $table->string('remember_token');
-            $table->string('profile_picture', 200)->nullable;
-            $table->text('prescription_header')->nullable;
-            $table->string('qrcode', 1)->nullable;
+            $table->string('profile_picture', 200);
 
             $table->string('status', 60);
 
@@ -45,13 +43,13 @@ class CreateUsersTable extends Migration
             $table->increments('id');
             $table->string('usermd_id', 60);
             $table->string('user_id', 60);
-            $table->string('profession', 60)->nullable;
-            $table->string('professional_type_id', 60)->nullable;
-            $table->string('professional_license_number', 60)->nullable;
-            $table->string('med_school', 60)->nullable;
-            $table->string('med_school_grad_yr', 60)->nullable;
-            $table->string('residency_trn_inst', 60)->nullable;
-            $table->string('residency_grad_yr', 60)->nullable;
+            $table->string('profession', 60);
+            $table->string('professional_type_id', 60);
+            $table->string('professional_license_number', 60);
+            $table->string('med_school', 60);
+            $table->string('med_school_grad_yr', 60);
+            $table->string('residency_trn_inst', 60);
+            $table->string('residency_grad_yr', 60);
 
             $table->softDeletes();
             $table->timestamps();
@@ -62,19 +60,19 @@ class CreateUsersTable extends Migration
             $table->increments('id');
             $table->string('usercontact_id', 60);
             $table->string('user_id', 60);
-            $table->string('house_no', 60)->nullable;
-            $table->string('building_name', 150)->nullable;
-            $table->string('street_name', 60)->nullable;
-            $table->string('village', 60)->nullable;
-            $table->string('street_address', 60)->nullable;
-            $table->string('barangay', 60)->nullable;
-            $table->string('city', 60)->nullable;
-            $table->string('province', 60)->nullable;
-            $table->string('region', 60)->nullable;
-            $table->string('country', 60)->nullable;
-            $table->integer('zip')->nullable;
-            $table->string('phone', 60)->nullable;
-            $table->string('mobile', 60)->nullable;
+            $table->string('house_no', 60);
+            $table->string('building_name', 150);
+            $table->string('street_name', 60);
+            $table->string('village', 60);
+            $table->string('street_address', 60);
+            $table->string('barangay', 60);
+            $table->string('city', 60);
+            $table->string('province', 60);
+            $table->string('region', 60);
+            $table->string('country', 60);
+            $table->integer('zip');
+            $table->string('phone', 60);
+            $table->string('mobile', 60);
 
             $table->softDeletes();
             $table->timestamps();
@@ -104,31 +102,6 @@ class CreateUsersTable extends Migration
             $table->timestamps();
             $table->unique('facilityuser_id');
         });
-
-        Schema::create('roles', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('role_id', 60);
-            $table->string('role_name', 60);
-            $table->text('core_access', 60);
-            $table->tinyInteger('access_level');
-            $table->tinyInteger('role_create');
-            $table->tinyInteger('role_read');
-            $table->tinyInteger('role_update');
-            $table->tinyInteger('role_delete');
-
-            $table->softDeletes();
-            $table->timestamps();
-        });
-
-        Schema::create('roles_access', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('role_id', 60);
-            $table->string('facilityuser_id', 60);
-
-            $table->softDeletes();
-            $table->timestamps();
-        });
-
     }
 
     /**
@@ -143,7 +116,5 @@ class CreateUsersTable extends Migration
         Schema::drop('user_usage_stat');
         Schema::drop('users');
         Schema::drop('facility_user');
-        Schema::drop('roles');
-        Schema::drop('roles_access');
     }
 }

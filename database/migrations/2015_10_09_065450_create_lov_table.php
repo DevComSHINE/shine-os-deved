@@ -40,15 +40,10 @@ class CreateLovTable extends Migration
             $table->increments('id');
             $table->string('disease_id');
             $table->string('disease_category');
-            $table->string('disease_code', 60);
-            $table->string('disease_name',255);
+            $table->string('disease_name');
             $table->string('phie_name');
             $table->string('disease_input_type');
             $table->string('disease_radio_values');
-            $table->char('sex_limit',1);
-            $table->integer('min_age_limit',11);
-            $table->integer('max_age_limit',11);
-            $table->smallInteger('block_width',6);
 
             $table->softDeletes();
             $table->timestamps();
@@ -269,10 +264,11 @@ class CreateLovTable extends Migration
         Schema::create('lov_modules', function (Blueprint $table) {
             $table->increments('id');
             $table->string('module_name', 60);
-            $table->string('icon', 60);
-            $table->tinyInteger('menu_show');
-            $table->integer('menu_order', 11);
-            $table->integer('status', 11);
+            $table->string('module_icon', 60);
+            $table->enum('module_show', ['0','1']);
+            $table->string('menu_order', 60);
+            $table->enum('status', ['0','1']);
+            $table->boolean('menu_show');
             $table->softDeletes();
             $table->timestamps();
         });
@@ -286,17 +282,17 @@ class CreateLovTable extends Migration
             $table->timestamps();
         });
 
-        Schema::create('lov_roles_access', function (Blueprint $table) {
+        /*Schema::create('lov_roles_access', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('role_id');
             $table->integer('module_id');
             $table->enum('module_access', ['1','2','3','4']);
-            $table->integer('form_id',50);
+            $table->integer('form_id');
             $table->enum('form_access', ['1','2','3','4']);
-            $table->tinyInteger('status');
+            $table->boolean('status');
             $table->softDeletes();
             $table->timestamps();
-        });
+        });*/
     }
 
     /**
@@ -324,7 +320,6 @@ class CreateLovTable extends Migration
        Schema::drop('lov_enumerations');
        Schema::drop('lov_modules');
        Schema::drop('lov_forms');
-       Schema::drop('lov_roles_access');
-       Schema::drop('lov_roles');
+       //Schema::drop('lov_roles_access');
     }
 }

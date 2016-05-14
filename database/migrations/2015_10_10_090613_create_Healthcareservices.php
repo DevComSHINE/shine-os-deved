@@ -9,7 +9,7 @@ class CreateHealthcareservices extends Migration {
      *
      * @return void
      */
-    public function up() {
+    public function up() { 
         Schema::create('healthcare_services', function (Blueprint $table) {
             $table->increments('id');
             $table->string('healthcareservice_id', 60);
@@ -36,7 +36,7 @@ class CreateHealthcareservices extends Migration {
             $table->string('discharge_condition', 60);
             $table->datetime('discharge_datetime');
             $table->binary('discharge_notes');
-
+          
             $table->softDeletes();
             $table->timestamps();
             $table->unique('disposition_id');
@@ -46,9 +46,8 @@ class CreateHealthcareservices extends Migration {
             $table->increments('id');
             $table->string('addendum_id');
             $table->string('healthcareservice_id', 60);
-            $table->string('user_id', 60);
-            $table->binary('addendum_notes')->nullable;
-
+            $table->binary('addendum_notes');
+          
             $table->softDeletes();
             $table->timestamps();
             $table->unique('addendum_id');

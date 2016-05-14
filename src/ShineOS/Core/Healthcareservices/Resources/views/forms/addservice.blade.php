@@ -52,6 +52,7 @@ endif;
                 @else
                     <?php
                         $hidden = ""; //show medical category
+                        $serviceTitle = NULL;
                     ?>
                     {!! Form::hidden('healthcare_services', $healthcareData->healthcareservicetype_id) !!}
                     @foreach($healthcareservices as $keyS => $valueS)

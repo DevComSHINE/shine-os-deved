@@ -19,7 +19,6 @@ class CreateConsultationTable extends Migration
             $table->string('medicalcategory_id', 60);
             $table->binary('complaint');
             $table->binary('complaint_history');
-            $table->binary('physical_examination');
             $table->binary('remarks');
 
             $table->softDeletes();

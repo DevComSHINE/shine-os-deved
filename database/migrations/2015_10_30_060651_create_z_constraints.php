@@ -210,11 +210,11 @@ class CreateZConstraints extends Migration
                   ->onDelete('cascade')
                   ->onUpdate('cascade');
 
-            /*$table->foreign('medicalcategory_id')
+            $table->foreign('medicalcategory_id')
                   ->references('medicalcategory_id')
                   ->on('lov_medicalcategory')
                   ->onDelete('cascade')
-                  ->onUpdate('cascade');*/
+                  ->onUpdate('cascade');
         });
 
         Schema::table('vital_physical', function (Blueprint $table) {

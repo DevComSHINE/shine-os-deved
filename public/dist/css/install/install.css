@@ -1,6 +1,6 @@
 .installholder{
   width: 600px;
-  margin: 15px auto;
+  margin: 24px auto;
   max-width: 100%;
 }
 
@@ -29,7 +29,7 @@ body{
 
 .installholder .shineos-ui-box{
   background-color: white;
-  box-shadow:0 0 12px -10px #000;
+  box-shadow: 0 0 52px -10px #000;
 }
 
 .installholder .shineos-ui-box-header,

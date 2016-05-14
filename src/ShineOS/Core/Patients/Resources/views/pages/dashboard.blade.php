@@ -203,7 +203,7 @@
               <h4 class="blue">Recent Vitals</h4>
               <div class="">
                 <div class="col-md-3 summary-data height-box">
-                    <b class="wt">172</b>
+                    <b class="wt">{{ $currentVitals->height or "n/a" }}</b>
                 </div>
                 <div class="col-md-6 summary-data" style="min-height:230px;">
                     <br />

@@ -37,8 +37,7 @@ else { $read = 'disabled'; }
                                     <tr>
                                        <td class='col-sm-3' valign="top"> <label class="control-label"> Diagnosis </label> </td>
                                        <td class='col-sm-8'>
-                                           <textarea id="diagnosis_input{{ $krecord }}" class="form-control diagnosis_input" rows="3" name="diag[update][diagnosislist_id][]"><?php echo $vrecord->diagnosislist_id; ?></textarea>
-
+                                           {!! Form::textarea('diag[update][diagnosislist_id][]', $vrecord->diagnosislist_id, ['class' => 'form-control noresize', 'placeholder' => 'Diagnosis', 'id'=>'diagnosis_input'.$krecord, 'rows'=>'3', $read]) !!}
                                        </td>
                                     </tr>
                                     <tr>
@@ -90,8 +89,7 @@ else { $read = 'disabled'; }
                                     <tr>
                                        <td class='col-sm-3' valign="top"> <label class="control-label"> Diagnosis </label> </td>
                                        <td class='col-sm-8'>
-                                           <textarea id="diagnosis_input{{ $krecord }}" class="form-control diagnosis_input" rows="3" name="diag[insert][diagnosislist_id][]"></textarea>
-
+                                           {!! Form::textarea('diag[update][diagnosislist_id][]', null, ['class' => 'form-control noresize', 'placeholder' => 'Diagnosis', 'id'=>'diagnosis_input'.$krecord, 'rows'=>'3', $read]) !!}
                                        </td>
                                     </tr>
                                     <tr>

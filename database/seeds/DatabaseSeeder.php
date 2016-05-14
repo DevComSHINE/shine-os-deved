@@ -31,7 +31,6 @@ class DatabaseSeeder extends Seeder
         $this->call(lov_drugs::class);
         $this->call(lov_address::class);
         $this->call(lov_modules::class);
-        $this->call(roles::class);
         Model::reguard();
     }
 }
