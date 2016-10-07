@@ -164,7 +164,7 @@ class roles extends Seeder
               'role_name' => 'Midwife',
               'core_access' => '{"Records":[1,2,3,4],
                                   "Patients":[1,2,3,4],
-                                  "Healthcareservices":[1,2,3,4]}',
+                                  "Healthcareservices":[1,2,3,4]},
               'access_level' => '0',
               'role_create' => '0',
               'role_read' => '0',
@@ -178,7 +178,7 @@ class roles extends Seeder
               'role_name' => 'Nurse',
               'core_access' => '{"Records":[1,2,3,4],
                                   "Patients":[1,2,3,4],
-                                  "Healthcareservices":[1,2,3,4]}',
+                                  "Healthcareservices":[1,2,3,4]},
               'access_level' => '0',
               'role_create' => '0',
               'role_read' => '0',
@@ -218,7 +218,7 @@ class roles extends Seeder
               'deleted_at' => NULL,
               'created_at' => '2015-12-08 22:22:00',
               'updated_at' => '2015-12-08 22:22:00')
-          ));
+          ));          
         }
 
         Model::reguard();

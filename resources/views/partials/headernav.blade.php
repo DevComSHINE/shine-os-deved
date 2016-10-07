@@ -6,9 +6,9 @@
     $userInfo = ShineOS\Core\Users\Entities\Users::getRecordById($user->user_id);
 
     if(Config::get('mode') == 'cloud'):
-    $inbound_count = countInboundReferrals($facility->facility_id);
-    $reminders_count = countRemindersByFacilityID($facility->facility_id);
-    $message_count = countReferralMessages($facility->facility_id);
+        $inbound_count = countInboundReferrals($facility->facility_id);
+        $reminders_count = countRemindersByFacilityID($facility->facility_id);
+        $message_count = countReferralMessages($facility->facility_id);
     endif;
 ?>
 <!-- Logo -->
@@ -27,26 +27,26 @@
       <div class="navbar-custom-menu">
         <ul class="nav navbar-nav">
           @if(Config::get('mode') == 'cloud')
-          <li class="dropdown messages-menu">
-            <a href="{{ url('/referrals') }}" class="dropdown-togglee" data-toggle="dropdownn">
-              <i class="fa fa-paper-plane text-shine-green"></i>
-              <span class="label label-shine-blue">{{ $inbound_count }}</span>
-            </a>
-          </li>
+              <li class="dropdown messages-menu">
+                <a href="{{ url('/referrals') }}" class="dropdown-togglee" data-toggle="dropdownn">
+                  <i class="fa fa-paper-plane text-shine-green"></i>
+                  <span class="label label-shine-blue">{{ $inbound_count }}</span>
+                </a>
+              </li>
 
-          <li class="dropdown referrals-menu">
-            <a href="{{ url('/referrals/messages') }}" class="dropdown-togglee" data-toggle="dropdownn">
-              <i class="fa fa-envelope text-shine-green"></i>
-              <span class="label label-shine-blue">{{ $message_count }}</span>
-            </a>
-          </li>
+              <li class="dropdown referrals-menu">
+                <a href="{{ url('/referrals/messages') }}" class="dropdown-togglee" data-toggle="dropdownn">
+                  <i class="fa fa-envelope text-shine-green"></i>
+                  <span class="label label-shine-blue">{{ $message_count }}</span>
+                </a>
+              </li>
 
-          <li class="dropdown reminders-menu">
-            <a href="{{ url('/reminders') }}" class="dropdown-togglee" data-toggle="dropdownn">
-              <i class="fa fa fa-bell text-shine-green"></i>
-              <span class="label label-shine-blue">{{ $reminders_count }}</span>
-            </a>
-          </li>
+              <li class="dropdown reminders-menu">
+                <a href="{{ url('/reminders') }}" class="dropdown-togglee" data-toggle="dropdownn">
+                  <i class="fa fa fa-bell text-shine-green"></i>
+                  <span class="label label-shine-blue">{{ $reminders_count }}</span>
+                </a>
+              </li>
           @endif
           <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">

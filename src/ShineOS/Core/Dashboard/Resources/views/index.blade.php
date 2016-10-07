@@ -26,7 +26,7 @@
             </div>
         </div>
     </div><!--./End Jumbotron-->
-    
+
     {!! AsyncWidget::run('\Widgets\dashboard\profileCompleteness\ProfileCompleteness') !!}
 
     <div class="row">

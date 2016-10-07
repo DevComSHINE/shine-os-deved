@@ -177,7 +177,7 @@
                 <ul class="nav nav-tabs" id="HC_tabs">
                       @if (isset($tabs_child))
                         @foreach ($tabs_child as $key => $val)
-                            @if( $role->role_id <= $tabroles[$val] )
+                            @if( $role->role_id <= $tabroles[$val] OR !empty($disposition_record->disposition) )
                             <li class="{{($default_tabs == $val) ? 'active' : ''}}"><a href="#{{$val}}" data-toggle="tab">{{$tabs[$val]}}</a></li>
                             @endif
                          @endforeach
@@ -188,7 +188,7 @@
                 <div id="tabContent" class="tab-content">
                   @if (isset($tabs_child))
                     @foreach ($tabs_child as $key => $val)
-                      @if( $role->role_id <= $tabroles[$val] )
+                      @if( $role->role_id <= $tabroles[$val] OR !empty($disposition_record->disposition) )
                       <div class="tab-pane {{($default_tabs == $val) ? 'active' : ''}}" id="{{$val}}">
                         @if(strpos($val, '_plugin') > 0)
                           <h3 class="sectionName">{{ $plugin }}</h3>

@@ -275,10 +275,11 @@ class Register {
             $users->email = Input::get('email');
             if($mode == 'developer'):
             $users->status = 'Active'; //auto-active for Developer Edition
+            $users->user_type = 'Developer'; //set to Developer for Developer Edition
             else:
             $users->status = 'Pending';
+            $users->user_type = 'Admin';
             endif;
-            $users->user_type = 'Admin'; //set to Developer for Developer Edition
             $users->salt = $salt;
             $users->password = Hash::make($password.$salt);
             $users->save();

@@ -11,7 +11,7 @@ if (!defined('T')) {
 }
 
 if (!defined('SHINEOS_VERSION')) {
-    define('SHINEOS_VERSION', '3.2.0');
+    define('SHINEOS_VERSION', '1.1.0');
 }
 
 if (!defined('DS')) {

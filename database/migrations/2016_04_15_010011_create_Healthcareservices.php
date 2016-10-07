@@ -53,7 +53,7 @@ class CreateHealthcareservices extends Migration {
             $table->timestamps();
             $table->unique('addendum_id');
         });
-        
+
     }
 
     /**

@@ -131,12 +131,22 @@ function getUserFullNameByUserID($id)
     $user = DB::table('facility_user')
         ->join('users', 'facility_user.user_id', '=', 'users.user_id')
         ->select('users.*')
-        ->where('facility_user.user_id', $id)
+        ->where('facility_user.facilityuser_id', $id)
         ->first();
     if($user) {
         return $user->first_name." ".$user->last_name;
     } else {
-        return "User does not exist";
+        //try
+        $userb = DB::table('facility_user')
+        ->join('users', 'facility_user.user_id', '=', 'users.user_id')
+        ->select('users.*')
+        ->where('facility_user.user_id', $id)
+        ->first();
+        if($userb) {
+            return $userb->first_name." ".$userb->last_name;
+        } else {
+            return "User does not exist";
+        }
     }
 
 }

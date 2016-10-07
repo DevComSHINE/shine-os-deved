@@ -5,7 +5,7 @@
     'version' => '1.0',
     'title' => 'Shine Rizal Module',
     'folder' => 'Rizal',
-    'description' => 'A simple sample module that shows how easy it is to create modules in ShineOS+.',
+    'description' => 'A simple module sample that shows how easy it is to create modules in ShineOS+.',
     'developer' => 'Ateneo ShineLabs',
     'copy' => '2016',
     'url' => 'www.shine.ph'

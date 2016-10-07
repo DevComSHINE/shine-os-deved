@@ -70,13 +70,11 @@ class TotalCountBox extends AbstractWidget
 
             //Number of Reminders
             $reminders_count = count($this->baseRepository->findAllByTable('reminders', array('facilityuser_id' => $userFacilities[0]->facilityuser_id)));
+
             $dashboard_count = array('patient' => $patient_count,'inbound'=>$inbound_count,'outbound'=>$outbound_count,'referral'=>$referral_count,'reminders'=>$reminders_count);
         else:
             $dashboard_count = array('patient' => $patient_count);
-
         endif;
-
-        
         View::addNamespace('total_count_box', 'widgets/dashboard/TotalCount/');
         return view("total_count_box::index", [
             'config' => $this->config,

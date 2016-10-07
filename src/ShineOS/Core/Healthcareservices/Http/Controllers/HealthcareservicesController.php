@@ -376,7 +376,8 @@ class HealthcareservicesController extends Controller {
 
     public function insert()
     {
-
+        $user = Session::get('user_details');
+        $role = getRoleInfoByFacilityUserID($user->facilityUser[0]->facilityuser_id);
         $patient_facity_user = FacilityPatientUser::where('patient_id', Input::get('patient_id'))->get();
 
         if (!empty($patient_facity_user)) { //patient should exist in facilityPatientUser
@@ -385,7 +386,7 @@ class HealthcareservicesController extends Controller {
             $insertQuery->healthcareservice_id = $this->healthcareserviceid;
             $insertQuery->facilitypatientuser_id = $patient_facity_user[0]->facilitypatientuser_id;
             $insertQuery->healthcareservicetype_id	= $this->healthcareservices_type;
-            if($this->user->mdUsers) { //if this is a doctor set the seen_by (attending physician)
+            if($role->role_id <= 2) { //if this is a doctor set the seen_by (attending physician)
                 $insertQuery->seen_by = $this->facilityuser_id;
             } else {
                 $insertQuery->seen_by = NULL;
@@ -449,7 +450,7 @@ class HealthcareservicesController extends Controller {
             $insertQuery->healthcareservice_id = $this->healthcareserviceid;
             $insertQuery->facilitypatientuser_id = $patient_facity_user[0]->facilitypatientuser_id;
             $insertQuery->healthcareservicetype_id	= $this->healthcareservices_type;
-            if($this->user->mdUsers) { //if this is a doctor set the seen_by (attending physician)
+            if($role->role_id <= 2) { //if this is a doctor set the seen_by (attending physician)
                 $insertQuery->seen_by = $this->facilityuser_id;
             } else {
                 $insertQuery->seen_by = NULL;

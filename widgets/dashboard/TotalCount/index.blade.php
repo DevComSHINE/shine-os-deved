@@ -86,8 +86,8 @@
                     </a>
                 </div>
             </div><!-- ./col -->
-            <?php } ?>
             @endif
+            <?php } ?>
         </div><!-- /.row -->
     </div>
 </div><!--./box-->
