@@ -1,15 +1,24 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-    <title><?php _e("ShineOS installation"); ?></title>
-    <meta charset="utf-8">
-    <meta http-equiv="Content-Language" Content="en">
-    <!--Global Fonts-->
-<link href='http://fonts.googleapis.com/css?family=Raleway:100,200,300' rel='stylesheet' type='text/css'>
-<link href='http://fonts.googleapis.com/css?family=Roboto:400,100,300,500,700|Roboto+Condensed:400,300,700' rel='stylesheet' type='text/css'>
-<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,100' rel='stylesheet' type='text/css'>
+<title><?php _e("SHINE OS+ v3.0 installation"); ?></title>
+<!-- Tell the browser to be responsive to screen width -->
+<meta name="description" content="SHINE OS+ EMR, the first Philippine Health Exchange System">
+<meta name="author" content="SHINE OS+">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta names="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="SHINE OS+">
+<link href="{{ asset('public/dist/img/icon.png') }}"
+      sizes="152x152"
+      rel="apple-touch-icon">
+<link rel='shortcut icon' type='image/x-icon' href='{{ asset('public/favicon.ico') }}' />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="_token" content="{{ csrf_token() }}">
+
+<link type="text/css" rel="stylesheet" media="all" href="<?php print shineos_includes_url(); ?>css/ShineOS.css" />
 <!-- FontAwesome 4.3.0 -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+<link type="text/css" rel="stylesheet" media="all" href="<?php print shineos_includes_url(); ?>css/font-awesome.min.css" />
     <!-- Bootstrap 3.3.4 helloooo-->
 <link rel="stylesheet" href="<?php echo shineos_includes_url(); ?>css/bootstrap.min.css">
 <link type="text/css" rel="stylesheet" media="all" href="<?php print shineos_includes_url(); ?>css/install/default.css"/>
@@ -17,6 +26,20 @@
 <link type="text/css" rel="stylesheet" media="all" href="<?php print shineos_includes_url(); ?>css/install/admin.css"/>
 <link type="text/css" rel="stylesheet" media="all" href="<?php print shineos_includes_url(); ?>css/install/components.css"/>
 <link type="text/css" rel="stylesheet" media="all" href="<?php print shineos_includes_url(); ?>css/install/install.css"/>
+<style>
+    body{
+      background: #353535;
+    }
+    .opac {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        background-color: rgba(0,0,0,.7);
+        z-index: 0;
+    }
+</style>
 <script type="text/javascript" src="<?php print shineos_includes_url(); ?>plugins/jQuery/jQuery-2.1.4.min.js"></script>
 
     <?php
@@ -106,25 +129,26 @@
                 holder.fadeIn();
             }
 
-            <?php $log_file_url = userfiles_url().'install_log.txt'; ?>
+            <?php $log_file_url = userfiles_url().'/install_log.txt'; ?>
             $.get('<?php print $log_file_url ?>', function (data) {
                 var data = data.replace(/\r/g, '');
                 var arr = data.split('\n'),
                     l = arr.length,
                     i = 0,
                     last = arr[l-2],
-                    percentage = Math.round( ((l-1) / 20) * 100);
+                    percentage = Math.round( ((l-1) / 24) * 100);
                 bar[0].style.width = percentage + '%';
                 percent.html(percentage + '%');
+
                 if(last == 'done') {
-                    percent.html('0%');
+                    percent.html('100%');
                     installprogressStop();
                     $("#installinfo").html('');
                 }
                 else {
-                    $("#installinfo").html(last);
+                    $("#installinfo").html("<i class='fa fa-spinner fa-pulse fa-fw'></i> "+last);
                     setTimeout(function(){
-                        installprogress(false);
+                        installprogress(true);
                     }, 1000);
                 }
 
@@ -146,13 +170,14 @@
 
 </head>
 <body>
-
+<div class="opac"></div>
 <div class="installholder">
 <div class="shineos-ui-box">
 <div class="shineos-ui-box-header">
-    <a href="http://www.shine.ph" target="_blank" id="logo">
+    <a id="logo">
         <span class="shineos-icon-shineos"></span>
         <h2>Developer Edition <small class="version">v. <?php print SHINEOS_VERSION ?></small></h2>
+        <i class='fa fa-spinner fa-pulse fa-fw hidden'></i>
     </a>
 
 </div>
@@ -340,10 +365,8 @@
                                         <?php _e("Database"); ?>
                                         <span data-help="<?php _e("The name of your database."); ?>"><span
                                                 class="shineos-icon-help-outline shineosahi tip"></span></span></label>
-                                    <p>Make sure you have created this database in your database.</p>
                                     <input type="text" class="shineos-ui-field form-control"
                                            name="db_name" id="db_name_value" value="<?php if(isset($config['database'])) echo $config['database']; ?>"/>
-
                                 </div>
                             </div>
                             <div id="db-form-sqlite" style="display:none">

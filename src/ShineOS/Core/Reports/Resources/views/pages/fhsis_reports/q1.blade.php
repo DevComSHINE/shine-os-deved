@@ -1,6 +1,8 @@
-@extends('reports::layouts.master')
+@extends('reports::layouts.fhsis_master')
 
-@section('reports-content')
+@section('reportGroup') FHSIS @stop
+@section('reportTitle') Q1 @stop
+@section('content')
 <!--NOTE:: SEPARATE PORTIONS-->
 	<div class="col-md-12">
 		<div class="box box-primary">
@@ -157,20 +159,33 @@
 					<thead>
 					<tr>
 					<th rowspan="3" width="22%">Indicators</th>
-					<th rowspan="3" width="8%">Current User (Beginning Month)</th>
+					<th rowspan="3" width="8%">Current User (Beginning of Quarter)</th>
 					<th colspan="2" width="8%">Acceptors</th>
-					<th rowspan="3" width="8%">Dropout (Present Month)</th>
-					<th rowspan="3" width="8%">Current User (End of Month)</th>
-					<th rowspan="3" width="8%">New Acceptors of the present Month</th>
+					<th rowspan="3" width="8%">Dropout </th>
+					<th rowspan="3" width="8%">Current Users (End of Quarter)</th>
+					<th rowspan="3" width="8%">New Acceptors of the Quarter</th>
 					<th rowspan="3" width="8%">CPR = (Col. 5/TP x 12.325%)</th>
 					<th rowspan="3" width="15%">Interpretations</th>
 					<th rowspan="3" width="15%">Recommendations/ Actions Taken</th>
 					</tr>
 					<tr><th width="5%">New Acceptors</th><th width="5%">Other Acceptors</th></tr>
-					<tr><th>Previous Quarter</th><th>Present Quarter</th></tr>
+					<tr><th>End of Quarter</th><th>End of Quarter</th></tr>
 					</thead>
 
 					<tbody>
+
+					<tr>
+					<td width="22%"><span style="font-style:italic;" > Col. 1 </span></td>
+					<td width="8%"><span style="font-style:italic;" > Col. 2 </span></td>
+					<td colspan="2" width="8%"><span style="font-style:italic;" > Col. 3 </span></td>
+					<td width="8%"><span style="font-style:italic;" > Col. 4 </span> </td>
+					<td width="8%"><span style="font-style:italic;" > Col. 5 </span></td>
+					<td width="8%"><span style="font-style:italic;" > Col. 6 </span></td>
+					<td width="8%"><span style="font-style:italic;" > Col. 7 </span></td>
+					<td width="15%"><span style="font-style:italic;" > Col. 8 </span></td>
+					<td width="15%"><span style="font-style:italic;" > Col. 9 </span></td>
+					</tr>
+
 					<tr><td>a. Female Sterilization/BTL</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
 					<tr><td>b. Male Sterilization/Vasectomy</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
 					<tr><td>c. Pills</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
@@ -205,7 +220,7 @@
 					</tr>
 					</thead>
 					<tbody>
-					<tr><td colspan="2">BCG ☻</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+					<tr><td >BCG ☻</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
 					<tr><td rowspan="3">Pentahib ☻</td><td width="5%">1</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
 					<tr><td>2</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
 					<tr><td>3</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
@@ -221,17 +236,17 @@
 					<tr><td>>24 hrs</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
 					<tr><td rowspan="2">MCV ☻</td><td>(AMV)</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
 					<tr><td>MMR</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-					<tr><td colspan="2">Fully Immunized Child (0-11 mos) ☻</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-					<tr><td colspan="2">Completely Immunized Child (12-23 mos) ☻</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-					<tr><td colspan="2">Total Live births</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-					<tr><td colspan="2">Child Protected at Birth (CPAB) ♣</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-					<tr><td colspan="2">Infant Age 6 months seen</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-					<tr><td colspan="2">Infant exclusively breastfed until 6 months ☻</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+					<tr><td>Fully Immunized Child (0-11 mos) ☻</td></td><td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+					<tr><td>Completely Immunized Child (12-23 mos) ☻</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+					<tr><td>Total Live births</td></td><td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+					<tr><td>Child Protected at Birth (CPAB) ♣</td></td><td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+					<tr><td>Infant Age 6 months seen</td><td></td></td><td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+					<tr><td>Infant exclusively breastfed until 6 months ☻</td></td><td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
 
-					<tr><td colspan="2">Infant given complimentary food from 6-8 months ♣</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-					<tr><td colspan="2">Infant referred for newborn screening</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-					<tr><td colspan="2">- referred</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-					<tr><td colspan="2">- done</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+					<tr><td>Infant given complimentary food from 6-8 months ♣</td></td><td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+					<tr><td>Infant referred for newborn screening</td></td><td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+					<tr><td>- referred</td></td><td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+					<tr><td>- done</td></td><td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
 					<tr><td colspan="9"><em class="small">Eligible Population:  ☻ TP x 2.7%                ♣ Total Livebirths</em></td></tr>       
 					</tbody>
 				</table>

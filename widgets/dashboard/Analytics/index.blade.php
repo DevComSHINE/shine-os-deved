@@ -8,27 +8,17 @@
     <div class="box-header">
         <i class="fa fa-area-chart"></i>
         <h3 class="box-title">Analytics Overview</h3>
-        <div class="box-tools pull-right hidden">
-            <button class="btn bg-teal btn-sm" data-widget="collapse"><i class="fa fa-minus"></i></button>
-            <button class="btn bg-teal btn-sm" data-widget="remove"><i class="fa fa-times"></i></button>
+        <div class="box-tools pull-right">
+            <a class="btn bg-teal btn-sm" href="{{ url('reports') }}"><i class="fa fa-pie-chart"></i> View Analytics</a>
         </div>
     </div>
     <div class="box-body border-radius-none">
-        <?php if($services) { ?>
-        <h4>Top 4 Services <span class="small">last 6 months</span></h4>
-        <canvas id="servicesChart"></canvas>
-        <?php } else { ?>
-        <h4>Not Records Yet</h4>
-        <?php } ?>
-    </div><!-- /.box-body -->
-
-    <?php if($mon) {
-        $color[0] = '#FF2E2E';
-        $color[1] = '#FFC45F';
-        $color[2] = '#00CF18';
-        $color[3] = '#39CCCC';
-    ?>
-    <div class="box-footer no-border">
+        <?php if($mon) {
+            $color[0] = '#FF2E2E';
+            $color[1] = '#FFC45F';
+            $color[2] = '#00CF18';
+            $color[3] = '#39CCCC';
+        ?>
         <h4 class="black">Top 4 Diagnosis <span class="small">last 6 months</span></h4>
         <div class="row">
             @foreach($mon as $k=>$m)
@@ -41,11 +31,24 @@
             @endforeach
 
         </div><!-- /.row -->
+        <?php } ?>
+
+        <?php if($services) { ?>
+            <h4>Top 4 Services <span class="small">last 6 months</span></h4>
+            <canvas id="servicesChart"></canvas>
+        <?php } else { ?>
+            <h4>Not Records Yet</h4>
+        <?php } ?>
+    </div><!-- /.box-body -->
+
+
+    <div class="box-footer no-border">
+
     </div><!-- /.box-footer -->
-    <?php } ?>
+
 </div><!--/. end consultations-->
 
-@section('scripts')
+
 
 {!! HTML::script('public/dist/plugins/knob/jquery.knob.js') !!}
 {!! HTML::script('public/dist/plugins/chartjs/Chart.js') !!}
@@ -53,12 +56,31 @@
 <script>
     <?php
     if($services) { ?>
-      // Get context with jQuery - using jQuery's .get() method.
-      var servicesChartCanvas = $("#servicesChart").get(0).getContext("2d");
-      // This will get the first returned node in the jQuery collection.
-      var servicesChart = new Chart(servicesChartCanvas);
 
-      var servicesChartData = {
+      Chart.types.Line.extend({
+            name: "LineAlt",
+            initialize: function () {
+                Chart.types.Line.prototype.initialize.apply(this, arguments);
+
+                var ctx = this.chart.ctx;
+                var originalStroke = ctx.stroke;
+                ctx.stroke = function () {
+                    ctx.save();
+                    ctx.shadowColor = '#000';
+                    ctx.shadowBlur = 10;
+                    ctx.shadowOffsetX = -2;
+                    ctx.shadowOffsetY = -2;
+                    originalStroke.apply(this, arguments)
+                    ctx.restore();
+                }
+            }
+        });
+      // Get context with jQuery - using jQuery's .get() method.
+      var ctx = $("#servicesChart").get(0).getContext("2d");
+      // This will get the first returned node in the jQuery collection.
+      var servicesChart = new Chart(ctx);
+
+      var ctx = {
         labels: [
             <?php
                 foreach($ranges as $range) {
@@ -69,15 +91,15 @@
         ],
         datasets: [
         <?php
-            $colors = array('255,0,0','255,172,0','195,255,0','0,255,255','206,220,0','0,129,198');
+            $colors = array('233,28,28','255,172,0','195,255,0','0,255,255','206,220,0','255,0,234','0,129,198','0,159,298','0,229,100','200,129,198');
             $bil = 1;
 
             if (!empty($cs_stats)):
                 foreach($cs_stats as $cs=>$range) { ?>
-                        <?php if($bil < 5) { ?>
+                        <?php if($bil < $scount) { ?>
                         {
                             label: "<?php echo $cs; ?>",
-                            fillColor: "rgba(<?php echo $colors[$bil-1]; ?>,0.5)",
+                            fillColor: "rgba(<?php echo $colors[$bil-1]; ?>,.6)",
                             strokeColor: "rgba(<?php echo $colors[$bil-1]; ?>,0)",
                             pointColor: "rgba(<?php echo $colors[$bil-1]; ?>,1)",
                             pointStrokeColor: "rgba(<?php echo $colors[$bil-1]; ?>,1)",
@@ -131,14 +153,14 @@
         //String - A legend template
         legendTemplate: "<ul class='<%=name.toLowerCase()%>-legend'><% for (var i=0; i<datasets.length; i++){%><li><span style='background-color:<%=datasets[i].lineColor%>'></span><%=datasets[i].label%></li><%}%></ul>",
         //Boolean - whether to maintain the starting aspect ratio or not when responsive, if set to false, will take up entire container
-        maintainAspectRatio: false,
+        maintainAspectRatio: true,
         //Boolean - whether to make the chart responsive to window resizing
         responsive: true,
         multiTooltipTemplate: " <%=datasetLabel%>: <%= value %>"
       };
 
       //Create the line chart
-      servicesChart.Line(servicesChartData, servicesChartOptions);
+      servicesChart.LineAlt(ctx, servicesChartOptions);
       $("#servicesChart").css('width', 490);
     <?php } ?>
 
@@ -190,4 +212,4 @@
     });
     <?php } ?>
 </script>
-@stop
+

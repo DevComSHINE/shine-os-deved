@@ -1,5 +1,5 @@
 @extends('extensions::index')
-@section('header-content') Installed Extensions @stop
+@section('header-content') <i class="fa fa-plug"></i> Extensions @stop
 @section('list-content')
 
 <div class="row icheck" id="extensions">
@@ -8,7 +8,7 @@
             <ul class="nav nav-tabs">
                 <li class="active"><a href="#modules" data-toggle="tab">Modules</a></li>
                 <li><a href="#plugins" data-toggle="tab">Plugins</a></li>
-                <li class="btn btn-primary hidden" onclick="location.href='{{ url('extensions/add') }}';">Add New</li>
+                <li class="btn btn-primary hidden" onclick="location.href='{{ url('extensions/add') }}';">Add New Extension</li>
             </ul>
             <div class="tab-content">
                 @if(Session::has('message'))
@@ -49,14 +49,14 @@
                                     <strong>{{ $m['mod_title'] }}</strong>
                                     <br clear="all" />
                                     <div class="btn-group" style="margin-top:5px;">
-                                        <input type="submit" name="action[{{ $c }}]" class="btn {{ $but_color }} btn-xs" value="{{ $but_title }}" /> <input type="submit" name="delete" class="btn btn-danger btn-xs" value="Delete" />
+                                        <input type="submit" name="action[{{ $c }}]" class="btn {{ $but_color }} btn-xs" value="{{ $but_title }}" />
                                     </div>
                                 </td>
                                 <td valign="top">
                                     {{ $m['mod_description'] }}
                                     <p>
                                         @if(isset($m['mod_version'])) {{ $m['mod_version'] }}@endif
-                                        @if(isset($m['mod_developer'])) | <a href='http://{{ $m['mod_url'] }}'>{{ $m['mod_developer'] }}</a>@endif
+                                        @if(isset($m['mod_developer'])) | <a href='http://{{ $m['mod_url'] }}' target="_blank">{{ $m['mod_developer'] }}</a>@endif
                                          | <a href="#">View Info</a>
                                     </p>
                                 </td>
@@ -102,7 +102,7 @@
                                 <strong>{{ $p['plugin_title'] }}</strong>
                                 <br clear="all" />
                                     <div class="btn-group" style="margin-top:5px;">
-                                        <input type="submit" name="action[{{ $p['plugin'] }}]" class="btn {{ $but_color }} btn-xs" value="{{ $but_title }}" /> <input type="submit" name="delete" class="btn btn-danger btn-xs" value="Delete" />
+                                        <input type="submit" name="action[{{ $p['plugin'] }}]" class="btn {{ $but_color }} btn-xs" value="{{ $but_title }}" />
                                     </div>
                             </td>
                             <td width="60" valign="top">{{ $p['plugin_module'] }}</td>
@@ -110,7 +110,7 @@
                                 {{ $p['plugin_description'] }}
                                 <p>
                                     @if(isset($p['plugin_version'])) {{ $p['plugin_version'] }}@endif
-                                    @if(isset($p['plugin_developer'])) | <a href='http://{{ $p['plugin_url'] }}'>{{ $p['plugin_developer'] }}</a>@endif
+                                    @if(isset($p['plugin_developer'])) | <a href='{{ $p['plugin_url'] }}' target="_blank">{{ $p['plugin_developer'] }}</a>@endif
                                      | <a href="#">View Info</a>
                                 </p>
                             </td>

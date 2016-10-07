@@ -1,10 +1,15 @@
 <?php
 
-function callPluginController($folder, $plugin, $method, $facilityID, $patientID, $ID)
+function sh_persistent()
 {
-
-    include_once(plugins_path().$folder.DS.$plugin.'Controller.php');
-    $rout = "\Plugins\\".$folder."\\".$plugin."Controller";
-    $test = (new $rout)->testFunction();
-    return $test;
+    //let us handle any UI injections from modules
+    $modules = Session::get('roles');
+    if(isset($modules['external_modules'])) {
+        foreach($modules['external_modules'] as $module) {
+            if(file_exists(modules_path().$module.'/Config/persist.php')) {
+                $f = include modules_path().$module.'/Config/persist.php';
+                echo $f;
+            }
+        }
+    }
 }

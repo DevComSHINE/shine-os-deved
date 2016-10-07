@@ -1,3 +1,7 @@
+<?php
+	$facility_workforce = json_decode($facilityInfo->workforce);
+?>
+
 @extends('users::layouts.master')
 
 @section('content')
@@ -46,7 +50,7 @@
 							<input type="submit" class="btn btn-primary" value="GO">
 						{!! Form::close() !!}<!-- /form -->
 					</td></tr>
-					<tr><th class="thleft">Name of BHS</th><td>ShineOS Test Facility</td></tr>
+					<tr><th class="thleft">Name of BHS</th><td>SHINE OS Test Facility</td></tr>
 					<tr><th class="thleft">Barangay</th><td>LOYOLA HEIGHTS</td></tr>
 					<tr><th class="thleft">City/Municipality of</th><td>QUEZON CITY</td></tr>
 					<tr><th class="thleft">Province of</th><td>NCR, SECOND DISTRICT (Not a Province)</td></tr>

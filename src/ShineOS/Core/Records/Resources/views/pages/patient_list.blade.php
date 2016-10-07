@@ -12,9 +12,9 @@
                 <th>Gender</th>
                 <th>Age</th>
                 <th>Birthdate</th>
-                <th>Family Folder</th>
-                <th class="nosort">Barangay</th>
-                <th class="nosort" width="247">&nbsp;</th>
+                <th class="forhide">Family Folder</th>
+                <th class="nosort forhide">Barangay</th>
+                <th class="nosort">&nbsp;</th>
             </tr>
             </thead>
 
@@ -23,7 +23,22 @@
 </div><!-- /.box -->
 
 @section('scripts')
-    @include('patients::pages.forms.modal_death')
+
+    <div class="modal fade" id="deathInfoModal" tabindex="-1" role="dialog" aria-labelledby="deathInfoModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myInfoModalLabel"> Healthcare Record Preview </h4>
+                </div>
+                <div class="modal-body">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script>
           var T1 = $('table#dataTable_patients').DataTable({
@@ -53,7 +68,19 @@
             "columnDefs": [
                 { "orderable": false, "targets": 'nosort' }
             ],
-            "order": [[ 0, "desc" ]]
+            "order": [[ 0, "desc" ]],
+            dom: "<'row'<'col-sm-5'l><'col-sm-5 row'f><'col-sm-2'B>>" +
+                "<'row'<'col-sm-12'tr>>" +
+                "<'row'<'col-sm-5'i><'col-sm-7'p>>",
+            buttons: [
+                {
+                    text: '<i class="fa fa-search"></i> | Advanced Search',
+                    action: function ( e, dt, node, config ) {
+                        location="{{ url('records/search') }}";
+                    },
+                    className: 'btn btn-sm btn-warning btn-block'
+                }
+            ]
           });
 
           var T2 = $('table#dataTable_healthcare').DataTable({
@@ -82,7 +109,26 @@
             "columnDefs": [
                 { "orderable": false, "targets": 'nosort' }
             ],
-            "order": [[ 5, "desc" ]]
+            "order": [[ 5, "desc" ]],
+            dom: "<'row'<'col-sm-5'l><'col-sm-5 row'f><'col-sm-2'B>>" +
+                "<'row'<'col-sm-12'tr>>" +
+                "<'row'<'col-sm-5'i><'col-sm-7'p>>",
+            buttons: [
+                {
+                    text: '<i class="fa fa-search"></i> | Advanced Search',
+                    action: function ( e, dt, node, config ) {
+                        location="{{ url('records/search') }}";
+                    },
+                    className: 'btn btn-sm btn-warning btn-block'
+                }
+            ]
           });
+
+        $("#deathInfoModal").on("show.bs.modal", function(e) {
+            $(this).find(".modal-content").html("");
+            var link = $(e.relatedTarget);
+            $(this).find(".modal-content").load(link.attr("href"));
+        });
+
     </script>
 @stop

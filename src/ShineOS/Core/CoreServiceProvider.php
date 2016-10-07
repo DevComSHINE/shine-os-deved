@@ -2,6 +2,7 @@
 
 use Illuminate\Support\ServiceProvider;
 use \View;
+use \Session;
 
 class CoreServiceProvider extends ServiceProvider
 {
@@ -16,7 +17,6 @@ class CoreServiceProvider extends ServiceProvider
             $this->registerConfig($core);
             $this->registerViews($core);
             $this->registerTranslations($core);
-
         }
 
     }

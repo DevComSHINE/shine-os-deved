@@ -56,7 +56,7 @@ class ComplaintsController extends Controller {
         $query->physical_examination = $this->params['txt_physical_exam'];
         $query->medicalcategory_id = $this->params['txt_medical_category'];
         $query->remarks = $this->params['txt_remarks'];
-//dd($query);
+
         if ($query->save()) {
             return Redirect::back()
                  ->with('flash_message', 'Well done! You successfully Added Complaints Information.')
@@ -90,6 +90,29 @@ class ComplaintsController extends Controller {
                  ->with('flash_message', 'Please try again')
                     ->with('flash_type', 'alert-error alert-dismissible')
                         ->with('flash_tab', 'complaints');
+    }
+
+    public function save($data) {
+
+        if(isset($data['generalconsultation_id'])) {
+            $query = GeneralConsultation::find($data['generalconsultation_id']);
+            $query->generalconsultation_id	 = $data['generalconsultation_id'];
+        } else {
+            $query = new GeneralConsultation;
+            $query->generalconsultation_id	 = $this->new_id;
+        }
+
+        $query->healthcareservice_id = Input::get('hservices_id');
+        $query->complaint = $data['complaint'];
+        $query->complaint_history = $data['complaint_history'];
+        //$query->physical_examination = $data['physical_exam']; moved to vitals
+        if(isset($data['medical_category'])) $query->medicalcategory_id = $data['medical_category'];
+        $query->remarks = $data['remarks'];
+
+        if ($query->save()) {
+            return "ok";
+        }
+        return "opps";
     }
 
 }

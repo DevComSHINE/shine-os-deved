@@ -10,6 +10,20 @@ use ShineOS\Core\Users\Entities\Users;
         return Users::where('user_id','=',$id)->first();
     }
 
+    function findUserByUserID($id)
+    {
+        $user = DB::table('users')
+            ->join('user_md', 'user_md.user_id', '=', 'users.user_id')
+            ->join('user_contact', 'user_contact.user_id', '=', 'users.user_id')
+            ->where('users.user_id', $id)
+            ->first();
+        if($user){
+            return $user;
+        } else {
+            return NULL;
+        }
+    }
+
     function findByColumn($column)
     {
         return Users::get($column);
@@ -26,16 +40,21 @@ use ShineOS\Core\Users\Entities\Users;
         return $xuser->profile_picture;
     }
 
-    function getUserByFacilityUserID($id)
-    {
-
-    }
-
     function getRoleByFacilityUserID($id = NULL)
     {
         $role = DB::table('roles_access')
             ->join('roles', 'roles.role_id', '=', 'roles_access.role_id')
             ->select('roles.role_name')
+            ->where('roles_access.facilityuser_id', $id)
+            ->first();
+
+        return $role;
+    }
+
+    function getRoleInfoByFacilityUserID($id = NULL)
+    {
+        $role = DB::table('roles_access')
+            ->join('roles', 'roles.role_id', '=', 'roles_access.role_id')
             ->where('roles_access.facilityuser_id', $id)
             ->first();
 

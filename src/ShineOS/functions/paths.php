@@ -45,6 +45,14 @@ function upload_base_path()
     return $folder;
 }
 
+function core_path()
+{
+    static $folder;
+    if (!$folder) {
+        $folder = normalize_path(base_path() . DIRECTORY_SEPARATOR . SHINEOS_SYSTEM_MODULE_FOLDER . DIRECTORY_SEPARATOR . SHINEOS_SYSTEM_CORE_FOLDER . DIRECTORY_SEPARATOR);
+    }
+    return $folder;
+}
 
 function modules_path()
 {
@@ -141,8 +149,6 @@ function templates_url()
 
 function admin_url($add_string = false)
 {
-
-
     return site_url() . '/' . $add_string;
 }
 

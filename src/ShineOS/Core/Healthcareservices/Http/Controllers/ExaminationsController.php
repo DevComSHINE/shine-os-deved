@@ -120,4 +120,35 @@ class ExaminationsController extends Controller {
                         ->with('flash_tab', 'examinations');
     }
 
+    public function save($data)
+    {
+        if(isset($data['examination_id']) AND $data['examination_id'] != NULL) {
+            $query = Examination::find($data['examination_id']);
+            $query->examination_id	 = $data['examination_id'];
+        } else {
+            $query = new Examination;
+            $query->examination_id	 = IdGenerator::generateId();
+        }
+        $query->healthcareservice_id = $hcid = Input::has('hservices_id') ? Input::get('hservices_id')  : false;
+
+        //if this is an existing health record
+        if($hcid){
+            //if this is a doctor set the seen_by (attending physician)
+            $hc =  Healthcareservices::where('healthcareservice_id', $hcid);
+            if($hc AND strtolower($this->roles['role_name']) == 'physician' OR strtolower($this->roles['role_name']) == 'doctor') {
+                $hc->seen_by = $this->user->user_id;
+                $hc->update(['seen_by'=>$this->user->user_id]);
+            }
+        }
+
+        if($data['anatomy']) {
+            foreach ($data['anatomy'] as $key => $val) {
+                //let us store keys with values only
+                $query->$key = $val;
+            }
+            $querysave = $query->save();
+        }
+        return "ok";
+    }
+
 }

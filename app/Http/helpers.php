@@ -44,6 +44,14 @@ function getCurrentDate($format = null) {
     return $date;
 }
 
+function getMysqlDate() {
+    date_default_timezone_set('Asia/Manila');
+    $date = new DateTime('now');
+    $date = $date->format('Y-m-d H:i:s');
+
+    return $date;
+}
+
 
 function DiagGetCategory($id) {
     return LOV::icd10_category($id);
@@ -193,6 +201,16 @@ function getModuleStatus($name)
     } else {
         return NULL;
     }
+}
+
+function getPercentage($numerator, $denominator, $multiplier = 100, $decimalplace = 2)
+{
+    $answer = 0;
+    if($denominator != 0 || $denominator != NULL)
+    {
+        $answer = number_format(($numerator/$denominator)*$multiplier, $decimalplace);
+    }
+    return $answer;
 }
 
 ?>

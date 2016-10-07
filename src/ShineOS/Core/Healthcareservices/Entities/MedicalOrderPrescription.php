@@ -24,7 +24,8 @@ class MedicalOrderPrescription extends Model {
 
     protected $table = 'medicalorder_prescription';
     protected $primaryKey = 'medicalorderprescription_id';
-
+    protected $touches = array('MedicalOrder');
+    
     public function MedicalOrder() {
         return $this->belongsTo('ShineOS\Core\Healthcareservices\Entities\MedicalOrder', 'medicalorder_id', 'medicalorder_id');
     }

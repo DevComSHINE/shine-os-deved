@@ -11,7 +11,7 @@
     @endif
 
     <div class="box-body table-responsive no-padding overflowx-hidden">
-        <table class="table table-hover" id="dataTable_healthcare">
+        <table class="table table-hover" id="dataTable_healthcare" style="width:100%;">
             <thead>
             <tr>
                 <th class="nosort">&nbsp;</th>
@@ -19,7 +19,7 @@
                 <th>Service</th>
                 <th>Encounter</th>
                 <th>AttendedBy</th>
-                <th>EncounterDate</th>
+                <th>Visit Date&nbsp;&nbsp;&nbsp;&nbsp;</th>
                 <th class="nosort">&nbsp;</th>
             </tr>
             </thead>

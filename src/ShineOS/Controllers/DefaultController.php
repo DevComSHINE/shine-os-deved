@@ -10,6 +10,7 @@ use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
+use ShineOS\Core\Reports\Entities\M2;
 use \Cache;
 use \Event;
 use \Session;
@@ -39,9 +40,8 @@ class DefaultController extends Controller {
             return Redirect::to('install');
         }
 
-        return $this->frontend();
+        return Redirect::to('dashboard/');
     }
-
 
     public $return_data = false;
     public $page_url = false;
@@ -53,6 +53,7 @@ class DefaultController extends Controller {
     public $params = array();
     public $vars = array();
     public $app;
+
 
     public function track() {
 
@@ -90,6 +91,62 @@ class DefaultController extends Controller {
         $results['result'] = "OK";
         echo json_encode($json);
 
+    }
+
+    public function updateM2()
+    {
+        $facility = Session::get('facility_details');
+
+        //run datawarehouse chores
+        //fhsis_m2
+        $month = date('n');
+        $year = date('Y');
+
+        //process today's fhsis M2
+        $diagnoses = DB::select( DB::raw("SELECT TIMESTAMPDIFF(YEAR,c.birthdate,d.created_at) as 'age', c.gender, d.diagnosislist_id, e.icd10_code, MONTH(d.created_at) as 'diagnosisMonth', YEAR(d.created_at) as 'diagnosisYear', YEAR(f.datetime_death) as 'deathYear', h.facility_id, count(*) as 'count'
+        FROM healthcare_services a
+        JOIN facility_patient_user b ON b.facilitypatientuser_id = a.facilitypatientuser_id
+        JOIN facility_user g ON g.facilityuser_id = b.facilityuser_id
+        JOIN facilities h ON h.facility_id = g.facility_id
+        JOIN patients c ON c.patient_id = b.patient_id
+        LEFT JOIN diagnosis d ON d.healthcareservice_id = a.healthcareservice_id
+        LEFT JOIN diagnosis_icd10 e ON e.diagnosis_id = d.diagnosis_id
+        LEFT JOIN patient_death_info f ON f.patient_id = c.patient_id
+        WHERE h.facility_id = '".$facility->facility_id."'
+        AND DATE(a.updated_at) = '".date('Y-m-d')."'
+        GROUP BY d.diagnosislist_id, e.icd10_code, 'age', c.gender, h.facility_id
+        ORDER BY a.created_at ASC") );
+
+        if($diagnoses) {
+            foreach($diagnoses as $diagnosis) {
+                //check if this month is present
+                $rec = M2::where('diagnosislist_id', $diagnosis->diagnosislist_id)
+                    ->where('age', $diagnosis->age)
+                    ->where('gender', $diagnosis->gender)
+                    ->where('diagnosisMonth', $diagnosis->diagnosisMonth)
+                    ->where('diagnosisYear', $diagnosis->diagnosisYear)
+                    ->where('facility_id', $diagnosis->facility_id)
+                    ->where('updated_at', '<', date('Y-m-d H:i:s'))
+                    ->first();
+
+                if($rec) {
+                    $rec->count = $rec->count + $diagnosis->count;
+                    $rec->save();
+                } else {
+                    $m2 = new M2();
+                    $m2->age = $diagnosis->age;
+                    $m2->gender = $diagnosis->gender;
+                    $m2->diagnosislist_id = $diagnosis->diagnosislist_id;
+                    $m2->icd10_code = $diagnosis->icd10_code;
+                    $m2->diagnosisMonth = $diagnosis->diagnosisMonth;
+                    $m2->diagnosisYear = $diagnosis->diagnosisYear;
+                    $m2->deathYear = $diagnosis->deathYear;
+                    $m2->facility_id = $diagnosis->facility_id;
+                    $m2->count = $diagnosis->count;
+                    $m2->save();
+                }
+            }
+        }
     }
 
 }

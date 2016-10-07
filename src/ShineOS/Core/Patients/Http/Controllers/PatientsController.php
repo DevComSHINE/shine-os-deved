@@ -18,13 +18,20 @@ use ShineOS\Core\Patients\Entities\PatientContacts;
 use ShineOS\Core\Patients\Entities\PatientDisabilities;
 use ShineOS\Core\Patients\Entities\PatientDeathInfo;
 use ShineOS\Core\Patients\Entities\PatientEmergencyInfo;
+use ShineOS\Core\Patients\Entities\PatientMedicalHistory;
+use ShineOS\Core\Patients\Entities\LovHistoryModel;
 use ShineOS\Core\Users\Entities\Users;
 use ShineOS\Core\Healthcareservices\Entities\Healthcareservices;
 use ShineOS\Core\Healthcareservices\Entities\GeneralConsultation;
 use ShineOS\Core\Healthcareservices\Entities\Diagnosis;
 use ShineOS\Core\Healthcareservices\Entities\VitalsPhysical;
 use ShineOS\Core\LOV\Http\Controllers\LOVController;
-
+use ShineOS\Core\Healthcareservices\Entities\MedicalOrder;
+use ShineOS\Core\Healthcareservices\Entities\MedicalOrderLabExam;
+use ShineOS\Core\LOV\Entities\LovLaboratories;
+use ShineOS\Core\Users\Entities\ForgotPassword;
+use Shine\Libraries\EmailHelper;
+use ShineOS\Core\Users\Libraries\Salt;
 
 use View, Form, Response, Validator, Input, Mail, Session, Redirect, Hash, Auth, DB, Datetime, Request, Storage, Schema;
 /**
@@ -51,8 +58,6 @@ class PatientsController extends Controller {
      */
     public function __construct(FacilityRepository $FacilityRepository)
     {
-        $this->middleware('auth');
-
         $modules =  Utils::getModules();
 
         # variables to share to all view
@@ -61,6 +66,256 @@ class PatientsController extends Controller {
         View::share('modulePath', $this->modulePath);
 
         $this->FacilityRepository = $FacilityRepository;
+
+        $this->arrNationality = array("Afghanistan"=>"AFG", 
+                                "Aland Islands"=>"ALA", 
+                                "Albania"=>"ALB", 
+                                "Algeria"=>"DZA", 
+                                "American Samoa"=>"ASM", 
+                                "Andorra"=>"AND", 
+                                "Angola"=>"AGO", 
+                                "Anguilla"=>"AIA", 
+                                "Antarctica"=>"ATA", 
+                                "Antigua and Barbuda"=>"ATG", 
+                                "Argentina"=>"ARG", 
+                                "Armenia"=>"ARM", 
+                                "Aruba"=>"ABW", 
+                                "Australia"=>"AUS", 
+                                "Austria"=>"AUT", 
+                                "Azerbaijan"=>"AZE", 
+                                "Bahamas"=>"BHS", 
+                                "Bahrain"=>"BHR", 
+                                "Bangladesh"=>"BGD", 
+                                "Barbados"=>"BRB", 
+                                "Belarus"=>"BLR", 
+                                "Belgium"=>"BEL", 
+                                "Belize"=>"BLZ", 
+                                "Benin"=>"BEN", 
+                                "Bermuda"=>"BMU", 
+                                "Bhutan"=>"BTN", 
+                                "Plurinational State of Bolivia"=>"BOL", 
+                                "Bonaire - Sint Eustatius and Saba"=>"BES", 
+                                "Bosnia and Herzegovina"=>"BIH", 
+                                "Botswana"=>"BWA", 
+                                "Bouvet Island"=>"BVT", 
+                                "Brazil"=>"BRA", 
+                                "British Indian Ocean Territory"=>"IOT", 
+                                "Brunei Darussalam"=>"BRN", 
+                                "Bulgaria"=>"BGR", 
+                                "Burkina Faso"=>"BFA", 
+                                "Burundi"=>"BDI", 
+                                "Cambodia"=>"KHM", 
+                                "Cameroon"=>"CMR", 
+                                "Canada"=>"CAN", 
+                                "Cabo Verde"=>"CPV", 
+                                "Cayman Islands"=>"CYM", 
+                                "Central African Republic"=>"CAF", 
+                                "Chad"=>"TCD", 
+                                "Chile"=>"CHL", 
+                                "China"=>"CHN", 
+                                "Christmas Island"=>"CXR", 
+                                "Cocos (Keeling) Islands"=>"CCK", 
+                                "Colombia"=>"COL", 
+                                "Comoros"=>"COM", 
+                                "Congo"=>"COG", 
+                                "Democratic Republic of Congo"=>"COD", 
+                                "Cook Islands"=>"COK", 
+                                "Costa Rica"=>"CRI", 
+                                "Cote d'Ivoire"=>"CIV", 
+                                "Croatia"=>"HRV", 
+                                "Cuba"=>"CUB", 
+                                "Curacao !Cura ao"=>"CUW", 
+                                "Cyprus"=>"CYP", 
+                                "Czech Republic"=>"CZE", 
+                                "Denmark"=>"DNK", 
+                                "Djibouti"=>"DJI", 
+                                "Dominica"=>"DMA", 
+                                "Dominican Republic"=>"DOM", 
+                                "Ecuador"=>"ECU", 
+                                "Egypt"=>"EGY", 
+                                "El Salvador"=>"SLV", 
+                                "Equatorial Guinea"=>"GNQ", 
+                                "Eritrea"=>"ERI", 
+                                "Estonia"=>"EST", 
+                                "Ethiopia"=>"ETH", 
+                                "Falkland Islands (Malvinas)"=>"FLK", 
+                                "Faroe Islands"=>"FRO", 
+                                "Fiji"=>"FJI", 
+                                "Finland"=>"FIN", 
+                                "France"=>"FRA", 
+                                "French Guiana"=>"GUF", 
+                                "French Polynesia"=>"PYF", 
+                                "French Southern Territories"=>"ATF", 
+                                "Gabon"=>"GAB", 
+                                "Gambia"=>"GMB", 
+                                "Georgia"=>"GEO", 
+                                "Germany"=>"DEU", 
+                                "Ghana"=>"GHA", 
+                                "Gibraltar"=>"GIB", 
+                                "Greece"=>"GRC", 
+                                "Greenland"=>"GRL", 
+                                "Grenada"=>"GRD", 
+                                "Guadeloupe"=>"GLP", 
+                                "Guam"=>"GUM", 
+                                "Guatemala"=>"GTM", 
+                                "Guernsey"=>"GGY", 
+                                "Guinea"=>"GIN", 
+                                "Guinea-Bissau"=>"GNB", 
+                                "Guyana"=>"GUY", 
+                                "Haiti"=>"HTI", 
+                                "Heard Island and McDonald Islands"=>"HMD", 
+                                "Holy See (Vatican City State)"=>"VAT", 
+                                "Honduras"=>"HND", 
+                                "Hong Kong"=>"HKG", 
+                                "Hungary"=>"HUN", 
+                                "Iceland"=>"ISL", 
+                                "India"=>"IND", 
+                                "Indonesia"=>"IDN", 
+                                "Islamic Republic of Iran"=>"IRN", 
+                                "Iraq"=>"IRQ", 
+                                "Ireland"=>"IRL", 
+                                "Isle of Man"=>"IMN", 
+                                "Israel"=>"ISR", 
+                                "Italy"=>"ITA", 
+                                "Jamaica"=>"JAM", 
+                                "Japan"=>"JPN", 
+                                "Jersey"=>"JEY", 
+                                "Jordan"=>"JOR", 
+                                "Kazakhstan"=>"KAZ", 
+                                "Kenya"=>"KEN", 
+                                "Kiribati"=>"KIR", 
+                                "Democratic People's Republic of Korea"=>"PRK", 
+                                "Republic of Korea"=>"KOR", 
+                                "Kuwait"=>"KWT", 
+                                "Kyrgyzstan"=>"KGZ", 
+                                "Lao People's Democratic Republic"=>"LAO", 
+                                "Latvia"=>"LVA", 
+                                "Lebanon"=>"LBN", 
+                                "Lesotho"=>"LSO", 
+                                "Liberia"=>"LBR", 
+                                "Libya"=>"LBY", 
+                                "Liechtenstein"=>"LIE", 
+                                "Lithuania"=>"LTU", 
+                                "Luxembourg"=>"LUX", 
+                                "Macao"=>"MAC", 
+                                "Macedonia (the former Yugoslav Republic of)"=>"MKD", 
+                                "Madagascar"=>"MDG", 
+                                "Malawi"=>"MWI", 
+                                "Malaysia"=>"MYS", 
+                                "Maldives"=>"MDV", 
+                                "Mali"=>"MLI", 
+                                "Malta"=>"MLT", 
+                                "Marshall Islands"=>"MHL", 
+                                "Martinique"=>"MTQ", 
+                                "Mauritania"=>"MRT", 
+                                "Mauritius"=>"MUS", 
+                                "Mayotte"=>"MYT", 
+                                "Mexico"=>"MEX", 
+                                "Micronesia"=>"FSM", 
+                                "Moldova, Republic of"=>"MDA", 
+                                "Monaco"=>"MCO", 
+                                "Mongolia"=>"MNG", 
+                                "Montenegro"=>"MNE", 
+                                "Montserrat"=>"MSR", 
+                                "Morocco"=>"MAR", 
+                                "Mozambique"=>"MOZ", 
+                                "Myanmar"=>"MMR", 
+                                "Namibia"=>"NAM", 
+                                "Nauru"=>"NRU", 
+                                "Nepal"=>"NPL", 
+                                "Netherlands"=>"NLD", 
+                                "New Caledonia"=>"NCL", 
+                                "New Zealand"=>"NZL", 
+                                "Nicaragua"=>"NIC", 
+                                "Niger"=>"NER", 
+                                "Nigeria"=>"NGA", 
+                                "Niue"=>"NIU", 
+                                "Norfolk Island"=>"NFK", 
+                                "Northern Mariana Islands"=>"MNP", 
+                                "Norway"=>"NOR", 
+                                "Oman"=>"OMN", 
+                                "Pakistan"=>"PAK", 
+                                "Palau"=>"PLW", 
+                                "Palestine, State of"=>"PSE", 
+                                "Panama"=>"PAN", 
+                                "Papua New Guinea"=>"PNG", 
+                                "Paraguay"=>"PRY", 
+                                "Peru"=>"PER", 
+                                "Philippines"=>"PHL", 
+                                "Pitcairn"=>"PCN", 
+                                "Poland"=>"POL", 
+                                "Portugal"=>"PRT", 
+                                "Puerto Rico"=>"PRI", 
+                                "Qatar"=>"QAT", 
+                                "Reunion !RŽunion"=>"REU", 
+                                "Romania"=>"ROU", 
+                                "Russian Federation"=>"RUS", 
+                                "Rwanda"=>"RWA", 
+                                "Saint Barthelemy"=>"BLM", 
+                                "Saint Helena (Ascension and Tristan da Cunha)"=>"SHN", 
+                                "Saint Kitts and Nevis"=>"KNA", 
+                                "Saint Lucia"=>"LCA", 
+                                "Saint Martin (French part)"=>"MAF", 
+                                "Saint Pierre and Miquelon"=>"SPM", 
+                                "Saint Vincent and the Grenadines"=>"VCT", 
+                                "Samoa"=>"WSM", 
+                                "San Marino"=>"SMR", 
+                                "Sao Tome and Principe"=>"STP", 
+                                "Saudi Arabia"=>"SAU", 
+                                "Senegal"=>"SEN", 
+                                "Serbia"=>"SRB", 
+                                "Seychelles"=>"SYC", 
+                                "Sierra Leone"=>"SLE", 
+                                "Singapore"=>"SGP", 
+                                "Sint Maarten (Dutch part)"=>"SXM", 
+                                "Slovakia"=>"SVK", 
+                                "Slovenia"=>"SVN", 
+                                "Solomon Islands"=>"SLB", 
+                                "Somalia"=>"SOM", 
+                                "South Africa"=>"ZAF", 
+                                "South Georgia and the South Sandwich Islands"=>"SGS", 
+                                "South Sudan"=>"SSD", 
+                                "Spain"=>"ESP", 
+                                "Sri Lanka"=>"LKA", 
+                                "Sudan"=>"SDN", 
+                                "Suriname"=>"SUR", 
+                                "Svalbard and Jan Mayen"=>"SJM", 
+                                "Swaziland"=>"SWZ", 
+                                "Sweden"=>"SWE", 
+                                "Switzerland"=>"CHE", 
+                                "Syrian Arab Republic"=>"SYR", 
+                                "Taiwan - Province of China"=>"TWN", 
+                                "Tajikistan"=>"TJK", 
+                                "Tanzania"=>"TZA", 
+                                "Thailand"=>"THA", 
+                                "Timor-Leste"=>"TLS", 
+                                "Togo"=>"TGO", 
+                                "Tokelau"=>"TKL", 
+                                "Tonga"=>"TON", 
+                                "Trinidad and Tobago"=>"TTO", 
+                                "Tunisia"=>"TUN", 
+                                "Turkey"=>"TUR", 
+                                "Turkmenistan"=>"TKM", 
+                                "Turks and Caicos Islands"=>"TCA", 
+                                "Tuvalu"=>"TUV", 
+                                "Uganda"=>"UGA", 
+                                "Ukraine"=>"UKR", 
+                                "United Arab Emirates"=>"ARE", 
+                                "United Kingdom"=>"GBR", 
+                                "United States"=>"USA", 
+                                "United States Minor Outlying Islands"=>"UMI", 
+                                "Uruguay"=>"URY", 
+                                "Uzbekistan"=>"UZB", 
+                                "Vanuatu"=>"VUT", 
+                                "Venezuela (Bolivarian Republic of)"=>"VEN", 
+                                "Viet Nam"=>"VNM", 
+                                "Virgin Islands - British"=>"VGB", 
+                                "Virgin Islands - U.S."=>"VIR", 
+                                "Wallis and Futuna"=>"WLF", 
+                                "Western Sahara"=>"ESH", 
+                                "Yemen"=>"YEM", 
+                                "Zambia"=>"ZMB", 
+                                "Zimbabwe"=>"ZWE"); 
     }
 
     /**
@@ -88,7 +343,11 @@ class PatientsController extends Controller {
         $facility = Session::get('facility_details');
         $action = 'add';
 
-        return view($this->formPath.'add',compact('medical_history','action','disabilities','allergyReactions','religion','education', 'facility'))->with($data);
+        $formdata = lovHistoryModel::getAllDiseases();
+
+        $patient = NULL;
+        $data['nationality'] = array_flip($this->arrNationality);
+        return view($this->formPath.'add',compact('patient','medical_history','action','disabilities','allergyReactions','religion','education', 'facility','formdata'))->with($data);
     }
 
     /**
@@ -98,14 +357,13 @@ class PatientsController extends Controller {
     // revised by Romel
     public function save()
     {
+        // dd(Input::all());
         /**
          * NOTE:: Create a library for this
          * @var Patients
          */
-
         $patient = new Patients;
-        $patient->patient_id = IdGenerator::generateId();
-        $id = $patient->patient_id;
+        $patient->patient_id = $id = IdGenerator::generateId();
         $patient->first_name = Input::get('inputPatientFirstName');
         $patient->last_name = Input::get('inputPatientLastName');
         $patient->middle_name = Input::get('inputPatientMiddleName');
@@ -128,7 +386,7 @@ class PatientsController extends Controller {
         $patient->nonreferral_notif = Input::get('inputNonReferralNotif');
         $patient->myshine_acct = Input::get('inputMyShineAcct');
         $patient->patient_consent = Input::get('inputPatientConsent');
-
+        $patient->email = Input::get('inputPatientEmail');
         $patient->save();
 
         /**
@@ -152,7 +410,6 @@ class PatientsController extends Controller {
          *
          * @var Patient Contact
          */
-
         $contactInfo = new PatientContacts; // change to singular
         $contactInfo->patient_id = $id;
         $contactInfo->patient_contact_id = IdGenerator::generateId();
@@ -171,11 +428,26 @@ class PatientsController extends Controller {
         $contactInfo->save();
 
         /**
+         * Add Patient Emergency Info
+         *
+         * @var Patient Emergency
+         */
+        $emergencyInfo = new PatientEmergencyInfo; // change to singular
+        $emergencyInfo->patient_id = $id;
+        $emergencyInfo->patient_emergencyinfo_id = IdGenerator::generateId();
+        $emergencyInfo->emergency_name = Input::get('emergency_name');
+        $emergencyInfo->emergency_relationship = Input::get('emergency_relationship');
+        $emergencyInfo->emergency_phone = Input::get('emergency_phone');
+        $emergencyInfo->emergency_mobile = Input::get('emergency_mobile');
+        $emergencyInfo->emergency_address = Input::get('emergency_address');
+
+        $emergencyInfo->save();
+        
+        /**
          * Add Patient Alerts
          *
          * After inserting to patient_alert table, insert to allergies and disabilities
          */
-
         $alerts = Input::get('alert');
         $alerts_id = '';
 
@@ -206,8 +478,11 @@ class PatientsController extends Controller {
             }
         }
 
-        # save diseases
-        //Diseases::savePatientDiseases($id);
+        //if there are history data
+        if( Input::has('disease') ) {
+            LovHistoryModel::savePatientDiseases($id);
+        }
+
         Session::flash('alert-class', 'alert-success alert-dismissible');
         $message = "A new patient has been added";
 
@@ -258,6 +533,8 @@ class PatientsController extends Controller {
         $facility = Session::get('facility_details');
         $roles = Session::get('roles');
 
+        $formdata = lovHistoryModel::getAllDiseases();
+
         //Developer Edition implementation
         //get all available plugins in the patients plugin folder
         //later on will use options DB to get only activated plugins
@@ -275,23 +552,25 @@ class PatientsController extends Controller {
                     include(plugins_path().$plugin.'/config.php');
 
                     //check if this folder is enabled
-                    if(in_array($plugin_id, json_decode($facility->enabled_plugins)) OR $roles['role_name'] == 'Developer'){
+                    if(json_decode($facility->enabled_plugins) != NULL) {
+                        if(in_array($plugin_id, json_decode($facility->enabled_plugins)) OR $roles['role_name'] == 'Developer'){
 
-                        //get only plugins for this module
-                        if($plugin_module == 'patients'){
-                            if($plugin_table == 'plugintable') {
-                                $pdata = Plugin::where('primary_key_value',$id)->first();
-                            } else {
-                                if (Schema::hasTable($plugin_table)) {
-                                    $pdata = DB::table($plugin_table)->where($plugin_primaryKey, $id)->first();
+                            //get only plugins for this module
+                            if($plugin_module == 'patients'){
+                                if($plugin_table == 'plugintable') {
+                                    $pdata = Plugin::where('primary_key_value',$id)->first();
+                                } else {
+                                    if (Schema::hasTable($plugin_table)) {
+                                        $pdata = DB::table($plugin_table)->where($plugin_primaryKey, $id)->first();
+                                    }
                                 }
+                                $plugs[$k]['plugin_location'] = $plugin_location;
+                                $plugs[$k]['folder'] = $plugin;
+                                $plugs[$k]['parent'] = $plugin_module;
+                                $plugs[$k]['title'] = $plugin_title;
+                                $plugs[$k]['plugin'] = $plugin_id;
+                                $plugs[$k]['pdata'] = $pdata;
                             }
-                            $plugs[$k]['plugin_location'] = $plugin_location;
-                            $plugs[$k]['folder'] = $plugin;
-                            $plugs[$k]['parent'] = $plugin_module;
-                            $plugs[$k]['title'] = $plugin_title;
-                            $plugs[$k]['plugin'] = $plugin_id;
-                            $plugs[$k]['pdata'] = $pdata;
                         }
                     }
                 }
@@ -306,13 +585,103 @@ class PatientsController extends Controller {
         sortBy('pdata', $plugs, 'desc');
 
         if($patient):
-            return view($this->viewPath.'view', compact('plugs','action','patient','disabilities','allergyReactions','bloodType','religion', 'education', 'facility'))->with($data);
+            $data['nationality'] = array_flip($this->arrNationality);
+            return view($this->viewPath.'view', compact('plugs','action','patient','disabilities','allergyReactions','bloodType','religion', 'education', 'facility', 'formdata'))->with($data);
         else:
             Session::flash('alert-class', 'alert-danger alert-dismissible');
             $message = "The patient profile does not exist. Please choose another.";
 
             return Redirect::to('records')->with('message', $message);
         endif;
+    }
+
+    public function quickprofile($id)
+    {
+        $data = array();
+        /*
+        $utilities = new Utils;
+        $disabilities = Lovs::getLovs('disabilities');
+        $allergyReactions = Lovs::getLovs('allergy_reaction');
+        $religion = $utilities->religion();
+        $education = $utilities->education();*/
+
+        $patient = getCompletePatientByPatientID($id);
+
+        $facility = Session::get('facility_details');
+        $roles = Session::get('roles');
+
+        $data['qvTitle'] = "Profile Quick View";
+
+        //$formdata = lovHistoryModel::getAllDiseases();
+
+        //Developer Edition implementation
+        //get all available plugins in the patients plugin folder
+        //later on will use options DB to get only activated plugins
+        //**Production implementation should come from the database of activated plugins.
+        $patientPluginDir = plugins_path()."/";
+        $plugins = directoryFiles($patientPluginDir);
+        asort($plugins);
+        $plugs = array();
+        foreach($plugins as $k=>$plugin) {
+            $pdata = NULL;
+            if(strpos($plugin, ".")===false) { //isolate folders
+                //check if config.php exists
+                if(file_exists(plugins_path().$plugin.'/config.php')){
+                    //load the config file
+                    include(plugins_path().$plugin.'/config.php');
+
+                    //check if this folder is enabled
+                    if(json_decode($facility->enabled_plugins) != NULL) {
+                        if(in_array($plugin_id, json_decode($facility->enabled_plugins)) OR $roles['role_name'] == 'Developer'){
+
+                            //get only plugins for this module
+                            if($plugin_module == 'patients'){
+                                if($plugin_table == 'plugintable') {
+                                    $pdata = Plugin::where('primary_key_value',$id)->first();
+                                } else {
+                                    if (Schema::hasTable($plugin_table)) {
+                                        $pdata = DB::table($plugin_table)->where($plugin_primaryKey, $id)->first();
+                                    }
+                                }
+                                $plugs[$k]['plugin_location'] = $plugin_location;
+                                $plugs[$k]['folder'] = $plugin;
+                                $plugs[$k]['parent'] = $plugin_module;
+                                $plugs[$k]['title'] = $plugin_title;
+                                $plugs[$k]['plugin'] = $plugin_id;
+                                $plugs[$k]['pdata'] = $pdata;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        /*
+        * Let us sort the plugins those with data first
+        *
+        */
+        sortBy('pdata', $plugs, 'desc');
+
+        return view($this->viewPath.'qview', compact('plugs','patient'))->with($data);
+    }
+
+    public function quickhistory($id)
+    {
+        $data = array();
+        $data['qvTitle'] = "Medical History Quick View";
+
+        $patient = getCompletePatientByPatientID($id);
+
+        $facility = Session::get('facility_details');
+        $roles = Session::get('roles');
+
+        $formdata = lovHistoryModel::getAllDiseases();
+        $allergyReactions = Lovs::getLovs('allergy_reaction');
+        $disabilities = Lovs::getLovs('disabilities');
+
+        $action = 'view';
+
+        return view($this->viewPath.'hview', compact('patient', 'formdata', 'allergyReactions','disabilities'))->with($data);
     }
 
     public function dashboard($id)
@@ -344,6 +713,14 @@ class PatientsController extends Controller {
                 }
             }
         }
+
+        $facilityPatientUser = FacilityPatientUser::where('patient_id', $patient->patient_id)->pluck('facilitypatientuser_id');
+        $Healthcareservices = Healthcareservices::where('facilitypatientuser_id', $facilityPatientUser)->lists('healthcareservice_id');
+        $MedicalOrder = MedicalOrder::whereIn('healthcareservice_id', $Healthcareservices)->where('medicalorder_type', 'MO_LAB_TEST')->lists('medicalorder_id');
+        $data['MedicalOrderLabExam'] = MedicalOrderLabExam::whereIn('medicalorder_id',$MedicalOrder)->with('LaboratoryResult')->get();
+        $data['lov_laboratories'] = LovLaboratories::orderBy('laboratorydescription')->lists('laboratorydescription','laboratorycode');
+
+        // dd($data['MedicalOrderLabExam']);
 
         //get latest consultation DATA
         if(isset($patient->healthcareservices[0]))
@@ -387,19 +764,21 @@ class PatientsController extends Controller {
                     include(plugins_path().$plugin.'/config.php');
 
                     //check if this folder is enabled
-                    if(in_array($plugin_id, json_decode($facility->enabled_plugins)) OR $roles['role_name'] == 'Developer'){
-
-                        //get only plugins for this module
-                        if($plugin_module == 'patients'){
-                            if($plugin_table == 'plugintable') {
-                                $pdata = Plugin::where('primary_key_value',$id)->first();
-                            } else {
-                                if (Schema::hasTable($plugin_table)) {
-                                    $pdata = DB::table($plugin_table)->where($plugin_primaryKey, $id)->first();
+                    if(json_decode($facility->enabled_plugins) != NULL) {
+                        if(in_array($plugin_id, json_decode($facility->enabled_plugins)) OR $roles['role_name'] == 'Developer')
+                        {
+                            //get only plugins for this module
+                            if($plugin_module == 'patients'){
+                                if($plugin_table == 'plugintable') {
+                                    $pdata = Plugin::where('primary_key_value',$id)->first();
+                                } else {
+                                    if (Schema::hasTable($plugin_table)) {
+                                        $pdata = DB::table($plugin_table)->where($plugin_primaryKey, $id)->first();
+                                    }
                                 }
+                                $plugs[$k]['plugin'] = $plugin_id;
+                                $plugs[$k]['pdata'] = $pdata;
                             }
-                            $plugs[$k]['plugin'] = $plugin_id;
-                            $plugs[$k]['pdata'] = $pdata;
                         }
                     }
                 }
@@ -412,6 +791,7 @@ class PatientsController extends Controller {
     // revised by Romel
     public function update($id)
     {
+        // dd(Input::all());
         //update Patient info
         $updatePatient = array(
             "first_name" => Input::get('inputPatientFirstName'),
@@ -478,7 +858,7 @@ class PatientsController extends Controller {
             $contact->save();
         }
 
-        //update Contact info
+        //update Emergency info
         //let us check if it exist
         $checkEmer = PatientEmergencyInfo::where('patient_id', $id)->first();
         $updateEmergency = array(
@@ -566,6 +946,11 @@ class PatientsController extends Controller {
             }
         }
 
+        //if there are history data
+        if( Input::has('disease') ) {
+            LovHistoryModel::savePatientDiseases($id);
+        }
+
         Session::flash('alert-class', 'alert-success alert-dismissible');
         $message = "The patient profile has been updated.";
 
@@ -613,9 +998,17 @@ class PatientsController extends Controller {
         return Redirect::to('patients/view/'.$id);
     }
 
-    public function deathInfo($id)
+    public function addDeathInfo($id = NULL)
     {
-        return view($this->viewPath.'view');
+        $data['patient_id'] = $id;
+        return view($this->viewPath.'forms.modal_death')->with($data);
+    }
+
+    public function viewDeathInfo($id = NULL)
+    {
+        $data['patient_id'] = $id;
+        $data['deathInfo'] = PatientDeathInfo::where('patient_id','=', $id)->first();
+        return view($this->viewPath.'forms.modal_death')->with($data);
     }
 
     public function checkPatientMorbidity($id)
@@ -756,6 +1149,8 @@ class PatientsController extends Controller {
             ->where('patients.last_name','like', '%'.$lastname.'%')
             ->where('patients.middle_name','like', '%'.$middlename.'%')
             ->where('patients.birthdate','=', $birthdate)
+           ->where('facility_patient_user.deleted_at','=', NULL)
+           ->where('patients.deleted_at','=', NULL)
            ->get();
 
         if($patient) {
@@ -794,5 +1189,92 @@ class PatientsController extends Controller {
             return Redirect::to("users/changeprofilepic/{$id}");
         }
 
+    }
+
+    /**
+     * Display Forgot Password form
+     */
+    public function forgotpassword ()
+    {
+        $data = array();
+
+        return view('patients::pages.forgotpassword')->with($data);
+    }
+
+    public function forgotpasswordSend ($email = NULL) {
+        $_param = array();
+        $email = (Input::get('email') == NULL) ? $email : Input::get('email');
+        $check_email = Patients::where('email', $email)->count();
+
+        if($check_email) {
+            $forgot_password_code = str_random(25);
+            // save the forgot password code first
+            ForgotPassword::insertChangePasswordRequest($email, $forgot_password_code);
+
+            // then send the change password link
+            $changepassword_link = url('/')."/patient/forgotpassword/changepassword/".$forgot_password_code;
+
+            $_param['email'] = $email;
+            $_param['forgot_password_code'] = $forgot_password_code;
+            $_param['changepassword_link'] = $changepassword_link;
+
+            EmailHelper::sendPatientForgotPasswordEmail($_param);
+
+            Session::flash('message', 'An email has been sent to update your password.');
+            return view('patients::pages.forgotpassword');
+        } else {
+            Session::flash('warning', 'Email not found.');
+            return view('patients::pages.forgotpassword');
+        }
+
+    }
+
+    public function changepassword ( $password_code = '' )
+    {
+        $forgotPassword = ForgotPassword::getPasswordCode($password_code);
+        $check_email = Patients::where('email', $forgotPassword->email)->count();
+
+        if($check_email) {
+            if ( $forgotPassword && count($forgotPassword) > 0 ) {
+
+                $data = array();
+                $data['forgotPassword'] = $forgotPassword;
+
+                return view('patients::pages.changepassword')->with($data);
+            } else {
+                 Session::flash('message', 'Successfully updated.');
+            return view('patients::pages.changepassword');
+            }
+        } else {
+            Session::flash('warning', 'Email not found.');
+            return view('patients::pages.changepassword');
+        }
+    }
+
+    public function changepassword_request () {
+        $password = Input::get('password');
+        $verify_password = Input::get('verify_password');
+        $password_code = Input::get('forgot_password_code');
+        $forgotPassword = ForgotPassword::getPasswordCode($password_code);
+
+        // make sure that both passwords are correct
+        if ( $password != $verify_password ) {
+            Session::flash('warning', 'Your passwords do not match.');
+            return Redirect::to('forgotpassword/changepassword/'.$password_code);
+        }
+
+        if ( $forgotPassword && count($forgotPassword) > 0 ) {
+            // get user by email
+            $user = Patients::getRecordByEmail($forgotPassword->email);
+            $newPassword = Hash::make($password);
+
+            Patients::updateUserPassword($user->patient_id, $newPassword);
+
+            Session::flash('message', 'You have successfully updated your password.');
+            return view('patients::pages.changepassword');
+        } else {
+            Session::flash('warning', 'Failed to update your password.');
+            return view('patients::pages.changepassword');
+        }
     }
 }

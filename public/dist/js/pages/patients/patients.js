@@ -117,17 +117,20 @@ Patients.showChildDiv = function ()
 {
     $('#chk_aller').on('ifChecked', function(event){
       $('#allergies').removeClass('hide');
-      $('.allergyname').addClass('required').attr('required','required');
-      $('.allergyreaction').addClass('required').attr('required','required');
-      $('.allergyseverity').addClass('required').attr('required','required');
+      $('.allergyname').removeAttr('disabled').addClass('required').attr('required','required');
+      $('.allergyreaction').removeAttr('disabled').addClass('required').attr('required','required');
+      $('.allergyseverity').removeAttr('disabled').addClass('required').attr('required','required');
+      $('.allergyname').nextAll('small').show();
+      $('form').bootstrapValidator('enableFieldValidators', "allergy[inputAllergyName][]", 'notEmpty');
     });
     $('#chk_aller').on('ifUnchecked', function(event){
+      $(this).parents('div.has-error').removeClass('has-error');
+      $('.allergyname').nextAll('small').hide().attr('data-bv-result', 'NOT_VALIDATED');
       $('#allergies').addClass('hide');
       $('#allergies .form-control').val("");
-      $('.allergyname').removeClass('required').removeAttr('required','required');
-      $('.allergyreaction').removeClass('required').removeAttr('required','required');
-      $('.allergyseverity').removeClass('required').removeAttr('required','required');
-
+      $('.allergyname').attr('disabled','disabled').removeClass('required').removeAttr('required','required');
+      $('.allergyreaction').attr('disabled','disabled').removeClass('required').removeAttr('required','required');
+      $('.allergyseverity').attr('disabled','disabled').removeClass('required').removeAttr('required','required');
     });
 
   $('#chk_disab').on('ifChecked', function(event){
@@ -145,6 +148,20 @@ Patients.showChildDiv = function ()
   $('#chk_other').on('ifUnchecked', function(event){
       $('.alert-other').addClass('hide');
       $('.alert_other_field').removeClass('required').removeAttr('required','required');
+  });
+
+    $('.medhistchk').on('ifChecked', function(event){
+        thisid = $(this).attr('id');
+        thisname = $('.'+thisid).attr('name');
+        $('.'+thisid).removeAttr('disabled').addClass('required').attr('required','required');
+        $('.'+thisid).parent('dd').next().show();
+        $('form').bootstrapValidator('enableFieldValidators', "Required", 'notEmpty');
+  });
+  $('.medhistchk').on('ifUnchecked', function(event){
+        thisid = $(this).attr('id');
+        $('.'+thisid).parents('dl.has-error').removeClass('has-error');
+        $('.'+thisid).parent('dd').next().hide();
+        $('.'+thisid).val("").attr('disabled','disabled').removeClass('required').removeAttr('required','required');
   });
 }
 

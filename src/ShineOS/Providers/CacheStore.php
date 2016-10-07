@@ -425,7 +425,7 @@ class CacheStore implements Store
     {
         $path_original = $path;
         $s = DIRECTORY_SEPARATOR;
-        $path = preg_replace('/[\/\\\]/', $s, $path);
+        $path = preg_replace('/[\/\\]/', $s, $path);
         $path = str_replace($s . $s, $s, $path);
         if (strval($path) == '') {
             $path = $path_original;

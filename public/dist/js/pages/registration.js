@@ -1,4 +1,6 @@
 $('.for_government').fadeOut();
+$('#newUser').fadeOut();
+$('#oldUser').fadeOut();
 
 $('.input-group-addon').popover();
 
@@ -60,6 +62,19 @@ ownership_type.on('click', function () {
         $('.ot_government').fadeIn();
         $('.for_government').fadeOut();
         $('#DOH_facility_code').removeClass('required');
+    }
+});
+
+// ownership type dependencies
+var account_type = $('.acctbtn');
+account_type.on('click', function () {
+    var selval = $(this).find('input').val();
+    if ( selval == 'existing' ) {
+        $('#newUser').attr('disabled','disabled').fadeOut();
+        $('#oldUser').removeAttr('disabled').fadeIn();
+    } else if ( selval == 'new' ) {
+        $('#newUser').removeAttr('disabled').fadeIn();
+        $('#oldUser').attr('disabled','disabled').fadeOut();
     }
 });
 

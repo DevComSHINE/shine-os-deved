@@ -6,7 +6,7 @@ use Shine\Libraries\IdGenerator;
 use Shine\Libraries\FacilityHelper;
 use Shine\Libraries\UserHelper;
 
-use View, Response, Input, Datetime;
+use View, Response, Input, Datetime, DB;
 
 class CalendarController extends Controller {
 
@@ -39,6 +39,7 @@ class CalendarController extends Controller {
         ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;";
 
         DB::statement($dbtable);
+
     }
 
     public function index()

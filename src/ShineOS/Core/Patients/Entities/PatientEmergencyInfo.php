@@ -16,6 +16,7 @@ class PatientEmergencyInfo extends Model {
     protected static $table_name = 'patient_emergencyinfo';
     protected $primaryKey = 'patient_emergencyinfo_id';
 
+    protected $touches = array('patients');
     //protected $fillable = [];
 
     public function patients()

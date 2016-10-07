@@ -18,8 +18,14 @@ class MedicalOrderLabExam extends Model {
 
     protected $table = 'medicalorder_laboratoryexam';
     protected $primaryKey = 'medicalorderlaboratoryexam_id';
+    protected $touches = array('MedicalOrder');
+    
+    public function MedicalOrder() {
+        return $this->belongsTo('ShineOS\Core\Healthcareservices\Entities\MedicalOrder', 'medicalorder_id', 'medicalorder_id');
+    }
 
-      public function MedicalOrder() {
-          return $this->belongsTo('ShineOS\Core\Healthcareservices\Entities\MedicalOrder', 'medicalorder_id', 'medicalorder_id');
-      }
+    public function LaboratoryResult() {
+          return $this->belongsTo('Modules\Laboratory\Entities\Laboratory', 'medicalorderlaboratoryexam_id', 'medicalorderlaboratoryexam_id');
+    }
+
 }

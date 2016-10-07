@@ -15,6 +15,18 @@ class ProfileCompleteness extends AbstractWidget
      */
     protected $config = [];
 
+    public function placeholder()
+    {
+        $loading = '<div class="box box-primary"><!--Consultations-->
+                <div class="box-header">
+                    <h3 class="box-title"><i class="fa fa-cog fa-spin fa-fw"></i> Loading Profile widget...</h3>
+                </div>
+            </div>';
+
+
+        return $loading;
+    }
+
     /**
      * Treat this method as a controller action.
      * Return view() or other content to display.

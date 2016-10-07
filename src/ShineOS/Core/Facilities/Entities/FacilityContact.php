@@ -69,7 +69,6 @@ class FacilityContact extends Model implements AuthenticatableContract, CanReset
         $contact->email_address = Input::get('email_address');
         $contact->mobile = Input::get('mobile');
         $contact->website = Input::get('website');
-        $contact->hospital_license_number = Input::get('hospital_license_number');
         $contact->house_no = Input::get('house_no');
         $contact->building_name = Input::get('building_name');
         $contact->street_name = Input::get('street_name');

@@ -13,7 +13,8 @@
                 @endif
             </a>
             <h5><strong>Member Since:</strong><br /> {{ $userInfo->created_at }}</h5>
-            <div class="alert alert-warning" role="alert">
+            
+            <div class="alert @if($profile_completeness['percent']==100) alert-success @else alert-warning @endif" role="alert">
                 <h4>{{ $profile_completeness['percent'] }}% complete</h4>
             </div>
         </div>

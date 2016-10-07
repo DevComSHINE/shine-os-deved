@@ -1,4 +1,6 @@
-<?php namespace ShineOS\Core\Healthcareservices\Entities;
+<?php
+
+namespace ShineOS\Core\Healthcareservices\Entities;
    
 use Illuminate\Database\Eloquent\Model;
 use DB;

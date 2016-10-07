@@ -1,5 +1,5 @@
 @extends('users::layouts.masterlogin')
-@section('title') ShineOS+ | Login @stop
+@section('title') SHINE OS+ | Login @stop
 
 @section('content')
     <style>
@@ -29,15 +29,15 @@
         <div class="col-md-1 leftrightfill"></div>
         <div class="intro-box col-md-6">
             <div class="jumbotron reg-jumbotron">
-            <h1 class="text-white">Welcome to <span class="smartolive">ShineOS</span><span class="text-white">+</span></h1>
+            <h1 class="text-white">Welcome to <span class="smartolive">SHINE OS</span><span class="text-white">+</span></h1>
             <h2 class="text-white">Version 3.0</h2>
             <h4>IMPORTANT NOTICE</h4>
-            <p class="lead">In this new version of ShineOS+, we need to <b>reset</b> your password to a new one. Please reset your password by entering your account email address and a new password.</p>
+            <p class="lead">In this new version of SHINE OS+, we need to <b>reset</b> your password to a new one. Please reset your password by entering your account email address and a new password.</p>
             </div>
         </div>
         <div class="form-box col-md-3" id="login-box">
 
-            <div class="header"><i>ShineOS+</i></div>
+            <div class="header"><i>SHINE OS+</i></div>
 
             {!! Form::open(array( 'url'=>'changeoldpassword', 'id'=>'ChangeOldPassword', 'name'=>'ChangeOldPassword' )) !!}
                 <div class="body">

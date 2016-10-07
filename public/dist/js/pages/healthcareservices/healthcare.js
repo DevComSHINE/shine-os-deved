@@ -39,19 +39,19 @@ Healthcare.init = function () {
    });
   $("#diag_cat").remoteChained({
      parents : "#diag_parent",
-     url : baseurl+"/lov/api/diagnosis/category",
+     url : baseurl+"lov/api/diagnosis/category",
      loading : "Loading . . ."
   });
 
   $("#diag_subcat").remoteChained({
       parents : "#diag_cat",
-      url : baseurl+"/lov/api/diagnosis/subCat",
+      url : baseurl+"lov/api/diagnosis/subCat",
       loading : "Loading . . ."
   });
 
   $("#diag_subsubcat").remoteChained({
     parents : "#diag_subcat",
-    url : baseurl+"/lov/api/diagnosis/subsubCat",
+    url : baseurl+"lov/api/diagnosis/subsubCat",
     loading : "Loading . . ."
   });
   $('#OT').on('ifChecked', function(event){
@@ -62,8 +62,13 @@ Healthcare.init = function () {
   });
 
    Healthcare.computeBMI();
-   Healthcare.impAndDIag();
-   Healthcare.medOrder();
+   if($('.diagnosis_input').length>0) {
+       Healthcare.impAndDIag();
+   }
+
+   if($('.medicalOrders').length > 0){
+       Healthcare.medOrder();
+   }
 
    if($('.diagnosis_input').length>0) {
        $('.diagnosis_input').autocomplete({
@@ -131,13 +136,13 @@ Healthcare.fireProcedureAutoComplete = function(id)
 }
 
 Healthcare.computeBMI = function () {
-    if($('input[name="height"]').val() != '' && $('input[name="weight"]').val() != '') {
-        var weight = $('input[name="weight"]').val();
-        var height = $('input[name="height"]').val();
+    if($('input[name="vitals[height]"]').val() != '' && $('input[name="vitals[weight]"]').val() != '') {
+        var weight = $('input[name="vitals[weight]"]').val();
+        var height = $('input[name="vitals[height]"]').val();
         var bmi = weight / (height / 100 * height / 100);
         bmi = Math.round(bmi * 100) / 100;
         $('p.bmiResult').text(isNaN(bmi) ? '' : bmi);
-        //$('input[name=bmi]').val(isNaN(bmi) ? '' : bmi);
+        $('input#bmi').val(isNaN(bmi) ? '' : bmi);
 
         if(bmi < 18.5) {
             $(".weightStat").html("<p class='bmi_result control-label'>Patient is Underweight.</p>");
@@ -153,9 +158,9 @@ Healthcare.computeBMI = function () {
         }
     }
 
-    $('input[name="height"], input[name="weight"]').on('keyup keydown keypress click change', function () {
-        var weight = $('input[name="weight"]').val();
-        var height = $('input[name="height"]').val();
+    $('input[name="vitals[height]"], input[name="vitals[weight]"]').on('keyup keydown keypress click change', function () {
+        var weight = $('input[name="vitals[weight]"]').val();
+        var height = $('input[name="vitals[height]"]').val();
         var bmi = weight / (height / 100 * height / 100);
         bmi = Math.round(bmi * 100) / 100;
         $('p.bmiResult').text(isNaN(bmi) ? '' : bmi);
@@ -288,7 +293,7 @@ function removePrescriptionTab() {
             pitems.each(function(){
                 var id = $(this).find("input.remid").val();
                 var mid = $(this).find("input.medid").val();
-                $(this).html('<input type="hidden" name="delete[type][]" value="MO_MED_PRESCRIPTION" /><input type="hidden" name="delete[MO_MED_PRESCRIPTION][medicalorder_id][]" value="'+mid+'" /><input type="hidden" name="delete[MO_MED_PRESCRIPTION][medicalorderprescription_id][]" value="'+id+'" />').addClass('removed').removeClass("added");
+                $(this).html('<input type="hidden" name="medicalorders[delete][type][]" value="MO_MED_PRESCRIPTION" /><input type="hidden" name="medicalorders[delete][MO_MED_PRESCRIPTION][medicalorder_id][]" value="'+mid+'" /><input type="hidden" name="medicalorders[delete][MO_MED_PRESCRIPTION][medicalorderprescription_id][]" value="'+id+'" />').addClass('removed').removeClass("added");
             })
         }
         $('#prescriptionTab textarea.instructions').html("");
@@ -307,7 +312,7 @@ function removeProcedureTab() {
             pitems.each(function(){
                 var id = $(this).find("input.remid").val();
                 var mid = $(this).find("input.medid").val();
-                $(this).html('<input name="delete[type][]" value="MO_PROCEDURE" type="hidden"><input type="hidden" name="delete[MO_PROCEDURE][medicalorder_id][]" value="'+mid+'" /><input type="hidden" name="delete[MO_PROCEDURE][medicalorderprocedure_id][]" value="'+id+'" />').addClass('removed').removeClass("added");
+                $(this).html('<input name="medicalorders[delete][type][]" value="MO_PROCEDURE" type="hidden"><input type="hidden" name="medicalorders[delete][MO_PROCEDURE][medicalorder_id][]" value="'+mid+'" /><input type="hidden" name="medicalorders[delete][MO_PROCEDURE][medicalorderprocedure_id][]" value="'+id+'" />').addClass('removed').removeClass("added");
             })
         }
         $('#procedureTab textarea.instructions').html("");
@@ -346,7 +351,7 @@ function lessPresc()
     $(".prescription_less").click(function(){
         var id = $(this).parents(".medical_prescription_item").find("input.remid").val();
 
-        $(this).parents(".medical_prescription_item").html('<input type="hidden" name="delete[type][]" value="MO_MED_PRESCRIPTION" /><input type="hidden" name="delete[MO_MED_PRESCRIPTION][medicalorderprescription_id][]" value="'+id+'" />').addClass('removed').removeClass("added");
+        $(this).parents(".medical_prescription_item").html('<input type="hidden" name="medicalorders[delete][type][]" value="MO_MED_PRESCRIPTION" /><input type="hidden" name="medicalorders[delete][MO_MED_PRESCRIPTION][medicalorderprescription_id][]" value="'+id+'" />').addClass('removed').removeClass("added");
 
         var newPrescCount = $('.medical_prescription_item.added').length;
         if(newPrescCount == 0) {
@@ -360,7 +365,7 @@ function lessProc()
     $(".procedure_less").click(function(){
         var id = $(this).parents(".medical_procedure_item").find("input.remid").val();
 
-        $(this).parents(".medical_procedure_item").html('<input name="delete[type][]" value="MO_PROCEDURE" type="hidden"><input type="hidden" name="delete[MO_PROCEDURE][medicalorderprocedure_id][]" value="'+id+'" />').addClass('removed').removeClass("added");
+        $(this).parents(".medical_procedure_item").html('<input name="medicalorders[delete][type][]" value="MO_PROCEDURE" type="hidden"><input type="hidden" name="medicalorders[delete][MO_PROCEDURE][medicalorderprocedure_id][]" value="'+id+'" />').addClass('removed').removeClass("added");
 
     })
 }
@@ -376,21 +381,25 @@ Healthcare.medOrder = function () {
           $('#medorders').find('[value="MO_MED_PRESCRIPTION"]').remove();
           $('.medicalOrders .nav-tabs li.prescTab').removeClass('hidden');
           $('#prescriptionTab').removeClass('hidden');
+          $('#medorderTabs a[href="#prescriptionTab"]').tab('show');
       }
       if($selected == 'MO_PROCEDURE') {
           $('#medorders').find('[value="MO_PROCEDURE"]').remove();
           $('.medicalOrders .nav-tabs li.procTab').removeClass('hidden');
           $('#procedureTab').removeClass('hidden');
+          $('#medorderTabs a[href="#procedureTab"]').tab('show');
       }
       if($selected == 'MO_LAB_TEST') {
           $('#medorders').find('[value="MO_LAB_TEST"]').remove();
           $('.medicalOrders .nav-tabs li.labTab').removeClass('hidden');
           $('#labTab').removeClass('hidden');
+          $('#medorderTabs a[href="#labTab"]').tab('show');
       }
       if($selected == 'MO_OTHERS') {
           $('#medorders').find('[value="MO_OTHERS"]').remove();
           $('.medicalOrders .nav-tabs li.otherTab').removeClass('hidden');
           $('#otherTab').removeClass('hidden');
+          $('#medorderTabs a[href="#otherTab"]').tab('show');
       }
 
       $('#medorders').prop('selectedIndex', 0);
@@ -437,7 +446,7 @@ Healthcare.medOrder = function () {
       var itemCount = $('.medical_prescription_item.added').length;
       var f = "none";
       var chkforms = $('.prescription_group').find('.required');
-      var formfield = "insert";
+      var formfield = "medicalorders[insert]";
       chkforms.each( function(e) {
           if( mayempty == 0 && ($(this).val() == "" || $(this).val() == "undefined" )) {
               f = $(this).attr('name');
@@ -445,7 +454,7 @@ Healthcare.medOrder = function () {
           };
       })
       if($('input[name=PrescriptionMedID]').val()) {
-          formfield = "update";
+          formfield = "medicalorders[update]";
       }
 
       if( $('input[name=Drug_Brand_Name]').val() ) {
@@ -454,7 +463,16 @@ Healthcare.medOrder = function () {
           brand = "<p>";
       }
 
-      var newform = '<div class="medical_prescription_item added"><input name="'+formfield+'[type][]" value="MO_MED_PRESCRIPTION" type="hidden" class="presctype"><input class="remid" name="'+formfield+'[medicalorder_id][]" value="'+$('input[name=prescriptionmedicalorder_id]').val()+'" type="hidden"><input name="'+formfield+'[MO_MED_PRESCRIPTION][medicalorderprescription_id][]" class="prescid" type="hidden" value="'+$('input[name=PrescriptionMedID]').val()+'"><input name="'+formfield+'[MO_MED_PRESCRIPTION][Drug_Code][]" class="dcode" type="hidden" value="'+$('textarea[name=Drug_Code]').val()+'"><input name="'+formfield+'[MO_MED_PRESCRIPTION][Drug_Brand_Name][]" type="hidden" class="brand" value="'+$('input[name=Drug_Brand_Name]').val()+'"><input name="'+formfield+'[MO_MED_PRESCRIPTION][Dose_Qty][]" type="hidden" class="dqty" value="'+$('input[name=Dose_Qty]').val()+'"><input name="'+formfield+'[MO_MED_PRESCRIPTION][Dose_UOM][]" class="dqtyuom" type="hidden" value="'+$('select[name=Dose_UOM]').val()+'"><input name="'+formfield+'[MO_MED_PRESCRIPTION][Total_Quantity][]" type="hidden" class="TQ" value="'+$('input[name=Total_Quantity]').val()+'"><input name="'+formfield+'[MO_MED_PRESCRIPTION][Total_Quantity_UOM][]" type="hidden" class="TQuom" value="'+$('select[name=Total_Quantity_UOM]').val()+'"><input name="'+formfield+'[MO_MED_PRESCRIPTION][dosage][]" type="hidden" class="regimen" value="'+$('select[name=dosage]').val()+'"><input name="'+formfield+'[MO_MED_PRESCRIPTION][Specify][]" type="hidden" class="regimenothers" value="'+$('textarea[name=Specify]').val()+'"><input name="'+formfield+'[MO_MED_PRESCRIPTION][Duration_Intake][]" type="hidden" class="di" value="'+$('input[name=Duration_Intake]').val()+'"><input name="'+formfield+'[MO_MED_PRESCRIPTION][Duration_Intake_Freq][]" type="hidden" class="dio" value="'+$('select[name=Duration_Intake_Freq]').val()+'"><input name="'+formfield+'[MO_MED_PRESCRIPTION][regimen_startend_date][]" type="hidden" class="regimen_dates" value="'+$('input[name=regimen_startend_date]').val()+'"><input name="'+formfield+'[MO_MED_PRESCRIPTION][Remarks][]" type="hidden" class="remarks" value="'+$('textarea[name=Remarks]').val()+'"><div class="col-md-12 form-group dynamic-row"><label class="col-md-1 control-label">&nbsp;</label><div class="col-md-10 has-feedback bordered-bottom"><h4>'+$('textarea[name=Drug_Code]').val()+' '+$('input[name=Dose_Qty]').val()+$('select[name=Dose_UOM]').val()+'  #'+$('input[name=Total_Quantity]').val()+' '+$('select[name=Total_Quantity_UOM]').val()+'</h4>'+brand+$('select[name=dosage] option:selected').html()+'<br />'+$('input[name=Duration_Intake]').val()+' '+$('select[name=Duration_Intake_Freq] option:selected').html()+' [ '+$('input[name=regimen_startend_date]').val()+' ]<br /><em>'+$('textarea[name=Remarks]').val()+'</em></p></div><div class="col-md-1"><span class="btn btn-default btn-sm prescription_less" id="" title="Remove Prescription"><i class="fa fa-times"></i></span><span class="btn btn-default btn-sm prescription_edit" id="" title="Edit Prescription"><i class="fa fa-pencil"></i></span></div></div>';
+      var duration_of_intake = $('select[name=Duration_Intake_Freq]').val();
+      var regimenstartenddate = '';
+      var regimenstartenddatestring = '';
+      if(duration_of_intake != 'C')
+      {
+        regimenstartenddate = $('input[name=regimen_startend_date]').val();
+        regimenstartenddatestring = ' [ ' + $('input[name=regimen_startend_date]').val() + ' ] ';
+      }
+
+      var newform = '<div class="medical_prescription_item added"><input name="' + formfield + '[type][]" value="MO_MED_PRESCRIPTION" type="hidden" class="presctype"><input class="remid" name="' + formfield + '[medicalorder_id][]" value="' + $('input[name=prescriptionmedicalorder_id]').val() + '" type="hidden"><input name="' + formfield + '[MO_MED_PRESCRIPTION][medicalorderprescription_id][]" class="prescid" type="hidden" value="' + $('input[name=PrescriptionMedID]').val() + '"><input name="' + formfield + '[MO_MED_PRESCRIPTION][Drug_Code][]" class="dcode" type="hidden" value="' + $('textarea[name=Drug_Code]').val() + '"><input name="' + formfield + '[MO_MED_PRESCRIPTION][Drug_Brand_Name][]" type="hidden" class="brand" value="' + $('input[name=Drug_Brand_Name]').val() + '"><input name="' + formfield + '[MO_MED_PRESCRIPTION][Dose_Qty][]" type="hidden" class="dqty" value="' + $('input[name=Dose_Qty]').val() + '"><input name="' + formfield + '[MO_MED_PRESCRIPTION][Dose_UOM][]" class="dqtyuom" type="hidden" value="' + $('select[name=Dose_UOM]').val() + '"><input name="' + formfield + '[MO_MED_PRESCRIPTION][Total_Quantity][]" type="hidden" class="TQ" value="' + $('input[name=Total_Quantity]').val() + '"><input name="' + formfield + '[MO_MED_PRESCRIPTION][Total_Quantity_UOM][]" type="hidden" class="TQuom" value="' + $('select[name=Total_Quantity_UOM]').val() + '"><input name="' + formfield + '[MO_MED_PRESCRIPTION][dosage][]" type="hidden" class="regimen" value="' + $('select[name=dosage]').val() + '"><input name="' + formfield + '[MO_MED_PRESCRIPTION][Specify][]" type="hidden" class="regimenothers" value="' + $('textarea[name=Specify]').val() + '"><input name="' + formfield + '[MO_MED_PRESCRIPTION][Duration_Intake][]" type="hidden" class="di" value="' + $('input[name=Duration_Intake]').val() + '"><input name="' + formfield + '[MO_MED_PRESCRIPTION][Duration_Intake_Freq][]" type="hidden" class="dio" value="' + $('select[name=Duration_Intake_Freq]').val() + '"><input name="' + formfield + '[MO_MED_PRESCRIPTION][regimen_startend_date][]" type="hidden" class="regimen_dates" value="' + regimenstartenddate + '"><input name="' + formfield + '[MO_MED_PRESCRIPTION][Remarks][]" type="hidden" class="remarks" value="' + $('textarea[name=Remarks]').val() + '"><div class="col-md-12 form-group dynamic-row"><label class="col-md-1 control-label">&nbsp;</label><div class="col-md-10 has-feedback bordered-bottom"><h4>' + $('textarea[name=Drug_Code]').val() + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#' + $('input[name=Total_Quantity]').val() + ' ' + $('select[name=Total_Quantity_UOM]').val() + '</h4>' + brand + '<br />' + $('input[name=Dose_Qty]').val() + $('select[name=Dose_UOM]').val() + ' - ' + $('select[name=dosage] option:selected').html() + '<br />' + $('input[name=Duration_Intake]').val() + ' ' + $('select[name=Duration_Intake_Freq] option:selected').html() + regimenstartenddatestring + '<br /><em>' + $('textarea[name=Remarks]').val() + '</em></p></div><div class="col-md-1"><span class="btn btn-default btn-sm prescription_less" id="" title="Remove Prescription"><i class="fa fa-times"></i></span><span class="btn btn-default btn-sm prescription_edit" id="" title="Edit Prescription"><i class="fa fa-pencil"></i></span></div></div>';
 
       if(mayempty == 0) {
           $('#medical_prescription_data').append(newform);
@@ -483,9 +501,9 @@ Healthcare.medOrder = function () {
               mayempty = 1;
           };
       })
-      var formfield = "insert";
+      var formfield = "medicalorders[insert]";
       if($('input[name=ProcedureMedID]').val()) {
-          formfield = "update";
+          formfield = "medicalorders[update]";
       }
 
       var newform = '<div class="medical_procedure_item added"><input name="'+formfield+'[type][]" value="MO_PROCEDURE" type="hidden" class="proctype"><input name="'+formfield+'[medicalorder_id][]" value="'+$('input[name=proceduremedicalorder_id]').val()+'" type="hidden" class="medorderid"><input class="remid" name="'+formfield+'[MO_PROCEDURE][medicalorderprocedure_id][]" type="hidden" class="procid" value="'+$('input[name=ProcedureMedID]').val()+'"><input name="'+formfield+'[MO_PROCEDURE][Procedure_Order][]" type="hidden" class="procorder" value="'+$('textarea[name=Procedure_Order]').val()+'"><input name="'+formfield+'[MO_PROCEDURE][Date_of_Procedure][]" type="hidden" class="procdate" value="'+$('input[name=Date_of_Procedure]').val()+'"><input name="'+formfield+'[MO_PROCEDURE][Procedure_Remarks][]" type="hidden" class="procinstruct" value="'+$('textarea[name=Procedure_Remarks]').val()+'"><div class="col-md-12 form-group dynamic-row"><label class="col-md-1 control-label">&nbsp;</label><div class="col-md-10 has-feedback bordered-bottom"><h4>'+$('textarea[name=Procedure_Order]').val()+'</h4><p>'+$('input[name=Date_of_Procedure]').val()+'<br /><em>'+$('textarea[name=Procedure_Remarks]').val()+'</em></p></div><div class="col-md-1"><span class="btn btn-default btn-sm procedure_less" id="" title="Remove Procedure"><i class="fa fa-times"></i></span><span class="btn btn-default btn-sm procedure_edit" id="" title="Edit Procedure"><i class="fa fa-pencil"></i></span></div></div>';
@@ -552,13 +570,15 @@ Healthcare.medOrder = function () {
 
    })
 
-   $( "#drug_input" ).autocomplete({
-        source: availableDrugs
-    });
+   if($('.medicalOrders').length > 0){
+       $( "#drug_input" ).autocomplete({
+            source: availableDrugs
+        });
 
-   $("#procedure_input").autocomplete({
-        source: availableProcedures
-    });
+       $("#procedure_input").autocomplete({
+            source: availableProcedures
+        });
+   }
 
     lessPresc();
     lessProc();

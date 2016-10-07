@@ -71,6 +71,7 @@ $(document).ready(function() {
     $('form').bootstrapValidator({
         message: 'This value is not valid',
         framework: 'bootstrap',
+        excluded: [':disabled'],
         icon: {
             valid: 'glyphicon glyphicon-ok',
             invalid: 'glyphicon glyphicon-remove',
@@ -311,7 +312,18 @@ $(document).ready(function() {
                     }
                 }
             },
-            "allergy[inputAllergyName][]": requiredalphaonly,
+            "allergy[inputAllergyName][]": {
+                enabled: false,
+                validators: {
+                  regexp: {
+                      regexp: /^[-a-zñÑ\s]+$/i,
+                      message: 'Alphabetical characters and spaces only'
+                  },
+                  notEmpty: {
+                    message: 'This is field required.'
+                  }
+                }
+            },
             "inputAlertOthers" : alphaonly,
             "update[MO_MED_PRESCRIPTION][Dose_Qty][]":numericonly,
             "insert[MO_MED_PRESCRIPTION][Dose_Qty][]":numericonly,
@@ -320,6 +332,14 @@ $(document).ready(function() {
             Dose_Qty:numericonly,
             Total_Quantity:numericonly,
             Duration_Intake:numericonly,
+            Required: {
+                selector: ".notempty",
+                validators: {
+                  notEmpty: {
+                    message: 'This is field required.'
+                  }
+                }
+            },
             NumericOnly: {
                 selector: ".numericonly",
                 validators: {
@@ -355,7 +375,42 @@ $(document).ready(function() {
               }
           }
         }
-      }).on('error.field.bv', function(e, data) {
+      })
+        .on('error.field.fv', function(e, data) {
+            // data.fv --> The FormValidation instance
+
+            // Get the first invalid field
+            var $invalidFields = data.bv.getInvalidFields().eq(0);
+
+            // Get the tab that contains the first invalid field
+            var $tabPane     = $invalidFields.parents('.tab-pane'),
+                invalidTabId = $tabPane.attr('id');
+
+            // If the tab is not active
+            if (!$tabPane.hasClass('active')) {
+                // Then activate it
+                $tabPane.parents('.tab-content')
+                        .find('.tab-pane')
+                        .each(function(index, tab) {
+                            var tabId = $(tab).attr('id'),
+                                $li   = $('a[href="#' + tabId + '"][data-toggle="tab"]').parent();
+
+                            if (tabId === invalidTabId) {
+                                // activate the tab pane
+                                $(tab).addClass('active');
+                                // and the associated <li> element
+                                $li.addClass('active');
+                            } else {
+                                $(tab).removeClass('active');
+                                $li.removeClass('active');
+                            }
+                        });
+
+                // Focus on the field
+                $invalidFields.focus();
+            }
+        })
+        .on('error.field.bv', function(e, data) {
             if (data.bv.getSubmitButton()) {
                 data.bv.disableSubmitButtons(false);
             }

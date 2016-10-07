@@ -131,6 +131,9 @@ br[clear=all] { margin:0; padding:0; height:0; }
     margin-bottom: 5px;
     display: inline-block;
 }
+.kbd-sm {
+    padding: 0px 3px;
+}
 .noPadding {
     padding:0 !important;
 }
@@ -310,13 +313,16 @@ a:focus {
   background: rgba(255, 255, 255, 0.9);
 }
 .main-header #navbar-search-input::-moz-placeholder {
+  font-style: italic;
   color: #ccc;
   opacity: 1;
 }
 .main-header #navbar-search-input:-ms-input-placeholder {
+  font-style: italic;
   color: #ccc;
 }
 .main-header #navbar-search-input::-webkit-input-placeholder {
+  font-style: italic;
   color: #ccc;
 }
 .main-header .navbar-custom-menu,
@@ -396,7 +402,7 @@ height: 20px;
   font-size: 16px;
   line-height: 50px;
   text-align: left;
-  width: 530px;
+  width: 173px;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   padding: 0 15px 0 0;
   font-weight: 300;
@@ -533,7 +539,7 @@ height: 20px;
   min-height: 100%;
   width: 200px;
   z-index: 810;
-  background-color: #3973A3;
+  background: #444444;
 
     -webkit-transition: -webkit-transform 0.3s ease-in-out, margin 0.3s ease-in-out;
       -moz-transition: -moz-transform 0.3s ease-in-out, margin 0.3s ease-in-out;
@@ -662,7 +668,8 @@ height: 20px;
   padding: 0;
 }
 .sidebar-menu > li.active {
-    background-color: rgba(25,90,140,.8);
+    background: rgba(0, 0, 0, 0.15) none repeat scroll 0% 0%;
+    color: #FFF;
 }
 .sidebar-menu > li.active::after {
     right: 0;
@@ -715,7 +722,7 @@ height: 20px;
 
 .sidebar-menu > li .label,
 .sidebar-menu > li .badge {
-  margin-top: 3px;
+  margin-top: 6px;
   margin-right: 5px;
 }
 .sidebar-menu li.header {
@@ -723,14 +730,14 @@ height: 20px;
   font-size: 12px;
 }
 .sidebar-menu li.special {
-        border-top:1px solid #4479A5;
-    border-bottom:1px solid #4479A5;
+  border-top:1px solid rgba(255,255,255,.1);
+  border-bottom:1px solid rgba(255,255,255,.1);
 }
 .sidebar-menu li.divider-top {
     border-top:1px solid rgba(255,255,255,.1);
 }
 .sidebar-menu li.divider-bottom {
-    border-bottom:1px solid #4479A5;
+    border-bottom:1px solid rgba(255,255,255,.1);
 }
 .sidebar-menu li > a > .fa-angle-left {
   width: auto;
@@ -1489,13 +1496,16 @@ height: 20px;
   box-shadow: none;
 }
 .form-control::-moz-placeholder {
+  font-style: italic;
   color: #bbb;
   opacity: 1;
 }
 .form-control:-ms-input-placeholder {
+  font-style: italic;
   color: #bbb;
 }
 .form-control::-webkit-input-placeholder {
+  font-style: italic;
   color: #bbb;
 }
 .form-control:not(select) {
@@ -1526,7 +1536,7 @@ height: 20px;
 }
 .help-block {
     position: relative;
-    margin-top: -4px;
+    margin-top: 5px;
     margin-bottom: 0px;
     color: red !important;
 }
@@ -1826,7 +1836,7 @@ height: 20px;
 }
 .box.box-solid > .box-header .btn:hover,
 .box.box-solid > .box-header a:hover {
-  background: rgba(0, 0, 0, 0.1) !important;
+  /*background: rgba(0, 0, 0, 0.1) !important;*/
 }
 .box.box-solid.box-default {
   border: 1px solid #d2d6de;
@@ -1981,7 +1991,10 @@ height: 20px;
   font-size: 18px;
   margin: 0;
   line-height: 1;
-  padding:10px 0 0;
+  padding:0;
+}
+.arrilot-widget-container .box-header .box-title {
+  padding:0;
 }
 .box-header > .fa,
 .box-header > .glyphicon,
@@ -2259,11 +2272,11 @@ height: 20px;
   font-size: 45px;
   background: transparent;
     margin-left: 15px;
-    padding-top: 13px;
+    padding-top: 30px;
 }
 .info-box-icon.patient-img {
-  height: 120px;
-  width: 120px;
+  height: 140px;
+  width: 140px;
 }
 .info-box-icon > img {
   max-width: 100%;
@@ -2623,6 +2636,17 @@ height: 20px;
 }
 .alert-info {
   border-color: #00acd6;
+}
+.alert-top {
+    position: fixed;
+    top: 0px;
+    z-index: 2000;
+    margin: 7px auto;
+    width: 65%;
+    padding: 6px;
+    text-align: center;
+    background-color: #222 !important;
+    color: #CF0 !important;
 }
 /*
  * Component: Nav
@@ -3594,7 +3618,7 @@ table.text-center th {
 .btn-social :first-child {
   position: absolute;
   left: 0;
-  top: -3px;
+  top: 0;
   bottom: 0;
   width: 32px !important;
   line-height: 34px !important;
@@ -4179,6 +4203,9 @@ table.text-center th {
 .pad {
   padding: 10px;
 }
+.pad20 {
+  padding: 20px;
+}
 .margin {
   margin: 10px;
 }
@@ -4481,6 +4508,12 @@ table.text-center th {
 .no-margin {
   margin: 0px !important;
 }
+.no-margin-top {
+  margin-top: 0px !important;
+}
+.no-margin-bottom {
+  margin-bottom: 0px !important;
+}
 .no-shadow {
   box-shadow: none!important;
 }
@@ -4690,7 +4723,7 @@ table.text-center th {
 .green {color: #8BC43F;}
 .blue { color: rgb(0,129,198) !important}
 
-.overflowx-hidden { overflow-x: hidden !important; padding-bottom: 50px !important; }
+.overflowx-hidden { overflow-x: hidden !important; padding-bottom: 80px !important; }
 
 .label-shine-blue, .bg-shine-blue { background: #0E8CCD !important }
 .label-shine-green, .bg-shine-green { background: #8dc542 !important }
@@ -4913,11 +4946,11 @@ form label.error {
 }
 
 
-.alert-warning {
+/*.alert-warning {
     color: #8a6d3b !important;
     background-color: #fcf8e3 !important;
     border-color: #faebcc !important;
-}
+}*/
 
 .clone {
     margin:5px 0;
@@ -4967,7 +5000,7 @@ form label.error {
 }
 .form-horizontal .control-label {
   color: #0E8CCD;
-  padding-top: 3px;
+  padding-top: 7px;
   font-size: 14px;
   font-style: italic;
   font-weight: normal;
@@ -4975,6 +5008,9 @@ form label.error {
 
 .btn-default:active, .btn-default.active {
   background-color: #00a65a !important;
+}
+.toggle .btn-default:active, .toggle .btn-default.active {
+  background-color: #DEDEDE !important;
 }
 
 .form-horizontal .form-group {
@@ -4984,12 +5020,16 @@ form label.error {
 
 
 /* form read only or disabled */
-.form-control[disabled], fieldset[disabled] .form-control,
+.form-control[disabled], fieldset[disabled] .form-control, fieldset[disabled] .input-group-addon,
 .viewonly .form-control[disabled], .viewonly .form-control[readonly],
 .viewonly fieldset[disabled] .form-control {
   border: 1px solid #f9f9f9 !important;
   background-color: #f9f9f9 !important;
   box-shadow: none;
+}
+fieldset[disabled] .input-group-addon i.fa, fieldset[disabled] .input-group i.fa,
+fieldset[disabled] .form-group i.fa {
+    color: #ccc;
 }
 
 .noresize { resize: none; }
@@ -4998,7 +5038,10 @@ form label.error {
 
 form#wizardForm label.error {
     right: 24px !important;
-    top: 6px !important;
+    top: -3px !important;
+    width: 100%;
+    position: relative;
+    margin-left: 30px;
 }
 
 #disabilities {
@@ -5045,15 +5088,21 @@ td .btn-group {
   padding-top: 5px;
 }
 .deadPatient-button {
-    margin: 0 6px;
+    margin: 0 !important;
 }
 label.control-label {
     color: #0e8ccd;
     font-size: 14px;
     font-style: italic;
     font-weight: normal;
-    padding: 3px 15px 0;
+    padding: 7px 15px 0;
 }
+label.in-control-label {
+    position: absolute;
+    right: 26px;
+    color: #BBB;
+}
+
 .rosystems label.control-label {
     padding: 0;
 
@@ -5230,6 +5279,10 @@ tr.row-clicker:hover {
 .checkbox input[type="checkbox"], .checkbox-inline input[type="checkbox"], .radio input[type="radio"], .radio-inline input[type="radio"] {
     margin-top: 2px !important;
 }
+table.dataTable tr th {
+    white-space: nowrap;
+    padding-right: 23px !important;
+}
 table.dataTable thead > tr > th.nosort {
     padding-right: 10px;
 }
@@ -5241,6 +5294,51 @@ table.dataTable thead > tr > th.nosort {
 }
 #results p {
     padding:0 15px 15px;
+}
+table#dataTable_patients li.widehide {
+    display:none;
+}
+table#dataTable_healthcare a.widehide, table#dataTable_healthcare li.widehide {
+        display:none;
+    }
+
+@media (max-width: 1100px) {
+    table#dataTable_patients th:nth-child(6), table#dataTable_patients td:nth-child(6),
+    table#dataTable_patients th:nth-child(7), table#dataTable_patients td:nth-child(7),
+    table#dataTable_healthcare th:nth-child(4), table#dataTable_healthcare td:nth-child(4),
+    table#dataTable_healthcare th:nth-child(5), table#dataTable_healthcare td:nth-child(5) {
+        display:none;
+        visibility: hidden;
+    }
+    table#dataTable_patients a.smalhide, table#dataTable_healthcare a.smalhide {
+        display:block;
+    }
+    table.dataTable tr th {
+        white-space: nowrap;
+        padding-right: 15px !important;
+    }
+}
+@media (max-width: 960px) {
+    table#dataTable_patients a.smalhide, table#dataTable_healthcare a.smalhide {
+        display:none;
+    }
+    table#dataTable_patients li.widehide, table#dataTable_healthcare li.widehide {
+        display:block;
+    }
+    table.dataTable tr th {
+        white-space: nowrap;
+        padding-right: 15px !important;
+    }
+}
+@media (max-width: 800px) {
+    table#dataTable_patients th:nth-child(5), table#dataTable_patients td:nth-child(5),
+    table#dataTable_healthcare th:nth-child(5), table#dataTable_healthcare td:nth-child(5) {
+        display:none;
+        visibility: hidden;
+    }
+    table#dataTable_healthcare a.widehide {
+        display:block;
+    }
 }
 
 /* Let us make this buttons equal in width */
@@ -5330,6 +5428,32 @@ select.se {
 #extensions .icheckbox_square-green.disabled {
     background-position: 0 0;
 }
+#extensions form.extBoxForm {
+    display: inline-block;
+    float: right;
+    padding:0;
+}
+#extensions .box-body {
+    min-height: 175px;
+}
+#extensions .box-body dt {
+    color: #FFF;
+    display: inline-block;
+    width: 120px;
+    height: 120px;
+    float: left;
+    margin-right: 15px;
+    background-color: #84c227;
+    text-align: center;
+    vertical-align: middle;
+    margin-bottom: 35px;
+    font-size: 50px;
+    line-height: 111px;
+}
+#extensions .box.box-solid.box-default > .box-header {
+  color: #444444;
+  background-color: #efefef;
+}
 .dataTable .pat_img {
     width: 20px;
     height: 20px;
@@ -5415,4 +5539,117 @@ select.se {
     padding: 10px 15px;
     text-transform: uppercase;
     font-weight: 700;
+}
+#healthcareForm h3.sectionName {
+    margin-top: 0;
+    padding: 15px;
+    background-color: #EEE;
+    margin-right: -15px;
+    margin-left: -15px;
+}
+.mainbuttons {
+    position: fixed;
+    bottom:0;
+    border-top:1px solid #EEE;
+    background-color: #FFF;
+    padding: 10px 10px 10px 212px;
+    left: 0;
+    z-index: 5;
+}
+#healthcareForm.collapse .tab-pane button[type=Submit] {
+    display: none;
+}
+#healthcareForm .info-box h2 .toggle {
+    float: right;
+    margin-top:5px;
+}
+#healthcareForm .tab-content h3.sectionName {
+    display:none;
+}
+.patient-form form dd, .patient-form form dt {
+    font-size: 12px;
+    vertical-align: middle;
+    padding-top: 2px;
+    font-weight: 300;
+}
+#history dl {
+    margin-top: 0;
+    margin-bottom: 5px;
+}
+
+/* CSS for Credit Card Payment form */
+.credit-card-box .panel-title {
+    display: inline;
+    font-weight: bold;
+}
+.credit-card-box .form-control.error {
+    border-color: red;
+    outline: 0;
+    box-shadow: inset 0 1px 1px rgba(0,0,0,0.075),0 0 8px rgba(255,0,0,0.6);
+}
+.credit-card-box label.error {
+  font-weight: bold;
+  color: red;
+  padding: 2px 8px;
+  margin-top: 2px;
+}
+.credit-card-box .payment-errors {
+  font-weight: bold;
+  color: red;
+  padding: 2px 8px;
+  margin-top: 2px;
+}
+.credit-card-box label {
+    display: block;
+}
+/* The old "center div vertically" hack */
+.credit-card-box .display-table {
+    display: table;
+}
+.credit-card-box .display-tr {
+    display: table-row;
+}
+.credit-card-box .display-td {
+    display: table-cell;
+    vertical-align: middle;
+    width: 50%;
+}
+/* Just looks nicer */
+.credit-card-box .panel-heading img {
+    min-width: 180px;
+}
+
+/*Btn disable*/
+fieldset[disabled] .btn-warning {
+    background-color: #F5C98B !important;
+    border-color: #F4C27C !important;
+    opacity: 1 !important;
+}
+
+/*Btn clone*/
+.btnlike {
+    display: inline-block;
+    padding: 4px 12px;
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
+
+/* PHIE Lite fields */
+.phie {
+
 }

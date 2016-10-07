@@ -1,11 +1,11 @@
 @extends('layout.master')
-@section('title') ShineOS+ || Search @stop
+@section('title') SHINE OS+ || Search @stop
 
 @section('page-header')
   <section class="content-header">
     <h1>
       <i class="fa fa-search"></i>
-      Search
+      Advanced Search
     </h1>
     <ol class="breadcrumb">
       <li><a href="{{ url('/') }}"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -30,14 +30,14 @@
 
                 @if (Session::has('message'))
                     <div class="alert alert-dismissible alert-success">
-                        <button type="button" class="close" data-dismiss="alert">Ã—</button>
+                        <button type="button" class="close" data-dismiss="alert"><i class="fa fa-times"></i></button>
                         <p>{{ Session::get('message') }}</p>
                     </div>
                 @endif
 
                 @if (Session::has('warning'))
                     <div class="alert alert-dismissible alert-warning">
-                        <button type="button" class="close" data-dismiss="alert">Ã—</button>
+                        <button type="button" class="close" data-dismiss="alert"><i class="fa fa-times"></i></button>
                         <p>{{ Session::get('warning') }}</p>
                     </div>
                 @endif
@@ -112,19 +112,29 @@
                       <hr />
 
                       <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                           <div class="form-group">
-                            <label class="col-sm-2 control-label">Diagnosis</label>
-                            <div class="col-sm-10">
+                            <label class="col-sm-3 control-label">Clinical Service</label>
+                            <div class="col-sm-9">
+                              {!! Form::select('input_healthcare_services', $healthcareservices, '',
+                        ['class' => 'form-control', 'id'=> 'healthcare_services']) !!}
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="col-md-4">
+                          <div class="form-group">
+                            <label class="col-sm-3 control-label">Diagnosis</label>
+                            <div class="col-sm-9">
                               <input type="text" class="form-control" name="input_diagnosis" id="input_diagnosis">
                             </div>
                           </div>
                         </div>
 
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                           <div class="form-group">
-                            <label class="col-sm-2 control-label">Medical Order</label>
-                            <div class="col-sm-10">
+                            <label class="col-sm-3 control-label">Medical Order</label>
+                            <div class="col-sm-9">
                             <select class="form-control" id="input_medicalOrder" name="input_medicalOrder">
                               <option value="" selected="selected">-- Select a medical order --</option>
                               <option value="MO_MED_PRESCRIPTION">Give Medical Prescription</option>

@@ -66,9 +66,8 @@ diagnosis_id,diagnosis_name,diagnosis_desc,sequence_num,diagnosis_type
 68,Upper Respiratory Tract Infection Viral,NULL,70,NULL
 69,Xerophthalmia,NULL,72,NULL
 7,Acute Tonsillopharyngitis Viral,NULL,6,NULL
-70,Others,NULL,73,NULL
-71,Persistent Diarrhea,NULL,53,NULL
-72,Severe Pneumonia,NULL,63,NULL
-73,Tuberculosis - Symptomatic,NULL,67,NULL
+70,Persistent Diarrhea,NULL,53,NULL
+71,Severe Pneumonia,NULL,63,NULL
+72,Tuberculosis - Symptomatic,NULL,67,NULL
 8,Adverse Events following Immunization (PIDSR - Category I),NULL,8,NULL
 9,Anthrax (PIDSR - Catergory I),NULL,10,NULL

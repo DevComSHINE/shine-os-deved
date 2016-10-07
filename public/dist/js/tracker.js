@@ -11,8 +11,8 @@ $(function () {
        var myName = this.name;
        var myLabel = $(this).prop('placeholder');
        $.ajax({
-            url : "/shineosv30-devpack/default/track",
-            async : false,
+            url : baseurl+"default/track",
+            async : true,
             dataType : "json",
             data : {
                 url: window.location.href,
@@ -25,7 +25,7 @@ $(function () {
                 action: "focus"
             },
             headers: {
-              'X-CSRF-Token': $('meta[name="_token"]').attr('content')
+              'X-CSRF-Token': $('span[name="_token"]').attr('content')
             },
             method: 'post',
             success : function( jsn ) {
@@ -37,8 +37,8 @@ $(function () {
        var myName = this.name;
        var myLabel = $(this).prop('placeholder');
        $.ajax({
-            url : "/shineosv30-devpack/default/track",
-            async : false,
+            url : baseurl+"default/track",
+            async : true,
             dataType : "json",
             data : {
                 url: window.location.href,
@@ -51,7 +51,7 @@ $(function () {
                 action: "blur"
             },
             headers: {
-              'X-CSRF-Token': $('meta[name="_token"]').attr('content')
+              'X-CSRF-Token': $('span[name="_token"]').attr('content')
             },
             method: 'post',
             success : function( jsn ) {
@@ -62,8 +62,8 @@ $(function () {
     $('select').on('click', function(e) {
        var myName = this.name;
        $.ajax({
-            url : "/shineosv30-devpack/default/track",
-            async : false,
+            url : baseurl+"default/track",
+            async : true,
             dataType : "json",
             data : {
                 url: window.location.href,
@@ -76,7 +76,7 @@ $(function () {
                 action: "click"
             },
             headers: {
-              'X-CSRF-Token': $('meta[name="_token"]').attr('content')
+              'X-CSRF-Token': $('span[name="_token"]').attr('content')
             },
             method: 'post',
             success : function( jsn ) {
@@ -87,8 +87,8 @@ $(function () {
     $('select').on('change', function(e) {
        var myName = this.name;
        $.ajax({
-            url : "/shineosv30-devpack/default/track",
-            async : false,
+            url : baseurl+"default/track",
+            async : true,
             dataType : "json",
             data : {
                 url: window.location.href,
@@ -101,7 +101,7 @@ $(function () {
                 action: "change"
             },
             headers: {
-              'X-CSRF-Token': $('meta[name="_token"]').attr('content')
+              'X-CSRF-Token': $('span[name="_token"]').attr('content')
             },
             method: 'post',
             success : function( jsn ) {
@@ -112,8 +112,8 @@ $(function () {
     $('textarea').on('click', function(e) {
        var myName = this.name;
        $.ajax({
-            url : "/shineosv30-devpack/default/track",
-            async : false,
+            url : baseurl+"default/track",
+            async : true,
             dataType : "json",
             data : {
                 url: window.location.href,
@@ -126,7 +126,7 @@ $(function () {
                 action: "click"
             },
             headers: {
-              'X-CSRF-Token': $('meta[name="_token"]').attr('content')
+              'X-CSRF-Token': $('span[name="_token"]').attr('content')
             },
             method: 'post',
             success : function( jsn ) {
@@ -137,8 +137,8 @@ $(function () {
     $('textarea').on('blur', function(e) {
        var myName = this.name;
        $.ajax({
-            url : "/shineosv30-devpack/default/track",
-            async : false,
+            url : baseurl+"default/track",
+            async : true,
             dataType : "json",
             data : {
                 url: window.location.href,
@@ -151,7 +151,7 @@ $(function () {
                 action: "blur"
             },
             headers: {
-              'X-CSRF-Token': $('meta[name="_token"]').attr('content')
+              'X-CSRF-Token': $('span[name="_token"]').attr('content')
             },
             method: 'post',
             success : function( jsn ) {
@@ -164,8 +164,8 @@ $(function () {
         var myValue = $(this).find("input").attr('value');
         var myLabel = $(this).text().trim();
         $.ajax({
-            url : "/shineosv30-devpack/default/track",
-            async : false,
+            url : baseurl+"default/track",
+            async : true,
             dataType : "json",
             data : {
                 url: window.location.href,
@@ -178,7 +178,7 @@ $(function () {
                 action: "click"
             },
             headers: {
-              'X-CSRF-Token': $('meta[name="_token"]').attr('content')
+              'X-CSRF-Token': $('span[name="_token"]').attr('content')
             },
             method: 'post',
             success : function( jsn ) {
@@ -192,8 +192,8 @@ $(function () {
         var myLabel = $(this).parents('label').text().trim();
         var myID = $(this).siblings('input').prop('id');
         $.ajax({
-            url : "/shineosv30-devpack/default/track",
-            async : false,
+            url : baseurl+"default/track",
+            async : true,
             dataType : "json",
             data : {
                 url: window.location.href,
@@ -206,7 +206,7 @@ $(function () {
                 action: "click"
             },
             headers: {
-              'X-CSRF-Token': $('meta[name="_token"]').attr('content')
+              'X-CSRF-Token': $('span[name="_token"]').attr('content')
             },
             method: 'post',
             success : function( jsn ) {
@@ -220,8 +220,8 @@ $(function () {
         var myName = $(this).prop('name');
         var myHref = $(this).prop('href');
         $.ajax({
-            url : "/shineosv30-devpack/default/track",
-            async : false,
+            url : baseurl+"default/track",
+            async : true,
             dataType : "json",
             data : {
                 url: window.location.href,
@@ -234,7 +234,7 @@ $(function () {
                 action: "click"
             },
             headers: {
-              'X-CSRF-Token': $('meta[name="_token"]').attr('content')
+              'X-CSRF-Token': $('span[name="_token"]').attr('content')
             },
             method: 'post',
             success : function( jsn ) {
@@ -248,8 +248,8 @@ $(function () {
         var myName = $(this).prop('name');
         var myHref = $(this).prop('href');
         $.ajax({
-            url : "/shineosv30-devpack/default/track",
-            async : false,
+            url : baseurl+"default/track",
+            async : true,
             dataType : "json",
             data : {
                 url: window.location.href,
@@ -262,7 +262,7 @@ $(function () {
                 action: "click"
             },
             headers: {
-              'X-CSRF-Token': $('meta[name="_token"]').attr('content')
+              'X-CSRF-Token': $('span[name="_token"]').attr('content')
             },
             method: 'post',
             success : function( jsn ) {
@@ -270,14 +270,14 @@ $(function () {
             }
         });
     });
-    $('.nav-tabs a').on('click', function(){
+    $('.nav-tabs a').on('mousedown', function(){
         var myLabel = $(this).text().trim();
         var myID = $(this).prop('id');
         var myName = $(this).prop('name');
         var myHref = $(this).prop('href');
         $.ajax({
-            url : "/shineosv30-devpack/default/track",
-            async : false,
+            url : baseurl+"default/track",
+            async : true,
             dataType : "json",
             data : {
                 url: window.location.href,
@@ -290,7 +290,7 @@ $(function () {
                 action: "click"
             },
             headers: {
-              'X-CSRF-Token': $('meta[name="_token"]').attr('content')
+              'X-CSRF-Token': $('span[name="_token"]').attr('content')
             },
             method: 'post',
             success : function( jsn ) {
@@ -304,8 +304,8 @@ $(function () {
         var myName = $(this).prop('name');
         var myHref = $(this).prop('href');
         $.ajax({
-            url : "/shineosv30-devpack/default/track",
-            async : false,
+            url : baseurl+"default/track",
+            async : true,
             dataType : "json",
             data : {
                 url: window.location.href,
@@ -318,7 +318,7 @@ $(function () {
                 action: "click"
             },
             headers: {
-              'X-CSRF-Token': $('meta[name="_token"]').attr('content')
+              'X-CSRF-Token': $('span[name="_token"]').attr('content')
             },
             method: 'post',
             success : function( jsn ) {
@@ -332,8 +332,8 @@ $(function () {
         var myHref = $(this).prop('onclick');
         var myID = $(this).prop('id');
         $.ajax({
-            url : "/shineosv30-devpack/default/track",
-            async : false,
+            url : baseurl+"default/track",
+            async : true,
             dataType : "json",
             data : {
                 url: window.location.href,
@@ -346,7 +346,7 @@ $(function () {
                 action: "click"
             },
             headers: {
-              'X-CSRF-Token': $('meta[name="_token"]').attr('content')
+              'X-CSRF-Token': $('span[name="_token"]').attr('content')
             },
             method: 'post',
             success : function( jsn ) {

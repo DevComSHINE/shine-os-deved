@@ -13,11 +13,7 @@
 
 Route::get('/', function()
 {
-    if ( shineos_is_installed() ){
-        return Redirect::to('dashboard/');
-    } else {
-        return Redirect::to('default/');
-    }
+    return Redirect::to('default/');
 });
 
 Route::get('/selectfacility', function () {

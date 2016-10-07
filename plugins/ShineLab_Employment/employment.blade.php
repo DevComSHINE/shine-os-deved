@@ -1,5 +1,6 @@
 
 <?php
+    $id_number = NULL;
     $occupation = NULL;
     $company_phone = NULL;
     $company_name = NULL;
@@ -15,6 +16,7 @@
     if($plugdata) {
         $employment = $plugdata;
 
+        $id_number = $employment->id_number;
         $occupation = $employment->occupation;
         $company_phone = $employment->company_phone;
         $company_name = $employment->company_name;
@@ -39,7 +41,14 @@
     <fieldset>
         <input type="hidden" name="id" value="{{ $pluginData->id or NULL }}" />
         <input type="hidden" name="patient_id" value="{{ $patient->patient_id }}" />
+
         <legend>Employment Information</legend>
+        <div class="form-group has-feedback">
+            <label class="col-sm-2 control-label">ID #</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control aplha" placeholder="ID #" name="id_number" value="{{ $id_number }}" />
+            </div>
+        </div>
         <div class="form-group has-feedback">
             <label class="col-sm-2 control-label">Occupation/Position</label>
             <div class="col-sm-10">

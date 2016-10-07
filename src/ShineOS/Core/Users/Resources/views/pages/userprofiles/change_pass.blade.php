@@ -11,17 +11,17 @@
         <div class="form-group">
             <label for="inputNewPassword" class="col-sm-2 control-label">New Password</label>
             <div class="col-sm-10">
-                <input type="password" class="form-control password" id="newPassword" name="newPassword" placeholder="New Password" value="" />
+                <input type="password" class="form-control newpassword" id="newPassword" name="newPassword" placeholder="New Password" value="" />
             </div>
         </div>
         <div class="form-group">
             <label for="inputVerifyPassword" class="col-sm-2 control-label">Verify Password</label>
             <div class="col-sm-10">
-                <input type="password" class="form-control confirmPassword" id="confirmPassword" name="confirmPassword" placeholder="Verify Password" value="" />
+                <input type="password" class="form-control newconfirmPassword" id="confirmPassword" name="confirmPassword" placeholder="Verify Password" value="" />
             </div>
         </div>
     </div>
     <div class="box-footer">
-        <input type="submit" class="btn btn-success pull-right"/>
+        <input type="submit" class="btn btn-success pull-right" value="Change Password" />
     </div>
 {!! Form::close() !!}

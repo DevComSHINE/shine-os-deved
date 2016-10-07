@@ -87,6 +87,28 @@ class HealthcareRepository extends AbstractRepository implements HealthcareRepos
         return json_encode($data);
     }
 
+    public function findMaintenanceDrugsByPatientid($patient_id, $return_type = NULL) {
+
+        $maintenancemeds =  Healthcareservices::join('facility_patient_user','healthcare_services.facilitypatientuser_id','=','facility_patient_user.facilitypatientuser_id')
+                ->join('patients','patients.patient_id','=','facility_patient_user.patient_id')
+                ->join('medicalorder','medicalorder.healthcareservice_id','=','healthcare_services.healthcareservice_id')
+                ->leftJoin('medicalorder_prescription','medicalorder_prescription.medicalorder_id','=','medicalorder.medicalorder_id')
+                ->where('patients.patient_id', $patient_id)
+                ->where('patients.deleted_at', NULL)
+                ->where('medicalorder_prescription.duration_of_intake', '  C' )
+                ->where('facility_patient_user.deleted_at', NULL)
+                ->get();
+
+        /*MedicalOrder::with('MedicalOrderLabExam')->with('MedicalOrderPrescription')->with('MedicalOrderProcedure')->with('facilityPatientUser')->with('patients')->where('patient_id', $patient_id)->get();*/
+
+        if ($return_type == 'arr')
+        {
+            return $maintenancemeds;
+        }
+
+        return json_encode($maintenancemeds);
+    }
+
     public function findDispositionByHealthcareserviceid($healthcareservice_id, $return_type = NULL) {
         $data = Healthcareservices::with('Disposition')->has('Disposition')->where('healthcareservice_id', $healthcareservice_id)->first();
 
@@ -113,9 +135,13 @@ class HealthcareRepository extends AbstractRepository implements HealthcareRepos
         $data = Healthcareservices::with(array('GeneralConsultation', 'VitalsPhysical', 'Diagnosis' => function($query) {
                 $query->with('DiagnosisICD10');
             },
-            'Examination', 'MedicalOrder', 'Disposition', 'Addendum' => function($query) {
+            'Examination', 'MedicalOrder', 'Disposition' => function($query) {
+                $query->whereNotNull('disposition');
+            }, 'Addendum' => function($query) {
                 $query->orderBy('created_at', 'DESC');
-            }))
+            }
+            )
+        )
         ->where('healthcareservice_id', $healthcareservice_id)->get();
 
         if ($return_type == 'arr')
@@ -135,9 +161,10 @@ class HealthcareRepository extends AbstractRepository implements HealthcareRepos
                 ->join('facility_user','facility_patient_user.facilityuser_id','=','facility_user.facilityuser_id')
                 ->join('facilities','facilities.facility_id','=','facility_user.facility_id')
                 ->join('patients','patients.patient_id','=','facility_patient_user.patient_id')
-
                 ->where('facilities.facility_id', $facility_id)
                 ->where('healthcare_services.deleted_at','=',NULL)
+                ->where('facility_patient_user.deleted_at','=',NULL)
+                ->where('patients.deleted_at','=',NULL)
                 ->orderBy('healthcare_services.encounter_datetime', 'DESC')
                 ->skip($skip)
                 ->take($limit)
@@ -157,6 +184,8 @@ class HealthcareRepository extends AbstractRepository implements HealthcareRepos
                 ->join('facilities','facilities.facility_id','=','facility_user.facility_id')
                 ->join('patients','patients.patient_id','=','facility_patient_user.patient_id')
                 ->where('patients.patient_id', $patient_id)
+                ->where('patients.deleted_at', NULL)
+                ->where('facility_patient_user.deleted_at', NULL)
                 ->orderBy('healthcare_services.encounter_datetime', 'DESC')
                 ->take($limit)
                 ->get();

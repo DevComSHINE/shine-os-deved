@@ -117,10 +117,9 @@ class Reports {
 
         $data['top_patients'] = DB::select('SELECT patients.patient_id, patients.last_name, patients.first_name, patients.middle_name, patients.photo_url, count(*) as visits FROM healthcare_services JOIN facility_patient_user ON healthcare_services.facilitypatientuser_id = facility_patient_user.facilitypatientuser_id JOIN patients ON facility_patient_user.patient_id = patients.patient_id WHERE facility_patient_user.facilityuser_id = :facid AND patients.deleted_at IS NULL AND healthcare_services.created_at BETWEEN :from_date AND :to_date GROUP BY healthcare_services.facilitypatientuser_id ORDER BY count(*) DESC LIMIT 10', ['from_date' => $from, 'to_date' => $to, 'facid' => $facilityInfo->facilityUser[0]->facilityuser_id]);
 
-        $data['count_by_gender_sex'] = Patients::select('gender', DB::raw('count(*) as total'))
-            ->whereBetween('created_at', [$from, $to])
+        $data['count_by_gender_sex'] = Patients::select(DB::raw('CASE WHEN gender = "F" THEN "F" WHEN gender = "M" THEN "M" WHEN gender <> "F" THEN "U" WHEN gender <> "M" THEN "U" WHEN gender IS NULL THEN "U" END as genderu, count(*) as total'))
             ->where('deleted_at', NULL)
-            ->groupby('gender')
+            ->groupby('genderu')
             ->whereHas('facilityUser', function($query) use ($facilityInfo) {
                     $query->where('facility_id', '=', $facilityInfo->facilityUser[0]->facility_id);
             })
@@ -141,13 +140,12 @@ class Reports {
               FROM (SELECT TIMESTAMPDIFF(YEAR, birthdate, CURDATE()) AS age FROM patients
               JOIN facility_patient_user ON facility_patient_user.patient_id = patients.patient_id
               JOIN facility_user ON facility_patient_user.facilityuser_id = facility_user.facilityuser_id
-              WHERE facility_patient_user.facilityuser_id = "'.$facilityInfo->facilityUser[0]->facilityuser_id.'" AND patients.deleted_at IS NULL AND patients.created_at BETWEEN :from_date AND :to_date) as derived
-              GROUP BY age_range',
-               ['from_date' => $from, 'to_date' => $to]);
+              WHERE facility_patient_user.facilityuser_id = "'.$facilityInfo->facilityUser[0]->facilityuser_id.'" AND patients.deleted_at IS NULL) as derived
+              GROUP BY age_range');
 
-        $data['count_by_services_rendered'] = DB::select('SELECT healthcareservicetype_id, count(*) as total FROM healthcare_services WHERE healthcare_services.deleted_at IS NULL AND healthcare_services.created_at BETWEEN :from_date AND :to_date group by facilitypatientuser_id ORDER BY count(*) DESC', ['from_date' => $from, 'to_date' => $to]);
+        $data['count_by_services_rendered'] = DB::select('SELECT healthcareservicetype_id, count(*) as total FROM healthcare_services JOIN facility_patient_user ON facility_patient_user.facilitypatientuser_id = healthcare_services.facilitypatientuser_id JOIN facility_user ON facility_patient_user.facilityuser_id = facility_user.facilityuser_id WHERE healthcare_services.deleted_at IS NULL AND healthcare_services.created_at BETWEEN :from_date AND :to_date AND facility_patient_user.facilityuser_id = "'.$facilityInfo->facilityUser[0]->facilityuser_id.'" group by facilitypatientuser_id ORDER BY count(*) DESC', ['from_date' => $from, 'to_date' => $to]);
 
-        $data['count_by_disease'] = DB::select('SELECT healthcareservicetype_id, count(*) as total FROM healthcare_services JOIN general_consultation ON healthcare_services.healthcareservice_id = general_consultation.healthcareservice_id JOIN diagnosis ON healthcare_services.healthcareservice_id = diagnosis.healthcareservice_id JOIN lov_diseases ON diagnosis.diagnosislist_id = lov_diseases.disease_id WHERE healthcare_services.deleted_at IS NULL AND healthcare_services.created_at BETWEEN :from_date AND :to_date group by facilitypatientuser_id ORDER BY count(*) DESC', ['from_date' => $from, 'to_date' => $to]);
+        $data['count_by_disease'] = DB::select('SELECT diagnosis.diagnosislist_id, count(*) as total FROM healthcare_services JOIN diagnosis ON healthcare_services.healthcareservice_id = diagnosis.healthcareservice_id  JOIN facility_patient_user ON facility_patient_user.facilitypatientuser_id = healthcare_services.facilitypatientuser_id JOIN facility_user ON facility_patient_user.facilityuser_id = facility_user.facilityuser_id WHERE healthcare_services.deleted_at IS NULL AND healthcare_services.created_at BETWEEN :from_date AND :to_date AND facility_patient_user.facilityuser_id = "'.$facilityInfo->facilityUser[0]->facilityuser_id.'" group by diagnosis.diagnosislist_id ORDER BY count(*) DESC', ['from_date' => $from, 'to_date' => $to]);
 
         return $data;
     }

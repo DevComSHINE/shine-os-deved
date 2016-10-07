@@ -27,15 +27,15 @@ use Shine\Libraries\FacilityHelper;
  */
 function getAllHealthcareByFacilityIDwOptions($id, $search = NULL, $order = NULL, $dir = NULL, $limit = NULL, $offset = NULL) {
 
-    $sql = "patients.deleted_at IS NULL AND healthcare_services.deleted_at IS NULL";
+    $sql = "deleted_at IS NULL AND hcdeleted IS NULL";
 
     if($search) {
-        $sql .= ' AND (patients.first_name LIKE "%'.$search.'%" OR patients.last_name LIKE "%'.$search.'%" OR patients.middle_name LIKE "%'.$search.'%" OR healthcare_services.healthcareservicetype_id LIKE "%'.$search.'%" OR healthcare_services.encounter_type LIKE "%'.$search.'%")';
+        $sql .= ' AND (first_name LIKE "%'.$search.'%" OR last_name LIKE "%'.$search.'%" OR middle_name LIKE "%'.$search.'%" OR healthcareservicetype_id LIKE "%'.$search.'%" OR encounter_type LIKE "%'.$search.'%")';
     }
     if(strpos($order, 'name') > 1) {
-        $sql .= ' order by patients.'.$order.' '.$dir;
+        $sql .= ' order by '.$order.' '.$dir;
     } else {
-        $sql .= ' order by healthcare_services.'.$order.' '.$dir;
+        $sql .= ' order by '.$order.' '.$dir;
     }
     if($limit) {
         $sql .= ' limit '.$limit;
@@ -44,14 +44,22 @@ function getAllHealthcareByFacilityIDwOptions($id, $search = NULL, $order = NULL
         $sql .= ' offset '.$offset;
     }
 
-    $healthcare = DB::table('healthcare_services')
+    /*$healthcare = DB::table('healthcare_services')
         ->join('facility_patient_user','healthcare_services.facilitypatientuser_id','=','facility_patient_user.facilitypatientuser_id')
         ->join('facility_user','facility_patient_user.facilityuser_id','=','facility_user.facilityuser_id')
         ->join('facilities','facilities.facility_id','=','facility_user.facility_id')
         ->join('patients','patients.patient_id','=','facility_patient_user.patient_id')
         ->where('facilities.facility_id', $id)
+        ->where('patients.deleted_at', NULL)
+        ->where('facility_patient_user.deleted_at', NULL)
         ->whereRaw( $sql )
-            ->get();
+            ->get();*/
+
+    $healthcare = DB::table('healthcare_view')
+        ->where('facility_id', $id)
+        ->where('deleted_at','=',NULL)
+        ->whereRaw($sql)
+        ->get();
 
     return $healthcare;
 }
@@ -63,23 +71,29 @@ function getAllHealthcareByFacilityIDwOptions($id, $search = NULL, $order = NULL
  */
 function getAllHealthcareByFacilityID($id) {
 
-    $healthcare = DB::table('healthcare_services')
+    /*$healthcare = DB::table('healthcare_services')
         ->join('facility_patient_user','healthcare_services.facilitypatientuser_id','=','facility_patient_user.facilitypatientuser_id')
         ->join('facility_user','facility_patient_user.facilityuser_id','=','facility_user.facilityuser_id')
         ->join('facilities','facilities.facility_id','=','facility_user.facility_id')
         ->join('patients','patients.patient_id','=','facility_patient_user.patient_id')
         ->where('facilities.facility_id', $id)
         ->where('patients.deleted_at', NULL)
+        ->where('facility_patient_user.deleted_at', NULL)
+        ->get();*/
+
+    $healthcare = DB::table('healthcare_view')
+        ->where('facility_id', $id)
+        ->where('deleted_at', NULL)
         ->get();
 
     return $healthcare;
 }
 
 /**
- * Get all health records by Date Range
+ * Get all health records by month given date range
  * @param  date $start  Starting date Y-m-d
  * @param  date $end  Ending date Y-m-d Nullable
- * @return Array list of Health records array
+ * @return Array list of Health records array per month
  *
  *      healthcareservice_id      - ID of healthcare record
  *      encounter_datetime        - date of encounter
@@ -94,21 +108,19 @@ function getAllHealthcareByDate($start, $end = NULL) {
     $facilityInfo = FacilityHelper::facilityInfo();
 
     if($end == NULL) {
-        $rawsql = 'DATE_FORMAT(`healthcare_services`.`encounter_datetime`, "%Y-%m-%d") = "'.date('Y-m-d').'"';
+        //visits today
+        $rawsql = 'DATE_FORMAT(`encounter_datetime`, "%Y-%m-%d") = "'.date('Y-m-d').'"';
     } else {
-        $rawsql = 'DATE_FORMAT(`healthcare_services`.`encounter_datetime`, "%Y-%m-%d") BETWEEN "'.$start.'" AND "'.$end.'"';
+        //visits from date range
+        $rawsql = 'DATE_FORMAT(`encounter_datetime`, "%Y-%m-%d") BETWEEN "'.$start.'" AND "'.$end.'"';
     }
 
-    $visits = Healthcareservices::join('facility_patient_user','healthcare_services.facilitypatientuser_id','=','facility_patient_user.facilitypatientuser_id')
-            ->join('facility_user','facility_patient_user.facilityuser_id','=','facility_user.facilityuser_id')
-            ->join('facilities','facilities.facility_id','=','facility_user.facility_id')
-            ->join('patients','patients.patient_id','=','facility_patient_user.patient_id')
-            ->select('healthcare_services.healthcareservice_id', 'healthcare_services.encounter_datetime', 'patients.patient_id', 'patients.first_name', 'patients.last_name', 'healthcare_services.seen_by', 'healthcare_services.healthcareservicetype_id')
-            ->where('facilities.facility_id', $facilityInfo->facility_id)
-            ->where('healthcare_services.deleted_at','=',NULL)
-            ->whereRaw($rawsql)
-            ->orderBy('healthcare_services.encounter_datetime', 'DESC')
-            ->get();
+    $visits = DB::table('healthcare_view')
+        ->where('facility_id', $facilityInfo->facility_id)
+        ->where('deleted_at','=',NULL)
+        ->whereRaw($rawsql)
+        ->orderBy('encounter_datetime', 'DESC')
+        ->get();
 
     foreach ($visits as $k => $v) {
         $v->seen_by = findUserByFacilityUserID($v->seen_by);
@@ -117,24 +129,81 @@ function getAllHealthcareByDate($start, $end = NULL) {
     return $visits;
 }
 
+function getCountHealthcareByMonth($start, $end) {
+
+    $facilityInfo = FacilityHelper::facilityInfo();
+
+    //visits from date range
+    $daterangeRaw = 'DATE_FORMAT(`encounter_datetime`, "%Y-%m-%d") BETWEEN "'.$start.'" AND "'.$end.'"';
+
+    $visits = DB::table('healthcare_view')
+        ->select(DB::raw('MONTHNAME(`encounter_datetime`) AS monther , YEAR(`encounter_datetime`) AS yearer, DATE_FORMAT(`encounter_datetime`, "%Y-%m-%d") AS encounter_date, COUNT(*) as counter'))
+        ->where('facility_id', $facilityInfo->facility_id)
+        ->where('deleted_at','=',NULL)
+        ->whereRaw($daterangeRaw)
+        ->groupBy('monther','yearer')
+        ->orderBy('encounter_date', 'ASC')
+        ->get();
+
+    return $visits;
+}
+
+function getCountByDiagnosis($start, $end, $top = 10) {
+
+    $facilityInfo = FacilityHelper::facilityInfo();
+
+    $data['diagnosis'] = DB::table('diagnosis_view')
+        ->select('diagnosislist_id', DB::raw('count(*) as bilang'))
+        ->where('facility_id', $facilityInfo->facility_id)
+        ->where('hccreated', '<=', $end)
+        ->where('hccreated', '>=', $start)
+        ->groupBy('diagnosislist_id')
+        ->orderBy('bilang', 'desc')
+        ->take($top)
+        ->get();
+
+    $data['totalCount'] = DB::table('diagnosis_view')
+        ->where('facility_id', $facilityInfo->facility_id)
+        ->where('hccreated', '<=', $end)
+        ->where('hccreated', '>=', $start)
+        ->count();
+
+    return $data;
+}
+
+function getCountOfSpecificDiagnosis($start, $end, $diagnosis) {
+
+    $facilityInfo = FacilityHelper::facilityInfo();
+
+    $count = DB::table('diagnosis_view')
+        ->where('facility_id', $facilityInfo->facility_id)
+        ->where('hccreated', '<=', $end)
+        ->where('hccreated', '>=', $start)
+        ->where('diagnosislist_id', 'LIKE', '%'. $diagnosis . '%')
+        ->count();
+
+    return $count;
+}
+
 /**
  * Count all health records by facility with available options
  * @param  INT $id  Facility ID
  * @return INT Number of Health records
  */
-function countAllHealthcareByFacilityID($id) {
+function countAllHealthcareByFacilityID($id, $start=NULL, $end=NULL) {
 
-    $healthcare = DB::table('healthcare_services')
-        ->join('facility_patient_user','healthcare_services.facilitypatientuser_id','=','facility_patient_user.facilitypatientuser_id')
-        ->join('facility_user','facility_patient_user.facilityuser_id','=','facility_user.facilityuser_id')
-        ->join('facilities','facilities.facility_id','=','facility_user.facility_id')
-        ->join('patients','patients.patient_id','=','facility_patient_user.patient_id')
-        ->where('facilities.facility_id', $id)
-        ->where('patients.deleted_at', NULL)
-        ->where('healthcare_services.deleted_at', NULL)
-        ->get();
+    if($end == NULL) {
+        $rawsql = 'DATE_FORMAT(`encounter_datetime`, "%Y-%m-%d") <= "'.date('Y-m-d').'"';
+    } else {
+        $rawsql = 'DATE_FORMAT(`encounter_datetime`, "%Y-%m-%d") BETWEEN "'.$start.'" AND "'.$end.'"';
+    }
 
-    return count($healthcare);
+    $healthcare = DB::table('healthcare_view')
+        ->where('facility_id', $id)
+        ->whereRaw($rawsql)
+        ->count();
+
+    return $healthcare;
 }
 
 /**
@@ -214,6 +283,24 @@ function getMedicalOrdersByHealthServiceID($id)
 }
 
 /**
+ * Get the disposition by Health service ID
+ * @param  INT $id  Health service ID
+ * @return Array of disposition
+ */
+function getDispositionByHealthServiceID($id)
+{
+    $disposition = DB::table('disposition')
+        ->where('disposition.healthcareservice_id', $id)
+        ->whereNotNull('disposition.disposition')
+        ->first();
+    if($disposition) {
+        return $disposition;
+    } else {
+        return NULL;
+    }
+}
+
+/**
  * Find Health Record by Service ID
  * @param  INT $serviceID Health service ID
  * @return Array Health Record array
@@ -223,8 +310,38 @@ function findHealthRecordByServiceID($serviceID)
     $healthrecord = DB::table('healthcare_services')
         ->join('facility_patient_user', 'healthcare_services.facilitypatientuser_id', '=', 'facility_patient_user.facilitypatientuser_id')
         ->where('healthcare_services.healthcareservice_id', $serviceID)
+        ->where('healthcare_services.deleted_at', NULL)
+        ->where('facility_patient_user.deleted_at', NULL)
         ->first();
-//->join('facility_user', 'facility_patient_user.facilityuser_id', '=', 'facility_user.facilityuser_id')
+
+        return $healthrecord;
+}
+
+/**
+ * Find Health Record by Parent Record ID
+ * @param  INT $parentID Health service ID
+ * @return Array Health Record array
+ */
+function findHealthRecordChild($parentID)
+{
+    $healthrecord = DB::table('healthcare_services')
+        ->join('facility_patient_user', 'healthcare_services.facilitypatientuser_id', '=', 'facility_patient_user.facilitypatientuser_id')
+        ->where('healthcare_services.parent_service_id', $parentID)
+        ->where('healthcare_services.deleted_at', NULL)
+        ->where('facility_patient_user.deleted_at', NULL)
+        ->first();
+
+        return $healthrecord;
+}
+
+
+function getCompleteHealthRecordByServiceID($serviceID)
+{
+    $healthrecord = DB::table('healthcare_view')
+        ->where('healthcareservice_id', $serviceID)
+        ->where('deleted_at','=',NULL)
+        ->get();
+
         return $healthrecord;
 }
 
@@ -249,7 +366,7 @@ function findHealthRecordByPatientID($patientID)
 function getHealthcareServiceName($healthcareservicetype_id)
 {
     if($healthcareservicetype_id == 'GeneralConsultation') {
-        return "General Consultation";
+        return "General/Family Medicine";
     } else {
         return $healthcareservicetype_id;
     }

@@ -1,7 +1,9 @@
 <?php
 namespace ShineOS\Core\Healthcareservices\Http\Controllers;
 
+use Illuminate\Contracts\Container\Container;
 use Illuminate\Routing\Controller;
+
 use ShineOS\Core\Healthcareservices\Entities\Healthcareservices;
 use ShineOS\Core\Healthcareservices\Entities\VitalsPhysical;
 use ShineOS\Core\Healthcareservices\Entities\GeneralConsultation;
@@ -26,6 +28,9 @@ use ShineOS\Core\LOV\Entities\LovDrugs;
 use ShineOS\Core\Patients\Entities\Patients;
 use ShineOS\Core\Patients\Entities\PatientAlert;
 
+use ShineOS\Core\Reminders\Entities\Reminders;
+use ShineOS\Core\Reminders\Entities\ReminderMessage;
+
 use ShineOS\Core\Facilities\Entities\FacilityPatientUser;
 use ShineOS\Core\Facilities\Entities\FacilityUser;
 
@@ -37,7 +42,9 @@ use Shine\Libraries\FacilityHelper;
 use Shine\Libraries\Utils;
 use Shine\Libraries\UserHelper;
 
-use View, Form, Response, Validator, Input, Mail, Session, Redirect, Hash, Auth, DB, Datetime, Schema, Request;
+use Module;
+
+use View, Form, Response, Validator, Input, Mail, Session, Redirect, Hash, Auth, DB, Datetime, Schema, Request, Event;
 
 class HealthcareservicesController extends Controller {
 
@@ -47,18 +54,39 @@ class HealthcareservicesController extends Controller {
     protected $data = [];
     protected $facilityuser_id;
 
+    //standard tabs definition
     protected $tabs = [
         'addservice' => 'Basic Information',
         'disposition' => 'Disposition',
         'examinations' => 'Examinations',
-        'immunization' => 'Immunization',
         'impanddiag' => 'Impressions & Diagnosis',
         'medicalorders' => 'Medical Orders',
         'complaints' => 'Complaints',
         'vitals' => 'Vitals & Physical',
     ];
+
+    //standard roles definition
+    protected $tabroles = [
+        'addservice' => 5,
+        'disposition' => 2,
+        'examinations' => 3,
+        'impanddiag' => 2,
+        'medicalorders' => 2,
+        'complaints' => 5,
+        'vitals' => 5
+    ];
+
+    protected $sections = [
+        'disposition' => 'Disposition',
+        'examinations' => 'Examinations',
+        'impanddiag' => 'ImpressionandDiagnosis',
+        'medicalorders' => 'MedicalOrder',
+        'complaints' => 'Complaints',
+        'vitals' => 'Vitals',
+    ];
     protected $tabs_child = [
-        'GeneralConsultation' => ['addservice', 'complaints', 'vitals', 'examinations', 'impanddiag', 'medicalorders', 'disposition']
+        'GeneralConsultation' => ['addservice', 'complaints', 'vitals', 'examinations', 'impanddiag', 'medicalorders', 'disposition'],
+        'InternalMedicine' => ['addservice', 'complaints', 'vitals', 'examinations', 'impanddiag', 'medicalorders', 'disposition']
     ];
 
     private $healthcareRepository;
@@ -72,7 +100,7 @@ class HealthcareservicesController extends Controller {
         $this->UserRepository = $UserRepository;
         $this->HealthcareRepository = $healthcareRepository;
 
-        $this->healthcareserviceid = IdGenerator::generateId();
+        $this->healthcareserviceid = Input::has('hservices_id') ?  Input::get('hservices_id') : IdGenerator::generateId();
         $facility = FacilityHelper::facilityInfo();
         $this->user = UserHelper::getUserInfo();
 
@@ -88,9 +116,9 @@ class HealthcareservicesController extends Controller {
             $this->encounter_date = date('Y-m-d H:i:s');
         }
 
+        //if this is a followup, then add parent ID
         $this->follow_healthcareserviceid = Input::has('follow_healthcareserviceid') ?  Input::get('follow_healthcareserviceid') : false;
 
-        $this->medical_category = Input::has('medical_category') ?  Input::get('medical_category') : false;
         $this->consultationtype_id = Input::has('consultationtype_id') ?  Input::get('consultationtype_id') : 'CONSU';
         $this->encounter_type = Input::has('encounter_type') ?  Input::get('encounter_type') : 'O';
         $modules =  Utils::getModules();
@@ -102,7 +130,8 @@ class HealthcareservicesController extends Controller {
 
     }
 
-     public function index($action = null, $patient_id = null, $hservice_id = null) {
+    public function index($action = null, $patient_id = null, $hservice_id = null)
+    {
 
         switch ($action) {
             case "add":
@@ -137,76 +166,200 @@ class HealthcareservicesController extends Controller {
 
     public function add($patient_id = NULL, $hservice_id = null)
     {
+        $data['pageTitle'] = "New Healthcare Record";
+        $data['tabSwitch'] = false;
         //since this is an edit function
         //we will disable editing of healthcare
         $data['disabled'] = '';
 
         $patients = Patients::find($patient_id);
-        $healthcareData = Healthcareservices::find($hservice_id);
+        $prevhealthcareData = Healthcareservices::find($hservice_id);
 
         $facility = Session::get('facility_details');
         $roles = Session::get('roles');
 
-        if($healthcareData) {
-            $data['healthcareData'] =  $healthcareData;
+        if($prevhealthcareData) {
+            $data['prevhealthcareData'] =  $prevhealthcareData;
         } else {
-            $data['healthcareData'] =  false;
+            $data['prevhealthcareData'] =  false;
         }
 
         // for button value
-        if ($hservice_id != null):
+        if ($hservice_id != null){
             $data['healthcareType'] = "FOLLO";
-        else:
+            $data['parent_hcs_id'] = $hservice_id;
+            $data['follow_healthcareserviceid'] = $hservice_id;
+        } else {
             $data['healthcareType'] = "CONSU";
-        endif;
+            $data['parent_hcs_id'] = NULL;
+            $data['follow_healthcareserviceid'] = NULL;
+        }
 
         //get all available plugins in the patients plugin folder
         //later on will use options DB to get only activated plugins
         $patientPluginDir = plugins_path()."/";
         $plugins = directoryFiles($patientPluginDir);
         asort($plugins);
-        $plugs = array(); $pluginlist = array();
-        $pluginlist[NULL] = "-- Choose a Health Service --";
+        $plugs = array(); $pluginlist = array(); $subpluglist = array();
+        $pluginlist[''] = "-- Choose Health Service --";
+
         //Add the basic General Consultation on HCS listing
-        $pluginlist['GeneralConsultation'] = "General Consultation";
+        $pluginlist['Consultation']['GeneralConsultation'] = "General/Family Medicine";
+        $pluginlist['Consultation']['InternalMedicine'] = "Internal Medicine";
         foreach($plugins as $k=>$plugin) {
+            $plugin_type = $plugin_gender = $plugin_age = $plugin_module = '';
             if(strpos($plugin, ".")===false) {
                 //check if config.php exists
                 if(file_exists(plugins_path().$plugin.'/config.php')){
                     include(plugins_path().$plugin.'/config.php');
-
-                    if(in_array($plugin_id, json_decode($facility->enabled_plugins)) OR $roles['role_name'] == 'Developer'){
-                        //get only plugins for this module
-                        if($plugin_module == 'healthcareservices'){
-                            $plugs[$k]['plugin_location'] = $plugin_location;
-                            $plugs[$k]['folder'] = $plugin;
-                            $plugs[$k]['plugin'] = $plugin_id;
-                            $pluginlist[$plugin_id] = $plugin_title;
-                            $this->tabs_child = array_merge($this->tabs_child, $plugin_tabs_child);
+                    //if plugin is activated or this is a developer role
+                    if(json_decode($facility->enabled_plugins) != NULL) {
+                        if(in_array($plugin_id, json_decode($facility->enabled_plugins)) OR $roles['role_name'] == 'Developer'){
+                            //get only healthcare service plugins for this module
+                            if($plugin_module == 'healthcareservices') {
+                                //check if this plugin is for the gender of the patient
+                                if($plugin_type == 'consultation' AND (($plugin_gender == $patients->gender OR $plugin_gender == 'all') )) {
+                                    //check if the plugin is for the age of the patient
+                                    $age = getAge($patients->birthdate);
+                                    if(strpos($plugin_age,"-")>0){
+                                        $range = explode('-',$plugin_age);
+                                    }
+                                    if( isset($plugin_age) OR ($plugin_age=='') OR (isset($range) AND $age >= $range[0] AND $age <= $range[1]) OR (!isset($range) AND $age >= $plugin_age) )  {
+                                        $plugs[$k]['plugin_location'] = $plugin_location;
+                                        $plugs[$k]['folder'] = $plugin;
+                                        $plugs[$k]['plugin'] = $plugin_id;
+                                        $pluginlist['Consultation'][$plugin_id] = $plugin_title;
+                                        $this->tabs_child = array_merge($this->tabs_child, $plugin_tabs_child);
+                                    }
+                                }
+                            }
                         }
                     }
                 }
             }
         }
+
+        //Add Surgery group
+        foreach($plugins as $k=>$plugin) {
+            $plugin_type = $plugin_gender = $plugin_age = $plugin_module = '';
+            if(strpos($plugin, ".")===false) {
+                //check if config.php exists
+                if(file_exists(plugins_path().$plugin.'/config.php')){
+                    include(plugins_path().$plugin.'/config.php');
+                    //if plugin is activated or this is a developer role
+                    if(json_decode($facility->enabled_plugins) != NULL) {
+                        if(in_array($plugin_id, json_decode($facility->enabled_plugins)) OR $roles['role_name'] == 'Developer'){
+                            //get only healthcare service plugins for this module
+                            if($plugin_module == 'healthcareservices') {
+                                //check if this plugin is for the gender of the patient
+                                if($plugin_type == 'surgery' AND (($plugin_gender == $patients->gender OR $plugin_gender == 'all') )) {
+                                    //check if the plugin is for the age of the patient
+                                    $age = getAge($patients->birthdate);
+                                    if(strpos($plugin_age,"-")>0){
+                                        $range = explode('-',$plugin_age);
+                                    }
+                                    if( ($plugin_age=='') OR (isset($range) AND $age >= $range[0] AND $age <= $range[1]) OR (!isset($range) AND $age >= $plugin_age) )  {
+                                        $plugs[$k]['plugin_location'] = $plugin_location;
+                                        $plugs[$k]['folder'] = $plugin;
+                                        $plugs[$k]['plugin'] = $plugin_id;
+                                        $pluginlist['Surgery'][$plugin_id] = $plugin_title;
+                                        $this->tabs_child = array_merge($this->tabs_child, $plugin_tabs_child);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        //Add DOH Programs
+        foreach($plugins as $k=>$plugin) {
+            $plugin_type = $plugin_gender = $plugin_age = $plugin_module = '';
+            if(strpos($plugin, ".")===false) {
+                //check if config.php exists
+                if(file_exists(plugins_path().$plugin.'/config.php')){
+                    include(plugins_path().$plugin.'/config.php');
+                    //if plugin is activated or this is a developer role
+                    if(json_decode($facility->enabled_plugins) != NULL) {
+                        if(in_array($plugin_id, json_decode($facility->enabled_plugins)) OR $roles['role_name'] == 'Developer'){
+                            //get only healthcare service plugins for this module
+                            if($plugin_module == 'healthcareservices') {
+                                //check if this plugin is for the gender of the patient
+                                if($plugin_type == 'program' AND (($plugin_gender == $patients->gender OR $plugin_gender == 'all') )) {
+                                    //check if the plugin is for the age of the patient
+                                    $age = getAge($patients->birthdate);
+                                    if(strpos($plugin_age,"-")>0){
+                                        $range = explode('-',$plugin_age);
+                                    }
+                                    if( ($plugin_age=='') OR (isset($range) AND $age >= $range[0] AND $age <= $range[1]) OR (!isset($range) AND $age >= $plugin_age) )  {
+                                        $plugs[$k]['plugin_location'] = $plugin_location;
+                                        $plugs[$k]['folder'] = $plugin;
+                                        $plugs[$k]['plugin'] = $plugin_id;
+                                        $pluginlist['DOH Programs'][$plugin_id] = $plugin_title;
+                                        $this->tabs_child = array_merge($this->tabs_child, $plugin_tabs_child);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        //Add Special Programs
+        foreach($plugins as $k=>$plugin) {
+            $plugin_type = $plugin_gender = $plugin_age = $plugin_module = '';
+            if(strpos($plugin, ".")===false) {
+                //check if config.php exists
+                if(file_exists(plugins_path().$plugin.'/config.php')){
+                    include(plugins_path().$plugin.'/config.php');
+                    //if plugin is activated or this is a developer role
+                    if(json_decode($facility->enabled_plugins) != NULL) {
+                        if(in_array($plugin_id, json_decode($facility->enabled_plugins)) OR $roles['role_name'] == 'Developer'){
+                            //get only healthcare service plugins for this module
+                            if($plugin_module == 'healthcareservices') {
+                                //check if this plugin is for the gender of the patient
+                                if($plugin_type == 'subform' AND (($plugin_gender == $patients->gender OR $plugin_gender == 'all') )) {
+                                    //check if the plugin is for the age of the patient
+                                    $age = getAge($patients->birthdate);
+                                    if(strpos($plugin_age,"-")>0){
+                                        $range = explode('-',$plugin_age);
+                                    }
+                                    if( ($plugin_age=='') OR (isset($range) AND $age >= $range[0] AND $age <= $range[1]) OR (!isset($range) AND $age >= $plugin_age) )  {
+                                        $splugs[$k]['plugin_location'] = $plugin_location;
+                                        $splugs[$k]['folder'] = $plugin;
+                                        $splugs[$k]['plugin'] = $plugin_id;
+                                        $pluginlist['Special Programs'][$plugin_id] = $plugin_title;
+                                        $this->subtabs_child = array_merge($this->subtabs_child, $plugin_tabs_child);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
         $data['plugs'] = $plugs;
         $data['default_tabs'] = $this->default_tabs;
         $data['tabs'] = $this->tabs;
         $data['healthcareservices'] = $pluginlist;
+        $data['subform'] = $subpluglist;
         $data['medicalCategory'] = LovMedicalCategory::orderBy('medicalcategory_name', 'ASC')->get();
 
         if (count($patients) > 0) {
-            $data['follow_healthcareserviceid'] = $hservice_id;
             $data['patient'] = $patients;
 
-            if($healthcareData) { //this is a followup
-                $data['formTitle'] = "Followup on Consultation: ";
+            if($prevhealthcareData) { //this is a followup
+                $data['formTitle'] = "Follow-up Consultation for: ";
                 $data['healthcareserviceid'] = false;
-                $healthcareData->consultationtype_id = 'FOLLO';
+                $prevhealthcareData->consultationtype_id = 'FOLLO';
                 $data['recent_healthcare'] = Healthcareservices::where('healthcareservice_id', $hservice_id)->first();
                 $data['gender'] = $patients->gender;
                 $data['healthcaretype'] = "FOLLO";
                 //temporary
-                if($healthcareData->healthcareservicetype_id == 'GeneralConsultation') {
+                if($prevhealthcareData->healthcareservicetype_id == 'GeneralConsultation' OR $prevhealthcareData->healthcareservicetype_id == 'InternalMedicine') {
                     $data['generalConsultation'] = GeneralConsultation::where('healthcareservice_id', $hservice_id)->first();
                 } else {
                     $data['nocategory'] = 1;
@@ -221,7 +374,8 @@ class HealthcareservicesController extends Controller {
         }
     }
 
-    public function insert() {
+    public function insert()
+    {
 
         $patient_facity_user = FacilityPatientUser::where('patient_id', Input::get('patient_id'))->get();
 
@@ -240,7 +394,7 @@ class HealthcareservicesController extends Controller {
             $insertQuery->consultation_type = $this->consultationtype_id;
             $insertQuery->encounter_type = $this->encounter_type;
 
-            if($this->healthcareservices_type == 'GeneralConsultation') {
+            if($this->healthcareservices_type == 'GeneralConsultation' OR $this->healthcareservices_type == 'InternalMedicine') {
                 $query = new GeneralConsultation;
                 $query->generalconsultation_id = IdGenerator::generateId();
                 $query->healthcareservice_id = $this->healthcareserviceid;
@@ -257,13 +411,100 @@ class HealthcareservicesController extends Controller {
 
             if($this->follow_healthcareserviceid) {
                 $insertQuery->parent_service_id = $this->follow_healthcareserviceid;
+
+                //check if this follow-up came from an appointment
+                $appointment = Reminders::where('healthcareservice_id', $this->follow_healthcareserviceid)->with('ReminderMessage')->first();
+                if($appointment) {
+                    $reminderMessage = ReminderMessage::where('remindermessage_id', $appointment->ReminderMessage->remindermessage_id)->first();
+                    $reminderMessage->sent_status = "MET";
+                    $reminderMessage->save();
+                }
             }
+
             //save general healthcareservice
             $insertQuery->save();
             //save healthcareservice type
             $query->save();
 
             return Redirect::route('healthcare.edit', ['action' => 'edit', 'patiend_id' => $this->patient_id, 'hservice_id' =>  $this->healthcareserviceid]);
+        } else {
+            echo "does not exists";
+        }
+    }
+
+    public function update(Container $container)
+    {
+        $user = Session::get('user_details');
+        $role = getRoleInfoByFacilityUserID($user->facilityUser[0]->facilityuser_id);
+        $patient_facity_user = FacilityPatientUser::where('patient_id', Input::get('patient_id'))->get();
+
+        if (!empty($patient_facity_user)) { //patient should exist in facilityPatientUser
+
+            if($this->healthcareserviceid){
+                $insertQuery = Healthcareservices::find($this->healthcareserviceid);
+            } else {
+                $insertQuery = new Healthcareservices;
+            }
+
+            $insertQuery->healthcareservice_id = $this->healthcareserviceid;
+            $insertQuery->facilitypatientuser_id = $patient_facity_user[0]->facilitypatientuser_id;
+            $insertQuery->healthcareservicetype_id	= $this->healthcareservices_type;
+            if($this->user->mdUsers) { //if this is a doctor set the seen_by (attending physician)
+                $insertQuery->seen_by = $this->facilityuser_id;
+            } else {
+                $insertQuery->seen_by = NULL;
+            }
+            $insertQuery->encounter_datetime = $this->encounter_date;
+            $insertQuery->consultation_type = $this->consultationtype_id;
+            $insertQuery->encounter_type = $this->encounter_type;
+
+            if($this->follow_healthcareserviceid) {
+                $insertQuery->parent_service_id = $this->follow_healthcareserviceid;
+            }
+            //save general healthcareservice
+            $insertQuery->save();
+
+            $mysections = $this->sections;
+            if(Input::has('thistabs')) {
+                $mysections = json_decode(Input::get('thistabs'));
+            }
+
+            //let us save the rest of the sections
+            foreach($mysections as $sect => $section) {
+                // dd($mysections);
+                if($sect != 'addservice'){
+                    if( (isset($this->tabroles[$sect]) AND $role->role_id <= $this->tabroles[$sect]) OR !isset($this->tabroles[$sect]) ){
+
+                        if(array_key_exists($sect, $this->sections)) {
+                            $data = Input::has($sect) ?  Input::get($sect) : false;
+                            $s = $this->sections[$sect];
+                            $controller = app()->make("ShineOS\Core\Healthcareservices\Http\Controllers"."\\".$s.'Controller');
+                            app()->call(
+                                [$controller, 'save'],
+                                ['data' => $data]
+                            );
+                        } else {
+
+                            $data = Input::has(str_replace('_plugin','', $sect)) ?  Input::get(str_replace('_plugin','', $sect)) : false;
+
+                            // dd($data);
+                            $s = str_replace(" ", "", $mysections->$sect);
+                            include_once(plugins_path().$s.DS.$s.'Controller.php');
+
+                            $plugController = $container->make($s.'Controller');
+                            $container->call(
+                                [$plugController, 'save'],
+                                ['data' => $data]
+                            );
+                        }
+                    }
+                }
+            }
+
+            return Redirect::route('healthcare.edit', ['action' => 'edit', 'patiend_id' => $this->patient_id, 'hservice_id' =>  $this->healthcareserviceid])
+                ->with('flash_message', 'Well done! You successfully updated the Healthcare Service.')
+                    ->with('flash_type', 'alert-success alert-dismissible')
+                        ->with('flash_tab', 'examinations');
         } else {
             echo "does not exists";
         }
@@ -281,6 +522,9 @@ class HealthcareservicesController extends Controller {
         $data['formTitle'] = "Consultation";
         $data['follow_healthcareserviceid'] = false;
 
+        $data['session_user_id'] = $this->user->user_id;
+        $patients = Patients::find($patient_id);
+
         //get all available plugins in the patients plugin folder
         //later on will use options DB to get only activated plugins
         $patientPluginDir = plugins_path()."/";
@@ -288,32 +532,43 @@ class HealthcareservicesController extends Controller {
         asort($plugins);
         $plugs = array(); $pluginlist = array();
         $pluginlist[NULL] = "-- Choose a Health Service --";
+        //Add the basic General Consultation on HCS listing
+        $pluginlist['GeneralConsultation'] = "General/Family Medicine";
+        $pluginlist['InternalMedicine'] = "Internal Medicine";
         foreach($plugins as $k=>$plugin) {
             if(strpos($plugin, ".")===false) {
                 //check if config.php exists
                 if(file_exists(plugins_path().$plugin.'/config.php')){
                     include(plugins_path().$plugin.'/config.php');
-
-                    if(in_array($plugin_id, json_decode($facility->enabled_plugins)) OR $roles['role_name'] == 'Developer'){
-                        //get only plugins for this module
-                        if($plugin_module == 'healthcareservices'){
-                            $plugs[$k]['plugin_location'] = $plugin_location;
-                            $plugs[$k]['folder'] = $plugin;
-                            $plugs[$k]['plugin'] = $plugin_id;
-                            $pluginlist[$plugin_id] = $plugin_title;
-                            $this->tabs_child = array_merge($this->tabs_child, $plugin_tabs_child);
+                    //if plugin is activated or this is a developer role
+                    if(json_decode($facility->enabled_plugins) != NULL) {
+                        if(in_array($plugin_id, json_decode($facility->enabled_plugins)) OR $roles['role_name'] == 'Developer'){
+                            //get only healthcare service plugins for this module
+                            if($plugin_module == 'healthcareservices') {
+                                //check if this plugin is for the gender of the patient
+                                if($plugin_type == 'service' AND (($plugin_gender == $patients->gender OR $plugin_gender == 'all') )) {
+                                    //check if the plugin is for the age of the patient
+                                    $age = getAge($patients->birthdate);
+                                    if(strpos($plugin_age,"-")>0){
+                                        $range = explode('-',$plugin_age);
+                                    }
+                                    if( (isset($range) AND $age >= $range[0] AND $age <= $range[1]) OR (!isset($range) AND $age >= $plugin_age) )  {
+                                        $plugs[$k]['plugin_location'] = $plugin_location;
+                                        $plugs[$k]['folder'] = $plugin;
+                                        $plugs[$k]['plugin'] = $plugin_id;
+                                        $pluginlist[$plugin_id] = $plugin_title;
+                                        $this->tabs_child = array_merge($this->tabs_child, $plugin_tabs_child);
+                                    }
+                                }
+                            }
                         }
                     }
                 }
             }
         }
         $data['plugs'] = $plugs;
-        //Add the basic General Consultation on HCS listing
-        $pluginlist['GeneralConsultation'] = "General Consultation";
 
         try {
-            $data['session_user_id'] = $this->user->user_id;
-            $patients = Patients::find($patient_id);
 
             $healthcareData = findHealthRecordByServiceID($hservice_id);
 
@@ -367,7 +622,7 @@ class HealthcareservicesController extends Controller {
                  * Healthcare type is GeneralConsultation
                  * @var varchar
                  */
-                if($healthcareData->healthcareservicetype_id == 'GeneralConsultation') {
+                if($healthcareData->healthcareservicetype_id == 'GeneralConsultation' OR $healthcareData->healthcareservicetype_id == 'InternalMedicine') {
                     $data['generalConsultation'] = GeneralConsultation::where('healthcareservice_id', $hservice_id)->first();
                     $data['tabs_child'] =  $this->tabs_child[$healthcareData->healthcareservicetype_id];
                     $data['healthcareserviceType'] = $healthcareData->healthcareservicetype_id;
@@ -415,6 +670,10 @@ class HealthcareservicesController extends Controller {
                         }
                     }
 
+                    $facilitypatientuser = FacilityPatientUser::where('patient_id', $patient_id)->lists('facilitypatientuser_id');
+                    $healthcareservices = Healthcareservices::whereIn('facilitypatientuser_id', $facilitypatientuser)->lists('healthcareservice_id');
+                    $data['plugindataall'] = $qModel::whereIn('healthcareservice_id', $healthcareservices)->get();
+
                     $data['plugin'] = $plugin_id;
                     $data['nocategory'] = 1; //this is not general consultation so no category
                     $data['tabs_child'] = $plugin_tabs_child;
@@ -433,63 +692,185 @@ class HealthcareservicesController extends Controller {
         }
     }
 
-    public function edit($patient_id = null,  $hservice_id = null) {
-
+    public function edit($patient_id = null,  $hservice_id = null)
+    {
         $facility = Session::get('facility_details');
         $user = Session::get('user_details');
         $roles = Session::get('roles');
 
+        $data['pageTitle'] = "Healthcare Record";
+        $data['tabSwitch'] = true;
         //since this is an edit function
         //we will disable editing of healthcare if it is with disposition
         $data['disabled'] = '';
         $data['formTitle'] = "Consultation";
         $data['follow_healthcareserviceid'] = false;
 
+        $data['session_user_id'] = $this->user->user_id;
+        $patients = Patients::find($patient_id);
+
+        if(!$patients) {
+            Session::flash('alert-class', 'alert-success alert-dismissible');
+            $message = "The patient does not exist anymore. Choose another one.";
+            return Redirect::to( "records#visit_list" )->with('message', $message);
+        }
+
+        $healthcareData = findHealthRecordByServiceID($hservice_id);
+        $data['parent_hcs_id'] = $healthcareData->parent_service_id;
+        //check of this has a child
+        $data['childData'] = findHealthRecordChild($hservice_id);
+        $data['lovlaboratories'] = LovLaboratories::orderBy('laboratorydescription')->get();
+        $data['lovMedicalProcedure'] = LovMedicalProcedures::orderBy('procedure_description')->lists('procedure_description','procedure_code');
+        $data['lovdiagnosis'] = LovDiagnosis::orderBy('diagnosis_name')->get();
+        $data['lovDrugs'] = LovDrugs::orderBy('drug_specification')->get();
+
+        //can we get values from previous consultation
+        $data['prevhealth'] = getCompleteHealthRecordByServiceID($healthcareData->parent_service_id);
+
         //get all available plugins in the patients plugin folder
         //later on will use options DB to get only activated plugins
         $patientPluginDir = plugins_path()."/";
         $plugins = directoryFiles($patientPluginDir);
         asort($plugins);
-        $plugs = array(); $pluginlist = array();
-        $pluginlist[NULL] = "-- Choose a Health Service --";
+        $plugs = array(); $pluginlist = array(); $tabs_sections = array();
+
+        //Add the basic General Consultation on HCS listing
+        $pluginlist['GeneralConsultation'] = "General/Family Medicine";
+        $pluginlist['InternalMedicine'] = "Internal Medicine";
         foreach($plugins as $k=>$plugin) {
             if(strpos($plugin, ".")===false) {
                 //check if config.php exists
                 if(file_exists(plugins_path().$plugin.'/config.php')){
                     include(plugins_path().$plugin.'/config.php');
-
-                    if(in_array($plugin_id, json_decode($facility->enabled_plugins)) OR $roles['role_name'] == 'Developer'){
-                        //get only plugins for this module
-                        if($plugin_module == 'healthcareservices'){
-                            $plugs[$k]['plugin_location'] = $plugin_location;
-                            $plugs[$k]['folder'] = $plugin;
-                            $plugs[$k]['plugin'] = $plugin_id;
-                            $pluginlist[$plugin_id] = $plugin_title;
-                            $this->tabs_child = array_merge($this->tabs_child, $plugin_tabs_child);
+                    //if plugin is activated or this is a developer role
+                    if(json_decode($facility->enabled_plugins) != NULL) {
+                        if(in_array($plugin_id, json_decode($facility->enabled_plugins)) OR $roles['role_name'] == 'Developer'){
+                            //get only healthcare service plugins for this module
+                            if($plugin_module == 'healthcareservices') {
+                                //check if this plugin is for the gender of the patient
+                                if($plugin_type == 'service' AND (($plugin_gender == $patients->gender OR $plugin_gender == 'all') )) {
+                                    //check if the plugin is for the age of the patient
+                                    $age = getAge($patients->birthdate);
+                                    if(strpos($plugin_age,"-")>0){
+                                        $range = explode('-',$plugin_age);
+                                    }
+                                    if( (isset($range) AND $age >= $range[0] AND $age <= $range[1]) OR (!isset($range) AND $age >= $plugin_age) )  {
+                                        $plugs[$k]['plugin_location'] = $plugin_location;
+                                        $plugs[$k]['folder'] = $plugin;
+                                        $plugs[$k]['plugin'] = $plugin_id;
+                                        $pluginlist[$plugin_id] = $plugin_title;
+                                        $this->tabs_child = array_merge($this->tabs_child, $plugin_tabs_child);
+                                        $tabs_sections[strtolower($plugin_id)] = $plugin_id;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        foreach($plugins as $k=>$plugin) {
+            $plugin_type = $plugin_gender = $plugin_age = $plugin_module = '';
+            if(strpos($plugin, ".")===false) {
+                //check if config.php exists
+                if(file_exists(plugins_path().$plugin.'/config.php')){
+                    include(plugins_path().$plugin.'/config.php');
+                    //if plugin is activated or this is a developer role
+                    if(json_decode($facility->enabled_plugins) != NULL) {
+                        if(in_array($plugin_id, json_decode($facility->enabled_plugins)) OR $roles['role_name'] == 'Developer'){
+                            //get only healthcare service plugins for this module
+                            if($plugin_module == 'healthcareservices') {
+                                //check if this plugin is for the gender of the patient
+                                if($plugin_type == 'surgery' AND (($plugin_gender == $patients->gender OR $plugin_gender == 'all') )) {
+                                    //check if the plugin is for the age of the patient
+                                    $age = getAge($patients->birthdate);
+                                    if(strpos($plugin_age,"-")>0){
+                                        $range = explode('-',$plugin_age);
+                                    }
+                                    if( ($plugin_age=='') OR (isset($range) AND $age >= $range[0] AND $age <= $range[1]) OR (!isset($range) AND $age >= $plugin_age) )  {
+                                        $plugs[$k]['plugin_location'] = $plugin_location;
+                                        $plugs[$k]['folder'] = $plugin;
+                                        $plugs[$k]['plugin'] = $plugin_id;
+                                        $pluginlist[$plugin_id] = $plugin_title;
+                                        $this->tabs_child = array_merge($this->tabs_child, $plugin_tabs_child);
+                                        $tabs_sections[strtolower($plugin_id)] = $plugin_id;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        foreach($plugins as $k=>$plugin) {
+            $plugin_type = $plugin_gender = $plugin_age = $plugin_module = '';
+            if(strpos($plugin, ".")===false) {
+                //check if config.php exists
+                if(file_exists(plugins_path().$plugin.'/config.php')){
+                    include(plugins_path().$plugin.'/config.php');
+                    //if plugin is activated or this is a developer role
+                    if(json_decode($facility->enabled_plugins) != NULL) {
+                        if(in_array($plugin_id, json_decode($facility->enabled_plugins)) OR $roles['role_name'] == 'Developer'){
+                            //get only healthcare service plugins for this module
+                            if($plugin_module == 'healthcareservices') {
+                                //check if this plugin is for the gender of the patient
+                                if($plugin_type == 'program' AND (($plugin_gender == $patients->gender OR $plugin_gender == 'all') )) {
+                                    //check if the plugin is for the age of the patient
+                                    $age = getAge($patients->birthdate);
+                                    if(strpos($plugin_age,"-")>0){
+                                        $range = explode('-',$plugin_age);
+                                    }
+                                    if( ($plugin_age=='') OR (isset($range) AND $age >= $range[0] AND $age <= $range[1]) OR (!isset($range) AND $age >= $plugin_age) )  {
+                                        $plugs[$k]['plugin_location'] = $plugin_location;
+                                        $plugs[$k]['folder'] = $plugin;
+                                        $plugs[$k]['plugin'] = $plugin_id;
+                                        $pluginlist[$plugin_id] = $plugin_title;
+                                        $this->tabs_child = array_merge($this->tabs_child, $plugin_tabs_child);
+                                        $tabs_sections[strtolower($plugin_id)] = $plugin_id;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        foreach($plugins as $k=>$plugin) {
+            $plugin_type = $plugin_gender = $plugin_age = $plugin_module = '';
+            if(strpos($plugin, ".")===false) {
+                //check if config.php exists
+                if(file_exists(plugins_path().$plugin.'/config.php')){
+                    include(plugins_path().$plugin.'/config.php');
+                    //if plugin is activated or this is a developer role
+                    if(json_decode($facility->enabled_plugins) != NULL) {
+                        if(in_array($plugin_id, json_decode($facility->enabled_plugins)) OR $roles['role_name'] == 'Developer'){
+                            //get only healthcare service plugins for this module
+                            if($plugin_module == 'healthcareservices') {
+                                //check if this plugin is for the gender of the patient
+                                if($plugin_type == 'subform' AND (($plugin_gender == $patients->gender OR $plugin_gender == 'all') )) {
+                                    //check if the plugin is for the age of the patient
+                                    $age = getAge($patients->birthdate);
+                                    if(strpos($plugin_age,"-")>0){
+                                        $range = explode('-',$plugin_age);
+                                    }
+                                    if( ($plugin_age=='') OR (isset($range) AND $age >= $range[0] AND $age <= $range[1]) OR (!isset($range) AND $age >= $plugin_age) )  {
+                                        $plugs[$k]['plugin_location'] = $plugin_location;
+                                        $plugs[$k]['folder'] = $plugin;
+                                        $plugs[$k]['plugin'] = $plugin_id;
+                                        $pluglist[$plugin_id] = $plugin_title;
+                                        $this->tabs_child = array_merge($this->tabs_child, $plugin_tabs_child);
+                                        $tabs_sections[strtolower($plugin_id)] = $plugin_id;
+                                    }
+                                }
+                            }
                         }
                     }
                 }
             }
         }
         $data['plugs'] = $plugs;
-        //Add the basic General Consultation on HCS listing
-        $pluginlist['GeneralConsultation'] = "General Consultation";
 
         try {
-            $data['session_user_id'] = $this->user->user_id;
-            $patients = Patients::find($patient_id);
-
-            if(!$patients) {
-                Session::flash('alert-class', 'alert-success alert-dismissible');
-                $message = "The patient does not exist anymore. Choose another one.";
-                return Redirect::to( "records#visit_list" )->with('message', $message);
-            }
-
-            $healthcareData = findHealthRecordByServiceID($hservice_id);
-            $data['lovlaboratories'] = LovLaboratories::orderBy('laboratorydescription')->get();
-            $data['lovMedicalProcedure'] = LovMedicalProcedures::orderBy('procedure_description')->lists('procedure_description','procedure_code');
-            $data['lovdiagnosis'] = LovDiagnosis::orderBy('diagnosis_name')->get();
-            $data['lovDrugs'] = LovDrugs::orderBy('drug_specification')->get();
 
             //get service data base on service ID
            if ($healthcareData!=NULL && $patients!=NULL) {
@@ -523,6 +904,8 @@ class HealthcareservicesController extends Controller {
 
                     $data['medicalorder_record'] = json_decode($this->HealthcareRepository->findMedicalOrdersByHealthcareserviceid($hservice_id));
 
+                    $data['maintenance_drugs'] = json_decode($this->HealthcareRepository->findMaintenanceDrugsByPatientid($patient_id));
+
                 $data['patientalert_record'] = PatientAlert::has('PatientAllergies')
                                                         ->with('PatientAllergies')
                                                         ->where('patient_id',$patient_id)
@@ -537,23 +920,30 @@ class HealthcareservicesController extends Controller {
                 $data['icd10_type'] = LovICD10::where('icd10_category', '!=', 0)->where('icd10_subcategory', '!=', 0)->where('icd10_tricategory', 0)->lists('icd10_title','icd10_code');
                 $data['icd10_code'] = LovICD10::where('icd10_category', '!=', 0)->where('icd10_subcategory', '!=', 0)->where('icd10_tricategory', '!=', 0)->lists('icd10_title','icd10_code');
 
-                $data['recent_healthcare'] = Healthcareservices::where('healthcareservice_id', $hservice_id)->first();
+                $data['recent_healthcare'] = NULL;
+                if($healthcareData->parent_service_id) {
+                    $data['formTitle'] = "Followup on Consultation for: ";
+                    $data['recent_healthcare'] = Healthcareservices::where('healthcareservice_id', $healthcareData->parent_service_id)->first();
+                }
                 $data['healthcareType'] = $healthcareData->consultation_type;
                 $data['healthcareservices'] = $pluginlist;
                 $data['healthcareserviceid'] = $hservice_id;
                 $data['default_tabs'] = $this->default_tabs;
                 $data['gender'] = $patients->gender;
+
+                $data['tabroles'] = $this->tabroles;
                 /**
                  * Healthcare type is GeneralConsultation
                  * @var varchar
                  */
-                if($healthcareData->healthcareservicetype_id == 'GeneralConsultation') {
+                if($healthcareData->healthcareservicetype_id == 'GeneralConsultation' OR $healthcareData->healthcareservicetype_id == 'InternalMedicine') {
                     $data['generalConsultation'] = GeneralConsultation::where('healthcareservice_id', $hservice_id)->first();
                     $data['tabs_child'] =  $this->tabs_child[$healthcareData->healthcareservicetype_id];
                     $data['healthcareserviceType'] = $healthcareData->healthcareservicetype_id;
                     $data['tabs'] = $this->tabs;
                     $data['facilityInfo'] = $this->FacilityRepository->findFacilityByFacilityUserID( $healthcareData->seen_by );
                     $data['seenBy'] = $this->UserRepository->findUserByFacilityUserID( $healthcareData->seen_by );
+
                     return view('healthcareservices::add')->with($data);
                 }
                 /**
@@ -573,8 +963,12 @@ class HealthcareservicesController extends Controller {
                             $qModel = 'Plugins\\'.$plugin_id.'\\'.$model;
                             $query = new $qModel;
                             $data[strtolower($k).'_record'] = $query->where('healthcareservice_id',$hservice_id)->first();
+                            if($healthcareData->parent_service_id) {
+                                $data[strtolower($k).'_parentrecord'] = $query->where('healthcareservice_id',$healthcareData->parent_service_id)->first();
+                            }
                         }
                     }
+
                     $data['facilityInfo'] = $this->FacilityRepository->findFacilityByFacilityUserID( $healthcareData->seen_by );
                     $data['seenBy'] = $this->UserRepository->findUserByFacilityUserID( $healthcareData->seen_by );
 
@@ -583,6 +977,8 @@ class HealthcareservicesController extends Controller {
                     $data['diagnosis_record'] = json_decode($this->HealthcareRepository->findDiagnosisByHealthcareserviceid($hservice_id));
 
                     $data['medicalorder_record'] = json_decode($this->HealthcareRepository->findMedicalOrdersByHealthcareserviceid($hservice_id));
+
+                    $data['maintenance_drugs'] = json_decode($this->HealthcareRepository->findMaintenanceDrugsByPatientid($patient_id));
 
                     $data['medicalCategory'] = LovMedicalCategory::where('medicalcategory_group',$healthcareData->healthcareservicetype_id)->orderBy('medicalcategory_name', 'ASC')->get();
 
@@ -597,12 +993,23 @@ class HealthcareservicesController extends Controller {
                         }
                     }
 
+                    $facilitypatientuser = FacilityPatientUser::where('patient_id', $patient_id)->lists('facilitypatientuser_id');
+                    $healthcareservices = Healthcareservices::whereIn('facilitypatientuser_id', $facilitypatientuser)->lists('healthcareservice_id');
+                    $data['plugindataall'] = $qModel::whereIn('healthcareservice_id', $healthcareservices)->get();
+
                     $data['plugin'] = $plugin_id;
                     $data['nocategory'] = 1; //this is not general consultation so no category
                     $data['tabs_child'] = $plugin_tabs_child;
                     $data['tabs'] = $plugin_tabs;
+                    $data['tabs_sections'] = $tabs_sections;
                     $data['plugindata'] = $qModel::where('healthcareservice_id', $hservice_id)->first();
+                    if($healthcareData->parent_service_id):
+                    $data['pluginparentdata'] = $qModel::where('healthcareservice_id', $healthcareData->parent_service_id)->first();
+                    endif;
                     $allData = $data;
+                    //define tab role
+                    $ptab[strtolower($plugin_id)."_plugin"] = $plugin_role;
+                    $data['tabroles'] = $data['tabroles'] + $ptab;
 
                     return view('healthcareservices::add', compact('allData'))->with($data);
                 }
@@ -724,19 +1131,27 @@ class HealthcareservicesController extends Controller {
 
     function getVisitList($start, $end)
     {
-        $visits = getAllHealthcareByDate($start, $end);
+        $visits = getAppointments($start, $end);
         $visitlisting = "";
+        $seen = NULL;
         if(!empty($visits)):
             foreach($visits as $key => $value):
-                if($value->seen_by):
-                    $seen = $value->seen_by->first_name .' '. $value->seen_by->last_name;
+                if($value->sent_status == 'SENT' OR $value->sent_status == NULL):
+                    if(isset($value->appointment_datetime)):
+                        $visitlisting .= '<tr class="row-clicker" onclick="location.href=\''.url('healthcareservices/add/'.$value->patient_id.'/'.$value->healthcareservice_id).'\'">';
+                    else:
+                        $visitlisting .= '<tr class="row-clicker" onclick="location.href=\''.url('healthcareservices/edit/'.$value->patient_id.'/'.$value->healthcareservice_id).'\'">';
+                    endif;
+                    if(isset($value->appointment_datetime)):
+                        $visitlisting .= '<td><span class="fa fa-calendar-check-o text-danger"></span> '.date('m/d/y h:i A', strtotime($value->visit_date)).'</td>';
+                    else:
+                        $visitlisting .= '<td><span class="fa fa-blind text-danger"></span> '.date('m/d/y h:i A', strtotime($value->visit_date)).'</td>';
+                    endif;
+                    $visitlisting .= '
+                        <td>'.$value->last_name.', '.$value->first_name.'</td>
+                        <td>'.$value->healthcareservicetype_id.'</td>
+                    </tr>';
                 endif;
-                $visitlisting .= '<tr class="row-clicker" onclick="location.href=\''.url('healthcareservices/edit/'.$value->patient_id.'/'.$value->healthcareservice_id).'\'">
-                    <td>'.date("m/d/Y", strtotime($value->encounter_datetime)).'</td>
-                    <td>'.$value->last_name.', '.$value->first_name.'</td>
-                    <td>'.$seen.'</td>
-                    <td>'.$value->healthcareservicetype_id.'</td>
-                </tr>';
             endforeach;
         else:
             $visitlisting .= '<tr><td colspan="4">No Consultations</td></tr>';

@@ -1,7 +1,7 @@
 <?php
 namespace Shine\Http\Middleware;
 
-use Closure, Cache, Session;
+use Closure, Cache, Session, Auth;
 
 class AccessControl
 {
@@ -23,13 +23,17 @@ class AccessControl
             {
                 return $next($request);
             }
-            else
-            {
+            else {
                 Session::flash('warning', 'You are not authorized to access the page.');
                 return redirect('dashboard');
             }
         } else {
+            $request->session()->flush();
+            Auth::logout();
             return redirect('logout/111');
         }
+        Auth::logout();
+        $request->session()->flush();
+        return redirect('logout/111');
     }
 }

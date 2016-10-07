@@ -111,7 +111,7 @@
 
 
                     <li><span>Complaints</span>
-                        <div class="container">
+                        <div class="container-fluid">
                             @if($data['complaints_record'])
                                 <div class="col-sm-12">
                                   <div class="description-block textleft">

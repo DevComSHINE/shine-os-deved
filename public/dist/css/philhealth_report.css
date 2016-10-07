@@ -1,0 +1,18 @@
+th.rotate {
+  /* Something you can count on */
+  height: 140px;
+  white-space: nowrap;
+}
+
+th.rotate > div {
+  transform: 
+    translate(25px, 51px)
+    rotate(270deg);
+  width: 30px;
+}
+th.rotate > div > span {
+  border-bottom: 1px solid #ccc;
+  padding: 5px 10px;
+}
+
+/*https://css-tricks.com/rotated-table-column-headers/*/

@@ -27,11 +27,11 @@ class DashboardController extends Controller {
 
     public function index()
     {
-        $id = UserHelper::getUserInfo();
+        $user = UserHelper::getUserInfo();
         $facilityInfo = FacilityHelper::facilityInfo(); // get user id
-        $userFacilities = FacilityHelper::getFacilities($id);
+        $userFacilities = FacilityHelper::getFacilities($user);
 
-        return view('dashboard::index', compact('facilityInfo','userFacilities'));
+        return view('dashboard::index', compact('user', 'facilityInfo','userFacilities'));
     }
 
 }

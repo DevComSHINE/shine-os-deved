@@ -654,24 +654,6 @@ CREATE TABLE IF NOT EXISTS `healthcare_services` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `lab_results`
---
-
-CREATE TABLE IF NOT EXISTS `lab_results` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `labresults_id` varchar(60) COLLATE utf8_unicode_ci NOT NULL,
-  `healthcareservice_id` varchar(60) COLLATE utf8_unicode_ci NOT NULL,
-  `labresult_type` varchar(60) COLLATE utf8_unicode_ci NOT NULL,
-  `filename` varchar(60) COLLATE utf8_unicode_ci NOT NULL,
-  `deleted_at` timestamp NULL DEFAULT NULL,
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `lov_allergy_reaction`
 --
 

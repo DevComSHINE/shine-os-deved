@@ -135,20 +135,21 @@
                         <table width="100%">
 
                             <div class="form-group">
-                                <div class="icheck row">
+                                <div class="icheck row" style="margin-bottom:15px;">
                                     @foreach($lovlaboratories as $llabs)
-                                        <div class="col-md-4 checkbox">
-                                            <label>
+
                                               <?php $selectd = ""; ?>
                                               @foreach ($labs as $lab_key => $lab_value)
                                                 @if($lab_value->laboratory_test_type == $llabs->laboratorycode)
+                                                    <div class="col-md-4 checkbox" style="width:250px;float:left;">
+                                            <label>
                                                     <?php $selectd = "checked='checked'"; ?>
+                                                    <i class="fa fa-check-square fa-lg"></i> {{ $llabs->laboratorydescription }}
+                                                </label>
+                                          </div>
                                                 @endif
                                               @endforeach
-                                              <input type="checkbox" disabled value="{{ $llabs->laboratorycode }}" {{ $selectd }} class="form-control" /> {{ $llabs->laboratorydescription }}
 
-                                            </label>
-                                          </div>
                                     @endforeach
                                 </div>
                                 <div class="form-group">
@@ -170,7 +171,7 @@
                             <tr>
                                 <td valign="top">
                                     <p>MD: <strong><?php echo $user->first_name; ?> <?php echo $user->last_name; ?></strong>
-                                        <br>Lic#: <?php echo $user->professional_license_number; ?> | PHIC Accr#: <?php echo $provider->phic_accr_id; ?>
+                                        <br>PTR#: <?php echo $user->professional_license_number; ?> | PHIC Accr#: <?php echo $provider->phic_accr_id; ?>
                                         <br>Tel: <?php echo $user->phone; ?> | Email: <?php echo $user->email; ?>
                                     </p>
                                 </td>

@@ -16,8 +16,9 @@ class PatientAllergies extends Model {
     protected static $table_name = 'allergy_patient';
     protected $primaryKey = 'allergy_patient_id';
     protected $fillable = [];
+    protected $touches = array('PatientAlert');
 
     public function PatientAlert() {
-        return $this->belongsToMany('ShineOS\Core\Patients\Entities\PatientAlert', 'patient_alert_id');
+        return $this->belongsTo('ShineOS\Core\Patients\Entities\PatientAlert', 'patient_alert_id', 'patient_alert_id');
     }
 }

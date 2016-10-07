@@ -1,5 +1,5 @@
 @extends('users::layouts.masterlogin')
-@section('title') ShineOS+ | Forgot Password @stop
+@section('title') SHINE OS+ | Forgot Password @stop
 
 @section('content')
     <style>

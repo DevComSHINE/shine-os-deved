@@ -1,6 +1,4 @@
-<?php
-
-return [
+<?php return array(
     'name' => 'Rizal',
     'icon' => 'fa-cube',
     'roles' => '["Admin","Doctor","Nurse","Midwife"]',
@@ -11,4 +9,4 @@ return [
     'developer' => 'Ateneo ShineLabs',
     'copy' => '2016',
     'url' => 'www.shine.ph'
-];
+) ;

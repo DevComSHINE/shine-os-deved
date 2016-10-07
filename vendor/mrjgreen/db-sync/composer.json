@@ -1,0 +1,24 @@
+{
+    "name": "mrjgreen/db-sync",
+    "type": "library",
+    "description": "Efficient MySQL comparision and sync utility",
+    "autoload": {
+        "psr-0": { 
+            "DbSync": "src"
+         },
+         "files" : ["src/functions.php"]
+    },
+    "bin" : ["bin/sync"],
+    "scripts": {
+        "post-autoload-dump": [
+                "php build/createphar.php"
+        ]
+    },
+    "require" : {
+       "mrjgreen/php-cli" : "1.*",
+       "psr/log" : "*"
+    },
+    "require-dev": {
+      "satooshi/php-coveralls": "dev-master"
+    }
+}

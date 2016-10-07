@@ -35,7 +35,7 @@ class DefaultOptionsInstaller
         }
         $option->option_key = 'website_title';
         $option->option_group = 'website';
-        $option->option_value = 'Microweber';
+        $option->option_value = 'SHINEOS+';
         $option->is_system = 1;
         $option->save();
 

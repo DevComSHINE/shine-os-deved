@@ -15,7 +15,7 @@ class PatientAlert extends Model {
     protected $table = 'patient_alert';
     protected static $table_name = 'patient_alert';
     protected $primaryKey = 'patient_alert_id';
-
+    protected $touches = array('patients');
     protected $fillable = [];
 
     public function patients()
@@ -25,7 +25,7 @@ class PatientAlert extends Model {
 
     public function PatientAllergies()
     {
-        return $this->hasMany('ShineOS\Core\Patients\Entities\PatientAllergies', 'patient_alert_id');
+        return $this->hasMany('ShineOS\Core\Patients\Entities\PatientAllergies', 'patient_alert_id', 'patient_alert_id');
     }
 
 }

@@ -3,6 +3,7 @@
         <legend>Basic Health Information</legend>
         <div class="form-group ">
             <?php
+                $blood = "";
                 $btypeam = FALSE;
                 $btypeap = FALSE;
                 $btypeabm = FALSE;
@@ -22,47 +23,49 @@
                 if(isset($patient) AND $patient->blood_type == 'O-') $btypeom = TRUE;
                 if(isset($patient) AND $patient->blood_type == 'O+') $btypeop = TRUE;
                 if(isset($patient) AND $patient->blood_type == 'U') $btypeu = TRUE;
+                if(isset($patient) AND $patient->blood_type) $blood = $patient->blood_type;
             ?>
             <label class="control-label col-sm-2">Blood Type *</label>
             <div class="col-sm-10">
                 <div class="btn-group toggler" data-toggle="buttons">
                   <label class="btn btn-default required @if(isset($patient) AND $patient->blood_type=='A-') active @endif">
                       <i class="fa fa-check"></i>
-                    {!! Form::radio('inputPatientBloodType', 'A-', $btypeam, array('required' => 'required')) !!} A-
+                    {!! Form::radio('inputPatientBloodType', 'A-', $btypeam, array('onchange'=>"$('#blood_field').val(this.value);")) !!} A-
                   </label>
                   <label class="btn btn-default required @if(isset($patient) AND $patient->blood_type=='A+') active @endif">
                       <i class="fa fa-check"></i>
-                    {!! Form::radio('inputPatientBloodType', 'A+', $btypeap, array('required' => 'required')) !!} A+
+                    {!! Form::radio('inputPatientBloodType', 'A+', $btypeap, array('onchange'=>"$('#blood_field').val(this.value);")) !!} A+
                   </label>
                   <label class="btn btn-default required @if(isset($patient) AND $patient->blood_type=='AB-') active @endif">
                       <i class="fa fa-check"></i>
-                    {!! Form::radio('inputPatientBloodType', 'AB-', $btypeabm, array('required' => 'required')) !!} AB-
+                    {!! Form::radio('inputPatientBloodType', 'AB-', $btypeabm, array('onchange'=>"$('#blood_field').val(this.value);")) !!} AB-
                   </label>
                   <label class="btn btn-default required @if(isset($patient) AND $patient->blood_type=='AB+') active @endif">
                       <i class="fa fa-check"></i>
-                    {!! Form::radio('inputPatientBloodType', 'AB+', $btypeabp, array('required' => 'required')) !!} AB+
+                    {!! Form::radio('inputPatientBloodType', 'AB+', $btypeabp, array('onchange'=>"$('#blood_field').val(this.value);")) !!} AB+
                   </label>
                   <label class="btn btn-default required @if(isset($patient) AND $patient->blood_type=='B-') active @endif">
                       <i class="fa fa-check"></i>
-                    {!! Form::radio('inputPatientBloodType', 'B-', $btypebm, array('required' => 'required')) !!} B-
+                    {!! Form::radio('inputPatientBloodType', 'B-', $btypebm, array('onchange'=>"$('#blood_field').val(this.value);")) !!} B-
                   </label>
                   <label class="btn btn-default required @if(isset($patient) AND $patient->blood_type=='B+') active @endif">
                       <i class="fa fa-check"></i>
-                    {!! Form::radio('inputPatientBloodType', 'B+', $btypebp, array('required' => 'required')) !!} B+
+                    {!! Form::radio('inputPatientBloodType', 'B+', $btypebp, array('onchange'=>"$('#blood_field').val(this.value);")) !!} B+
                   </label>
                   <label class="btn btn-default required @if(isset($patient) AND $patient->blood_type=='O-') active @endif">
                       <i class="fa fa-check"></i>
-                    {!! Form::radio('inputPatientBloodType', 'O-', $btypeom, array('required' => 'required')) !!} O-
+                    {!! Form::radio('inputPatientBloodType', 'O-', $btypeom, array('onchange'=>"$('#blood_field').val(this.value);")) !!} O-
                   </label>
                   <label class="btn btn-default required @if(isset($patient) AND $patient->blood_type=='O+') active @endif">
                       <i class="fa fa-check"></i>
-                    {!! Form::radio('inputPatientBloodType', 'O+', $btypeop, array('required' => 'required')) !!} O+
+                    {!! Form::radio('inputPatientBloodType', 'O+', $btypeop, array('onchange'=>"$('#blood_field').val(this.value);")) !!} O+
                   </label>
                   <label class="btn btn-default required @if(isset($patient) AND $patient->blood_type=='U') active @endif">
                       <i class="fa fa-check"></i>
-                    {!! Form::radio('inputPatientBloodType', 'U', $btypeu, array('required' => 'required')) !!} Unknown
+                    {!! Form::radio('inputPatientBloodType', 'U', $btypeu, array('onchange'=>"$('#blood_field').val(this.value);")) !!} Unknown
                   </label>
                 </div>
+                <input type="hidden" name="inputPatientBloodType" class="required marginb-2" id="blood_field" value="{{ $blood }}" />
             </div>
         </div>
     </fieldset>
@@ -137,7 +140,7 @@
 
                         <div class="col-md-1">
                             <?php $h = 'hidden'; if( $c > 1 ) $h = ''; ?>
-                            <button class="removeAllergyLine btn btn-danger btn-sm {{ $h }}">&times;</button>
+                            <button class="removeAllergyLine btn btn-danger btn-sm {{ $h }}"><i class="fa fa-times"></i></button>
 
                         </div>
 
@@ -168,7 +171,7 @@
                             </select>
                         </div>
                         <div class="col-md-1">
-                            <button class="removeAllergyLine hidden btn btn-danger btn-sm">&times;</button>
+                            <button class="removeAllergyLine hidden btn btn-danger btn-sm"><i class="fa fa-times"></i></button>
                         </div>
                     </div><!-- /.box-body -->
                 <?php } ?>
@@ -178,7 +181,8 @@
               <br clear='all' />
               <hr />
               </div>
-
+            </div>
+            <div class="form-group">
               <div class="checkbox">
                 <label>
                   <input type="checkbox" name="alert[]" id="chk_disab" value="DISAB" {{ $disab }}>

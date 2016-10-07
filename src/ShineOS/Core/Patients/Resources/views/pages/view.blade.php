@@ -25,12 +25,13 @@
           @include('patients::pages.forms.basic_info')
           @include('patients::pages.forms.location')
           @include('patients::pages.forms.allergies_alerts')
+          @include('patients::pages.forms.history')
           @include('patients::pages.forms.notification_settings')
           @include('patients::pages.forms.photos')
 
         </div><!-- /.tab-content -->
 
-        <div class="form-group pull-right tab-buttons">
+        <div class="mainbuttons col-md-12 textcenter">
             <button type="button" class="btn btn-primary" onclick="location.href='{{ url('/records') }}'">Cancel</button>
             <button type="submit" value="submit" class="btn btn-success">Submit</button>
         </div>
@@ -40,7 +41,14 @@
 
 @section('scripts')
   {!! HTML::script('public/dist/plugins/camera/webcam.js') !!}
+  <div class="modal fade" id="deathModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog ">
+        <div class="modal-content">
   @include('patients::pages.forms.modal_death')
+        </div>
+    </div>
+    <!-- end of modal -->
+</div>
     <div class="modal fade" id="camerabox" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
       <div class="modal-dialog ">
         <div class="modal-content">
@@ -68,8 +76,6 @@
     </div>
 
   <script>
-
-
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

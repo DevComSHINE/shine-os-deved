@@ -7,6 +7,7 @@ return [
     'version' => '1.0',
     'title' => 'Shine Calendar Module',
     'folder' => 'Calendar',
+    'table' => 'calendar',
     'description' => 'A simple calendar module to manage your appointments.',
     'developer' => 'Ateneo ShineLabs',
     'copy' => '2016',

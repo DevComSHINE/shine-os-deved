@@ -84,7 +84,7 @@ class UsersController extends Controller {
     public function adduser()
     {
         $data = array();
-        $data['roles'] = Roles::where('role_name','!=','Admin')->get();
+        $data['roles'] = Roles::where('role_name','!=','Admin')->lists('role_name','role_id')->toArray();
 
         return view($this->viewPath.'admin.adduser')->with($data);
     }
@@ -94,16 +94,57 @@ class UsersController extends Controller {
      *
      * @return Response
      */
-    public function store()
-    {
+    public function store() {
+        $data = array();
+        $data['input'] = Input::all();
+        $data['roles'] = Roles::where('role_name','!=','Admin')->lists('role_name','role_id')->toArray();
+        
         $user = Users::addUser();
 
         // redirect
         if ($user != false):
             Session::flash('message', 'Successfully created a new record!');
         else:
-            Session::flash('warning', 'There is an existing email address.');
+            $userdata = Users::where('email',Input::get('email'))->first();
+            // Session::flash('warning', 'There is an existing email address.');
+            Session::flash('email_exists', TRUE);
+            //create view - add existing email to the Facility
+            
+            return view($this->viewPath.'admin.adduser')->with($data);
         endif;
+
+        return Redirect::to($this->modulePath);
+    }
+    /**
+     * Store additional facility to user
+     *
+     * @return Response
+     */
+    public function store_facilityuser() {
+        Session::flash('email_exists', FALSE);
+        $data = array();
+        $data = Input::all();
+        $data['roles'] = Roles::where('role_name','!=','Admin')->lists('role_name','role_id')->toArray();
+        
+        $userFacilityID = Session::get('facility_details');
+        $email = $data['email'];
+        $check = Users::checkIfExists($email,$userFacilityID['facility_id']);
+        if($check) {
+            //exists in facility user
+            Session::flash('warning', 'User already connected to this Facility.');
+            return view($this->viewPath.'admin.adduser')->with($data);
+        } else {
+            //insert to facility user
+            $userdata = Users::where('email',$email)->first();
+            $facilityuser = new FacilityUser();
+            $facilityuser->facilityuser_id = IdGenerator::generateId();
+            $facilityuser->user_id = $userdata->user_id;
+            $facilityuser->facility_id = $userFacilityID['facility_id'];
+            $facilityuser->save();
+
+            Session::flash('message', 'User successfully connected to this Facility.');
+            
+        }
 
         return Redirect::to($this->modulePath);
     }
@@ -142,7 +183,7 @@ class UsersController extends Controller {
         $citymunicipalities = Lovs::getLovs('citymunicipalities');
         $data['citymunicipalities'] = $citymunicipalities;
 
-
+        // dd($data);
         return view($this->viewPath.'userprofile')->with($data);
     }
 
@@ -234,6 +275,7 @@ class UsersController extends Controller {
      */
     public function updateInfo( $id = 0 )
     {
+        // dd(Input::all());
         // ben: will convert to eloquent and move these DB codes to model
         DB::table('users')
             ->where('user_id', $id)
@@ -242,6 +284,7 @@ class UsersController extends Controller {
                 'first_name' => Input::get('first_name'),
                 'middle_name' => Input::get('middle_name'),
                 'suffix' => Input::get('suffix_name'),
+                'gender' => Input::get('usergender'),
                 'birth_date' => date("Y-m-d", strtotime(Input::get('birth_date'))),
             ) );
 
@@ -304,8 +347,11 @@ class UsersController extends Controller {
             DB::table('user_md')
             ->where('user_id', $id)
             ->update(array(
+                'professional_titles' => Input::get('professional_titles'),
                 'profession' => Input::get('profession'),
                 'professional_license_number' => Input::get('professional_license_number'),
+                's2' => Input::get('s2'),
+                'ptr' => Input::get('ptr'),
                 'med_school' => Input::get('med_school'),
                 'residency_trn_inst' => Input::get('residency_trn_inst'),
                 'residency_grad_yr' => Input::get('residency_grad_yr'),
@@ -315,8 +361,11 @@ class UsersController extends Controller {
 
                 $md->usermd_id = IdGenerator::generateId();
                 $md->user_id= $id;
+                $md->professional_titles= Input::get('professional_titles');
                 $md->profession= Input::get('profession');
                 $md->professional_license_number= Input::get('professional_license_number');
+                $md->s2= Input::get('s2');
+                $md->ptr= Input::get('ptr');
                 $md->med_school= Input::get('med_school');
                 $md->residency_trn_inst= Input::get('residency_trn_inst');
                 $md->residency_grad_yr= Input::get('residency_grad_yr');

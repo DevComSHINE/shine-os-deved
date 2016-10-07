@@ -37,6 +37,11 @@ class Patients extends Model {
         return $this->hasOne('ShineOS\Core\Patients\Entities\PatientContacts', 'patient_id', 'patient_id');
     }
 
+    public function patientEmploymentInfo()
+    {
+        return $this->hasOne('ShineOS\Core\Patients\Entities\PatientEmploymentInfo', 'patient_id', 'patient_id');
+    }
+
     public function patientDeathInfo()
     {
         return $this->hasOne('ShineOS\Core\Patients\Entities\PatientDeathInfo','patient_id','patient_id');
@@ -45,6 +50,11 @@ class Patients extends Model {
     public function patientEmergencyInfo()
     {
         return $this->hasOne('ShineOS\Core\Patients\Entities\PatientEmergencyInfo','patient_id','patient_id');
+    }
+
+    public function patientPhilhealthInfo()
+    {
+        return $this->hasOne('Plugins\Philhealth\PhilhealthModel','patient_id','patient_id');
     }
 
     // revised by Romel
@@ -98,4 +108,27 @@ class Patients extends Model {
 
         return $patient;
     }
+
+    /**
+     * Retrieve get record by id
+     *
+     * @return object
+     */
+    protected static function getRecordByEmail ( $email = '' ) {
+        return self::where('email', $email)->first();
+    }
+    /**
+     * Change patient password
+     *
+     * @return object
+     */
+    protected static function updateUserPassword ( $patient_id = 0, $newPassword = NULL, $salt = NULL ) {
+        $patient = self::where('patient_id', $patient_id)->first();
+        $patient->password = $newPassword;
+        $patient->salt = $salt;
+        $patient->save();
+
+        return $patient;
+    }
+
 }

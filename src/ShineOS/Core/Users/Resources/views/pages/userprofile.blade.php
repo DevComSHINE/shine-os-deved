@@ -23,7 +23,7 @@
             <div class="nav-tabs-custom">
                 <ul class="nav nav-tabs">
                     <li class="active"><a href="#tab_1" data-toggle="tab">User Information</a></li>
-                    <li><a href="#tab_2" data-toggle="tab">Background</a></li>
+                    <li><a href="#tab_2" data-toggle="tab">Profession</a></li>
                     <li><a href="#tab_3" data-toggle="tab">Password</a></li>
                     <li><a href="#tab_4" data-toggle="tab">Settings</a></li>
                     <li><a href="#tab_5" data-toggle="tab">Role</a></li>
@@ -61,7 +61,7 @@
 
 @stop
 
-@section('linked_scripts')
+@section('before_validation_scripts')
 {!! HTML::script('public/dist/plugins/jquery-validation/jquery.validate.min.js') !!}
 {!! HTML::script('public/dist/plugins/chain/jquery.chained.min.js') !!}
 {!! HTML::script('public/dist/plugins/chain/jquery.chained.remote.min.js') !!}

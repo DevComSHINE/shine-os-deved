@@ -126,80 +126,89 @@ class InstallController extends Controller
             Config::save($allowed_configs);
             Cache::flush();
 
+            $err = 0;
             $install_finished = false;
             try {
                 DB::connection($dbDriver)->getDatabaseName();
             } catch (\PDOException $e) {
-                return ('Error: ' . $e->getMessage() . "\n");
+                return ('ErrorP: ' . $e->getMessage() . "\n");
             } catch (\Exception $e) {
-                return ('Error: ' . $e->getMessage() . "\n");
+                return ('ErrorM: ' . $e->getMessage() . "\n");
             }
 
             if (function_exists('set_time_limit')) {
                 @set_time_limit(0);
             }
 
-            $this->install_log("Setting up Database Tables");
+            $this->install_log("Setting up Database");
             $installer = new Install\DbInstaller();
+
+            //Database does not exist
+
+            $this->install_log("Setting up Database: Creating Tables");
             $installer->run();
 
-            $this->install_log("Seeding Database: Immunizations");
+            $this->install_log("Setting up Database: Creating Views");
+            $installer->mysqlviews();
+
+            $this->install_log("Seeding Libraries: Immunizations");
             $installer->run('lov_immunizations');
 
-            $this->install_log("Seeding Database: Diagnosis");
+            $this->install_log("Seeding Libraries: Diagnosis");
             $installer->run('lov_diagnosis');
 
-            $this->install_log("Seeding Database: Medical Procedures");
+            $this->install_log("Seeding Libraries: Medical Procedures");
             $installer->run('lov_medicalprocedures');
 
-            $this->install_log("Seeding Database: Diseases");
+            $this->install_log("Seeding Libraries: Diseases");
             $installer->run('lov_diseases');
 
-            $this->install_log("Seeding Database: Allergy Reactions");
+            $this->install_log("Seeding Libraries: Allergy Reactions");
             $installer->run('lov_allergy_reaction');
 
-            $this->install_log("Seeding Database: Disabilities");
+            $this->install_log("Seeding Libraries: Disabilities");
             $installer->run('lov_disabilities');
 
-            $this->install_log("Seeding Database: Enumerations");
+            $this->install_log("Seeding Libraries: Enumerations");
             $installer->run('lov_enumerations');
 
-            $this->install_log("Seeding Database: Medical Category");
+            $this->install_log("Seeding Libraries: Medical Category");
             $installer->run('lov_medicalcategory');
 
-            $this->install_log("Seeding Database: Referral Reasons");
+            $this->install_log("Seeding Libraries: Referral Reasons");
             $installer->run('lov_referral_reasons');
 
-            $this->install_log("Seeding Database: Laboratories");
+            $this->install_log("Seeding Libraries: Laboratories");
             $installer->run('lov_laboratories');
 
-            $this->install_log("Seeding Database: LOINCS");
+            $this->install_log("Seeding Libraries: LOINCS");
             $installer->run('lov_loincs');
 
-            $this->install_log("Seeding Database: ICD10");
+            $this->install_log("Seeding Libraries: ICD10");
             $installer->run('lov_icd10');
 
-            $this->install_log("Seeding Database: DOH Facility Directory");
+            $this->install_log("Seeding Libraries: DOH Facility Directory");
             $installer->run('lov_doh_facility_codes');
 
-            $this->install_log("Seeding Database: Drug");
+            $this->install_log("Seeding Libraries: Drugs");
             $installer->run('lov_drugs');
 
-            $this->install_log("Seeding Database: Geographic Data");
+            $this->install_log("Seeding Libraries: Location Data");
             $installer->run('lov_address');
 
-            $this->install_log("Seeding Database: Modules");
+            $this->install_log("Seeding Libraries: Modules");
             $installer->run('lov_modules');
 
-            $this->install_log("Seeding Database: Roles");
-            $installer->run('lov_roles');
+            $this->install_log("Seeding Libraries: Roles");
+            $installer->run('roles');
 
-            $this->install_log("Seeding Database: Done");
+            $this->install_log("Seeding Libraries: Done");
             $installer->donothing();
 
+            $this->install_log("Setting up Configuration");
             Config::set('shineos.is_installed', 1);
 
-            $this->install_log("Saving config");
+            $this->install_log("Saving Configuration");
             Config::save($allowed_configs);
 
             $this->install_log("done");
@@ -215,11 +224,16 @@ class InstallController extends Controller
         }
 
         $dbEngines = Config::get('database.connections');
-        foreach ($dbEngines as $driver => $v) {
-            if (!extension_loaded("pdo_$driver")) {
-                unset($dbEngines[$driver]);
+        if($dbEngines) {
+            foreach ($dbEngines as $driver => $v) {
+                if (!extension_loaded("pdo_$driver")) {
+                    unset($dbEngines[$driver]);
+                }
             }
+        } else {
+            App::abort(403, 'Unauthorized action. ShineOS is already installed.');
         }
+        
         $viewData = [
             'config' => $dbEngines[$defaultDbEngine],
             'dbDefaultEngine' => $defaultDbEngine,

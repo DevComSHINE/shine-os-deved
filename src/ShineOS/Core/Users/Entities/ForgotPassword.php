@@ -1,4 +1,6 @@
-<?php namespace ShineOS\Core\Users\Entities;
+<?php
+
+namespace ShineOS\Core\Users\Entities;
 
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;

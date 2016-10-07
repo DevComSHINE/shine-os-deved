@@ -156,17 +156,30 @@
           </div>
 
         </div><!-- /.box-header -->
-        <?php if(isset($currentConsultation)) { ?>
+        <?php if(isset($currentConsultation)) {
+                $childConsultation = findHealthRecordChild($currentConsultation->healthcareservice_id);
+            ?>
             <div class="box-body">
-              <h3 class="blue">Recent Consultation |  <a href="{{ url('healthcareservices/edit', [$patient->patient_id,$currentConsultation->healthcareservice_id]) }}" class="btn btn-sm btn-info">Open Current Consultation <i class="fa fa-external-link-square"></i></a> @if($patient->patientDeathInfo == null)<a href="{{ url('healthcareservices/add', [$patient->patient_id, $currentConsultation->healthcareservice_id]) }}" class="btn btn-sm btn-success">Add Followup <i class="fa fa-plus"></i></a>@endif</h3>
+              <h3 class="blue">Recent Consultation |  <a href="{{ url('healthcareservices/edit', [$patient->patient_id,$currentConsultation->healthcareservice_id]) }}" class="btn btn-sm btn-info">Open Current Consultation <i class="fa fa-external-link-square"></i></a>
+                  @if($patient->patientDeathInfo == null)
+                    @if($childConsultation == NULL)
+                        <a href="{{ url('healthcareservices/add', [$patient->patient_id, $currentConsultation->healthcareservice_id]) }}" class="btn btn-sm btn-success">Add Followup <i class="fa fa-plus"></i></a>
+                    @else
+                        <a href="{{ url('healthcareservices/edit', [$patient->patient_id, $childConsultation->healthcareservice_id]) }}" class="btn btn-sm btn-success">Open Followup <i class="fa fa-plus"></i></a>
+                    @endif
+                  @endif
+              </h3>
               <div class="row">
                 <div class="col-lg-6">
                   <label>Consultation Date:</label>
                   <p class="text-muted">{{ date("F d, Y", strtotime($currentConsultation->encounter_datetime)) }}</p>
 
                   @if($currentConsultation->parent_service_id)
+                    <?php
+                      $previousConsultation = findHealthRecordByServiceID($currentConsultation->parent_service_id);
+                    ?>
                     <label>Followup from:</label>
-                    <p class="text-muted">{{ $currentConsultation->parent_service_id }}</p>
+                    <p class="text-muted">{{ date("F d, Y", strtotime($previousConsultation->encounter_datetime)) }}</p>
                   @endif
 
                   <label>Consultation Type:</label>
@@ -191,8 +204,8 @@
 
                   <label>Attending Physician:</label>
                   <p class="text-muted">
-                      @if($dr = getUserFullNameByUserID($currentConsultation->seen_by))
-                      Dr. {{ $dr }} [{{ getFacilityNameByUserID($currentConsultation->seen_by) }}]
+                      @if($dr = getUserFullNameByFacilityUserID($currentConsultation->seen_by))
+                      Dr. {{ $dr }} [{{ getFacilityByFacilityUserID($currentConsultation->seen_by, 'facility_name') }}]
                       @endif
                   </p>
                 </div>
@@ -240,7 +253,7 @@
                   <th>Clinical Service</th>
                   <th>Diagnosis</th>
                   <th>Type</th>
-                  <th>Attended by</th>
+                  <th>Physician</th>
                 </tr>
                 <?php foreach($hc_history as $history) { //dd($hc_history); ?>
                 <tr class='row-clicker' onclick="location.href='{{ url('healthcareservices/edit', [$patient->patient_id, $history['healthcareservice_id']] ) }}'">
@@ -270,27 +283,91 @@
           </div>
         <?php } ?>
       </div>
-        @if(!empty($patients_monitoring) AND $patients_monitoring!=NULL)
+
+      @if(count($patients_monitoring))
+        <div class="box box-primary">
+          <div class="box-header with-border">
+            <h3 class="box-title"><i class="fa fa-heartbeat"></i> Patient Monitoring</h3>
+          </div><!-- /.box-header -->
+          <div class="box no-border">
+              <div class="box-body table-responsive no-padding overflowx-hidden">
+                  <table class="table table-hover datatable">
+                      <thead>
+                        <tr>
+                          <th>Blood Pressure</th>
+                          <th>Blood Pressure Assessment</th>
+                          <th>Created At</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                          @foreach ($patients_monitoring as $mkey => $mvalue)
+                          <tr>
+                            <td> {{ $mvalue->bloodpressure_systolic }} / {{ $mvalue->bloodpressure_diastolic }}</td>
+                            <td> {{ $mvalue->bloodpressure_assessment_name }} </td>
+                            <td>  {{ date('M. d, Y', strtotime($mvalue->created_at)) }}  </td>
+                          </tr>
+                        @endforeach
+                    </tbody>
+                  </table>
+              </div><!-- /.box-body -->
+          </div><!-- /.box -->
+        </div>
+        @endif
+
+      @if(count($MedicalOrderLabExam))
           <div class="box box-primary">
             <div class="box-header with-border">
-              <h3 class="box-title"><i class="fa fa-heartbeat"></i> Patient Monitoring</h3>
+              <h3 class="box-title"><i class="fa fa-heartbeat"></i> Patient Laboratory</h3>
             </div><!-- /.box-header -->
             <div class="box no-border">
                 <div class="box-body table-responsive no-padding overflowx-hidden">
                     <table class="table table-hover datatable">
                         <thead>
                           <tr>
-                            <th>Blood Pressure</th>
-                            <th>Blood Pressure Assessment</th>
-                            <th>Created At</th>
+                            <th>Laboratory</th>
+                            <th>Status</th>
+                            <th>Action</th>
                           </tr>
                         </thead>
                         <tbody>
-                            @foreach ($patients_monitoring as $mkey => $mvalue)
+
+                          @foreach ($MedicalOrderLabExam as $lab_key => $lab_value)
                             <tr>
-                              <td> {{ $mvalue->bloodpressure_systolic }} / {{ $mvalue->bloodpressure_diastolic }}</td>
-                              <td> {{ $mvalue->bloodpressure_assessment_name }} </td>
-                              <td>  {{ date('M. d, Y', strtotime($mvalue->created_at)) }}  </td>
+                              <td>
+                                    @if( isset($lov_laboratories[$lab_value->laboratory_test_type]) )
+                                  {{ $lov_laboratories[$lab_value->laboratory_test_type] }}
+                                  @else
+                                  {{ $lab_value->laboratory_test_type }}
+                                  @endif
+                              </td>
+                              <td>
+                                @if($lab_value->LaboratoryResult!=NULL)
+                                  <?php $disabled_upload = TRUE; ?>
+                                  <span class="label label-success">Uploaded: <?php echo date('M d, Y h:i A', strtotime($lab_value->LaboratoryResult->created_at)); ?>
+                                      </span>
+                                @else
+                                  <?php $disabled_upload = FALSE; ?>
+                                  <span class="label label-warning">Pending: <?php echo date('M d, Y h:i A', strtotime($lab_value->created_at)); ?>
+                                      </span>
+                                @endif
+                              </td>
+                              <td>
+                                @if($lab_value->laboratory_test_type =='BR')
+                                  <?php $Modal_labType = "lab_completebloodcount"; ?>
+                                @elseif($lab_value->laboratory_test_type =='UR')
+                                  <?php $Modal_labType = "lab_urinalysis"; ?>
+                                @elseif($lab_value->laboratory_test_type =='FE')
+                                  <?php $Modal_labType = "lab_fecalysis"; ?>
+                                @else
+                                  <?php $Modal_labType = "labModal"; ?>
+                                @endif
+
+                                @if(!$disabled_upload)
+                                  <a href="#" class="btn btn-block btn-default btn-sm labClick" data-toggle="modal" data-id="<?php echo $lab_value->medicalorderlaboratoryexam_id; ?>" data-target="#<?php echo $Modal_labType; ?>" > Upload result </a>
+                                @else
+                                  <a href="{{ URL::to('laboratory/view/'.$lab_value->laboratory_test_type.'/'.$lab_value->medicalorderlaboratoryexam_id) }}" class="btn btn-block btn-default btn-sm"> View </a>
+                                @endif
+                              </td>
                             </tr>
                           @endforeach
                       </tbody>
@@ -300,15 +377,28 @@
           </div>
           @endif
     </div>
+
+@include('laboratory::modal.modal_lab_completebloodcount')
+@include('laboratory::modal.modal_lab_urinalysis')
+@include('laboratory::modal.modal_lab_fecalysis')
+@include('laboratory::modal.modal_laboratory_result')
 @stop
 
 @section('scripts')
+
 {!! HTML::script('public/dist/plugins/ionslider/ion.rangeSlider.min.js') !!}
 <script type="text/javascript">
     $(document).ready(function() {
         $("#bmi_range").ionRangeSlider({
             disable: true
         });
+    });
+
+    $(document).on("click", ".labClick", function () {
+      var lab_dataTarget = $(this).data('target');
+      var medicalorderlaboratoryexam_id = $(this).data('id');
+      $(lab_dataTarget+" #medicalorderlaboratoryexam_id").val( medicalorderlaboratoryexam_id );
+
     });
 </script>
 @stop

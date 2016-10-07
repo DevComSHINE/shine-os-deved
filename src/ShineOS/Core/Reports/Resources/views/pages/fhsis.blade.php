@@ -4,7 +4,7 @@
         <p class="box-content-para">To generate your FHSIS Report by setting the date range you want and clicking on the Generate button.</p>
     </div>
 
-    <div class="col-md-6">
+    <div class="col-md-4">
         <div class="box box-success box-solid">
             <div class="box-header with-border">
               <h3 class="box-title">Monthly</h3>
@@ -16,7 +16,9 @@
               </ul>
             </div><!-- /.box-body -->
         </div>
+    </div>
 
+    <div class="col-md-4">
         <div class="box box-success box-solid">
             <div class="box-header with-border">
               <h3 class="box-title">Quarterly</h3>
@@ -30,17 +32,17 @@
         </div>
     </div>
 
-    <div class="col-md-6">
+    <div class="col-md-4">
         <div class="box box-success box-solid">
             <div class="box-header with-border">
               <h3 class="box-title">Annual</h3>
             </div>
             <div class="box-body no-padding">
               <ul class="nav nav-pills nav-stacked">
-                <li><?php echo link_to_route('fhsis.abrgy', 'A-Brgy'); ?></li>
-                <li><?php echo link_to_route('fhsis.a1', 'A1'); ?></li>
-                <li><?php echo link_to_route('fhsis.a2', 'A2'); ?></li>
-                <li><?php echo link_to_route('fhsis.a3', 'A3'); ?></li>
+                <li><?php echo link_to_route('fhsis.abrgy', 'Annual Brgy'); ?></li>
+                <li><?php echo link_to_route('fhsis.a1', 'Program Report A1'); ?></li>
+                <li><?php echo link_to_route('fhsis.a2', 'Morbidity Report A2'); ?></li>
+                <li><?php echo link_to_route('fhsis.a3', 'Mortality Report A3'); ?></li>
               </ul>
             </div><!-- /.box-body -->
         </div>

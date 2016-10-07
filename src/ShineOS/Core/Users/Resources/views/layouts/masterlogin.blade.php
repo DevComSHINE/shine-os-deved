@@ -2,9 +2,9 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>shineOS | Log in</title>
+        <title>SHINE OS+ | Log in</title>
         <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
-        <meta name="_token" content="{{ csrf_token() }}">
+        <!-- <meta name="_token" content="{{ csrf_token() }}"> -->
         <!--Global Fonts-->
         <link href='http://fonts.googleapis.com/css?family=Raleway:100,200,300' rel='stylesheet' type='text/css'>
         <link href='http://fonts.googleapis.com/css?family=Roboto:400,100,300,500,700|Roboto+Condensed:400,300,700' rel='stylesheet' type='text/css'>
@@ -45,6 +45,7 @@
                 background-color: #FFF;
             }
         </style>
+        @yield('heads')
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
         <!--[if lt IE 9]>
@@ -55,8 +56,8 @@
     <body>
         @yield('content')
 
-        @include('partials.footer')
-
         @yield('footer')
     </body>
 </html>
+@include('partials.footer')
+@yield('scripts')

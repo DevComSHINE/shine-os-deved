@@ -27,23 +27,25 @@
                 <div class="col-sm-4">
                     <div class="btn-group toggler" data-toggle="buttons">
                       <?php
-                        $genderm = false; $genderf = false; $genderu = false;
+                        $genderm = false; $genderf = false; $genderu = false; $gender = "";
                         if(isset($patient) AND $patient->gender == "M") $genderm = true;
                         if(isset($patient) AND $patient->gender == "F") $genderf = true;
                         if(isset($patient) AND $patient->gender == "U") $genderu = true;
+                        if(isset($patient)) $gender = $patient->gender;
                       ?>
                       <label class="btn btn-default required @if(isset($patient) AND $patient->gender=='M') active @endif">
-                        <i class="fa fa-check"></i> {!! Form::radio('inputPatientGender', 'M', $genderm, array('class' => 'gender required')) !!} Male
+                        <i class="fa fa-check"></i> {!! Form::radio('', 'M', $genderm, array('class' => 'gender', 'autocomplete'=>'off', 'onchange'=>"$('#sex_field').val(this.value);" )) !!} Male
                       </label>
                       <label class="btn btn-default required @if(isset($patient) AND $patient->gender=='F') active @endif">
-                        <i class="fa fa-check"></i> {!! Form::radio('inputPatientGender', 'F', $genderf, array('class' => 'gender required')) !!} Female
+                        <i class="fa fa-check"></i> {!! Form::radio('', 'F', $genderf, array('class' => 'gender', 'autocomplete'=>'off', 'onchange'=>"$('#sex_field').val(this.value);")) !!} Female
                       </label>
                       @if($genderu)
                       <label class="btn btn-default required @if(isset($patient) AND $patient->gender=='U') active @endif">
-                        <i class="fa fa-check"></i> {!! Form::radio('inputPatientGender', 'U', $genderu, array('class' => 'gender required')) !!} Unknown
+                        <i class="fa fa-check"></i> {!! Form::radio('', 'U', $genderu, array('class' => 'gender', 'autocomplete'=>'off')) !!} Unknown
                       </label>
                       @endif
                     </div>
+                    <input type="hidden" name="inputPatientGender" class="required marginb-2" id="sex_field" value="{{ $gender }}" />
                 </div>
                 <label class="col-sm-2 control-label" for="marital_status">Marital Status *</label>
                 <div class="col-sm-4">
@@ -128,7 +130,8 @@
             <div class="form-group">
                 <label class="col-sm-2 control-label">Nationality</label>
                 <div class="col-sm-4">
-                    <input type="text" class="form-control alpha" name="inputPatientNationality" value="{{{ isset($patient->nationality) ? $patient->nationality : '' }}}"  />
+                    <!-- <input type="text" class="form-control alpha" name="inputPatientNationality" value="{{{ isset($patient->nationality) ? $patient->nationality : '' }}}"  /> -->
+                    {!! Form::select('inputPatientNationality', $nationality, isset($patient->nationality) ? $patient->nationality : '', ['class' => 'form-control alpha']) !!}
                 </div>
             </div>
 

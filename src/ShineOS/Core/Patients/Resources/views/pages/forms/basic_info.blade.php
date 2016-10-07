@@ -21,6 +21,7 @@
                 <div class="col-sm-4">
                     {!! Form::text('first_name', null, array('class' => 'form-control', 'name'=>'inputPatientFirstName')) !!}
                 </div>
+
                 <label class="col-sm-2 control-label">Middle name </label>
                 <div class="col-sm-4">
                     {!! Form::text('middle_name', null, array('class' => 'form-control', 'name'=>'inputPatientMiddleName')) !!}
@@ -47,57 +48,63 @@
                       </label>
                     </div>
                 </div>
-
-                <label class="col-sm-2 control-label">Gender *</label>
-                <div class="col-sm-4">
-                    <div class="btn-group toggler" data-toggle="buttons">
-                      <?php
-                        $genderm = false; $genderf = false; $genderu = false;
-                        if(isset($patient) AND $patient->gender == "M") $genderm = true;
-                        if(isset($patient) AND $patient->gender == "F") $genderf = true;
-                        if(isset($patient) AND $patient->gender == "U") $genderu = true;
-                        if(isset($patient) AND $patient->gender == "") $genderu = true;
-                      ?>
-                      <label class="btn btn-default required @if(isset($patient) AND $patient->gender=='M') active @endif">
-                        <i class="fa fa-check"></i> {!! Form::radio('inputPatientGender', 'M', $genderm, array('class' => 'form-control gender')) !!} Male
-                      </label>
-                      <label class="btn btn-default required @if(isset($patient) AND $patient->gender=='F') active @endif">
-                        <i class="fa fa-check"></i> {!! Form::radio('inputPatientGender', 'F', $genderf, array('class' => 'form-control gender')) !!} Female
-                      </label>
-                      @if($genderu)
-                      <label class="btn btn-default required @if(isset($patient) AND $patient->gender=='U') active @endif">
-                        <i class="fa fa-check"></i> {!! Form::radio('inputPatientGender', 'U', $genderu, array('class' => 'form-control gender')) !!} Unknown
-                      </label>
-                      @endif
+            </div>
+            <div class="form-group col-md-6">
+                <div class="row">
+                    <label class="col-sm-4 control-label">Gender *</label>
+                    <div class="col-sm-8">
+                        <div class="btn-group toggler" data-toggle="buttons">
+                          <?php
+                            $genderm = false; $genderf = false; $genderu = false;
+                            if(isset($patient) AND $patient->gender == "M") $genderm = true;
+                            if(isset($patient) AND $patient->gender == "F") $genderf = true;
+                            if(isset($patient) AND $patient->gender == "U") $genderu = true;
+                            if(isset($patient) AND $patient->gender == "") $genderu = true;
+                          ?>
+                          <label class="btn btn-default required @if(isset($patient) AND $patient->gender=='M') active @endif">
+                            <i class="fa fa-check"></i> {!! Form::radio('inputPatientGender', 'M', $genderm, array('class' => 'form-control gender', 'required'=>'required')) !!} Male
+                          </label>
+                          <label class="btn btn-default required @if(isset($patient) AND $patient->gender=='F') active @endif">
+                            <i class="fa fa-check"></i> {!! Form::radio('inputPatientGender', 'F', $genderf, array('class' => 'form-control gender', 'required'=>'required')) !!} Female
+                          </label>
+                          @if($genderu)
+                          <label class="btn btn-default required @if(isset($patient) AND ($patient->gender=='U' OR $patient->gender=='')) active  @endif">
+                            <i class="fa fa-check"></i> {!! Form::radio('inputPatientGender', 'U', $genderu, array('class' => 'form-control gender', 'required'=>'required')) !!} Unknown
+                          </label>
+                          @endif
+                        </div>
                     </div>
                 </div>
-
-                <label class="col-sm-2 control-label" for="marital_status">Marital Status *</label>
-                <div class="col-sm-4">
-                    <select class="required form-control" name="inputPatientStatus" id="marital_status_field" onchange="show_maiden();">
-                        <option value="">- Select civil status -</option>
-                        <option value="S" @if(isset($patient) AND $patient->civil_status == 'S') selected='selected' @endif >Single</option>
-                        <option value="M" @if(isset($patient) AND $patient->civil_status == 'M') selected='selected' @endif >Married</option>
-                        <option value="X" @if(isset($patient) AND $patient->civil_status == 'X') selected='selected' @endif >Separated</option>
-                        <option value="A" @if(isset($patient) AND $patient->civil_status == 'A') selected='selected' @endif >Annuled</option>
-                        <option value="W" @if(isset($patient) AND $patient->civil_status == 'W') selected='selected' @endif >Widower</option>
-                    </select>
-                </div>
-
-                <?php
-                $hide = 'hidden';
-                if(isset($patient) AND isset($patient) AND $genderf == true AND $patient->civil_status == 'M') {
-                    $hide = '';
-                } ?>
-                <div class="maiden {{ $hide }}">
-                    <label class="col-sm-2 control-label">Maiden Last Name </label>
-                    <div class="col-sm-4">
-                        {!! Form::text('maiden_lastname', null, array('class' => 'form-control', 'name'=>'inputMaidenLastName')) !!}
+            </div>
+            <div class="form-group col-md-6">
+                <div class="row">
+                    <label class="col-sm-4 control-label" for="marital_status">Marital Status *</label>
+                    <div class="col-sm-8">
+                        <select class="required form-control" name="inputPatientStatus" id="marital_status_field" onchange="show_maiden();" required='required'>
+                            <option value="">- Select civil status -</option>
+                            <option value="S" @if(isset($patient) AND $patient->civil_status == 'S') selected='selected' @endif >Single</option>
+                            <option value="M" @if(isset($patient) AND $patient->civil_status == 'M') selected='selected' @endif >Married</option>
+                            <option value="X" @if(isset($patient) AND $patient->civil_status == 'X') selected='selected' @endif >Separated</option>
+                            <option value="A" @if(isset($patient) AND $patient->civil_status == 'A') selected='selected' @endif >Annuled</option>
+                            <option value="W" @if(isset($patient) AND $patient->civil_status == 'W') selected='selected' @endif >Widower</option>
+                        </select>
                     </div>
 
-                    <label class="col-sm-2 control-label">Maiden Middle Name </label>
-                    <div class="col-sm-4">
-                        {!! Form::text('maiden_middlename', null, array('class' => 'form-control', 'name'=>'inputMaidenMiddleName')) !!}
+                    <?php
+                    $hide = 'hidden';
+                    if(isset($patient) AND isset($patient) AND $genderf == true AND $patient->civil_status == 'M') {
+                        $hide = '';
+                    } ?>
+                    <div class="maiden {{ $hide }}">
+                        <label class="col-sm-2 control-label">Maiden Last Name </label>
+                        <div class="col-sm-4">
+                            {!! Form::text('maiden_lastname', null, array('class' => 'form-control', 'name'=>'inputMaidenLastName')) !!}
+                        </div>
+
+                        <label class="col-sm-2 control-label">Maiden Middle Name </label>
+                        <div class="col-sm-4">
+                            {!! Form::text('maiden_middlename', null, array('class' => 'form-control', 'name'=>'inputMaidenMiddleName')) !!}
+                        </div>
                     </div>
                 </div>
             </div>
@@ -172,7 +179,8 @@
             <div class="form-group">
                 <label class="col-sm-2 control-label">Nationality</label>
                 <div class="col-sm-4">
-                    <input type="text" class="form-control alpha" name="inputPatientNationality" value="{{{ isset($patient->nationality) ? $patient->nationality : '' }}}"  />
+                    <!-- <input type="text" class="form-control alpha" name="inputPatientNationality" value="{{{ isset($patient->nationality) ? $patient->nationality : '' }}}"  /> -->
+                    {!! Form::select('inputPatientNationality', $nationality, isset($patient->nationality) ? $patient->nationality : '', ['class' => 'form-control alpha']) !!}
                 </div>
             </div>
 

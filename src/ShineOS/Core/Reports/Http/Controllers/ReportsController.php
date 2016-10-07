@@ -9,8 +9,11 @@ use ShineOS\Core\Patients\Entities\Patients;
 use ShineOS\Core\Referrals\Entities\Referrals;
 use ShineOS\Core\Reports\Entities\Reports;
 use ShineOS\Core\Reports\Entities\M1;
+use ShineOS\Core\Reports\Entities\M2;
 use Shine\Libraries\FacilityHelper;
 use Shine\Libraries\Utils;
+
+use ShineOS\Core\Reports\Http\Controllers\ABrgyController;
 
 use View,
     Response,
@@ -34,16 +37,16 @@ class ReportsController extends Controller {
 
     public function __construct()
     {
-        View::addNamespace('analytics', 'src/ShineOS/Core/Analytics/Resources/Views');
         View::addNamespace('reports', 'src/ShineOS/Core/Reports/Resources/Views');
+
+        $this->abrgycontroller = new ABrgyController;
     }
 
     public function index()
     {
-        //$thisfacility = json_decode(Cache::get('facility_details'));
         $thisfacility = json_decode(Session::get('facility_details'));
 
-        if ($thisfacility->ownership_type == 'private')
+        if ($thisfacility->ownership_type == 'PRIVATE')
         {
             return $this->privateFacilityReports();
         }
@@ -55,67 +58,27 @@ class ReportsController extends Controller {
 
     private function privateFacilityReports()
     {
-        $data = $this->analytics();
+        $data['facility'] = json_decode(Session::get('facility_details'));
 
-        return view($this->viewPath.'private')->with($data);
+        return view($this->viewPath.'private', $data);
     }
 
     private function publicFacilityReports()
     {
-        $data = $this->analytics();
+        $data['facility'] = json_decode(Session::get('facility_details'));
 
-        return view($this->viewPath.'public')->with($data);
+        return view($this->viewPath.'public', $data);
     }
 
     private function analytics()
     {
         $facility = FacilityHelper::facilityInfo();
 
-        $reportData = Reports::getReportData();
-
-        $data['latest_patients'] = isset($reportData['latest_patients']) ? $reportData['latest_patients'] : NULL;
-        $data['top_patients'] = isset($reportData['top_patients']) ? $reportData['top_patients'] : NULL;
-        $data['total_patients_by_sex'] = isset($reportData['count_by_gender_sex']) ? $reportData['count_by_gender_sex'] : NULL;
-        $data['count_by_gender_sex'] = isset($reportData['count_by_gender_sex'][0]) ? $reportData['count_by_gender_sex'][0]->total : 0;
-        $data['count_by_age'] = isset($reportData['count_by_age']) ? $reportData['count_by_age'] : NULL;
-
-        //dd($data['count_by_gender_age']);
-        $data['count_by_services_rendered'] = isset($reportData['count_by_services_rendered'][0]) ? $reportData['count_by_services_rendered'][0]->total : 0;
-        $data['count_by_disease'] = isset($reportData['count_by_disease'][0]) ? $reportData['count_by_disease'][0]->total : 0;
-
-        //Graph
-        $maxdate = date('Y-m-d H:i:s');
-        $xdate = strtotime($maxdate .' -6 months');
-        $mindate = date('Y-m-d', $xdate);
-        $data['services'] = Healthcareservices::select('healthcareservicetype_id', DB::raw('count(*) as counter'))->where('created_at', '<=', $maxdate)->where('created_at', '>', $mindate)->groupBy('healthcareservicetype_id')->orderBy('counter')->get();
-        $data['diagnosis'] = Diagnosis::select('diagnosis_type','diagnosislist_id', DB::raw('count(*) as bilang'))->where('created_at', '<=', $maxdate)->where('created_at', '>', $mindate)->groupBy('diagnosislist_id')->orderBy('bilang')->take(4)->get();
-        $data['total'] = Healthcareservices::where('created_at', '<=', $maxdate)->where('created_at', '>', $mindate)->count();
-        $data['cs_stats'] = [];
-
-        for($d = 1; $d <= 6; $d++) {
-            $xr = strtotime($mindate .' +'.$d.' months');
-            $ranges[$d] = date('Y-m-d', $xr);
-        }
-        $data['ranges'] = $ranges;
-
-        foreach($data['services'] as $service) {
-            foreach($ranges as $range) {
-                $max = date('Y-m-30 11:00:00', strtotime($range));
-                $min = date('Y-m-01 00:00:00', strtotime($range));
-
-                $bils = Healthcareservices::select(DB::raw('count(*) as bilang'))->where('created_at', '<=', $max)->where('created_at', '>', $min)->where('healthcareservicetype_id', $service->healthcareservicetype_id)->get();
-
-                foreach($bils as $k=>$bil) {
-                    $data['cs_stats'][$service->healthcareservicetype_id][$range] = $bil->bilang;
-                }
-            }
-        }
-
-        //exit;
+        //to be removed later on
         $facility_id = FacilityHelper::facilityInfo();
         $data['chart'] = $this->getData();
         $data['patient_count'] = Patients::whereHas('facilityUser', function($query) use ($facility) {
-                    $query->where('facility_id', '=', $facility->facility_id); })->count();
+                    $query->where('facility_id', '=', $facility_id->facility_id); })->count();
         $data['visit_count'] = Healthcareservices::count();
         $data['referral_count'] = Referrals::where('facility_id', '=', $facility_id->facility_id)->count(); // change this to facility ID
 
@@ -159,15 +122,15 @@ class ReportsController extends Controller {
         /**
          * Change query / variable name
          */
-        $data['top_patients'] = DB::select('SELECT patients.last_name, patients.first_name, patients.middle_name, count(*) as visits FROM healthcare_services JOIN facility_patient_user ON healthcare_services.facilitypatientuser_id = facility_patient_user.facilitypatientuser_id JOIN patients ON facility_patient_user.patient_id = patients.patient_id WHERE healthcare_services.created_at BETWEEN :from_date AND :to_date GROUP BY healthcare_services.facilitypatientuser_id ORDER BY count(*) DESC LIMIT 10', ['from_date' => $from, 'to_date', $to]);
+        $data['top_patients'] = DB::select('SELECT patients.last_name, patients.first_name, patients.middle_name, count(*) as visits FROM healthcare_services JOIN facility_patient_user ON healthcare_services.facilitypatientuser_id = facility_patient_user.facilitypatientuser_id JOIN patients ON facility_patient_user.patient_id = patients.patient_id WHERE healthcare_services.created_at BETWEEN :from_date AND :to_date AND facility_patient_user.deleted_at = NULL AND patients.deleted_at = NULL GROUP BY healthcare_services.facilitypatientuser_id ORDER BY count(*) DESC LIMIT 10', ['from_date' => $from, 'to_date', $to]);
 
-        $data['count_by_gender_sex'] = DB::select('SELECT last_name, first_name, middle_name, patient_id, gender, age, count(*) as total FROM patients WHERE patients.created_at BETWEEN :from_date AND :to_date group by age, gender', ['from_date' => $from, 'to_date', $to]);
+        $data['count_by_gender_sex'] = DB::select('SELECT last_name, first_name, middle_name, patient_id, gender, age, count(*) as total FROM patients JOIN facility_patient_user ON patients.patient_id = facility_patient_user.patient_id WHERE patients.created_at BETWEEN :from_date AND :to_date AND facility_patient_user.deleted_at = NULL AND patients.deleted_at = NULL group by age, gender', ['from_date' => $from, 'to_date', $to]);
         $data['count_by_gender_sex'] = isset($data['count_by_gender_sex'][0]) ? $data['count_by_gender_sex'][0]->total : 0;
 
-        $data['count_by_services_rendered'] = DB::select('SELECT healthcareservicetype_id, count(*) as total FROM healthcare_services WHERE healthcare_services.created_at BETWEEN :from_date AND :to_date group by facilitypatientuser_id ORDER BY count(*) DESC', ['from_date' => $from, 'to_date', $to]);
+        $data['count_by_services_rendered'] = DB::select('SELECT healthcareservicetype_id, count(*) as total FROM healthcare_services JOIN facility_patient_user ON healthcare_services.facilitypatientuser_id = facility_patient_user.facilitypatientuser_id WHERE healthcare_services.created_at BETWEEN :from_date AND :to_date AND facility_patient_user.deleted_at = NULL group by facilitypatientuser_id ORDER BY count(*) DESC', ['from_date' => $from, 'to_date', $to]);
         $data['count_by_services_rendered'] = isset($data['count_by_services_rendered'][0]) ? $data['count_by_services_rendered'][0]->total : 0;
 
-        $data['count_by_disease'] = DB::select('SELECT healthcareservicetype_id, count(*) as total FROM healthcare_services JOIN general_consultation ON healthcare_services.healthcareservice_id = general_consultation.healthcareservice_id JOIN diagnosis ON healthcare_services.healthcareservice_id = diagnosis.healthcareservice_id JOIN lov_diseases ON diagnosis.diagnosislist_id = lov_diseases.disease_id WHERE healthcare_services.created_at BETWEEN :from_date AND :to_date group by facilitypatientuser_id ORDER BY count(*) DESC', ['from_date' => $from, 'to_date', $to]);
+        $data['count_by_disease'] = DB::select('SELECT healthcareservicetype_id, count(*) as total FROM healthcare_services JOIN general_consultation ON healthcare_services.healthcareservice_id = general_consultation.healthcareservice_id JOIN diagnosis ON healthcare_services.healthcareservice_id = diagnosis.healthcareservice_id JOIN lov_diseases ON diagnosis.diagnosislist_id = lov_diseases.disease_id JOIN facility_patient_user ON healthcare_services.facilitypatientuser_id = facility_patient_user.facilitypatientuser_id WHERE healthcare_services.created_at BETWEEN :from_date AND :to_date AND facility_patient_user.deleted_at = NULL group by facilitypatientuser_id ORDER BY count(*) DESC', ['from_date' => $from, 'to_date', $to]);
         $data['count_by_disease'] = isset($data['count_by_disease'][0]) ? $data['count_by_disease'][0]->total : 0;
 
         echo json_encode($data);
@@ -175,24 +138,47 @@ class ReportsController extends Controller {
 
     public function m1()
     {
-        $a = FacilityPatientUser::with('familyPlanning')->get();
+        $facilityInfo = Session::get('user_details');
+        $facility = FacilityHelper::facilityInfo();
+        $facility_id = $facilityInfo->facilities[0]->facility_id;
 
-        $thisfacility = json_decode(Session::get('_global_facility_info'));
+        $month = Input::get('month') ? Input::get('month') : date('n');
+        $year = Input::get('year') ? Input::get('year') : date('Y');
+/*
+        //$a = FacilityPatientUser::with('familyPlanning')->get();
+        $sql = "SELECT g.facility_id, a.`current_method`, a.`previous_method`, SUM(a.`client_type`= 'CU') as 'CU', SUM(a.`client_type`='NA') as 'NA', SUM(a.`client_type`='CC') as 'CC', SUM(a.`client_type`='CM') as 'CM', SUM(a.`client_type`='RS') as 'RS', SUM(a.`client_type`='dropout_date') as 'Dropout', MONTH(a.`created_at`) as FPmonth, YEAR(a.`created_at`) as FPyear, count(a.`previous_method`) as 'FP_count', a.created_at
+FROM `familyplanning_service` a
+JOIN healthcare_services b ON b.healthcareservice_id = a.healthcareservice_id
+JOIN facility_patient_user c ON c.facilitypatientuser_id = b.facilitypatientuser_id
+JOIN facility_user g ON g.facilityuser_id = c.facilityuser_id
+JOIN facilities h ON h.facility_id = g.facility_id
+WHERE g.facility_id = '$facility_id'
+GROUP BY a.`previous_method`, g.facility_id
+ORDER BY FPyear DESC, FPmonth DESC
+LIMIT 0, 500";
+        $a = DB::select( DB::raw( $sql )); dd($facility_id, $a);
+        //$facilityInfo = Session::get('user_details');
+        //$facility = FacilityHelper::facilityInfo();
         //$a = M1::prenatalVisits('01')->get();
         // $a = findAllFacilitiesDetails($thisfacility->facility_id);
-        dd($a);
-
-        return view($this->fhsisPath.'m1', compact('thisfacility'));
+*/
+        return view($this->fhsisPath.'m1', compact('facilityInfo', 'facility', 'month', 'year'));
     }
 
     public function m2()
     {
-        $month = Input::get('month') ? Input::get('month') : NULL;
-        $year = Input::get('year') ? Input::get('year') : NULL;
+        $facilityInfo = Session::get('user_details');
+        $facility = FacilityHelper::facilityInfo();
 
-        $m2 = $this->generateReport($month, $year);
+        $month = Input::get('month') ? Input::get('month') : date('n');
+        $year = Input::get('year') ? Input::get('year') : date('Y');
 
-        return view($this->fhsisPath.'m2', compact('m2'));
+        $m2 = $this->generateReport(NULL, $month, $year);
+
+        $diseases = getDiseases();
+        $ageGroup = getAgeGroups();
+
+        return view($this->fhsisPath.'m2', compact('m2', 'diseases', 'ageGroup', 'month', 'year', 'facilityInfo', 'facility'));
     }
 
     public function q1()
@@ -202,8 +188,8 @@ class ReportsController extends Controller {
 
     public function q2()
     {
-        $month = Input::get('month') ? Input::get('month') : NULL;
-        $year = Input::get('year') ? Input::get('year') : NULL;
+        $month = Input::get('month') ? Input::get('month') : date('n');
+        $year = Input::get('year') ? Input::get('year') : date('Y');
 
         $m2 = $this->generateReport($month, $year);
 
@@ -212,14 +198,17 @@ class ReportsController extends Controller {
 
     public function abrgy()
     {
+        $facilityInfo = Session::get('facility_details');
         $dateNow = new DateTime();
         $yearNow = $dateNow->format("Y");
 
         $year = Input::get('year') ? Input::get('year') : $yearNow;
 
-        $m2 = $this->generateReport('morbidity', NULL, $year);
+        $geodata = $this->abrgycontroller->getGeoData($year);
+        $neonatal = $this->abrgycontroller->getNeoNatal($year);
+        $mortality= $this->abrgycontroller->getMortality($year);
 
-        return view($this->fhsisPath.'abrgy', compact('m2'));
+        return view($this->fhsisPath.'abrgy', compact('geodata','neonatal', 'mortality','facilityInfo'));
     }
 
     public function a1()
@@ -280,16 +269,37 @@ class ReportsController extends Controller {
 
     private function getDiseaseCount($type, $gender, $age, $disease, $disease_code = NULL, $month = NULL, $year = NULL)
     {
+        $facilityInfo = Session::get('user_details');
+        $facility_id = $facilityInfo->facilities[0]->facility_id;
         $age = explode("-",$age);
 
         if ($type == 'count'): // count only
-            $disease_count = FacilityPatientUser::select('facilitypatientuser_id')->sex($gender)->agerange($age)->hasdiagnosis($disease)->hasicd10($disease_code)->encounter($month, $year)->orderBy('created_at')->count();
+
+            $disease_count = DB::table('fhsis_m2')
+                ->where('gender', $gender)
+                ->whereRaw( "(`diagnosislist_id` LIKE '%".$disease."%' OR `icd10_code` = '".$disease_code."' )" )
+                ->where('facility_id', $facility_id)
+                ->where('diagnosisMonth', $month)
+                ->where('diagnosisYear', $year)
+                ->whereBetween('age', array($age[0], $age[1]))
+                ->sum('count');
+
         elseif ($type == 'morbidity'): // exclusive to a3 report only
-            $disease_count = FacilityPatientUser::select('facilitypatientuser_id')->sex($gender)->agerange($age)->hasdiagnosis($disease)->isdead($year)->hasicd10($disease_code)->encounter($month, $year)->orderBy('created_at')->count();
+            //$disease_count = FacilityPatientUser::select('facilitypatientuser_id')->sex($gender)->agerange($age)->hasdiagnosis($disease)->isdead($year)->hasicd10($disease_code)->encounter($month, $year)->orderBy('created_at')->count();
+            $disease_count = DB::table('fhsis_m2')
+                ->where('gender', $gender)
+                ->where('facility_id', $facilityInfo->facility_id)
+                ->where('diagnosisMonth', $month)
+                ->where('diagnosisYear', $year)
+                ->where('deathYear', $year)
+                ->whereBetween('age', array($age[0], $age[1]))
+                ->sum('count');
+
         else: // get all patients data
             $disease_count = FacilityPatientUser::sex($gender)->agerange($age)->hasdiagnosis($disease)->hasicd10($disease_code)->encounter($month, $year)->orderBy('created_at')->get();
         endif;
 
         return $disease_count;
     }
+
 }

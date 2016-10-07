@@ -5,20 +5,20 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class MedicalOrder extends Model {
-    use SoftDeletes;
+  use SoftDeletes;
   protected $dates = array('deleted_at','created_at','updated_at');
-
   protected $fillable = [
-  'medicalorder_id',
-  'healthcareservice_id',
-  'medicalorder_type',
-  'user_instructions',
-  'medicalorder_others',
-  'deleted_at'
-
+    'medicalorder_id',
+    'healthcareservice_id',
+    'medicalorder_type',
+    'user_instructions',
+    'medicalorder_others',
+    'deleted_at'
   ];
+
   protected $table = 'medicalorder';
   protected $primaryKey = 'healthcareservice_id'; // change
+  protected $touches = array('Healthcareservices');
 
   public function Healthcareservices() {
     return $this->belongsTo('ShineOS\Core\Healthcareservices\Entities\Healthcareservices', 'healthcareservice_id', 'healthcareservice_id');
@@ -40,4 +40,5 @@ class MedicalOrder extends Model {
   public function facilityPatientUser() {
     return $this->belongsToMany('Modules\Facilities\Entities\FacilityPatientUser','healthcare_services','facilitypatientuser_id', 'healthcareservice_id')->withPivot('created_at');
   }
+
 }

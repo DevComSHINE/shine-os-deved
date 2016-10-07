@@ -1,5 +1,14 @@
-{!! Form::open(array('route' => 'medorder.insert', 'class'=>'form-horizontal', 'id'=>'medOrderForm')) !!}
-{!! Form::hidden('hservices_id', $healthcareserviceid) !!}
+@section('heads')
+<style>
+.laboratory_group .checkbox {
+    margin-top: -5px;
+}
+.laboratory_group .checkbox .kbd {
+    padding: 0 10px 1px;
+    margin-bottom: 0;
+}
+</style>
+@stop
 <?php
     $medorder = 0;
     $withprescription = 0;
@@ -16,10 +25,9 @@ else { $read = 'disabled'; $hideprescform = "closed";
     $hideprocform = "closed"; }
 ?>
 
-<fieldset>
-    <?php // dd($medicalorder_record); ?>
+
     <div class="nav-tabs-custom medicalOrders">
-        <ul class="nav nav-tabs">
+        <ul class="nav nav-tabs" id="medorderTabs">
             <li><a class="tableader">Medical Orders</a></li>
 
             <?php $presCount = "&nbsp;"; $presFilled = ""; $preschidden = "hidden"; $prescactive = ""; $mayactive = 0; ?>
@@ -111,7 +119,7 @@ else { $read = 'disabled'; $hideprescform = "closed";
             @endif
             <?php /* //'MO_IMMUNIZATION' => 'Immunization', */?>
         </ul>
-
+        <fieldset id="medicalorders_form">
         <div class="tab-content">
             @if($patientalert_record->count() > 0)
             <div id="alertsTab">
@@ -137,10 +145,10 @@ else { $read = 'disabled'; $hideprescform = "closed";
             <div id="prescriptionTab" class="tab-pane {{ $prescactive }} {{ $preschidden }}">
                 <legend>Prescription
                     <span class="pull-right padding">
-                        @if($withprescription == 1)
-                            <a class="btn btn-sm btn-success printPrescription" href="{{ url('healthcareservices/medorder/print/prescription/'.$healthcareserviceid) }}" target="_blank">Print Prescription</a>
+                        @if($withprescription == 1 AND $healthcareData->seen_by)
+                            <a class="btnlike btn-sm btn-success printPrescription" target="_blank" href="{{ url('healthcareservices/medorder/print/prescription/'.$healthcareserviceid) }}">Print Prescription</a>
                         @endif
-                        <a class="btn btn-sm btn-danger removePrescriptionTab">Remove Prescription</a>
+                        <a class="btn btn-sm btn-danger removePrescriptionTab" {{ $read }}>Remove Prescription</a>
                     </span>
                 </legend>
                 <div class="col-md-5 medical_prescription_form">
@@ -151,7 +159,7 @@ else { $read = 'disabled'; $hideprescform = "closed";
                                     <div class="col-md-12"><p>&nbsp;</p><p>Fill out the prescription form and click on Add (+). If you need to edit a listed prescription, delete it first and create a new one.</p></div>
                                     {!! Form::hidden('PrescriptionMedID', null, ['class' => 'form-control']) !!}
 
-                                <span class="btn btn-warning btn-sm pull-right addButton prescription_add" title="Add Prescription">Add to list <i class="fa fa-chevron-right"></i></span>
+                                <span class="btn btn-warning btn-sm pull-right addButton prescription_add" title="Add Prescription" {{ $read }}>Add to list <i class="fa fa-chevron-right"></i></span>
 
                                     <div class="form-group">
 
@@ -168,28 +176,7 @@ else { $read = 'disabled'; $hideprescform = "closed";
                                     </div>
 
                                     <div class="form-group dynamic-row">
-                                        <label class="control-label">Dose</label>
-                                        <div class="">
-                                            <div class="col-md-6">
-                                                {!! Form::text('Dose_Qty', null, ['class' => 'form-control nonzero required', $read]) !!}
-                                            </div>
-                                            <div class="col-md-6">
-                                                {!! Form::select('Dose_UOM',
-                                                    array('' => 'Choose',
-                                                        'drops' => 'drops',
-                                                        'grams' => 'grams',
-                                                        'mg' => 'mg',
-                                                        'ml' => 'ml',
-                                                        'mcg' => 'mcg',
-                                                        'meq' => 'meq',
-                                                        'units' => 'units'), '',
-                                                 ['class' => 'form-control required', $read]) !!}
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group dynamic-row">
-                                        <label class="control-label">Qty</label>
+                                        <label class="control-label">Quantity to buy</label>
                                         <div class="">
                                         <div class="col-md-6">
                                             {!! Form::text('Total_Quantity', null, ['class' => 'form-control nonzero required', $read]) !!}
@@ -220,6 +207,27 @@ else { $read = 'disabled'; $hideprescform = "closed";
                                                     'Vials' => 'Vials'), '',
                                              ['class' => 'form-control required', $read]) !!}
                                         </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group dynamic-row">
+                                        <label class="control-label">Dose</label>
+                                        <div class="">
+                                            <div class="col-md-6">
+                                                {!! Form::text('Dose_Qty', null, ['class' => 'form-control nonzero required', $read]) !!}
+                                            </div>
+                                            <div class="col-md-6">
+                                                {!! Form::select('Dose_UOM',
+                                                    array('' => 'Choose',
+                                                        'drops' => 'drops',
+                                                        'grams' => 'grams',
+                                                        'mg' => 'mg',
+                                                        'ml' => 'ml',
+                                                        'mcg' => 'mcg',
+                                                        'meq' => 'meq',
+                                                        'units' => 'units'), '',
+                                                 ['class' => 'form-control required', $read]) !!}
+                                            </div>
                                         </div>
                                     </div>
 
@@ -289,7 +297,8 @@ else { $read = 'disabled'; $hideprescform = "closed";
                                         </div>
                                     </div>
 
-                                <span class="btn btn-warning btn-sm pull-right addButton addbottom prescription_add"  title="Add Prescription">Add to list <i class="fa fa-chevron-right"></i></span>
+                                <span class="btn btn-warning btn-sm pull-right addButton addbottom prescription_add"  title="Add Prescription" {{ $read }}>Add to list <i class="fa fa-chevron-right"></i></span>
+                                <br clear="all" />
                             </div>
 
                         </div>
@@ -299,76 +308,87 @@ else { $read = 'disabled'; $hideprescform = "closed";
                     <div class="col-md-12">&nbsp;</div>
                     @if($medicalorder_record)
                         @foreach ($medicalorder_record as $key => $medorder)
-
                             @if($medorder->medicalorder_type == 'MO_MED_PRESCRIPTION')
-                                {!! Form::hidden("prescriptionmedicalorder_id", $medorder->medicalorder_id) !!}
+                                {!! Form::hidden("medicalorders[prescriptionmedicalorder_id]", $medorder->medicalorder_id) !!}
                                 <?php $prescription_instructions = $medorder->user_instructions; ?>
                                 @foreach($medorder->medical_order_prescription as $k => $value)
-                                <div class="medical_prescription_item added">
-                                    {!! Form::hidden("update[type][]", 'MO_MED_PRESCRIPTION') !!}
-                                    {!! Form::hidden("update[medicalorder_id][]", $medorder->medicalorder_id, ['class'=>'form-control medid']) !!}
-                                    {!! Form::hidden("update[MO_MED_PRESCRIPTION][medicalorderprescription_id][]", $value->medicalorderprescription_id, ['class'=>'form-control remid prescid']) !!}
-                                    {!! Form::hidden('update[MO_MED_PRESCRIPTION][Drug_Code][]', $value->generic_name, [ 'class'=>'dcode']) !!}
-                                    {!! Form::hidden('update[MO_MED_PRESCRIPTION][Drug_Brand_Name][]', $value->brand_name, [ 'class'=>'brand']) !!}
-                                    <?php
-                                        $Dose_Qty = explode(" ", $value->dose_quantity);
-                                        $dqty = isset($Dose_Qty[0]) ? $Dose_Qty[0] : NULL;
-                                        $dqtyoum = isset($Dose_Qty[1]) ? $Dose_Qty[1] : NULL;
-                                    ?>
-                                    {!! Form::hidden('update[MO_MED_PRESCRIPTION][Dose_Qty][]', $dqty, [ 'class'=>'dqty']) !!}
-                                    {!! Form::hidden('update[MO_MED_PRESCRIPTION][Dose_UOM][]', $dqtyoum, [ 'class'=>'dqtyoum']) !!}
+                                    @if($value->generic_name)
+                                    <div class="medical_prescription_item added">
+                                        {!! Form::hidden("medicalorders[update][type][]", 'MO_MED_PRESCRIPTION') !!}
+                                        {!! Form::hidden("medicalorders[update][medicalorder_id][]", $medorder->medicalorder_id, ['class'=>'form-control medid']) !!}
+                                        {!! Form::hidden("medicalorders[update][MO_MED_PRESCRIPTION][medicalorderprescription_id][]", $value->medicalorderprescription_id, ['class'=>'form-control remid prescid']) !!}
+                                        {!! Form::hidden('medicalorders[update][MO_MED_PRESCRIPTION][Drug_Code][]', $value->generic_name, [ 'class'=>'dcode']) !!}
+                                        {!! Form::hidden('medicalorders[update][MO_MED_PRESCRIPTION][Drug_Brand_Name][]', $value->brand_name, [ 'class'=>'brand']) !!}
+                                        <?php
+                                            $Dose_Qty = explode(" ", $value->dose_quantity);
+                                            $dqty = isset($Dose_Qty[0]) ? $Dose_Qty[0] : NULL;
+                                            $dqtyoum = isset($Dose_Qty[1]) ? $Dose_Qty[1] : NULL;
+                                        ?>
+                                        {!! Form::hidden('medicalorders[update][MO_MED_PRESCRIPTION][Dose_Qty][]', $dqty, [ 'class'=>'dqty']) !!}
+                                        {!! Form::hidden('medicalorders[update][MO_MED_PRESCRIPTION][Dose_UOM][]', $dqtyoum, [ 'class'=>'dqtyoum']) !!}
 
-                                    <?php
-                                        $TQ = explode(" ", $value->total_quantity);
-                                        $Total_Quantity = isset($TQ[0]) ? $TQ[0] : NULL;
-                                        $Total_Quantity_UOM = isset($TQ[1]) ? $TQ[1] : NULL;
-                                    ?>
-                                    {!! Form::hidden('update[MO_MED_PRESCRIPTION][Total_Quantity][]', $Total_Quantity, [ 'class'=>'TQ']) !!}
-                                    {!! Form::hidden('update[MO_MED_PRESCRIPTION][Total_Quantity_UOM][]', $Total_Quantity_UOM, [ 'class'=>'TQuom']) !!}
+                                        <?php
+                                            $TQ = explode(" ", $value->total_quantity);
+                                            $Total_Quantity = isset($TQ[0]) ? $TQ[0] : NULL;
+                                            $Total_Quantity_UOM = isset($TQ[1]) ? $TQ[1] : NULL;
+                                        ?>
+                                        {!! Form::hidden('medicalorders[update][MO_MED_PRESCRIPTION][Total_Quantity][]', $Total_Quantity, [ 'class'=>'TQ']) !!}
+                                        {!! Form::hidden('medicalorders[update][MO_MED_PRESCRIPTION][Total_Quantity_UOM][]', $Total_Quantity_UOM, [ 'class'=>'TQuom']) !!}
 
-                                    {!! Form::hidden('update[MO_MED_PRESCRIPTION][dosage][]', $value->dosage_regimen, [ 'class'=>'regimen']) !!}
-                                    @if($value->dosage_regimen_others)
-                                    {!! Form::hidden('update[MO_MED_PRESCRIPTION][Specify][]', $value->dosage_regimen_others, [ 'class'=>'regimenothers']) !!}
-                                    @endif
+                                        {!! Form::hidden('medicalorders[update][MO_MED_PRESCRIPTION][dosage][]', $value->dosage_regimen, [ 'class'=>'regimen']) !!}
+                                        @if($value->dosage_regimen_others)
+                                        {!! Form::hidden('medicalorders[update][MO_MED_PRESCRIPTION][Specify][]', $value->dosage_regimen_others, [ 'class'=>'regimenothers']) !!}
+                                        @endif
 
-                                    <?php $Duration_Intake = explode(" ", $value->duration_of_intake); ?>
-                                    <?php
-                                        $di = isset($Duration_Intake[0]) ? $Duration_Intake[0] : NULL;
-                                        $dio = isset($Duration_Intake[1]) ? $Duration_Intake[1] : NULL;
-                                        $din = isset($Duration_Intake[1]) ? getIntakeName($Duration_Intake[1]) : NULL;
-                                    ?>
-                                    {!! Form::hidden('update[MO_MED_PRESCRIPTION][Duration_Intake][]', $di, [ 'class'=>'di']) !!}
-                                    {!! Form::hidden('update[MO_MED_PRESCRIPTION][Duration_Intake_Freq][]', $dio, [ 'class'=>'dio']) !!}
-                                    @if($dio == 'O' AND isset($value->IntakeOther))
-                                    {!! Form::hidden('update[MO_MED_PRESCRIPTION][IntakeOther][]', $value->IntakeOther, [ 'class'=>'intakeothers']) !!}
-                                    @endif
+                                        <?php $Duration_Intake = explode(" ", $value->duration_of_intake); ?>
+                                        <?php
+                                            $di = isset($Duration_Intake[0]) ? $Duration_Intake[0] : NULL;
+                                            $dio = isset($Duration_Intake[1]) ? $Duration_Intake[1] : NULL;
+                                            $din = isset($Duration_Intake[1]) ? getIntakeName($Duration_Intake[1]) : NULL;
+                                        ?>
+                                        {!! Form::hidden('medicalorders[update][MO_MED_PRESCRIPTION][Duration_Intake][]', $di, [ 'class'=>'di']) !!}
+                                        {!! Form::hidden('medicalorders[update][MO_MED_PRESCRIPTION][Duration_Intake_Freq][]', $dio, [ 'class'=>'dio']) !!}
+                                        @if($dio == 'O' AND isset($value->IntakeOther))
+                                        {!! Form::hidden('medicalorders[update][MO_MED_PRESCRIPTION][IntakeOther][]', $value->IntakeOther, [ 'class'=>'intakeothers']) !!}
+                                        @endif
 
-                                    <?php $regimendates = date('m/d/Y', strtotime($value->regimen_startdate)) .' - '. date('m/d/Y', strtotime($value->regimen_enddate)); ?>
-                                    {!! Form::hidden('update[MO_MED_PRESCRIPTION][regimen_startend_date][]', $regimendates, [ 'class'=>'regimen_dates']); !!}
+                                        <?php
+                                            if($value->duration_of_intake != ' C') {
+                                                $regimendates = date('m/d/Y', strtotime($value->regimen_startdate)) .' - '. date('m/d/Y', strtotime($value->regimen_enddate));
+                                            } else {
+                                                $regimendates = NULL;
+                                            }
+                                        ?>
+                                        {!! Form::hidden('medicalorders[update][MO_MED_PRESCRIPTION][regimen_startend_date][]', $regimendates, [ 'class'=>'regimen_dates']); !!}
 
-                                    {!! Form::hidden('update[MO_MED_PRESCRIPTION][Remarks][]', $value->prescription_remarks, [ 'class'=>'remarks']) !!}
+                                        {!! Form::hidden('medicalorders[update][MO_MED_PRESCRIPTION][Remarks][]', $value->prescription_remarks, [ 'class'=>'remarks']) !!}
 
-                                    <div class="col-md-12 form-group dynamic-row">
-                                        <label class="col-md-1 control-label listCounter">&nbsp;</label>
-                                        <div class="col-md-10 has-feedback bordered-bottom">
-                                            <h4>{{ $value->generic_name }}  {{ $dqty.$dqtyoum }} #{{ $Total_Quantity." ".$Total_Quantity_UOM}}</h4>
-                                            <p>
-                                            @if($value->brand_name)
-                                                <strong>({{ $value->brand_name }})</strong><br />
-                                            @endif
-                                            {{ getRegimenName($value->dosage_regimen) }}<br />
-                                            {{ $di." ".$din }} [ {{ $regimendates }} ]<br />
-                                            <em>{{ $value->prescription_remarks }}</em>
-                                            </p>
-                                        </div>
-                                        <div class="col-md-1">
-                                            @if(empty($disposition_record->disposition))
-                                            <span class="btn btn-default btn-sm prescription_less" title="Remove Prescription"><i class="fa fa-times"></i></span>
-                                            <span class="btn btn-default btn-sm prescription_edit" id="" title="Edit Prescription"><i class="fa fa-pencil"></i></span>
-                                            @endif
+                                        <div class="col-md-12 form-group dynamic-row">
+                                            <label class="col-md-1 control-label listCounter">&nbsp;</label>
+                                            <div class="col-md-10 has-feedback bordered-bottom">
+                                                <h4>{{ $value->generic_name }}  #{{ $Total_Quantity." ".$Total_Quantity_UOM}}</h4>
+                                                <p>
+                                                @if($value->brand_name)
+                                                    <strong>({{ $value->brand_name }})</strong><br />
+                                                @endif
+                                                {{ $dqty.$dqtyoum }} - {{ getRegimenName($value->dosage_regimen) }}<br />
+                                                @if($value->duration_of_intake != ' C')
+                                                {{ $di." ".$din }} [ {{ $regimendates }} ]<br />
+                                                @else
+                                                {{ $di." ".$din }} <br />
+                                                @endif
+                                                <em>{{ $value->prescription_remarks }}</em>
+                                                </p>
+                                            </div>
+                                            <div class="col-md-1">
+                                                @if(empty($disposition_record->disposition))
+                                                <span class="btn btn-default btn-sm prescription_less" title="Remove Prescription"><i class="fa fa-times"></i></span>
+                                                <span class="btn btn-default btn-sm prescription_edit" id="" title="Edit Prescription"><i class="fa fa-pencil"></i></span>
+                                                @endif
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
+                                    @endif
                                 @endforeach
                             @endif
 
@@ -384,9 +404,9 @@ else { $read = 'disabled'; $hideprescform = "closed";
                             @if($prescription_instructions != "")
                                 <?php $instructions = $prescription_instructions; ?>
                             @endif
-                            {!! Form::textarea("update[prescription_instructions][]", $instructions, ['class' => 'form-control noresize instructions', 'rows'=>'3', 'style' => 'margin: 0px; width: 100%; height: 112px;', $read]) !!}
+                            {!! Form::textarea("medicalorders[update][prescription_instructions][]", $instructions, ['class' => 'form-control noresize instructions', 'rows'=>'3', 'style' => 'margin: 0px; width: 100%; height: 112px;', $read]) !!}
                         @else
-                            {!! Form::textarea("insert[prescription_instructions][]", null, ['class' => 'form-control noresize instructions', 'rows'=>'3', 'style' => 'margin: 0px; width: 100%; height: 112px;', $read]) !!}
+                            {!! Form::textarea("medicalorders[insert][prescription_instructions][]", null, ['class' => 'form-control noresize instructions', 'rows'=>'3', 'style' => 'margin: 0px; width: 100%; height: 112px;', $read]) !!}
                         @endif
                     </div>
                 </div>
@@ -395,116 +415,127 @@ else { $read = 'disabled'; $hideprescform = "closed";
             <div id="labTab" class="tab-pane {{ $labactive }} {{ $labhidden }}">
                 <div class="col-md-12 medical_laboratory_form">
                     <!--Laboratory-->
-                        <div class="form-group dynamic-row form-add MO_LAB_TEST" >
-                            <legend>Laboratory Test
-                                <span class="pull-right padding">
-                                    @if($withlaboratory == 1)
-                                        <a class="btn btn-success btn-sm printLab" href="{{ url('healthcareservices/medorder/print/laboratory/'.$healthcareserviceid) }}" target="_blank">Print Lab Order</a>
-                                    @endif
-                                    <a class="btn btn-sm btn-danger removeLaboratoryTab">Remove Laboratory</a>
-                                </span>
-                            </legend>
-                            <div class="laboratory_group">
-                                <div class="icheck row">
-                                    <div class="col-md-12">
+                    <div class="form-group dynamic-row form-add MO_LAB_TEST" >
+                        <legend>Laboratory Test
+                            <span class="pull-right padding">
+                                @if($withlaboratory == 1 AND $healthcareData->seen_by)
+                                    <a class="btnlike btn-success btn-sm printLab" href="{{ url('healthcareservices/medorder/print/laboratory/'.$healthcareserviceid) }}" target="_blank">Print Lab Order</a>
+                                @endif
+                                <a class="btn btn-sm btn-danger removeLaboratoryTab">Remove Laboratory</a>
+                            </span>
+                        </legend>
+                        <div class="laboratory_group">
+                            <div class="icheck row">
+                                <div class="col-md-12">
                                     <h4>Choose all the laboratory exams you require.</h4>
-                                    </div>
-                                    <div class="form-group col-md-11 col-md-push-1">
-                <?php $ohid = "hidden"; $rhid = "hidden"; $results = ""; $others = ""; $laboratory_instructions = ""; $maylab = 0; ?>
-                @if($medicalorder_record)
-                    @foreach ($medicalorder_record as $key => $laboratory)
-                        @if($laboratory->medicalorder_type == 'MO_LAB_TEST' AND !empty($laboratory->medical_order_lab_exam))
-                            <?php
-                                $maylab = 1;
-                                $laboratory_instructions = $laboratory->user_instructions;
-                            ?>
-                            {!! Form::hidden("update[type][]", $laboratory->medicalorder_type) !!}
-                            {!! Form::hidden("update[medicalorder_id][]", $laboratory->medicalorder_id) !!}
-                            @foreach($lovlaboratories as $labs)
-                                <div class="col-md-4 checkbox">
-
-                                    <label>
-                                      <?php $selectd = ""; ?>
-                                      @foreach ($laboratory->medical_order_lab_exam as $lab_key => $lab_value)
-                                        @if($lab_value->laboratory_test_type == $labs->laboratorycode)
-                                            <?php $selectd = "checked='checked'"; ?>
-                                            {!! Form::hidden("update[MO_LAB_TEST][medicalorderlaboratoryexam_id][]", $lab_value->medicalorderlaboratoryexam_id,['class'=>'form-control']) !!}
-                                        @else
-                                            {!! Form::hidden("update[MO_LAB_TEST][medicalorderlaboratoryexam_id][]", null,['class'=>'form-control']) !!}
-                                        @endif
-                                      @endforeach
-
-                                      <input type="checkbox" name="update[MO_LAB_TEST][Examination_Code][]" value="{{ $labs->laboratorycode }}" {{ $selectd }} class="labchoose form-control"  id="{{ $labs->laboratorycode }}" {{ $read }} /> {{ $labs->laboratorydescription }}
-
-                                    </label>
-                                  </div>
-                            @endforeach
-
-                            @foreach ($laboratory->medical_order_lab_exam as $lab_key => $lab_value)
-                                @if($lab_value->laboratorytest_result)
-                                    <?php $rhid = ""; ?>
-                                    <?php $results .= "[".getLabName($lab_value->laboratory_test_type)."] :  ".$lab_value->laboratorytest_result."\n"; ?>
-                                    {!! Form::hidden("update[MO_LAB_TEST][results][]", $lab_value->laboratorytest_result) !!}
-                                @endif
-                                @if($lab_value->laboratory_test_type_others)
-                                    <?php $ohid = ""; ?>
-                                    <?php $others .= $lab_value->laboratory_test_type_others."\n\n"; ?>
-                                    {!! Form::hidden("insert[MO_LAB_TEST][others][]", $lab_value->laboratory_test_type_others) !!}
-                                @endif
-                            @endforeach
-                        @endif
-                    @endforeach
-                @endif
-
-                @if($maylab == 0)
-                    {!! Form::hidden("insert[type][]", 'MO_LAB_TEST' ) !!}
-                    {!! Form::hidden("insert[medicalorder_id][]", null ) !!}
-                    @foreach($lovlaboratories as $labs)
-                        <div class="col-md-4 checkbox">
-                            <label>
-                              <input type="checkbox" name="insert[MO_LAB_TEST][Examination_Code][]" value="{{ $labs->laboratorycode }}" class="form-control labchoose"  id="{{ $labs->laboratorycode }}" {{ $read }} /> {{ $labs->laboratorydescription }}
-
-                            </label>
-                          </div>
-                    @endforeach
-                @endif
-                                    </div>
+                                    <br clear="all" />
                                 </div>
 
-                                <div id="labOthers" class="form-group dynamic-row {{ $ohid }}">
-                                    <label class="col-md-2 control-label">Specify Other Test</label>
-                                    <div class="col-md-10">
-                                        @if($maylab == 1)
-                                        {!! Form::text("update[MO_LAB_TEST][others][]", $others, ['class' => 'form-control noresize', 'placeholder' => 'Remarks', 'rows'=>'3', $read]) !!}
-                                        @else
-                                        {!! Form::text("insert[MO_LAB_TEST][others][]", null, ['class' => 'form-control noresize', 'placeholder' => 'Remarks', 'rows'=>'3', $read]) !!}
-                                        @endif
-                                    </div>
+                                <div class="form-group col-md-11 col-md-push-1">
+                                    <?php $ohid = "hidden"; $rhid = "hidden"; $results = ""; $others = ""; $laboratory_instructions = ""; $maylab = 0; $curtype = 0; ?>
+                                    @if($medicalorder_record)
+                                        @foreach ($medicalorder_record as $key => $laboratory)
+                                            @if($laboratory->medicalorder_type == 'MO_LAB_TEST' AND !empty($laboratory->medical_order_lab_exam))
+                                                <?php
+                                                    $maylab = 1;
+                                                    $laboratory_instructions = $laboratory->user_instructions;
+                                                ?>
+                                                {!! Form::hidden("medicalorders[update][type][]", $laboratory->medicalorder_type) !!}
+                                                {!! Form::hidden("medicalorders[update][medicalorder_id][]", $laboratory->medicalorder_id) !!}
+                                                @foreach($lovlaboratories as $labs)
+                                                    <div class="col-md-4 checkbox">
+                                                        <label>
+                                                          <?php $selectd = ""; ?>
+                                                          @foreach ($laboratory->medical_order_lab_exam as $lab_key => $lab_value)
+                                                            <?php $labid = ""; ?>
+                                                            @if($lab_value->laboratory_test_type == $labs->laboratorycode)
+                                                                <?php
+                                                                    $selectd = "checked='checked'";
+                                                                ?>
+                                                                {!! Form::hidden("medicalorders[update][MO_LAB_TEST][medicalorderlaboratoryexam_id][]", $lab_value->medicalorderlaboratoryexam_id,['class'=>'form-control']) !!}
+                                                                <?php $labid = $lab_value->medicalorderlaboratoryexam_id; break; ?>
+                                                            @endif
+                                                          @endforeach
+
+                                                          <input type="checkbox" name="medicalorders[update][MO_LAB_TEST][Examination_Code][]" value="{{ $labs->laboratorycode }}" {{ $selectd }} class="lab-checkbox form-control"  id="{{ $labs->laboratorycode }}" {{ $read }} /> {{ $labs->laboratorydescription }}
+                                                        </label>
+                                                            <?php $labres = ShineOS\Core\Healthcareservices\Entities\MedicalOrderLabExam::where('medicalorderlaboratoryexam_id',$labid)->with('LaboratoryResult')->first();
+                                                                $colr = "bg-gray";
+                                                            ?>
+                                                            @if($labid != "" AND $labres)
+                                                             @if(isset($labres->LaboratoryResult->lab_data))
+                                                                <?php $colr = "bg-yellow"; ?>
+                                                             @endif
+                                                             | <a onclick="return false;" href="{{ url('laboratory/modal/'.$labs->laboratorycode.'/'.$labid) }}" class="{{ $colr }} text-black kbd labshowbutton" data-toggler="modal" data-target="#myInfoModal"><i class="fa fa-search"></i></a>
+                                                            @endif
+                                                    </div>
+                                                @endforeach
+
+                                                @foreach ($laboratory->medical_order_lab_exam as $lab_key => $lab_value)
+                                                    @if($lab_value->laboratorytest_result)
+                                                        <?php $rhid = ""; ?>
+                                                        <?php $results .= "[".getLabName($lab_value->laboratory_test_type)."] :  ".$lab_value->laboratorytest_result."\n"; ?>
+                                                        {!! Form::hidden("medicalorders[update][MO_LAB_TEST][results][]", $lab_value->laboratorytest_result) !!}
+                                                    @endif
+                                                    @if($lab_value->laboratory_test_type_others)
+                                                        <?php $ohid = ""; ?>
+                                                        <?php $others .= $lab_value->laboratory_test_type_others."; "; ?>
+                                                        {!! Form::hidden("medicalorders[insert][MO_LAB_TEST][others][]", $lab_value->laboratory_test_type_others) !!}
+                                                    @endif
+                                                @endforeach
+                                            @endif
+                                        @endforeach
+                                    @endif
+
+                                    @if($maylab == 0)
+                                        {!! Form::hidden("medicalorders[insert][type][]", 'MO_LAB_TEST' ) !!}
+                                        {!! Form::hidden("medicalorders[insert][medicalorder_id][]", null ) !!}
+                                        @foreach($lovlaboratories as $labs)
+                                            <div class="col-md-4 checkbox">
+                                                <label>
+                                                  <input type="checkbox" name="medicalorders[insert][MO_LAB_TEST][Examination_Code][]" value="{{ $labs->laboratorycode }}" class="form-control labchoose"  id="{{ $labs->laboratorycode }}" {{ $read }} /> {{ $labs->laboratorydescription }}
+
+                                                </label>
+                                            </div>
+                                        @endforeach
+                                    @endif
                                 </div>
-
-
-                                <div class="form-group dynamic-row {{ $rhid }}">
-                                    <label class="col-md-2 control-label">Lab Results</label>
-                                    <div class="col-md-10">
-                                        {!! Form::textarea("", $results, ['class' => 'form-control noresize', 'placeholder' => 'Remarks', 'rows'=>'3', $read]) !!}
-                                    </div>
-                                </div>
-
-                                <hr />
                             </div>
+
+                            <div id="labOthers" class="form-group dynamic-row {{ $ohid }}">
+                                <label class="col-md-2 control-label">Specify Other Test</label>
+                                <div class="col-md-10">
+                                    @if($maylab == 1)
+                                    {!! Form::text("medicalorders[update][MO_LAB_TEST][others][]", $others, ['class' => 'form-control noresize', 'placeholder' => 'Remarks', 'rows'=>'3', $read]) !!}
+                                    @else
+                                    {!! Form::text("medicalorders[insert][MO_LAB_TEST][others][]", null, ['class' => 'form-control noresize', 'placeholder' => 'Remarks', 'rows'=>'3', $read]) !!}
+                                    @endif
+                                </div>
+                            </div>
+
+                            <div class="form-group dynamic-row {{ $rhid }}">
+                                <label class="col-md-2 control-label">Lab Results</label>
+                                <div class="col-md-10">
+                                    {!! Form::textarea("", $results, ['class' => 'form-control noresize', 'placeholder' => 'Remarks', $read]) !!}
+                                </div>
+                            </div>
+
+                            <hr />
                         </div>
+                    </div>
                     <!--/Laboratory-->
                 </div>
                 <div class="col-md-12 form-group dynamic-row">
                     <label class="col-md-12 control-label textleft">Doctor's Instructions</label>
                     <div class="col-md-12">
                         @if($maylab == 1)
-                            {!! Form::textarea("update[laboratory_instructions][]", $laboratory_instructions, ['class' => 'form-control noresize instructions', 'rows'=>'3', 'style' => 'margin: 0px; width: 100%; height: 112px;', $read]) !!}
+                            {!! Form::textarea("medicalorders[update][laboratory_instructions][]", $laboratory_instructions, ['class' => 'form-control noresize instructions', 'rows'=>'3', 'style' => 'margin: 0px; width: 100%; height: 112px;', $read]) !!}
                         @else
-                            {!! Form::textarea("insert[laboratory_instructions][]", null, ['class' => 'form-control noresize instructions', 'rows'=>'3', 'style' => 'margin: 0px; width: 100%; height: 112px;', $read]) !!}
+                            {!! Form::textarea("medicalorders[insert][laboratory_instructions][]", null, ['class' => 'form-control noresize instructions', 'rows'=>'3', 'style' => 'margin: 0px; width: 100%; height: 112px;', $read]) !!}
                         @endif
                     </div>
                 </div>
+
             </div>
 
             <div id="procedureTab" class="tab-pane {{ $procactive }} {{ $prochidden }}">
@@ -558,17 +589,17 @@ else { $read = 'disabled'; $hideprescform = "closed";
                     @foreach ($medicalorder_record as $key => $medorder)
                         @if($medorder->medicalorder_type == 'MO_PROCEDURE')
 
-                            {!! Form::hidden("proceduremedicalorder_id", $medorder->medicalorder_id) !!}
+                            {!! Form::hidden("medicalorders[proceduremedicalorder_id]", $medorder->medicalorder_id) !!}
                             <?php $procedure_user_instructions = $medorder->user_instructions; ?>
                             @foreach($medorder->medical_order_procedure as $k => $proc_value)
                                 <div class="medical_procedure_item added">
-                                    {!! Form::hidden("update[type][]", 'MO_PROCEDURE') !!}
-                                    {!! Form::hidden("update[medicalorder_id][]", $medorder->medicalorder_id, ['class'=>'form-control medid']) !!}
-                                    {!! Form::hidden("update[MO_PROCEDURE][medicalorderprocedure_id][]", $proc_value->medicalorderprocedure_id, ['class'=>'form-control remid procid']) !!}
+                                    {!! Form::hidden("medicalorders[update][type][]", 'MO_PROCEDURE') !!}
+                                    {!! Form::hidden("medicalorders[update][medicalorder_id][]", $medorder->medicalorder_id, ['class'=>'form-control medid']) !!}
+                                    {!! Form::hidden("medicalorders[update][MO_PROCEDURE][medicalorderprocedure_id][]", $proc_value->medicalorderprocedure_id, ['class'=>'form-control remid procid']) !!}
 
-                                    {!! Form::hidden("update[MO_PROCEDURE][Procedure_Order][]", $proc_value->procedure_order, ['class'=>'form-control procorder']) !!}
-                                    {!! Form::hidden("update[MO_PROCEDURE][Date_of_Procedure][]", date('m/d/Y', strtotime($proc_value->procedure_date)), [ 'class'=>'procdate']); !!}
-                                    {!! Form::hidden("update[MO_PROCEDURE][Procedure_Remarks][]", $proc_value->procedure_instructions, [ 'class'=>'procinstruct']); !!}
+                                    {!! Form::hidden("medicalorders[update][MO_PROCEDURE][Procedure_Order][]", $proc_value->procedure_order, ['class'=>'form-control procorder']) !!}
+                                    {!! Form::hidden("medicalorders[update][MO_PROCEDURE][Date_of_Procedure][]", date('m/d/Y', strtotime($proc_value->procedure_date)), [ 'class'=>'procdate']); !!}
+                                    {!! Form::hidden("medicalorders[update][MO_PROCEDURE][Procedure_Remarks][]", $proc_value->procedure_instructions, [ 'class'=>'procinstruct']); !!}
 
                                     <div class="col-md-12 form-group dynamic-row">
                                         <label class="col-md-1 control-label listCounter">&nbsp;</label>
@@ -595,9 +626,9 @@ else { $read = 'disabled'; $hideprescform = "closed";
                     <label class="col-md-12 control-label textleft">Doctor's Instructions</label>
                     <div class="col-md-12">
                         @if(isset($procedure_user_instructions) AND $procedure_user_instructions != "")
-                            {!! Form::textarea("update[procedure_user_instructions][]", $procedure_user_instructions, ['class' => 'form-control noresize instructions', 'rows'=>'3', 'style' => 'margin: 0px; width: 100%; height: 112px;', $read]) !!}
+                            {!! Form::textarea("medicalorders[update][procedure_user_instructions][]", $procedure_user_instructions, ['class' => 'form-control noresize instructions', 'rows'=>'3', 'style' => 'margin: 0px; width: 100%; height: 112px;', $read]) !!}
                         @else
-                            {!! Form::textarea("insert[procedure_user_instructions][]", null, ['class' => 'form-control noresize instructions', 'rows'=>'3', 'style' => 'margin: 0px; width: 100%; height: 112px;', $read]) !!}
+                            {!! Form::textarea("medicalorders[insert][procedure_user_instructions][]", null, ['class' => 'form-control noresize instructions', 'rows'=>'3', 'style' => 'margin: 0px; width: 100%; height: 112px;', $read]) !!}
                         @endif
                     </div>
                 </div>
@@ -621,19 +652,19 @@ else { $read = 'disabled'; $hideprescform = "closed";
                                         @foreach ($medicalorder_record as $key => $otherorder)
                                             @if($otherorder->medicalorder_type == 'MO_OTHERS')
                                                 <?php $mayother = 1; ?>
-                                                {!! Form::hidden("update[type][]", 'MO_OTHERS') !!}
-                                                {!! Form::hidden("update[medicalorder_id][]", $medorder->medicalorder_id) !!}
+                                                {!! Form::hidden("medicalorders[update][type][]", 'MO_OTHERS') !!}
+                                                {!! Form::hidden("medicalorders[update][medicalorder_id][]", $medorder->medicalorder_id) !!}
                                                 <?php $other_instructions .= $otherorder->user_instructions."\r\n"; ?>
-                                                {!! Form::textarea('update[MO_OTHERS][order_type_others][]', $otherorder->medicalorder_others, ['class' => 'form-control noresize', 'placeholder' => 'Specify others', 'rows'=>'3', $read]) !!}
+                                                {!! Form::textarea('medicalorders[update][MO_OTHERS][order_type_others][]', $otherorder->medicalorder_others, ['class' => 'form-control noresize', 'placeholder' => 'Specify others', 'rows'=>'3', $read]) !!}
                                             @endif
                                         @endforeach
                                     @endif
 
                                     @if($mayother == 0)
-                                        {!! Form::hidden("insert[type][]", 'MO_OTHERS') !!}
-                                        {!! Form::hidden("insert[medicalorder_id][]", null) !!}
+                                        {!! Form::hidden("medicalorders[insert][type][]", 'MO_OTHERS') !!}
+                                        {!! Form::hidden("medicalorders[insert][medicalorder_id][]", null) !!}
 
-                                        {!! Form::textarea('insert[MO_OTHERS][order_type_others][]', null, ['class' => 'form-control noresize', 'placeholder' => 'Specify others', 'rows'=>'3', $read]) !!}
+                                        {!! Form::textarea('medicalorders[insert][MO_OTHERS][order_type_others][]', null, ['class' => 'form-control noresize', 'placeholder' => 'Specify others', 'rows'=>'3', $read]) !!}
                                     @endif
                                 </div>
                             </div>
@@ -645,30 +676,21 @@ else { $read = 'disabled'; $hideprescform = "closed";
                     <label class="col-md-12 control-label textleft">Doctor's Instructions</label>
                     <div class="col-md-12">
                         @if($mayother == 1)
-                            {!! Form::textarea("update[other_instructions][]", $other_instructions, ['class' => 'form-control noresize instructions', 'rows'=>'3', 'style' => 'margin: 0px; width: 100%; height: 112px;', $read]) !!}
+                            {!! Form::textarea("medicalorders[update][other_instructions][]", $other_instructions, ['class' => 'form-control noresize instructions', 'rows'=>'3', 'style' => 'margin: 0px; width: 100%; height: 112px;', $read]) !!}
                         @else
-                            {!! Form::textarea("insert[other_instructions][]", null, ['class' => 'form-control noresize instructions', 'rows'=>'3', 'style' => 'margin: 0px; width: 100%; height: 112px;', $read]) !!}
+                            {!! Form::textarea("medicalorders[insert][other_instructions][]", null, ['class' => 'form-control noresize instructions', 'rows'=>'3', 'style' => 'margin: 0px; width: 100%; height: 112px;', $read]) !!}
                         @endif
 
                     </div>
                 </div>
             </div>
         </div><!-- /.tab-content -->
+        </fieldset>
     </div><!-- nav-tabs-custom -->
 
-    <div class="row">
-        <div class="col-md-12">
-            @if(empty($disposition_record->disposition))
-            <button id="saveMedOrder" type="submit" class="btn btn-primary pull-right">Save Medical Orders</button>
-            @endif
-        </div>
-    </div>
-</fieldset>
+<br clear="all" />
 
-{!! Form::close() !!}
-
-@section('linked_scripts')
-
+@section('before_validation_scripts')
 <script>
     //setup autocomplete for Procedures
     var availableProcedures = [
@@ -689,6 +711,12 @@ else { $read = 'disabled'; $hideprescform = "closed";
 $(".select2").select2({
     'disabled': 'disabled'
 });
+$(".labshowbutton").on( "click", function( event ) {
+    url = ($(this).attr("href"));
+    $('#myInfoModal').modal('show');
+    $('#myInfoModal').find(".modal-content").html("");
+    $('#myInfoModal').find(".modal-content").load(url);
+  });
 </script>
 
 @stop

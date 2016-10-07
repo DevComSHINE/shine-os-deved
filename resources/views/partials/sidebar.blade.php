@@ -39,8 +39,17 @@
       ?>
 
       <!-- start Core modules -->
-      <?php $topmods = $modules['modules'];
-      sortby('order', $topmods); ?>
+      <?php
+        if(isset($modules['modules']))
+        {
+          $topmods = $modules['modules'];
+          sortby('order', $topmods);
+        }
+        else
+        {
+          $topmods = [];
+        }
+      ?>
 
       @foreach($topmods as $k => $v)
         @if( $v['name'] != 'dashboard' AND $v['icon'] != NULL AND $v['status'] == '1' AND $v['order'] < 10 )
@@ -57,14 +66,14 @@
       @if(isset($modules['external_modules']))
         <?php $totalc = count($modules['external_modules']); ?>
         @foreach($modules['external_modules'] as $val)
-          <?php $cnt++; ?>
           <?php
             $key = strtolower($val);
             $c = Config::get($key.'.icon');
             $name = Config::get($key.'.name');
             $roles = Config::get($key.'.roles');
-            if( (in_array($modules['role_name'], json_decode($roles))) OR  $modules['role_name'] == "Developer") {
+            if( ($roles AND in_array($modules['role_name'], json_decode($roles))) OR  $modules['role_name'] == "Developer") {
           ?>
+              <?php $cnt++; ?>
               <li class="@if($pagename == $name)) active @endif @if($cnt == 1) divider-top @endif @if($cnt == $totalc) divider-bottom @endif">
                 <a href="{{ url('/', $key)}}" class="{{ Request::is('*'.$name) ? 'active' : '' }}">
                   <i class="fa {{ $c }}"></i> <span>{{ ucfirst($name) }}</span>
@@ -81,6 +90,12 @@
           <li class="@if($pagename == $v['name']) active @endif @if($lcnt == 1) divider-top @endif">
             <a href="{{ url( '/', $v['name'] )}}" class="{{ Request::is('*'.$v['name']) ? 'active' : '' }}">
               <i class="fa {{ $v['icon'] }}"></i> <span>{{ ucfirst($v['name']) }}</span>
+
+              @if($v['name'] == 'updates')
+                  <span class="pull-right-container">
+                  <small id="updatecount" class="label pull-right bg-red" style="padding-top: 4px;">5</small>
+                  </span>
+              @endif
             </a>
           </li>
           <?php $lcnt++; ?>

@@ -1,6 +1,6 @@
 <h4>Change User Role</h4>
 
- {!! Form::open(array( 'url'=>$modulePath.'/save_role/'.$userInfo->user_id, 'id'=>'crudForm', 'name'=>'crudForm', 'class'=>'form-horizontal' )) !!}
+ {!! Form::open(array( 'url'=>$modulePath.'/save_role/'.$userInfo->user_id, 'class'=>'form-horizontal' )) !!}
   <div class="box-body">
         <select id="role" name="role" class="form-control">
         @for($i=0; $i < count($role); $i++)

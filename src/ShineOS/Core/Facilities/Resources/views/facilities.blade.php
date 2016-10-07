@@ -1,3 +1,11 @@
+<?php
+  // dd($currentFacility);
+  if(isset($currentFacility->facility_workforce))
+  {
+    $facility_workforce = json_decode($currentFacility->facility_workforce->workforce);
+  }
+?>
+
 @extends('facilities::layouts.masterfacility')
 
 @section('profile-content')
@@ -26,6 +34,7 @@
               <li class="active"><a href="#tab_1" data-toggle="tab">Facility Information</a></li>
               <li><a href="#tab_2" data-toggle="tab">Facility Contact</a></li>
               <li><a href="#tab_3" data-toggle="tab">Specializations</a></li>
+              <li><a href="#tab_4" data-toggle="tab">Workforce</a></li>
               @if($plugs)
                   @foreach($plugs  as $key => $plug)
                     @if($plug['plugin_location'] == 'tab')
@@ -60,17 +69,17 @@
                       <div class="col-sm-9">
                         <input type="text" class="form-control" id="phic_accr_id" name="phic_accr_id" placeholder="PHIC Accr No" value="{{ $currentFacility->phic_accr_id }}" />
                       </div>
-                    </div>
+                    </div>                                  
                     <div class="form-group">
                       <label for="ownership_type" class="col-sm-3 control-label">Ownership Type</label>
                       <div class="col-sm-9">
-                        <input type="text" class="form-control" readonly placeholder="DOH Facility Code" value="{{ ucfirst($currentFacility->ownership_type) }}" />
+                        <input type="text" class="form-control" placeholder="Ownership Type" name="ownership_type" value="{{ ucfirst($currentFacility->ownership_type) }}" />
                       </div>
-                    </div>
+                    </div>                                         
                     <div class="form-group">
                       <label for="provider_type" class="col-sm-3 control-label">Provider Type</label>
                       <div class="col-sm-9">
-                        <input type="text" class="form-control" readonly placeholder="DOH Facility Code" value="{{ ucfirst($currentFacility->provider_type) }}" />
+                        <input type="text" class="form-control" readonly placeholder="Provider Type" name="provider_type" value="{{ ucfirst($currentFacility->provider_type) }}" />
                       </div>
                     </div>
                     <div class="form-group">
@@ -94,7 +103,11 @@
                     <div class="form-group">
                       <label for="registration_date" class="col-sm-3 control-label">Registration Date</label>
                       <div class="col-sm-9">
-                        <input type="date" class="form-control" id="registration_date" name="registration_date" placeholder="Registration Date" readonly value="{{ $currentFacility->created_at }}" />
+                        <input type="text" class="form-control" id="registration_date" name="registration_date" placeholder="Registration Date" readonly value="{{ date('m-d-Y',strtotime($currentFacility->created_at)) }}" />
+                      </div>
+                      <label for="hospital_license_number" class="col-sm-3 control-label">Hospital License Number</label>
+                      <div class="col-sm-9">
+                        <input type="text" class="form-control" id="hospital_license_number" name="hospital_license_number" placeholder="Hospital License Number" value="{{ $currentFacility->hospital_license_number }}" />
                       </div>
                     </div>
                     <div class="form-group">
@@ -111,7 +124,7 @@
                         <label class="radio-inline"><input type="radio" name="flag_allow_referral" value="0" @if ($currentFacility->flag_allow_referral == '0') checked="checked" @endif />No</label>
                       </div>
                     </div>
-                  </div><!-- /.box-body -->
+                  </div><!-- /.box-body !-->
                   <div class="box-footer">
                     <button type="submit" class="btn btn-success pull-right">Update Info</button>
                   </div><!-- /.box-footer -->
@@ -138,10 +151,6 @@
                       <div class="col-sm-4">
                         <input type="text" class="form-control" id="website" name="website" placeholder="Website" value="{{ $facilityContact->website }}" />
                       </div>
-                      <label for="hospital_license_number" class="col-sm-2 control-label">Hospital License Number</label>
-                      <div class="col-sm-4">
-                        <input type="text" class="form-control" id="hospital_license_number" name="hospital_license_number" placeholder="Hospital License Number" value="{{ $facilityContact->hospital_license_number }}" />
-                      </div>
                     </div>
 
                     <div class="form-group">
@@ -149,7 +158,7 @@
                       <hr />
                       <label for="house_no" class="col-sm-2 control-label">No.</label>
                       <div class="col-sm-4">
-                        <input type="text" class="form-control" id="house_no" name="house_no" placeholder="House No." value="{{ $facilityContact->house_no }}" />
+                        <input type="text" class="form-control" id="house_no" name="house_no" placeholder="No." value="{{ $facilityContact->house_no }}" />
                       </div>
                       <label for="house_no" class="col-sm-2 control-label">Building</label>
                       <div class="col-sm-4">
@@ -282,6 +291,105 @@
                 {!! Form::close() !!}
               </div><!-- /.tab-pane -->
 
+              <div class="tab-pane" id="tab_4">
+                <h4>Workforce</h4>
+                <!-- form start -->
+                <!-- NOTE:: Fix this! -->
+                {!! Form::open(array( 'url'=>$modulePath.'/updateworkforce/'.$currentFacility->facility_id, 'id'=>'facilityWorkforceForm', 'name'=>'facilityWorkforceForm', 'class'=>'form-horizontal' )) !!}
+                  <div class="box-body">
+                    <div class="form-group">
+                      <label class="col-sm-4 control-label"></label>
+                      <label class="col-sm-4 control-label">Male</label>
+                      <label class="col-sm-4 control-label">Female</label>
+                    </div>
+                    <div class="form-group">
+                      <label class="col-sm-4 control-label">Physicians/Doctors</label>
+                      <div class="col-sm-4">
+                        <input type="number" class="form-control" id="doctors_male" name="doctors_male" placeholder="# of Male Doctors" value="{{ $facility_workforce->doctors_male or NULL }}" />
+                      </div>
+                      <div class="col-sm-4">
+                        <input type="number" class="form-control" id="doctors_female" name="doctors_female" placeholder="# of Female Doctors" value="{{ $facility_workforce->doctors_female or NULL }}" />
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="col-sm-4 control-label"> Dentists </label>
+                      <div class="col-sm-4">
+                        <input type="number" class="form-control" id="dentists_male" name="dentists_male" placeholder="# of Male Dentists" value="{{ $facility_workforce->dentists_male or NULL }}" />
+                      </div>
+                      <div class="col-sm-4">
+                        <input type="number" class="form-control" id="dentists_female" name="dentists_female" placeholder="# of Female Dentists" value="{{ $facility_workforce->dentists_female or NULL }}" />
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="col-sm-4 control-label"> Nurses </label>
+                      <div class="col-sm-4">
+                        <input type="number" class="form-control" id="nurse_male" name="nurses_male" placeholder="# of Male Nurses" value="{{ $facility_workforce->nurses_male or NULL }}" />
+                      </div>
+                      <div class="col-sm-4">
+                        <input type="number" class="form-control" id="nurse_female" name="nurses_female" placeholder="# of Female Nurses" value="{{ $facility_workforce->nurses_female or NULL }}" />
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="col-sm-4 control-label"> Midwives </label>
+                      <div class="col-sm-4">
+                        <input type="number" class="form-control" id="midwives_male" name="midwives_male" placeholder="# of Male Midwives" value="{{ $facility_workforce->midwives_male or NULL }}" />
+                      </div>
+                      <div class="col-sm-4">
+                        <input type="number" class="form-control" id="midwives_female" name="midwives_female" placeholder="# of Female Midwives" value="{{ $facility_workforce->midwives_female or NULL }}" />
+                      </div>
+                    </div>                  
+                    <div class="form-group">
+                      <label class="col-sm-4 control-label"> Medical Technologists </label>
+                      <div class="col-sm-4">
+                        <input type="number" class="form-control" id="medical_technologists_male" name="medical_technologists_male" placeholder="# of Male Medical Technologists" value="{{ $facility_workforce->medical_technologists_male or NULL }}" />
+                      </div>
+                      <div class="col-sm-4">
+                        <input type="number" class="form-control" id="medical_technologists_female" name="medical_technologists_female" placeholder="# of Female Medical Technologists" value="{{ $facility_workforce->medical_technologists_female or NULL }}" />
+                      </div>
+                    </div> 
+                    <div class="form-group">
+                      <label class="col-sm-4 control-label"> Sanitary Engineers </label>
+                      <div class="col-sm-4">
+                        <input type="number" class="form-control" id="sanitary_engineers_male" name="sanitary_engineers_male" placeholder="# of Male Sanitary Engineers" value="{{ $facility_workforce->sanitary_engineers_male or NULL }}" />
+                      </div>
+                      <div class="col-sm-4">
+                        <input type="number" class="form-control" id="sanitary_engineers_female" name="sanitary_engineers_female" placeholder="# of Female Sanitary Engineers" value="{{ $facility_workforce->sanitary_engineers_female or NULL }}" />
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="col-sm-4 control-label"> Sanitary Inspectors </label>
+                      <div class="col-sm-4">
+                        <input type="number" class="form-control" id="sanitary_inspectors_male" name="sanitary_inspectors_male" placeholder="# of Male Sanitary Inspectors" value="{{ $facility_workforce->sanitary_inspectors_male or NULL }}" />
+                      </div>
+                      <div class="col-sm-4">
+                        <input type="number" class="form-control" id="sanitary_inspectors_female" name="sanitary_inspectors_female" placeholder="# of Female Sanitary Inspectors" value="{{ $facility_workforce->sanitary_inspectors_female or NULL }}" />
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="col-sm-4 control-label"> Nutritionists </label>
+                      <div class="col-sm-4">
+                        <input type="number" class="form-control" id="nutritionists_male" name="nutritionists_male" placeholder="# of Male Nutritionists" value="{{ $facility_workforce->nutritionists_male or NULL }}" />
+                      </div>
+                      <div class="col-sm-4">
+                        <input type="number" class="form-control" id="nutritionists_female" name="nutritionists_female" placeholder="# of Female Nutritionists" value="{{ $facility_workforce->nutritionists_female or NULL }}" />
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="col-sm-4 control-label"> Active Barangay Health Workers </label>
+                      <div class="col-sm-4">
+                        <input type="number" class="form-control" id="active_barangay_health_workers_male" name="active_barangay_health_workers_male" placeholder="# of Male Active Barangay Health Workers" value="{{ $facility_workforce->active_barangay_health_workers_male or NULL }}" />
+                      </div>
+                      <div class="col-sm-4">
+                        <input type="number" class="form-control" id="active_barangay_health_workers_female" name="active_barangay_health_workers_female" placeholder="# of Female Active Barangay Health Workers" value="{{ $facility_workforce->active_barangay_health_workers_female or NULL }}" />
+                      </div>
+                    </div>
+                  </div>
+                <div class="box-footer">
+                    <button type="submit" class="btn btn-success pull-right">Update Workforce</button>
+                </div><!-- /.box-footer -->
+                {!! Form::close() !!}
+              </div><!-- /.tab-pane -->
+
               <!-- insert tab plugins here -->
               @if($plugs)
                 @foreach($plugs as $k=>$tab)
@@ -301,8 +409,17 @@
         </div>
 @stop
 
-@section('linked_scripts')
+@section('before_validation_scripts')
 {!! HTML::script('public/dist/plugins/chain/jquery.chained.min.js') !!}
 {!! HTML::script('public/dist/plugins/chain/jquery.chained.remote.min.js') !!}
 {!! HTML::script('public/dist/js/pages/users/userprofile.js') !!}
+
+<script>
+    @if (Session::has('popup'))
+        bootbox.alert({
+          title: "Welcome",
+          message: "Welcome to SHINE OS+. Please complete your facility and user profile to make the system more reliable and help for you."
+        });
+    @endif
+</script>
 @stop

@@ -28,10 +28,15 @@ class EmploymentController extends Controller
 
     public function save()
     {
+        $facility = Session::get('facility_details');
+        $facility_id = $facility->facility_id;
+
         $id = Input::get('patient_id');
         $employment = new EmploymentModel();
         $employment->patient_employmentinfo_id = IdGenerator::generateId();
         $employment->patient_id = Input::get('patient_id');
+        $employment->facility_id = $facility_id;
+        $employment->id_number = Input::get('id_number');
         $employment->occupation = Input::get('occupation');
         $employment->company_name = Input::get('company_name');
         $employment->company_phone = Input::get('company_phone');
@@ -59,6 +64,7 @@ class EmploymentController extends Controller
 
         $checks = EmploymentModel::where('patient_id', $id)->first();
         $employment = array(
+            'id_number' => Input::get('id_number'),
             'occupation' => Input::get('occupation'),
             'company_name' => Input::get('company_name'),
             'company_phone' => Input::get('company_phone'),

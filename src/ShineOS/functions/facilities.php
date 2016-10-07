@@ -30,13 +30,34 @@ function getFacilityByFacilityUserID($id, $field=NULL)
 
     if($field) {
         if($fac) {
-            return $fac->facility_name;
+            return $fac->$field;
         } else {
             return NULL;
         }
     } else {
         $d = json_encode($fac);
         return json_decode($d);
+    }
+}
+
+/**
+ * Get Facility by Facility Patient User ID
+ * @param  [string] $id Facility Patient User ID
+ * @return [mixed] Facility Data Array
+ */
+function findFacilityByFacilityPatientUserID($id)
+{
+    $facility = DB::table('facility_patient_user')
+        ->join('facility_user', 'facility_patient_user.facilityuser_id', '=', 'facility_user.facilityuser_id')
+        ->join('facilities', 'facility_user.facility_id', '=', 'facilities.facility_id')
+        ->select('facilities.*')
+        ->where('facility_patient_user.facilitypatientuser_id', $id)
+        ->first();
+
+    if($facility){
+        return $facility;
+    } else {
+        return NULL;
     }
 }
 
@@ -59,7 +80,6 @@ function getFacilityNameByUserID($id)
     } else {
         return NULL;
     }
-
 }
 
 /**
@@ -97,7 +117,7 @@ function getUserFullNameByFacilityUserID($id)
     if($user) {
         return $user->first_name." ".$user->last_name;
     } else {
-        return NULL;
+        return "User does not exist";
     }
 }
 
@@ -116,7 +136,7 @@ function getUserFullNameByUserID($id)
     if($user) {
         return $user->first_name." ".$user->last_name;
     } else {
-        return NULL;
+        return "User does not exist";
     }
 
 }
@@ -151,6 +171,8 @@ function findUserByFacilityUserID($id)
 {
     $user = DB::table('facility_user')
         ->join('users', 'facility_user.user_id', '=', 'users.user_id')
+        ->join('user_md', 'user_md.user_id', '=', 'users.user_id')
+        ->join('user_contact', 'user_contact.user_id', '=', 'users.user_id')
         ->select('users.*')
         ->where('facility_user.facilityuser_id', $id)
         ->first();

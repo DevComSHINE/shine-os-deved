@@ -5,6 +5,7 @@ use Shine\Libraries\Utils\Lovs;
 use Illuminate\Routing\Controller;
 use ShineOS\Core\Facilities\Entities\Facilities;
 use ShineOS\Core\Facilities\Entities\FacilityContact;
+use ShineOS\Core\Facilities\Entities\FacilityWorkforce;
 use ShineOS\Core\Facilities\Entities\DOHFacilityCode;
 use ShineOS\Core\Users\Entities\Users;
 use View,
@@ -65,29 +66,33 @@ class FacilitiesController extends Controller {
         asort($plugins);
         $plugs = array();
 
-        foreach($plugins as $k=>$plugin) {
-            if(strpos($plugin, ".")===false) {
-                //check if config.php exists
-                if(file_exists(plugins_path().$plugin.'/config.php')){
-                    include(plugins_path().$plugin.'/config.php');
+        if($thisfacility->enabled_plugins){
+            foreach($plugins as $k=>$plugin) {
+                if(strpos($plugin, ".")===false) {
+                    //check if config.php exists
+                    if(file_exists(plugins_path().$plugin.'/config.php')){
+                        include(plugins_path().$plugin.'/config.php');
 
-                    //check if this folder is enabled
-                    if(in_array($plugin_id, json_decode($thisfacility->enabled_plugins)) OR $roles['role_name'] == 'Developer'){
-                        //get only plugins for this module
-                        if($plugin_module == 'facilities'){
-                            if($plugin_table == 'plugintable') {
-                                $pdata = Plugin::where('primary_key_value',$thisfacility->facility_id)->first();
-                            } else {
-                                if (Schema::hasTable($plugin_table)) {
-                                    $pdata = DB::table($plugin_table)->where($plugin_primaryKey, $thisfacility->facility_id)->first();
+                        //check if this folder is enabled
+                        if(json_decode($thisfacility->enabled_plugins) != NULL) {
+                            if(in_array($plugin_id, json_decode($thisfacility->enabled_plugins)) OR $roles['role_name'] == 'Developer'){
+                                //get only plugins for this module
+                                if($plugin_module == 'facilities'){
+                                    if($plugin_table == 'plugintable') {
+                                        $pdata = Plugin::where('primary_key_value',$thisfacility->facility_id)->first();
+                                    } else {
+                                        if (Schema::hasTable($plugin_table)) {
+                                            $pdata = DB::table($plugin_table)->where($plugin_primaryKey, $thisfacility->facility_id)->first();
+                                        }
+                                    }
+                                    $plugs[$k]['plugin_location'] = $plugin_location;
+                                    $plugs[$k]['folder'] = $plugin_folder;
+                                    $plugs[$k]['parent'] = $plugin_module;
+                                    $plugs[$k]['title'] = $plugin_title;
+                                    $plugs[$k]['plugin'] = $plugin_id;
+                                    $plugs[$k]['pdata'] = $pdata;
                                 }
                             }
-                            $plugs[$k]['plugin_location'] = $plugin_location;
-                            $plugs[$k]['folder'] = $plugin_folder;
-                            $plugs[$k]['parent'] = $plugin_module;
-                            $plugs[$k]['title'] = $plugin_title;
-                            $plugs[$k]['plugin'] = $plugin_id;
-                            $plugs[$k]['pdata'] = $pdata;
                         }
                     }
                 }
@@ -174,6 +179,17 @@ class FacilitiesController extends Controller {
         return Redirect::to($this->modulePath);
     }
 
+    public function updateworkforce ( $facility_id = 0 ) {
+        $data = array();
+        FacilityWorkforce::updateFacilityWorkforceById($facility_id);
+
+        //let us update session values
+        Session::put('facility_details', Facilities::getCurrentFacility($facility_id));
+
+        // redirect
+        Session::flash('message', 'Successfully updated Facility Workforce!');
+        return Redirect::to($this->modulePath);
+    }
 
 
     public function auditTrail()

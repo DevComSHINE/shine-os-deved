@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>ShineOS+ | Facility Registration</title>
+        <title>SHINE OS+ | Facility Registration</title>
         <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
         <!-- Bootstrap 3.3.4 -->
         <link href="{{ asset('public/dist/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" />

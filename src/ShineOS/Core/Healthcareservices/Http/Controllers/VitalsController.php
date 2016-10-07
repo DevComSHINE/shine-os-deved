@@ -41,7 +41,7 @@ class VitalsController extends Controller {
             "txt_diastolic" => Input::has('bloodpressure_diastolic') ? Input::get('bloodpressure_diastolic')  : false,
             "txt_height" => Input::has('height') ? Input::get('height')  : false,
             "txt_weight" => Input::has('weight') ? Input::get('weight')  : false,
-            "txt_bmi" => Input::has('bmiResult') ? Input::get('bmiResult')  : false,
+            "txt_bmi" => Input::has('bmi') ? Input::get('bmi')  : false,
             "txt_waist" => Input::has('waist') ? Input::get('waist')  : false,
             "txt_pregnant" => Input::has('Pregnant') ? Input::get('Pregnant')  : false,
             "txt_uterus" => Input::has('WithIntactUterus') ? Input::get('WithIntactUterus')  : false,
@@ -172,6 +172,58 @@ class VitalsController extends Controller {
              ->with('flash_message', 'Well done! You successfully Updated Vitals Information.')
                 ->with('flash_type', 'alert-success alert-dismissible')
                     ->with('flash_tab', 'vitals');
+    }
+
+    public function save($data)
+    {
+        if(isset($data['vitalphysical_id']) AND $data['vitalphysical_id'] != NULL) {
+            $vital = VitalsPhysical::find($data['vitalphysical_id']);
+            $vital->vitalphysical_id	 = $data['vitalphysical_id'];
+        } else {
+            $vital = new VitalsPhysical;
+            $vital->vitalphysical_id	 = $this->tb_unique_id;
+        }
+
+        $vital->healthcareservice_id = Input::has('hservices_id') ? Input::get('hservices_id')  : false;
+        $vital->bloodpressure_systolic = $data['bloodpressure_systolic'];
+        $vital->bloodpressure_diastolic = $data['bloodpressure_diastolic'];
+        $vital->heart_rate = $data['heart_rate'];
+        $vital->pulse_rate = $data['pulse_rate'];
+        $vital->respiratory_rate = $data['respiratory_rate'];
+        $vital->temperature = $data['temperature'];
+        $vital->height = $data['height'];
+        $vital->weight = $data['weight'];
+        $vital->BMI_category = VitalsPhysical::computeBMICategory($data['bmi']);
+        $vital->waist = $data['waist'];
+        if(isset($data['pregnant']))
+            $vital->pregnant = $data['pregnant'];
+        if(isset($data['with_intact_uterus']))
+            $vital->with_intact_uterus = $data['with_intact_uterus'];
+        if(isset($data['weightloss']))
+            $vital->weight_loss = $data['weightloss'];
+        if(isset($data['Pain_Scale']))
+            $vital->Pain_Scale = $data['Pain_Scale'];
+        $vital->Head_abnormal = $data['Head_abnormal'];
+        $vital->Eyes_abnormal = $data['Eyes_abnormal'];
+        $vital->Ent_abnormal = $data['Ent_abnormal'];
+        $vital->Cardiovascular_abnormal = $data['Cardiovascular_abnormal'];
+        $vital->Breasts_abnormal = $data['Breasts_abnormal'];
+        $vital->Chest_abnormal = $data['Chest_abnormal'];
+        $vital->Back_abnormal = $data['Back_abnormal'];
+        $vital->Abdomen_abnormal = $data['Abdomen_abnormal'];
+        $vital->Pelvis_abnormal = $data['Pelvis_abnormal'];
+        $vital->Rectal_abnormal = $data['Rectal_abnormal'];
+        $vital->Upper_Extremities_abnormal = $data['Upper_Extremities_abnormal'];
+        $vital->Lower_Extremities_abnormal = $data['Lower_Extremities_abnormal'];
+        $vital->Integumentary_abnormal = $data['Integumentary_abnormal'];
+        $vital->Skin_abnormal = $data['Skin_abnormal'];
+        $vital->Nails_abnormal = $data['Nails_abnormal'];
+        $vital->Hair_abnormal = $data['Hair_abnormal'];
+        $vital->physical_examination = $data['physical_examination'];
+
+        $vital->save();
+
+        return "ok";
     }
 
 }

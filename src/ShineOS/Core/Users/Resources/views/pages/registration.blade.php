@@ -1,5 +1,5 @@
 @extends('users::layouts.master')
-@section('title') ShineOS+ | Registration @stop
+@section('title') SHINE OS+ | Registration @stop
 @section('content')
 
 <?php
@@ -15,6 +15,7 @@
         $phic_accr_id = $enteredData['phic_accr_id'];
         $first_name = $enteredData['first_name'];
         $last_name = $enteredData['last_name'];
+        $password = $enteredData['password'];
         $email = $enteredData['email'];
         $phone = $enteredData['phone'];
         $mobile = $enteredData['mobile'];
@@ -30,6 +31,7 @@
         $email = '';
         $phone = '';
         $mobile = '';
+        $password = '';
     }
 ?>
 <style>
@@ -97,7 +99,7 @@
                 <img src="{{ asset('public/dist/img/logos/shinelogo-x-big.png') }}" class="img-responsive" />
                 <h2>Provider Registration</h2>
                 <h3>Please complete the information.</h3>
-                <p>Registration is required for new providers and validation is required for existing Shine users.</p>
+                <p>Registration is required for new providers and validation is required for existing SHINE OS+ users.</p>
             <p><strong>If you want to verify your DOH Facility code, please refer to this website, <a href="http://nhfr.doh.gov.ph/" target="_blank">NHFR</a>.</strong></p>
             </div>
 
@@ -127,11 +129,11 @@
             <div class="form-group input-group">
                 <span class="input-group-addon" data-placement="left" data-toggle="popover" data-trigger="hover" title="Ownership Type" data-content="The ownership type of your facility whether you own it as a private clinic or owned by the government. Choose from the list."><i class="fa fa-question-circle font20"></i></span>
                 <div class="btn-group toggler" data-toggle="buttons">
-                  <label class="btn btn-default regbtn">
-                    <i class="fa fa-check"></i> <input type="radio" class="required ownership_type" name="ownership_type" id="" autocomplete="off" value="government"> Government Facility
+                  <label class="btn btn-default regbtn required @if($ownership_type == 'government') active @endif">
+                    <i class="fa fa-check"></i> <input type="radio" class="required ownership_type" name="ownership_type" id="" autocomplete="off" value="government" required="required" @if($ownership_type == 'government') checked="checked" @endif> Government Facility
                   </label>
-                  <label class="btn btn-default regbtn">
-                    <i class="fa fa-check"></i> <input type="radio" class="required ownership_type" name="ownership_type" id="" autocomplete="off" value="private"> Private Facility
+                  <label class="btn btn-default regbtn required @if($ownership_type == 'private') active @endif">
+                    <i class="fa fa-check"></i> <input type="radio" class="required ownership_type" name="ownership_type" id="" autocomplete="off" value="private" required="required"  @if($ownership_type == 'private') checked="checked" @endif> Private Facility
                   </label>
                 </div>
             </div>
@@ -161,8 +163,8 @@
                 <span class="input-group-addon" data-placement="left" data-toggle="popover" data-trigger="hover" title="Provider Type" data-content="Please indicate what type of provider you are."><i class="fa fa-question-circle font20"></i></span>
                 <select name="provider_type" id="provider_type" class="required form-control" required>
                     <option value="">Select Provider Type</option>
-                    <option value="facility">Facility</option>
-                    <option value="individual">Individual</option>
+                    <option value="facility" @if($provider_type == 'facility') selected @endif>Facility</option>
+                    <option value="individual" @if($provider_type == 'individual') selected @endif>Individual</option>
                 </select>
             </div>
 
@@ -170,16 +172,16 @@
                 <span class="input-group-addon" data-placement="left" data-toggle="popover" data-trigger="hover" title="Facility Type" data-content="The type of facility you manage. Choose from the list."><i class="fa fa-question-circle font20"></i></span>
                 <select name="facility_type" id="facility_type" class="populate placeholder required form-control">
                     <option value="">Select Facility Type</option>
-                    <option class="ot_government" value="Barangay Health Station">Barangay Health Station</option>
-                    <option class="ot_private" value="Birthing Home">Birthing Home</option>
-                    <option class="ot_government" value="City Health Office">City Health Office</option>
-                    <option class="ot_government" value="District Health Office">District Health Office</option>
-                    <option class="ot_private" value="Hospital">Hospital</option>
-                    <option class="ot_government" value="Main Health Center">Main Health Center</option>
-                    <option class="ot_government" value="Municipal Health Office">Municipal Health Office</option>
-                    <option class="ot_government" value="Provincial Health Office">Provincial Health Office</option>
-                    <option class="ot_government" value="Rural Health Unit">Rural Health Unit</option>
-                    <option class="ot_private" value="Private Clinic">Private Clinic</option>
+                    <option class="ot_government" value="Barangay Health Station" @if($facility_type == 'Barangay Health Station') selected @endif>Barangay Health Station</option>
+                    <option class="ot_private" value="Birthing Home" @if($facility_type == 'Birthing Home') selected @endif>Birthing Home</option>
+                    <option class="ot_government" value="City Health Office" @if($facility_type == 'City Health Office') selected @endif>City Health Office</option>
+                    <option class="ot_government" value="District Health Office" @if($facility_type == 'District Health Office') selected @endif>District Health Office</option>
+                    <option class="ot_private" value="Hospital" @if($facility_type == 'Hospital') selected @endif>Hospital</option>
+                    <option class="ot_government" value="Main Health Center" @if($facility_type == 'Main Health Center') selected @endif>Main Health Center</option>
+                    <option class="ot_government" value="Municipal Health Office" @if($facility_type == 'Municipal Health Office') selected @endif>Municipal Health Office</option>
+                    <option class="ot_government" value="Provincial Health Office" @if($facility_type == 'Provincial Health Office') selected @endif>Provincial Health Office</option>
+                    <option class="ot_government" value="Rural Health Unit" @if($facility_type == 'Rural Health Unit') selected @endif>Rural Health Unit</option>
+                    <option class="ot_private" value="Private Clinic" @if($facility_type == 'Private Clinic') selected @endif>Private Clinic</option>
                 </select>
             </div>
 

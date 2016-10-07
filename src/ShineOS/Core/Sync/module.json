@@ -1,0 +1,15 @@
+{
+    "name": "Sync",
+    "alias": "sync",
+    "description": "",
+    "keywords": [],
+    "active": 1,
+    "order": 0,
+    "providers": [
+        "Modules\\Sync\\Providers\\SyncServiceProvider"
+    ],
+    "aliases":{},
+    "files": [
+        "start.php"
+    ]
+}

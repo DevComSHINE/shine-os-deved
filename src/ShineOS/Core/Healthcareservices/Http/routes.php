@@ -11,6 +11,7 @@ Route::group(['prefix' => 'healthcareservices', 'namespace' => 'ShineOS\Core\Hea
     Route::get('/{action}/{patiend_id}/{hservice_id}', ['as' => 'healthcare.edit', 'uses' => 'HealthcareservicesController@index']);
 
     Route::post('/insert', ['as' => 'healthcare.insert', 'uses' => 'HealthcareservicesController@insert']);
+    Route::post('/update', ['as' => 'healthcare.update', 'uses' => 'HealthcareservicesController@update']);
     Route::get('/view', ['as' => 'healthcare.view', 'uses' => 'HealthcareservicesController@view']);
 
     Route::post('/vitals/add', ['as' => 'vitals.insert', 'uses' => 'VitalsController@add']);

@@ -2,6 +2,7 @@
 namespace ShineOS\Core\Extensions\Http\Controllers;
 
 use Pingpong\Modules\Routing\Controller;
+use Illuminate\Support\Facades\Artisan;
 use ShineOS\Core\Roles\Entities\Features as Features;
 use ShineOS\Core\Users\Entities\Users;
 use ShineOS\Core\Facilities\Entities\Facilities as Facilities;
@@ -59,8 +60,10 @@ class ExtensionsController extends Controller {
                     //load the config file
                     include(plugins_path().$plugin.'/config.php');
                     //check if plugin is active
-                    if(in_array($plugin_id, json_decode($enabled_plugins))){
-                        $plug_active = 1;
+                    if(json_decode($enabled_plugins) != NULL){
+                        if(in_array($plugin_id, json_decode($enabled_plugins))){
+                            $plug_active = 1;
+                        }
                     }
 
                     $plugs[$k]['plugin_module'] = $plugin_module;
@@ -137,7 +140,8 @@ class ExtensionsController extends Controller {
 
     public function install($type)
     {
-        echo $type;
+        $data = $_POST;
+        return view('extensions::pages.pay')->with($data);
     }
 
     public function update()
@@ -159,6 +163,7 @@ class ExtensionsController extends Controller {
         $update = key($_POST['action']);
         $type = $_POST['type'];
         $action = $_POST['action'][$update];
+        $uparray = array();
 
         if($type == 'modules') {
             $uparray = $enabled_modules;
@@ -169,33 +174,83 @@ class ExtensionsController extends Controller {
             $field = "enabled_plugins";
         }
 
-        if(in_array($update, $uparray)) {
-            if($action == 'Deactivate') {
-                //remove from array
-                foreach($uparray as $modx) {
-                    if($modx != $update){
-                        array_push($updated_modules, $modx);
+        if($uparray) {
+            if(in_array($update, $uparray)) {
+                //deactivate extension
+                if($action == 'Deactivate') {
+
+                    //remove from array
+                    foreach($uparray as $modx) {
+                        if($modx != $update){
+                            array_push($updated_modules, $modx);
+                        }
+                    }
+                    Facilities::where('facility_id', $facility->facility_id)
+                        ->update([$field => json_encode($updated_modules)]);
+                }
+            } else {
+                if($action == 'Activate') {
+                    //add to array
+                    array_push($uparray, $update);
+
+                    Facilities::where('facility_id', $facility->facility_id)
+                    ->update([$field => json_encode($uparray)]);
+
+                    //do extension chores
+                    //run sql migrate
+                    if($type == 'plugins') {
+                        //get installed plugins
+                        $patientPluginDir = plugins_path()."/";
+                        $plugins = directoryFiles($patientPluginDir);
+                        foreach($plugins as $k=>$plugin) {
+                            if(strpos($plugin, ".")===false AND strpos($plugin, $update)!==false) {
+                                $updateFolder = $plugin;
+                            }
+                        }
+                        include(plugins_path().$updateFolder.'/config.php');
+                        if(!Schema::hasTable($plugin_table)) {
+                            $migrate = Artisan::call('migrate', ['--path'=>'plugins/'.$updateFolder, '--force'=>true]);
+                        }
+                    } else {
+                        $c = strtolower($update).'.table';
+                        $tble = Config::get($c);
+                        if($tble != NULL AND !Schema::hasTable($tble)) {
+                            $migrate = Artisan::call('migrate', ['--path'=>'modules/'.$update.'/Database/Migrations', '--force'=>true]);
+                        }
                     }
                 }
-                Facilities::where('facility_id', $facility->facility_id)
-                    ->update([$field => json_encode($updated_modules)]);
+
             }
         } else {
             if($action == 'Activate') {
                 //add to array
+                $uparray = array($update);
+                // array_push($uparray, $update);
 
-                array_push($uparray, $update);
-            }
-            Facilities::where('facility_id', $facility->facility_id)
+                Facilities::where('facility_id', $facility->facility_id)
                 ->update([$field => json_encode($uparray)]);
+
+                //do extension chores
+                //run sql migrate
+                if($type == 'plugins') {
+                    //get installed plugins
+                    $patientPluginDir = plugins_path()."/";
+                    $plugins = directoryFiles($patientPluginDir);
+                    foreach($plugins as $k=>$plugin) {
+                        if(strpos($plugin, ".")===false AND strpos($plugin, $update)!==false) {
+                            $updateFolder = $plugin;
+                        }
+                    }
+                    $migrate = Artisan::call('migrate', ['--path'=>'plugins/'.$updateFolder, '--force'=>true]);
+                } else {
+                    $migrate = Artisan::call('migrate', ['--path'=>'modules/'.$update.'/Database/Migrations', '--force'=>true]);
+                }
+            }
         }
 
         //regenerate roles & store into session
         $this->generateSessionRoles($user->user_id);
         Session::put('facility_details', Facilities::getCurrentFacility($facility->facility_id));
-
-        //do plugins
-
 
         return Redirect::to('extensions#'.$type);
     }
@@ -225,11 +280,13 @@ class ExtensionsController extends Controller {
             foreach ($core_access as $core=>$access):
                 $module = DB::table('lov_modules')->select('*')->where('module_name', strtolower($core))->first();
 
-                $roles['modules'][$module->module_name]['name'] = $module->module_name;
-                $roles['modules'][$module->module_name]['icon'] = $module->icon;
-                $roles['modules'][$module->module_name]['status'] = $module->status;
-                $roles['modules'][$module->module_name]['access'][] = $access;
-                $roles['modules'][$module->module_name]['order'] = $module->menu_order;
+                if($module) {
+                    $roles['modules'][$module->module_name]['name'] = $module->module_name;
+                    $roles['modules'][$module->module_name]['icon'] = $module->icon;
+                    $roles['modules'][$module->module_name]['status'] = $module->status;
+                    $roles['modules'][$module->module_name]['access'][] = $access;
+                    $roles['modules'][$module->module_name]['order'] = $module->menu_order;
+                }
             endforeach;
 
             //create 3rd party modules array

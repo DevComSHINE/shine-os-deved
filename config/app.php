@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'debug' => env('APP_DEBUG', false),
+    'debug' => env('APP_DEBUG', true),
 
     /*
     |--------------------------------------------------------------------------
@@ -26,7 +26,7 @@ return [
     |
     */
 
-    'url' => 'http://ajwcc/shineos',
+    'url' => 'http://www.shine.ph',
 
     /*
     |--------------------------------------------------------------------------
@@ -78,7 +78,7 @@ return [
     |
     */
 
-    'key' => env('APP_KEY', 'SomeRandomString'),
+    'key' => env('APP_KEY', 'SomeRandomStringSomeRandomString'),
 
     'cipher' => 'AES-256-CBC',
 
@@ -144,7 +144,7 @@ return [
         Shine\Providers\EventServiceProvider::class,
         Shine\Providers\RouteServiceProvider::class,
         Shine\Providers\RepositoryServiceProvider::class,
-
+        
 
         /*
          * ShineOS+ Installed Providers

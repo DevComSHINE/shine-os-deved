@@ -10,6 +10,7 @@ Route::group(['prefix' => 'facilities', 'namespace' => 'ShineOS\Core\Facilities\
     Route::post('/updatefacilityinfo/{id}', 'FacilitiesController@updatefacilityinfo');
     Route::post('/updatefacilitycontact/{id}', 'FacilitiesController@updatefacilitycontact');
     Route::post('/updatespecialization/{id}', 'FacilitiesController@updatespecialization');
+    Route::post('/updateworkforce/{id}', 'FacilitiesController@updateworkforce');
 
     //Route::get('/{id}/facilities', 'UsersController@facilities'); // PLEASE TRANSFER TO FACILITY MODULE
     //Route::get('/{id}/logs', 'UsersController@auditTrail'); // PLEASE TRANSFER TO FACILITY MODULE

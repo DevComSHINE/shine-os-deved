@@ -1,5 +1,5 @@
 @extends('users::layouts.master')
-@section('title') ShineOS+ | Change Password @stop
+@section('title') SHINE OS+ | Change Password @stop
 @section('content')
 
 <div class="container">

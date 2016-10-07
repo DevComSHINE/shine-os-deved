@@ -16,6 +16,8 @@ class PatientDeathInfo extends Model {
 	protected $table = 'patient_death_info';
 	protected static $table_name = 'patient_death_info';
 	protected $primaryKey = 'patient_deathinfo_id';
+	
+	protected $touches = array('patients');
 
 	public function patients()
 	{

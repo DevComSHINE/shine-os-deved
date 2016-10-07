@@ -78,7 +78,7 @@ class Facilities extends Model implements AuthenticatableContract, CanResetPassw
      */
     public static function getCurrentFacility ($facility_id)
     {
-        return Facilities::with('facilityContact')->where('facility_id','=', $facility_id)->first();
+        return Facilities::with('facilityContact', 'facilityWorkforce')->where('facility_id','=', $facility_id)->first();        
     }
 
     /**
@@ -131,6 +131,7 @@ class Facilities extends Model implements AuthenticatableContract, CanResetPassw
         $facility->provider_type = Input::get('provider_type');
         $facility->facility_type = Input::get('facility_type');
         $facility->bmonc_cmonc = Input::get('bmonc_cmonc');
+        $facility->hospital_license_number = Input::get('hospital_license_number');
         $facility->flag_allow_referral = Input::get('flag_allow_referral');
 
         $facility->save();
@@ -181,6 +182,11 @@ class Facilities extends Model implements AuthenticatableContract, CanResetPassw
     public function facilityContact()
     {
         return $this->hasOne('ShineOS\Core\Facilities\Entities\FacilityContact','facility_id','facility_id');
+    }
+
+    public function facilityWorkforce()
+    {
+        return $this->hasOne('ShineOS\Core\Facilities\Entities\FacilityWorkforce','facility_id','facility_id')->orderBy('created_at', 'DESC');
     }
 
     /**

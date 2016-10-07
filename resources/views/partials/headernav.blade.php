@@ -2,10 +2,14 @@
     $facility = json_decode(Session::get('facility_details'));
     $facuser = Session::get('user_details');
     $roles = Session::get('roles');
+    $user = Session::get('_global_user');
+    $userInfo = ShineOS\Core\Users\Entities\Users::getRecordById($user->user_id);
 
+    if(Config::get('mode') == 'cloud'):
     $inbound_count = countInboundReferrals($facility->facility_id);
     $reminders_count = countRemindersByFacilityID($facility->facility_id);
     $message_count = countReferralMessages($facility->facility_id);
+    endif;
 ?>
 <!-- Logo -->
     <!-- Sidebar toggle button-->
@@ -22,6 +26,7 @@
     <nav class="navbar navbar-static-top" role="navigation">
       <div class="navbar-custom-menu">
         <ul class="nav navbar-nav">
+          @if(Config::get('mode') == 'cloud')
           <li class="dropdown messages-menu">
             <a href="{{ url('/referrals') }}" class="dropdown-togglee" data-toggle="dropdownn">
               <i class="fa fa-paper-plane text-shine-green"></i>
@@ -42,7 +47,7 @@
               <span class="label label-shine-blue">{{ $reminders_count }}</span>
             </a>
           </li>
-
+          @endif
           <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -58,10 +63,9 @@
               <li class="user-header">
                 <div class="navimg_container">
                 <?php
-                    $user = Session::get('_global_user');
-                    $userPhoto = $user->profile_picture;
+                    $userPhoto = $userInfo->profile_picture;
                 ?>
-                @if ( $userPhoto != '' AND is_file(url('public/uploads/profile_picture/'.$userPhoto)) )
+                @if ( $userPhoto != '' AND is_file(userfiles_path().'uploads/profile_picture/'.$userPhoto) )
                     <img src="{{ url('public/uploads/profile_picture/'.$userPhoto) }}" class="profile-img" />
                 @else
                     <img src="{{ asset('public/dist/img/noimage_male.png') }}" class="profile-img" />

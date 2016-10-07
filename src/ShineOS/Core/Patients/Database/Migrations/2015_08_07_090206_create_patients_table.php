@@ -11,7 +11,7 @@ class CreatePatientsTable extends Migration {
      * @return void
      */
     public function up()
-    {
+    { 
 
         Schema::create('patients', function(Blueprint $table)
         {
@@ -170,27 +170,27 @@ class CreatePatientsTable extends Migration {
             $table->unique('patient_emergencyinfo_id');
         });
 
-        Schema::create('patient_employmentinfo', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('patient_employmentinfo_id', 60);
-            $table->string('patient_id', 60);
+        // Schema::create('patient_employmentinfo', function (Blueprint $table) {
+        //     $table->increments('id');
+        //     $table->string('patient_employmentinfo_id', 60);
+        //     $table->string('patient_id', 60);
 
-            $table->string('occupation', 30)->nullable();
-            $table->string('company_name', 60)->nullable();
-            $table->string('company_phone', 20)->nullable();
-            $table->string('company_unitno', 60)->nullable();
-            $table->string('company_address', 60)->nullable();
-            $table->string('company_region', 60)->nullable();
-            $table->string('company_province', 60)->nullable();
-            $table->string('company_citymun', 60)->nullable();
-            $table->string('company_barangay', 60)->nullable();
-            $table->string('company_zip', 60)->nullable();
-            $table->string('company_country', 60)->nullable();
+        //     $table->string('occupation', 30)->nullable();
+        //     $table->string('company_name', 60)->nullable();
+        //     $table->string('company_phone', 20)->nullable();
+        //     $table->string('company_unitno', 60)->nullable();
+        //     $table->string('company_address', 60)->nullable();
+        //     $table->string('company_region', 60)->nullable();
+        //     $table->string('company_province', 60)->nullable();
+        //     $table->string('company_citymun', 60)->nullable();
+        //     $table->string('company_barangay', 60)->nullable();
+        //     $table->string('company_zip', 60)->nullable();
+        //     $table->string('company_country', 60)->nullable();
 
-            $table->softDeletes();
-            $table->timestamps();
-            $table->unique('patient_employmentinfo_id');
-        });
+        //     $table->softDeletes();
+        //     $table->timestamps();
+        //     $table->unique('patient_employmentinfo_id');
+        // });
 
         Schema::create('patient_death_info', function (Blueprint $table) {
             $table->increments('id');
@@ -210,7 +210,7 @@ class CreatePatientsTable extends Migration {
             $table->string('Underlying_Cause_of_Death', 60)->nullable();
             $table->string('Type_of_Death', 60)->nullable();
             $table->text('Remarks')->nullable();
-
+            
             $table->softDeletes();
             $table->timestamps();
             $table->unique('patient_deathinfo_id');
@@ -220,7 +220,7 @@ class CreatePatientsTable extends Migration {
             $table->increments('id');
             $table->string('patient_fmedicalhistory_id', 60);
             $table->string('patient_id', 60);
-
+            
             $table->string('disease_id', 60);
             $table->text('disease_date');
             $table->string('disease_status', 60)->nullable();
@@ -235,7 +235,7 @@ class CreatePatientsTable extends Migration {
             $table->increments('id');
             $table->string('patient_fpcounseling_id', 60);
             $table->string('patient_id', 60);
-
+            
             $table->string('counseling_date', 60);
             $table->text('counseling_status');
             $table->string('remarks',255);
@@ -255,7 +255,7 @@ class CreatePatientsTable extends Migration {
             $table->datetime('actual_date');
             $table->softDeletes();
             $table->timestamps();
-            $table->unique('patient_immunization_id');
+            $table->unique('patient_immunization_id'); 
         });
 
         Schema::create('patient_immuhistory', function (Blueprint $table) {
@@ -269,7 +269,7 @@ class CreatePatientsTable extends Migration {
 
             $table->softDeletes();
             $table->timestamps();
-            $table->unique('patient_immuhistory_id');
+            $table->unique('patient_immuhistory_id'); 
         });
 
         Schema::create('facility_patient_user', function (Blueprint $table) {
@@ -298,7 +298,7 @@ class CreatePatientsTable extends Migration {
             $table->unique('patient_medicalhistory_id');
         });
 
-        /*Schema::create('patient_menstrualhistory', function (Blueprint $table) {
+        Schema::create('patient_menstrualhistory', function (Blueprint $table) {
             $table->increments('id');
             $table->string('patient_menstrualhistory_id', 60);
             $table->string('patient_id', 60);
@@ -332,7 +332,7 @@ class CreatePatientsTable extends Migration {
             $table->softDeletes();
             $table->timestamps();
             $table->unique('patient_personalhistory_id');
-        });*/
+        });
 
         Schema::create('patient_philhealthinfo', function (Blueprint $table) {
             $table->increments('id');
@@ -352,7 +352,7 @@ class CreatePatientsTable extends Migration {
             $table->unique('patient_philhealthinfo_id');
         });
 
-        /*this table should get from maternal care table not patient -_-
+        //this table should get from maternal care table not patient -_-
         Schema::create('patient_pregnancyhistory', function (Blueprint $table) {
             $table->increments('id');
             $table->string('patient_pregnancyhistory_id', 60);
@@ -384,7 +384,7 @@ class CreatePatientsTable extends Migration {
             $table->softDeletes();
             $table->timestamps();
             $table->unique('patient_surgicalhistory_id');
-        });*/
+        });
     }
 
     /**
@@ -393,8 +393,8 @@ class CreatePatientsTable extends Migration {
      * @return void
      */
     public function down()
-    {
-        DB::statement('SET FOREIGN_KEY_CHECKS = 0');
+    { 
+        DB::statement('SET FOREIGN_KEY_CHECKS = 0'); 
         Schema::dropIfExists('patient_contact');
         Schema::dropIfExists('patient_alert');
         Schema::dropIfExists('allergy_patient');
@@ -402,22 +402,21 @@ class CreatePatientsTable extends Migration {
         Schema::dropIfExists('patient_family_group');
         Schema::dropIfExists('patient_family_group_members');
         Schema::dropIfExists('patient_familyinfo');
+        Schema::dropIfExists('patient_fmedicalhistory');
         Schema::dropIfExists('patient_emergencyinfo');
-        Schema::dropIfExists('patient_employmentinfo');
+        // Schema::dropIfExists('patient_employmentinfo');
         Schema::dropIfExists('patient_death_info');
         Schema::dropIfExists('patient_immunization');
+        Schema::dropIfExists('patient_personalhistory');
         Schema::dropIfExists('patient_philhealthinfo');
+        Schema::dropIfExists('patient_surgicalhistory');
         Schema::dropIfExists('patients');
+        Schema::dropIfExists('patient_fpcounseling');
+        Schema::dropIfExists('patient_immuhistory');
         Schema::dropIfExists('facility_patient_user');
         Schema::dropIfExists('patient_medicalhistory');
-
-        //Schema::dropIfExists('patient_menstrualhistory');
-        //Schema::dropIfExists('patient_pregnancyhistory');
-        //Schema::dropIfExists('patient_fmedicalhistory');
-        //Schema::dropIfExists('patient_personalhistory');
-        //Schema::dropIfExists('patient_surgicalhistory');
-        //Schema::dropIfExists('patient_fpcounseling');
-        //Schema::dropIfExists('patient_immuhistory');
+        Schema::dropIfExists('patient_menstrualhistory');
+        Schema::dropIfExists('patient_pregnancyhistory'); 
         DB::statement('SET FOREIGN_KEY_CHECKS = 1');
     }
 

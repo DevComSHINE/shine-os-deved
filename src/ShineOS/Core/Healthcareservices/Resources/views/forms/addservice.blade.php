@@ -1,10 +1,3 @@
-
-{!! Form::open(array('route' => 'healthcare.insert')) !!}
-
-{!! Form::hidden('patient_id', $patient->patient_id) !!}
-{!! Form::hidden('hservices_id', $healthcareserviceid) !!}
-{!! Form::hidden('follow_healthcareserviceid', $follow_healthcareserviceid) !!}
-
 <?php
 
 if(empty($disposition_record->disposition)) { $read = NULL; }
@@ -17,15 +10,22 @@ else:
 endif;
 ?>
 
-<div class="tab-pane" id="tab_1">
-    <legend>{{ $formTitle }} @if($follow_healthcareserviceid) <a href="{{ url( $follow_healthcareserviceid ) }}">{{ $recent_healthcare->encounter_datetime->format('M. d, Y') }}</a>@endif </legend>
+<fieldset class="tab-pane" id="tab_1">
+    <legend>Consultation</legend>
     <fieldset {{ $disabled }}>
         <div class="col-sm-12">
-            <label class="col-sm-2 control-label">Encounter Date &amp; Time</label>
+            <label class="col-sm-2 control-label">Encounter DateTime</label>
             <div class="col-sm-2">
                 <div class="input-group">
                     <i class="fa fa-calendar inner-icon"></i>
-                    {!! Form::text('e-date', getCurrentDate('m/d/Y'), ['class' => 'form-control datepicker', 'readonly' => 'readonly',  $read]); !!}
+                    <?php
+                        if(empty($healthcareData) OR isset($prevhealthcareData)) {
+                            $date = getCurrentDate('m/d/Y');
+                        } else {
+                            $date = date('m/d/Y', strtotime($healthcareData->encounter_datetime));
+                        }
+                    ?>
+                    {!! Form::text('e-date', $date, ['class' => 'form-control datepicker', 'readonly' => 'readonly',  $read]); !!}
                 </div>
             </div>
             <div class="col-sm-2">
@@ -33,17 +33,17 @@ endif;
                     <div class="iconed-input bootstrap-timepicker">
                     <i class="fa fa-clock-o inner-icon"></i>
                     <?php
-                        if(empty($healthcareData)) {
-                            $time = getCurrentDate('h:i A');
+                        if(empty($healthcareData) OR isset($prevhealthcareData)) {
+                            $time = date( 'h:i A', strtotime(getMysqlDate()) );
                         } else {
                             $time = date('h:i A', strtotime($healthcareData->encounter_datetime));
                         }
                     ?>
-                    {!! Form::text('e-time', $time, ['class' => 'form-control', 'id'=>'timepicker', $read]); !!}
+                    {!! Form::text('e-time', $time, ['class' => 'form-control', 'id'=>'timepicker', 'readonly' => 'readonly', $read]); !!}
                     </div>
                 </div>
             </div>
-            <label class="col-md-2 control-label"> Consultation Service</label>
+            <label class="col-md-2 control-label"> Healthcare Service</label>
             <div class="col-md-4">
                 <?php $hidden = "hidden"; //hide medical category first ?>
                 @if (!$healthcareData)
@@ -55,12 +55,7 @@ endif;
                         $serviceTitle = NULL;
                     ?>
                     {!! Form::hidden('healthcare_services', $healthcareData->healthcareservicetype_id) !!}
-                    @foreach($healthcareservices as $keyS => $valueS)
-                        @if($healthcareData->healthcareservicetype_id == $keyS)
-                            <?php $serviceTitle = $valueS; ?>
-                        @endif
-                    @endforeach
-                    {!! Form::text(NULL, $serviceTitle, ['class' => 'form-control', 'readonly'=>'readonly']); !!}
+                    {!! Form::text(NULL, getHealthcareServiceName($healthcareData->healthcareservicetype_id) , ['class' => 'form-control', 'readonly'=>'readonly']); !!}
 
                 @endif
 
@@ -70,10 +65,11 @@ endif;
     <fieldset {{ $disabled }}>
         <div class="col-sm-12">
             <div id="consultation_type">
-                <label class="col-md-2 control-label">Consultation Type</label>
-                <div class="col-md-6">
-                    <div class="btn-group toggler" data-toggle="buttons">
+
                         @if($healthcareType!='FOLLO')
+                <label class="col-md-2 control-label">Consultation Type</label>
+                <div class="col-md-4">
+                    <div class="btn-group toggler" data-toggle="buttons">
                         <label id="consuTypeNewAdmit" class="btn btn-default required @if($healthcareType=='ADMIN') active @endif {{$read}}">
                             <i class="fa fa-check"></i> {!! Form::radio('consultationtype_id', 'ADMIN', ''); !!} New Admission
                         </label>
@@ -84,17 +80,30 @@ endif;
                             ?>
                             <i class="fa fa-check"></i> {!! Form::radio('consultationtype_id', 'CONSU', $cchk); !!} New Consultation
                         </label>
+                    </div>
+                </div>
                         @endif
 
                         @if($healthcareType=='FOLLO')
-                        <label id="consuTypeFollow" class="btn btn-default required @if($healthcareType=='FOLLO') active @endif {{$read}}">
+                <label class="col-md-2 control-label">Consultation & Encounter</label>
+                <div class="col-md-4">
+                    <div class="btn-group toggler" data-toggle="buttons">
+                        <label id="consuTypeFollow" class="btn btn-default required active {{$read}}">
                             <i class="fa fa-check"></i> {!! Form::radio('consultationtype_id', 'FOLLO', 'checked'); !!} Follow-up
                         </label>
-                        @endif
+                    </div>
+                    <div class="btn-group toggler" data-toggle="buttons">
+                        <label id="outPatient" class="btn btn-default required active {{$read}}">
+                            <i class="fa fa-check"></i> {!! Form::radio('encounter_type', 'O', 'checked'); !!} Out Patient
+                        </label>
                     </div>
                 </div>
-                <label class="col-md-1 control-label">Encounter Type</label>
-                <div class="col-md-3">
+                        @endif
+
+
+                @if($healthcareType!='FOLLO')
+                <label class="col-md-2 control-label">Encounter Type</label>
+                <div class="col-md-4">
                     <div class="btn-group toggler" data-toggle="buttons">
                         <label id="inPatient" class="btn btn-default disabled @if(!empty($healthcareData)) @if($healthcareData->encounter_type=='I') active @endif @endif {{$read}}">
                             <i class="fa fa-check"></i> {!! Form::radio('encounter_type', 'I', '') !!} In Patient
@@ -109,25 +118,36 @@ endif;
                         </label>
                     </div>
                 </div>
+                @endif
+                <?php /*if($healthcareType=='FOLLO')
+                <label class="col-md-2 control-label">Disease Type</label>
+                <div class="col-md-4">
+                    {!! Form::select('healthcare_subservices', $subform, '',
+                        ['class' => 'required form-control ui-wizard-content valid', 'id'=> 'healthcare_subform', 'required'=>'required']) !!}
+                </div>
+                @endif*/ ?>
             </div>
         </div>
     </fieldset>
 
-</div><!-- /.tab-pane -->
+</fieldset><!-- /.tab-pane -->
 
+@if(empty($healthcareserviceid))
 <fieldset>
     <div class="form-group">
         <div class="col-md-12">
             <div class="row">
+                <a href="{{ url('records#visit_list') }}" class="btn btn-default pull-right sideMargin">Cancel</a>
                 @if (!$follow_healthcareserviceid)
                     @if(!$healthcareData)
-                    <button type="submit" class="btn btn-primary pull-right">Add</button>
+                    <button type="submit" class="btn btn-primary pull-right">Create Health Record</button>
                     @endif
                 @else
-                    <button type="submit" class="btn btn-primary pull-right">Follow Up</button>
+                    <button type="submit" class="btn btn-primary pull-right">Create Follow Up</button>
                 @endif
+
             </div>
         </div>
     </div>
 </fieldset>
-{!! Form::close() !!}
+@endif

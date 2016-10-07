@@ -80,7 +80,8 @@
 .bg-fuchsia,
 .bg-purple,
 .bg-maroon,
-.bg-black {
+.bg-black,
+.btn-shine-green {
   color: #f9f9f9 !important;
 }
 .bg-white {
@@ -88,6 +89,9 @@
 }
 .bg-gray {
   background-color: #eaeaec !important;
+}
+.bg-dgray {
+  background-color: #888888 !important;
 }
 .bg-black {
   background-color: #222222 !important;
@@ -259,4 +263,12 @@ Gradient Background colors
 
 .opac-yellow {
     background-color: RGBA(252, 210, 0, 0.5);
+}
+
+.btn-shine-green {
+    background-color: #669C2C !important;
+    opacity: 0.85;
+}
+.btn-shine-green:hover {
+    opacity: 1;
 }

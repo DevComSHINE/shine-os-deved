@@ -11,8 +11,6 @@ namespace ShineOS;
  * @category Application
  * @desc
  *
- * @property \ShineOS\Providers\UrlManager                    $url_manager
- *
  */
 class Application {
 

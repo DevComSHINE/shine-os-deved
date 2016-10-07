@@ -41,17 +41,8 @@
     </div>
 @stop
 
-@section('linked_scripts')
-    {!! HTML::script('public/dist/js/jquery.form.js') !!}
-    {!! HTML::script('public/dist/js/jquery.form.wizard.js') !!}
-    {!! HTML::script('public/dist/js/jquery.validate.js') !!}
-    {!! HTML::script('public/dist/plugins/input-mask/inputmask.js') !!}
-    {!! HTML::script('public/dist/plugins/input-mask/inputmask.date.extensions.js') !!}
-    {!! HTML::script('public/dist/plugins/input-mask/inputmask.extensions.js') !!}
-    {!! HTML::script('public/dist/plugins/input-mask/jquery.inputmask.js') !!}
-    {!! HTML::script('public/dist/js/prettify.js') !!}
-    {!! HTML::script('public/dist/plugins/chain/jquery.chained.min.js') !!}
-    {!! HTML::script('public/dist/plugins/chain/jquery.chained.remote.min.js') !!}
+@section('before_validation_scripts')
+
 @stop
 
 @section('scripts')

@@ -1,5 +1,5 @@
 @extends('layout.master')
-@section('title') ShineOS+ | User Management @stop
+@section('title') SHINE OS+ | User Management @stop
 
 @section('page-header')
     <section class="content-header">
@@ -21,11 +21,17 @@
             <div class="box box-primary">
                 <div class="box-header">
                     <h3 class="box-title">Facility Users</h3>
+
                     <div class="box-tools">
                         <div class="input-group pull-right">
-                            <a href="{{ url('users/add')}}" class="btn btn-sm btn-primary">Add New User</a>
+                            @if(Config::get('config.mode') == 'cloud')
+                            <a href="{{ url('users/add')}}" class="btn btn-sm btn-info">Add New User</a>
+                            @else
+                            <span class="btn btn-sm btn-warning">You can add new users in your cloud account</span>
+                            @endif
                         </div>
                     </div>
+
                 </div><!-- /.box-header -->
 
                 @if (Session::has('message'))
@@ -63,8 +69,13 @@
                                 <td>{{ $record->email }}</td>
                                 <?php
                                     $role = getRoleByFacilityUserID($record->facilityUser[0]->facilityuser_id);
+                                    if($role) {
+                                        $rolename = $role->role_name;
+                                    } else {
+                                        $rolename = NULL;
+                                    }
                                 ?>
-                                <td>{{ $role->role_name }}</td>
+                                <td>{{ $rolename }}</td>
                                 <td>
                                     @if ( $record->status == 'Pending' )
                                         <?php $statusClass = 'default'; ?>

@@ -1,5 +1,5 @@
 @extends('layout.master')
-@section('title') ShineOS+ | Rizal @stop
+@section('title') SHINE OS+ | Rizal @stop
 
 @section('page-header')
     <section class="content-header">

@@ -89,7 +89,7 @@ class LOVController extends Controller {
     }
 
     public function icd10CategoryByCode() {
-        $id = Input::get('parent');
+        $id =$_GET['impanddiag']['parent'];
         return LovICD10::where('icd10_category',$id)
                         ->where('icd10_subcategory', 0)
                         ->where('icd10_tricategory', 0)
@@ -102,7 +102,7 @@ class LOVController extends Controller {
     }
 
     public function icd10SubCategoryByCategory() {
-        $id = Input::get('category');
+        $id =$_GET['impanddiag']['category'];
         return LovICD10::where('icd10_subcategory', $id)
                         ->where('icd10_tricategory', 0)
                         ->lists('icd10_title','icd10_code');
@@ -116,7 +116,7 @@ class LOVController extends Controller {
     }
 
     public function icd10SubSubCategoryBySubCategory() {
-        $id = Input::get('subcat');
+        $id =$_GET['impanddiag']['subcat'];
         return LovICD10::where('icd10_tricategory', $id)
                         ->where('icd10_category', '!=', 0)
                         ->where('icd10_subcategory', '!=', 0)

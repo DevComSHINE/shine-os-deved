@@ -15,7 +15,8 @@ class PatientContacts extends Model {
     protected $table = 'patient_contact';
     protected static $table_name = 'patient_contact';
     protected $primaryKey = 'patient_contact_id';
-
+    protected $touches = array('patients');
+    
     public function patients()
     {
         return $this->belongsTo('ShineOS\Core\Patients\Entities\Patients','patient_id','patient_id');

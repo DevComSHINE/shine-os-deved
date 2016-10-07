@@ -87,7 +87,7 @@ class FacilityPatientUser extends Model {
     public function familyPlanning()
     {
         DB::enableQueryLog();
-        return $this->belongsToMany('Plugins\FamilyPlanning\FamilyPlanningModel','healthcare_services','facilitypatientuser_id', 'healthcareservice_id')->withPivot('created_at');
+        return $this->belongsToMany('Plugins\FamilyPlanning\FamilyPlanningModel','healthcare_services','healthcareservice_id', 'healthcareservice_id')->withPivot('created_at');
     }
 
     // DYNAMIC SCOPE

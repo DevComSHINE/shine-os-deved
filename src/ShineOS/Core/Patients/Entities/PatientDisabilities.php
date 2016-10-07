@@ -16,10 +16,11 @@ class PatientDisabilities extends Model {
     protected static $table_name = 'disability_patient';
     protected $primaryKey = 'disability_patient_id';
     protected $fillable = [];
+    protected $touches = array('PatientAlert');
 
-    public function patients()
+    public function PatientAlert()
     {
-        return $this->belongsToMany('ShineOS\Core\Patients\Entities\Patients');
+         return $this->belongsTo('ShineOS\Core\Patients\Entities\PatientAlert', 'patient_alert_id', 'patient_alert_id');
     }
 
 }

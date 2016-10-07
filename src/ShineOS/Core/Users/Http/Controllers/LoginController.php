@@ -127,23 +127,31 @@ class LoginController extends Controller {
         if ($request->user()) {
             $user_id = $request->user()->user_id;
 
-            $user = Users::with('facilities','facilityUser')
+            $user = Users::with('facilities','facilityUser','mdUsers','rolesaccess')
                 ->where('user_id', $user_id)
                 ->first();
             $data['user'] = $user;
-            //Cache::forever('user_details', $user);
             Session::put('user_details', $user);
 
-            $this->saveLog('login', $user_id);
+            $facility_id = $user->facilities[0]->facility_id;
+
+            $this->saveLog('login', $user_id, $facility_id);
 
             if (count($user->facilities) > 1):
                 return view('users::pages.selectfacility')->with($data);
             else:
-                $facility_id = $user->facilities[0]->facility_id;
                 $this->assign_facility($facility_id, $user_id);
                 $this->getRoleAndAccess($user_id);
-
-                return Redirect::to('dashboard');
+                //check if this is the first time
+                $firsttime = UserLogs::where('user_id', $user_id)->get();
+                //if logged-in before go to dashboard
+                if($firsttime->count() > 1){
+                    return Redirect::to('dashboard');
+                //else let user finish profile
+                } else {
+                    Session::flash('popup', 'Welcome');
+                    return Redirect::to('facilities');
+                }
             endif;
         } else {
             return Redirect::to('login');
@@ -212,13 +220,10 @@ class LoginController extends Controller {
         $loggedin = UserLogs::where('user_id', $user_id)->first();
 
         if($loggedin) {
-            $this->saveLog('logout', $user_id);
+            $this->saveLog('logout', $user_id, $loggedin->facility_id);
+            Session::flush();
 
             // clear cache
-            /*Cache::forget('roles');
-            Cache::forget('user_details');
-            Cache::forget('facility_details');
-            Cache::forget('facilityuser_details');*/
             Session::forget('roles');
             Session::forget('user_details');
             Session::forget('facility_details');
@@ -250,36 +255,53 @@ class LoginController extends Controller {
     {
         $_param = array();
         $email = (Input::get('email') == NULL) ? $email : Input::get('email');
-        $forgot_password_code = str_random(25);
 
-        // save the forgot password code first
-        ForgotPassword::insertChangePasswordRequest($email, $forgot_password_code);
+        $check_email = Users::where('email', $email)->count();
 
-        // then send the change password link
-        $changepassword_link = url('/')."/forgotpassword/changepassword/".$forgot_password_code;
+        if($check_email) {
+            $forgot_password_code = str_random(25);
+            // save the forgot password code first
+            ForgotPassword::insertChangePasswordRequest($email, $forgot_password_code);
 
-        $_param['email'] = $email;
-        $_param['forgot_password_code'] = $forgot_password_code;
-        $_param['changepassword_link'] = $changepassword_link;
+            // then send the change password link
+            $changepassword_link = url('/')."/forgotpassword/changepassword/".$forgot_password_code;
 
-        EmailHelper::sendForgotPasswordEmail($_param);
+            $_param['email'] = $email;
+            $_param['forgot_password_code'] = $forgot_password_code;
+            $_param['changepassword_link'] = $changepassword_link;
 
-        Session::flash('message', 'An email has been sent to update your password.');
-        return Redirect::to('login');
+            EmailHelper::sendForgotPasswordEmail($_param);
+
+            Session::flash('message', 'An email has been sent to update your password.');
+            return Redirect::to('login');
+        } else {
+            Session::flash('warning', 'Email not found.');
+            return view('users::pages.forgotpassword');
+        }
+
     }
 
     public function changepassword ( $password_code = '' )
     {
+
         $forgotPassword = ForgotPassword::getPasswordCode($password_code);
+        $check_email = Users::where('email', $forgotPassword->email)->count();
 
-        if ( $forgotPassword && count($forgotPassword) > 0 ) {
+        // dd($password_code, $forgotPassword, $check_email);
 
-            $data = array();
-            $data['forgotPassword'] = $forgotPassword;
+        if($check_email) {
+            if ( $forgotPassword && count($forgotPassword) > 0 ) {
 
-            return view('users::pages.changepassword')->with($data);
+                $data = array();
+                $data['forgotPassword'] = $forgotPassword;
+
+                return view('users::pages.changepassword')->with($data);
+            } else {
+                return Redirect::to('login');
+            }
         } else {
-            return Redirect::to('login');
+            Session::flash('warning', 'Email not found.');
+            return view('users::pages.changepassword');
         }
     }
 
@@ -287,7 +309,8 @@ class LoginController extends Controller {
     {
         $password = Input::get('password');
         $verify_password = Input::get('verify_password');
-        $password_code = Input::get('forgot_password_code');
+        $passwordcode = Input::get('forgot_password_code');
+        $password_code = str_replace(' ', '', $passwordcode);
         $forgotPassword = ForgotPassword::getPasswordCode($password_code);
 
         // make sure that both passwords are correct
@@ -308,11 +331,12 @@ class LoginController extends Controller {
             Session::flash('message', 'You have successfully updated your password. Please try logging in.');
             return Redirect::to('login');
         } else {
+            Session::flash('warning', 'Failed to update your password');
             return Redirect::to('login');
         }
     }
 
-    private function saveLog( $type=NULL, $user_id=NULL )
+    private function saveLog( $type=NULL, $user_id=NULL, $facility_id=NULL )
     {
         /**
          * NOTE: DO NOT FORGET TO INCLUDE FACILITY ID
@@ -323,6 +347,7 @@ class LoginController extends Controller {
         $logs = new UserLogs;
         $logs->userusagestat_id =
         $logs->user_id = $user_id;
+        $logs->facility_id = $facility_id;
 
         if ($type == 'login'):
             $logs->login_datetime = $datenow;
@@ -374,12 +399,13 @@ class LoginController extends Controller {
             //create core modules array
             foreach ($core_access as $core=>$access):
                 $module = $this->getModuleName($core);
-
-                $roles['modules'][$module->module_name]['name'] = $module->module_name;
-                $roles['modules'][$module->module_name]['icon'] = $module->icon;
-                $roles['modules'][$module->module_name]['status'] = $module->status;
-                $roles['modules'][$module->module_name]['access'][] = $access;
-                $roles['modules'][$module->module_name]['order'] = $module->menu_order;
+                if($module) {
+                    $roles['modules'][$module->module_name]['name'] = $module->module_name;
+                    $roles['modules'][$module->module_name]['icon'] = $module->icon;
+                    $roles['modules'][$module->module_name]['status'] = $module->status;
+                    $roles['modules'][$module->module_name]['access'][] = $access;
+                    $roles['modules'][$module->module_name]['order'] = $module->menu_order;
+                }
             endforeach;
 
             //create 3rd party modules array

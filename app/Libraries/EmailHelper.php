@@ -48,7 +48,26 @@ class EmailHelper
         Mail::send('users::emails.change_password', $data, function($message) use ($email, $changepassword_link, $forgot_password_code)
         {
             $message->from($email, $email);
-            $message->to($email, $email)->subject('ShineOS+ Change Password Request');
+            $message->to($email, $email)->subject('SHINE OS+ Change Password Request');
+        });
+
+    }
+
+    public static function sendPatientForgotPasswordEmail ( $_param = array() )
+    {
+        $email = isset($_param['email']) ? $_param['email'] : '';
+        $forgot_password_code = isset($_param['forgot_password_code']) ? $_param['forgot_password_code'] : '';
+        $changepassword_link = isset($_param['changepassword_link']) ? $_param['changepassword_link'] : '';
+        $data = array(
+            'email' => $_param['email'],
+            'forgot_password_code' => $_param['forgot_password_code'],
+            'changepassword_link' => $_param['changepassword_link'],
+        );
+
+        Mail::send('users::emails.change_password', $data, function($message) use ($email, $changepassword_link, $forgot_password_code)
+        {
+            $message->from($email, $email);
+            $message->to($email, $email)->subject('MySHINE Change Password Request');
         });
 
     }
@@ -71,7 +90,7 @@ class EmailHelper
         Mail::send('referrals::emails.referred', $data, function($message) use ($contactEmail, $contactName, $details)
         {
             $message->from($contactEmail, $contactName);
-            $message->to($details['useremail'], "'".$details['userfirst_name'].$details['userlast_name']."'")->subject('ShineOS+ Referrals: '.$details['subject']);
+            $message->to($details['useremail'], "'".$details['userfirst_name'].$details['userlast_name']."'")->subject('ShHINE OS+ Referrals: '.$details['subject']);
         });
 
         if(count(Mail::failures()) > 0){
@@ -82,12 +101,12 @@ class EmailHelper
     }
 
     public static function SendReminderMessage($details) {
-        $contactName = 'SHINE Support';
+        $contactName = 'SHINEOS+ Healthcare Support';
         $contactEmail = 'support@shine.ph';
         Mail::send('reminders::emails.remind', $details, function($message) use ($contactEmail, $contactName, $details)
         {
             $message->from($contactEmail, $contactName);
-            $message->to($details['toUser_email'], $details['toUser_name'])->subject('ShineOS+ Reminders: '.$details['subj']);
+            $message->to($details['toUser_email'], $details['toUser_name'])->subject('SHINE OS+ Reminders: '.$details['subj']);
         });
 
         if(count(Mail::failures()) > 0){

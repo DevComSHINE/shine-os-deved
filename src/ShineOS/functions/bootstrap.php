@@ -1,7 +1,7 @@
 <?php
 
 if (version_compare(phpversion(), "5.5.9", "<=")) {
-    exit("Error: You must have PHP version 5.5.9 or greater to run ShineOS+");
+    exit("Error: You must have PHP version 5.5.9 or greater to run SHINE OS+");
 }
 if (!defined('T')) {
     $mtime = microtime();
@@ -11,7 +11,7 @@ if (!defined('T')) {
 }
 
 if (!defined('SHINEOS_VERSION')) {
-    define('SHINEOS_VERSION', '3.0.0');
+    define('SHINEOS_VERSION', '3.2.0');
 }
 
 if (!defined('DS')) {
@@ -52,7 +52,10 @@ if (!defined('SHINEOS_TEMPLATES_FOLDER_NAME')) {
     define('SHINEOS_TEMPLATES_FOLDER_NAME', 'themes'); //relative to userfiles dir
 }
 if (!defined('SHINEOS_SYSTEM_MODULE_FOLDER')) {
-    define('SHINEOS_SYSTEM_MODULE_FOLDER', 'ShineOS'); //relative to modules dir
+    define('SHINEOS_SYSTEM_MODULE_FOLDER', 'src/ShineOS'); //relative to modules dir
+}
+if (!defined('SHINEOS_SYSTEM_CORE_FOLDER')) {
+    define('SHINEOS_SYSTEM_CORE_FOLDER', 'Core'); //relative to modules dir
 }
 if (!defined('SHINEOS_USER_IP')) {
     if (isset($_SERVER["REMOTE_ADDR"])) {
@@ -71,7 +74,7 @@ include_once($functions_dir . 'common.php');
 include_once($functions_dir . 'lang.php');
 include_once($functions_dir . 'paths.php');
 include_once($functions_dir . 'db.php');
-
+include_once($functions_dir . 'extensions.php');
 include_once($functions_dir . 'query.php');
 include_once($functions_dir . 'facilities.php');
 include_once($functions_dir . 'users.php');
@@ -80,6 +83,7 @@ include_once($functions_dir . 'healthcareservices.php');
 include_once($functions_dir . 'referrals.php');
 include_once($functions_dir . 'reminders.php');
 include_once($functions_dir . 'lovs.php');
+include_once($functions_dir . 'reports.php');
 
 date_default_timezone_set('Asia/Manila');
 

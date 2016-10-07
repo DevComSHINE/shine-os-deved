@@ -1,4 +1,10 @@
+<!--Major JS Scripts -->
+{!! HTML::script('public/dist/plugins/jQuery/jQuery-2.1.4.min.js') !!}
+{!! HTML::script('public/dist/js/bootstrap.min.js') !!}
+{!! HTML::script('public/dist/plugins/jQueryUI/jquery-ui.min.js') !!}
+
 <!--Global JS Scripts plugins-->
+
 {!! HTML::script('public/dist/js/app.js') !!}
 {!! HTML::script('public/dist/plugins/daterangepicker/moment.min.js') !!}
 {!! HTML::script('public/dist/plugins/daterangepicker/daterangepicker.js') !!}
@@ -8,25 +14,26 @@
 {!! HTML::script('public/dist/plugins/bootbox.min.js') !!}
 {!! HTML::script('public/dist/js/pages/helper/helper.js') !!}
 {!! HTML::script('public/dist/plugins/datatables/jquery.dataTables.min.js') !!}
+{!! HTML::script('public/dist/plugins/datatables/dataTables.buttons.min.js') !!}
 {!! HTML::script('public/dist/plugins/datatables/dataTables.bootstrap.min.js') !!}
 {!! HTML::script('public/dist/plugins/select2/select2.full.min.js') !!}
-
-{!! HTML::script('public/dist/js/jquery.form.js') !!}
-{!! HTML::script('public/dist/js/jquery.form.wizard.js') !!}
-{!! HTML::script('public/dist/js/jquery.validate.js') !!}
-
+{!! HTML::script('public/dist/plugins/bootstrap-toggle-master/js/bootstrap-toggle.min.js') !!}
 {!! HTML::script('public/dist/plugins/bootstrapvalidator/bootstrapValidator.min.js') !!}
 {!! HTML::script('public/dist/plugins/input-mask/inputmask.js') !!}
 {!! HTML::script('public/dist/plugins/input-mask/inputmask.date.extensions.js') !!}
 {!! HTML::script('public/dist/plugins/input-mask/inputmask.extensions.js') !!}
 {!! HTML::script('public/dist/plugins/input-mask/jquery.inputmask.js') !!}
-
+{!! HTML::script('public/dist/plugins/jquery.cookie.js') !!}
+{!! HTML::script('public/dist/js/prettify.js') !!}
 {!! HTML::script('public/dist/plugins/chain/jquery.chained.min.js') !!}
 {!! HTML::script('public/dist/plugins/chain/jquery.chained.remote.min.js') !!}
-{!! HTML::script('public/dist/plugins/bootstrap-tabcollapse.js') !!}
 
-@yield('linked_scripts')
+<!-- add 3rd party plugins and scripts here from extensions before validation -->
+@yield('before_validation_scripts')
 
+<!-- base ShineOS+ Validation script -->
+{!! HTML::script('public/dist/js/validate.js') !!}
+{!! HTML::script('public/dist/js/shineos.js') !!}
 <!--Put page related scripts here-->
 <script type="text/javascript">
 
@@ -112,7 +119,16 @@
         $('input.datepicker_future').on('apply.daterangepicker', function(ev, picker) {
               $(this).val(picker.startDate.format('MM/DD/YYYY'));
           });
-        $("input.daterangepicker").daterangepicker();
+
+        $("input.datepicker_future_null").daterangepicker({
+            singleDatePicker: true,
+            showDropdowns: true,
+            autoUpdateInput: false,
+            "minDate": "<?php echo date("m/d/Y"); ?>"
+        });
+        $('input.datepicker_future_null').on('apply.daterangepicker', function(ev, picker) {
+              $(this).val(picker.startDate.format('MM/DD/YYYY'));
+          });
 
         $("input.datetimepicker").daterangepicker({
             locale: {
@@ -223,9 +239,19 @@
 
 </script>
 
-{!! HTML::script('public/dist/js/validate.js') !!}
+<!-- scripts that can alter UI from extensions -->
+<?php sh_persistent(); ?>
 
+<!-- additional scripts from pages -->
 @yield('scripts')
+@yield('page_scripts')
 
+<!-- additional scripts from extensions -->
 @yield('plugin_jsscripts')
 
+<span name="_token" content="{{ csrf_token() }}"></span>
+{!! HTML::script('public/dist/js/tracker.js') !!}
+<script type="text/javascript">
+    $('submit').removeAttr('disabled');
+    $('button').removeAttr('disabled');
+</script>

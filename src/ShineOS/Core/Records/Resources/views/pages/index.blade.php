@@ -1,6 +1,7 @@
 @extends('layout.master')
 
 @section('page-header')
+  <meta name="_token" content="{{ csrf_token() }}">
   <section class="content-header">
     <!-- edit by RJBS -->
     <h1>
@@ -25,7 +26,7 @@
             <ul class="nav nav-tabs">
                 <li class="active"><a href="#patient_list" data-toggle="tab">Patients</a></li>
                 <li><a href="#visit_list" data-toggle="tab">Health Care Visits</a></li>
-                <li class="pull-right"> <a href="patients/add" class="btn btn-primary"> <i class="fa fa-user-plus"></i> Add New Patient</a></li>
+                <li class="pull-right"> <a href="patients/add" class="btn btn-primary"> <i class="fa fa-user-plus"></i> Create New Patient</a></li>
             </ul>
             <div class="tab-content">
                 <div class="tab-pane active" id="patient_list">

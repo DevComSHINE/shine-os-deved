@@ -23,26 +23,32 @@ class VisitList extends AbstractWidget
      */
     protected $config = [];
 
+    public function placeholder()
+    {
+        $loading = '<div class="box box-primary"><!--Consultations-->
+                <div class="box-header">
+                    <h3 class="box-title"><i class="fa fa-cog fa-spin fa-fw"></i> Loading Queue widget...</h3>
+                </div>
+            </div>';
+
+
+        return $loading;
+    }
+
     /**
      * Treat this method as a controller action.
      * Return view() or other content to display.
      */
     public function run(UserRepository $UserRepository, HealthcareRepository $healthcareRepository)
     {
-        $facilityInfo = FacilityHelper::facilityInfo();
-        $this->HealthcareRepository = $healthcareRepository;
-        $this->UserRepository = $UserRepository;
-        $visits = getAllHealthcareByDate('today');
+        /*$visits = getAllHealthcareByDate('today');*/
+        $appointments = getAppointments('today');
 
-        foreach ($visits as $k => $v) {
-            $v->seen_by = json_decode($this->UserRepository->findUserByFacilityUserID($v->seen_by));
-        }
 
-        //dd($visits);
         View::addNamespace('visit_list', 'widgets/dashboard/VisitList/');
         return view("visit_list::index", [
             'config' => $this->config,
-            'visit_list' => $visits
+            'visit_list' => $appointments
         ]);
     }
 }

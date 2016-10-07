@@ -1,5 +1,5 @@
 @extends('users::layouts.masterlogin')
-@section('title') ShineOS+ | Login @stop
+@section('title') SHINE OS+ | Login @stop
 
 @section('content')
     <style>
@@ -22,7 +22,7 @@
         <div class="col-md-4 leftrightfill"></div>
         <div class="form-box col-md-4" id="login-box">
 
-            <div class="header"><i>ShineOS+</i></div>
+            <div class="header"><i>SHINE OS+</i></div>
 
             {!! Form::open(array( 'url'=>'forgotpassword/changepassword_request', 'id'=>'ChangePassword', 'name'=>'ChangePassword' )) !!}
                 <div class="body">
@@ -38,7 +38,7 @@
                         <div class="alert alert-dismissible alert-warning">
                             <p>{{ Session::get('warning') }}</p>
                         </div>
-                    @endif
+                    @else
 
                     <p>You may update your password below.</p>
 
@@ -48,11 +48,14 @@
                     <div class="form-group">
                         <input type="password" name="verify_password" id="verify_password" class="form-control" placeholder="Re-enter Password" required />
                     </div>
+                    @endif
                 </div>
+                @if (!Session::has('warning'))
                 <div class="footer">
                     <input type="hidden" id="forgot_password_code" name="forgot_password_code" value="@if (isset($forgotPassword)) {{ $forgotPassword->forgot_password_code }} @endif" />
                     <button type="submit" class="btn bg-shine-green btn-block">Submit</button>
                 </div>
+                @endif
             {!! Form::close() !!}
         </div>
         <div class="col-md-4 leftrightfill"></div>

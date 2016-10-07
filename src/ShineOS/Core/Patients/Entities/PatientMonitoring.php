@@ -10,6 +10,8 @@ class PatientMonitoring extends Model {
     protected $table = 'patient_monitoring'; 
     protected $primaryKey = 'monitoring_id';
 
+    protected $touches = array('patients');
+    
     public function patients() {
 		return $this->belongsTo('ShineOS\Core\Patients\Entities\Patients','patient_id','patient_id');
 	}

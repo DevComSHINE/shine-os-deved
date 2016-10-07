@@ -8,7 +8,7 @@
                 <div class="checkbox-inline">
                     <label>
                         <input type="checkbox" value="1" name="inputBroadcastNotif" id="inputBroadcastNotif" @if(isset($patient) AND $patient->broadcast_notif == '1') checked='checked' @endif>
-                        Receive Broadcast Nofitication
+                        Receive Broadcast Notification
                     </label>
                 </div>
                 <div class="checkbox-inline" >
@@ -36,7 +36,7 @@
                 <div class="checkbox-inline">
                     <label>
                         <input type="checkbox" value="1" name="inputMyShineAcct" id="inputMyShineAcct" @if(isset($patient) AND $patient->myshine_acct == '1') checked='checked' @endif>
-                         MyShine Access
+                         MySHINE Access
                     </label>
                 </div>
             </div>

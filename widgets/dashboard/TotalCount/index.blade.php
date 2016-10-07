@@ -35,6 +35,7 @@
                     </a>
                 </div>
             </div><!-- ./col -->
+            @if(Config::get('mode') == 'cloud')
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                 <!-- small box -->
                 <div class="overview-box small-box bg-smartolive">
@@ -86,6 +87,7 @@
                 </div>
             </div><!-- ./col -->
             <?php } ?>
+            @endif
         </div><!-- /.row -->
     </div>
 </div><!--./box-->

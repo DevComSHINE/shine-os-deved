@@ -1,5 +1,5 @@
 @extends('layout.master')
-@section('title') ShineOS+ | Role Management - Add Feature @stop
+@section('title') SHINE OS+ | Role Management - Add Feature @stop
 
 @section('page-header')
   <section class="content-header">

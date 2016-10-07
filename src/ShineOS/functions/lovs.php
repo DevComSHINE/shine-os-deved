@@ -24,3 +24,12 @@ function getLabName($code)
 
     return $result;
 }
+
+function getGender($code)
+{
+    switch ($code) {
+        case "M": return "Male"; break;
+        case "F": return "Female"; break;
+        default: return "Unknown"; break;
+    }
+}
