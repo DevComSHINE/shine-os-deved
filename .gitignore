@@ -1,5 +1,4 @@
 /bootstrap/compiled.php
-/vendor
 
 /build/logs
 /build/coverage
@@ -17,11 +16,3 @@ composer.phar
 /public/packages
 
 /node_modules
-
-/config/shineos.php
-/config/database.php
-
-.env
-.env.*.php
-config/shineos_.php
-
